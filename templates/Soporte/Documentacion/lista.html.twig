@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="col-md-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">Filtro de busqueda</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Modulo:</label>
+                        <div class="col-sm-5">
+                            {{ form_widget(form.modulo) }}
+                        </div>
+                        <label class="col-sm-1 control-label"></label>
+                        <div class="col-sm-2">
+
+                        </div>
+                        <label class="col-sm-1 control-label"></label>
+                        <div class="col-sm-2">
+
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+        <div class="col-md-12">
+            <div class="btn-group btn-group-sm" style="float: right">
+                {{ form_widget(form.btnImprimir, { 'attr': {'class': 'btn btn-default btn-sm'} }) }}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <br>
+        </div>
+        <div class="col-md-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Titulo</th>
+                                <th>Ruta</th>
+                                <th>Modelo</th>
+                                <th>Modulo</th>
+                                <th>Funcion</th>
+                                <th>Grupo</th>
+                                <th>Contenido</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for arDocumentacion in arDocumentaciones %}
+                                <tr>
+                                    <td>{{ arDocumentacion.codigoDocumentacionPk }}</td>
+                                    <td>{{ arDocumentacion.titulo }}</td>
+                                    <td>{{ arDocumentacion.ruta }}</td>
+                                    <td>{{ arDocumentacion.codigoModeloFk }}</td>
+                                    <td>{{ arDocumentacion.codigoModuloFk }}</td>
+                                    <td>{{ arDocumentacion.codigoFuncionFk }}</td>
+                                    <td>{{ arDocumentacion.codigoGrupoFk }}</td>
+                                    <td>{{ arDocumentacion.contenido | striptags | slice(0, 400) }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ path('soporte_documentacion_nuevo', { 'id': arDocumentacion.codigoDocumentacionPk }) }}">
+                                            <i class="fa fa-edit fa-lg"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" name="ChkSeleccionar[]"
+                                               value="{{ arDocumentacion.codigoDocumentacionPk }}"/>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group"
+                                 aria-label="...">
+
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

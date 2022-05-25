@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="col-md-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">Filtro de busqueda</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Cliente:</label>
+                        <div class="col-sm-5">
+                            {{ form_widget(form.clienteRel) }}
+                        </div>
+                        <label class="col-sm-1 control-label"></label>
+                        <div class="col-sm-2">
+
+                        </div>
+                        <label class="col-sm-1 control-label">Atendido:</label>
+                        <div class="col-sm-2">
+                            {{ form_widget(form.estadoAtendido) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-6 control-label"></label>
+                        <label class="col-sm-1 control-label"></label>
+                        <div class="col-sm-2">
+                            
+                        </div>
+                        <label class="col-sm-1 control-label">Solucionado:</label>
+                        <div class="col-sm-2">
+                            {{ form_widget(form.estadoSolucionado) }}
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+        <div class="col-md-12">
+            <section class="panel">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3" >
+                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group" aria-label="...">
+                                <a class="btn btn-sm btn-default"  href="{{ path('soporte_soporte_nuevo', {'id': 0}) }}">Nuevo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Cliente</th>
+                                <th>Fecha</th>
+                                <th>F_ATE</th>
+                                <th>F_SOL</th>
+                                <th>Contacto</th>
+                                <th>Telefono</th>
+                                <th>Descripcion</th>
+                                <th>Solucion</th>
+                                <th>Ate</th>
+                                <th>Sol</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for arSoporte in arSoportes %}
+                                <tr>
+                                    <td>{{ arSoporte.codigoSoportePk }}</td>
+                                    <td>{{ arSoporte.clienteNombreCorto }}</td>
+                                    <td>{{ arSoporte.fecha | date('Y-m-d H:i') }}</td>
+                                    <td>{{ arSoporte.estadoAtendido ? arSoporte.fechaAtendido | date('Y-m-d H:i'): '' }}</td>
+                                    <td>{{ arSoporte.estadoSolucionado ? arSoporte.fechaSolucion | date('Y-m-d H:i'): '' }}</td>
+                                    <td>{{ arSoporte.contacto }}</td>
+                                    <td>{{ arSoporte.telefono }}</td>
+                                    <td>{{ arSoporte.descripcion }}</td>
+                                    <td>{{ arSoporte.solucion }}</td>
+                                    <td>
+                                    {% if arSoporte.estadoAtendido == 1 %}
+                                        SI
+                                    {% else %}
+                                        <button class="btn btn-default btn-xs" type="submit" name="OpAtender" value="{{ arSoporte.codigoSoportePk }}">Atender</button>
+                                    {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if arSoporte.estadoSolucionado == 1 %}
+                                            SI
+                                        {% else %}
+                                            {% if arSoporte.estadoAtendido == 1 %}
+                                                <a class="btn btn-xs btn-default" href="javascript:abrirVentana3('{{ path('soporte_soporte_solucion', {'id': arSoporte.codigoSoportePk}) }}', 'SolucionSoporte', 600, 1200)">Solucion</a>
+                                            {% else %}
+                                                NO
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        {% if arSoporte.estadoSolucionado == 0 %}
+                                        <a href="{{ path('soporte_soporte_nuevo', { 'id': arSoporte.codigoSoportePk }) }}">
+                                            <i class="fa fa-edit fa-lg"></i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="checkbox" name="ChkSeleccionar[]" value="{{ arSoporte.codigoSoportePk }}"/>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            Total {{ arSoportes.getTotalItemCount }} registros
+                            {{ knp_pagination_render(arSoportes) }}
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+
+
+
+{% endblock %}

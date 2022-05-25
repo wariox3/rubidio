@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="row">
+        <section class="panel">
+            <header class="panel-heading">
+                <div class="panel-actions">
+                    <a href="#" class="fa fa-caret-down"></a>
+                    <a href="#" class="fa fa-times"></a>
+                </div>
+
+                <h2 class="panel-title">Filtro de busqueda</h2>
+            </header>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="col-sm-1 col-sm-offset-9 control-label">Atendido:</label>
+                    <div class="col-sm-2">
+                        {{ form_widget(form.estadoAtendido) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-1 col-sm-offset-9 control-label">Solucionado:</label>
+                    <div class="col-sm-2">
+                        {{ form_widget(form.estadoSolucionado) }}
+                    </div>
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
+                    </div>
+                </div>
+            </footer>
+        </section>
+        <div class="col-md-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Fecha</th>
+                                <th>F_ATE</th>
+                                <th>F_SOL</th>
+                                <th>Contacto</th>
+                                <th>Telefono</th>
+                                <th>Descripcion</th>
+                                <th>Ate</th>
+                                <th>Solucion</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for arSoporte in arSoportes %}
+                                <tr>
+                                    <td>{{ arSoporte.codigoSoportePk }}</td>
+                                    <td>{{ arSoporte.fecha | date('Y-m-d H:i') }}</td>
+                                    <td>{{ arSoporte.estadoAtendido ? arSoporte.fechaAtendido | date('Y-m-d H:i'): '' }}</td>
+                                    <td>{{ arSoporte.estadoSolucionado ? arSoporte.fechaSolucion | date('Y-m-d H:i'): '' }}</td>
+                                    <td>{{ arSoporte.contacto }}</td>
+                                    <td>{{ arSoporte.telefono }}</td>
+                                    <td>{{ arSoporte.descripcion }}</td>
+                                    <td>
+                                        {% if arSoporte.estadoAtendido == 1%}
+                                            <i title="El soporte ya fue atendido" class="fa fa-smile-o fa-lg"></i>
+                                        {% else %}
+                                            <i title="No se ha atendido el caso, estamos trabajando en otros casos" class="fa fa-frown-o fa-lg"></i>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if arSoporte.estadoSolucionado == 1 %}
+                                            <i title="Fue necesario utilizar un equipo especializado" class="fa fa-check fa-lg"></i>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="btn-group" style="float: left">
+                        <div class="btn btn-default btn-sm">Registros
+                            <span class="badge">{{ arSoportes.getTotalItemCount }}</span>
+                        </div>
+                    </div>
+                    <div class="btn-group btn-xs" style="float: left;margin-top: -20px;">
+                        {{ knp_pagination_render(arSoportes) }}
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+{% endblock %}

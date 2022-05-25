@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="btn-toolbar" style="float:left">
+        <div class="btn-group">
+            <a class="btn btn-default btn-sm" href="{{ path('desarrollo_tarea_lista') }}">Volver</a>
+        </div>
+        <div class="btn-group">
+            {% if arTarea.estadoTerminado == 0 and arTarea.estadoVerificado == 0 and arTarea.estadoEjecucion == 0 %}
+                <a class="btn btn-sm btn-default" href="javascript:abrirVentana3('{{ path('desarrollo_tarea_ejecutar', {'id': arTarea.codigoTareaPk}) }}', 'Ejecutar', 600, 1200)">Ejecutar</a>
+            {% endif %}
+            {% if arTarea.estadoTerminado == 0 and arTarea.estadoVerificado == 0 and arTarea.estadoEjecucion == 1 %}
+                <a class="btn btn-sm btn-default" href="javascript:abrirVentana3('{{ path('desarrollo_tarea_terminar', {'id': arTarea.codigoTareaPk}) }}', 'Ejecutar', 600, 1200)">Terminar</a>
+            {% endif %}
+        </div>
+    </div>
+    <br/><br/>
+    <table width="100%" class="table table-condensed table-bordered tabla-datos">
+        <tr>
+            <td class="titulo">CODIGO:</td>
+            <td class="td-in-well">{{ arTarea.codigoTareaPk }}</td>
+            <td class="titulo"></td>
+            <td class="td-in-well"></td>
+            <td class="titulo"></td>
+            <td class="td-in-well"></td>
+        </tr>
+        <tr>
+            <td class="titulo">ASUNTO:</td>
+            <td class="td-in-well" colspan="5">{{ arTarea.descripcion }}</td>
+        </tr>
+        <tr>
+            <td class="titulo">COMENTARIO (TER):</td>
+            <td class="td-in-well" colspan="5">{{ arTarea.comentarioTerminado }}</td>
+        </tr>
+    </table>
+
+    {% if arTarea.codigoCasoFk is not null %}
+        <table width="100%" class="table table-condensed table-bordered">
+            <tr>
+                <td class="titulo">CODIGO:</td>
+                <td class="td-in-well">{{ arCaso.codigoCasoPk }}</td>
+                <td class="titulo">FECHA:</td>
+                <td class="td-in-well">{{ arCaso.fecha | date('Y-m-d') }}</td>
+                <td class="titulo"></td>
+                <td class="td-in-well"></td>
+            </tr>
+            <tr>
+                <td class="titulo">CONTACTO:</td>
+                <td class="td-in-well">{{ arCaso.contacto }}</td>
+                <td class="titulo">TELEFONO:</td>
+                <td class="td-in-well">{{ arCaso.telefono }}</td>
+                <td class="titulo">CORREO:</td>
+                <td class="td-in-well">{{ arCaso.correo }}</td>
+            </tr>
+            <tr>
+                <td class="titulo">DESCRIPCION:</td>
+                <td class="td-in-well" colspan="5">{{ arCaso.descripcion }}</td>
+            </tr>
+        </table>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabs tabs-primary">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#devoluciones" data-toggle="tab"><i class="fa fa-star"></i> Devoluciones</a></li>
+                    <li><a href="#tiempos" data-toggle="tab">Tiempos</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="devoluciones" class="tab-pane active">
+                        <table class="table table-condensed table-bordered table-hover mb-none">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Fecha</th>
+                                <th>Motivo</th>
+                                <th>Descripcion</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for arDevolucion in arDevoluciones %}
+                                <tr>
+                                    <td>{{ arDevolucion.codigoDevolucionPk }}</td>
+                                    <td>{{ arDevolucion.fecha | date('Y-m-d H:i') }}</td>
+                                    <td>{{ arDevolucion.devolucionTipoRel.nombre }}</td>
+                                    <td>{{ arDevolucion.descripcion }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="tiempos" class="tab-pane">
+                        <table class="table table-condensed table-bordered table-hover mb-none">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Inicio</th>
+                                <th>Fin</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for arTiempo in arTiempos %}
+                                <tr>
+                                    <td>{{ arTiempo.codigoTiempoPk }}</td>
+                                    <td>{{ arTiempo.inicio | date('Y-m-d H:i') }}</td>
+                                    <td>{{ arTiempo.fin | date('Y-m-d H:i') }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

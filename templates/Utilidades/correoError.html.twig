@@ -1,0 +1,80 @@
+<body>
+<table style="width: 100%; max-width: 85%; border-spacing:20px 5px; margin: auto; font-family:Verdana,Geneva,sans-serif">
+    <tbody>
+    <tr>
+        <td class="content-spacing" style="color:#999; text-align:center;">
+            <span style="color:#999; font-size:28px; color:#143049">Notificacion Semantica ERP</span></td>
+    </tr>
+    <tr>
+        <td class="content-spacing" style="font-size:14px; color:#3c4858; line-height: 21px;">
+            <div>
+                <table style="width: 100%; border-spacing:10px 5px;">
+                    <tbody>
+                    <tr style="background-color: #143049; color: #ffffff;">
+                        <th colspan="2" style="padding: 10px; text-align: center;">Informacion error</th>
+                    </tr>
+                    <tr>
+                        <th style="background-color: rgb(20, 48, 73); height: 30px; color: rgb(255, 255, 255); text-align: right; padding: 5px;">Acceder:</th>
+                        <td style="background-color: #f4f4f4; padding: 5px;"><a href="http://mai.semantica.com.co/index.php/soporte/error/detalle/{{ arError.codigoErrorPk }}">Acceder al error</a></td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: rgb(20, 48, 73); height: 30px; color: rgb(255, 255, 255); text-align: right; padding: 5px;">Fecha:</th>
+                        <td style="background-color: #f4f4f4; padding: 5px;">{{ arError.fecha | date('Y-m-d H:i') }}</td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: rgb(20, 48, 73); height: 30px; color: rgb(255, 255, 255); text-align: right; padding: 5px;">Linea:</th>
+                        <td style="background-color: #f4f4f4; padding: 5px;">{{ arError.linea }}</td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: rgb(20, 48, 73); height: 30px; color: rgb(255, 255, 255); text-align: right; padding: 5px;">Ruta:</th>
+                        <td style="background-color: #f4f4f4; padding: 5px;">{{ arError.ruta }}</td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: rgb(20, 48, 73); height: 30px; color: rgb(255, 255, 255); text-align: right; padding: 5px;">Usuario:</th>
+                        <td style="background-color: #f4f4f4; padding: 5px;">{{ arError.usuario }}</td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: rgb(20, 48, 73); height: 30px; color: rgb(255, 255, 255); text-align: right; padding: 5px;">Correo:</th>
+                        <td style="background-color: #f4f4f4; padding: 5px;">{{ arError.email }}</td>
+                    </tr>
+                    <tr>
+                        <th style="background-color: rgb(20, 48, 73); height: 30px; color: rgb(255, 255, 255); text-align: right; padding: 5px;">Error:</th>
+                        <td style="background-color: #f4f4f4; padding: 5px;">{{ arError.mensaje }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div style="text-align: center;">
+                En caso de no ser el destinatario, cambio de correo electronico de notificacion o alguna inquietud al respecto por favor escribir al departamento de sistemas de su compañia.
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div style="text-align: center; font-size:12px;">
+                Sus datos personales han sido y están siendo tratados conforme con nuestra Política de Tratamiento de Datos Personales.  Para mayor información podrá consultar nuestra política en la página web</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div style="font-size:13px; color:#919191; font-weight:normal; text-align:center;">
+                <div>
+                    <p style="line-height:125%;">
+                        Este email fue enviado por </p>
+                    <p style="line-height:125%;">
+                        Este es un sistema autom&aacute;tico, por favor no responda este mensaje al correo remitente. Recuerde agregar esta direcci&oacute;n de correo a sus contactos y lista de remitentes seguros para asegurarse de recibir nuestros mensajes.</p>
+                </div>
+                <div>
+                    <div>
+                        &copy; 2018 Semantica Digital S.A.S</div>
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>

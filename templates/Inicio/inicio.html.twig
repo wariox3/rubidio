@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% if is_granted('ROLE_SOPORTE') or is_granted('ROLE_ADMIN') %}
+        <div class="row">
+            <div class="col-md-12 col-lg-3 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-secondary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-secondary">
+                                    <i class="fa fa-usd"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Sin atender</h4>
+                                    <div class="info">
+                                        <strong class="amount">{{ soporteSinAtender }}</strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a class="text-muted text-uppercase">Actual</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-12 col-lg-3 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-quartenary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-quartenary">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Sin solución</h4>
+                                    <div class="info">
+                                        <strong class="amount">{{ soporteSinSolucionar }}</strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a class="text-muted text-uppercase">Actual</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-12 col-lg-3 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-quartenary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-quartenary">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Por día</h4>
+                                    <div class="info">
+                                        <strong class="amount">{{ soporteDia }}</strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a class="text-muted text-uppercase">Actual</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-12 col-lg-3 col-xl-3">
+                <section class="panel panel-featured-left panel-featured-quartenary">
+                    <div class="panel-body">
+                        <div class="widget-summary">
+                            <div class="widget-summary-col widget-summary-col-icon">
+                                <div class="summary-icon bg-quartenary">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="widget-summary-col">
+                                <div class="summary">
+                                    <h4 class="title">Por mes</h4>
+                                    <div class="info">
+                                        <strong class="amount">{{ soporteMes }}</strong>
+                                    </div>
+                                </div>
+                                <div class="summary-footer">
+                                    <a class="text-muted text-uppercase">Actual</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

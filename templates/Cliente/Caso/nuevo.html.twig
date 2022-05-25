@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="row">
+        <div class="col-md-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">Informacion</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Prioridad:</label>
+                        <div class="col-sm-5">
+                            {{ form_widget(form.prioridadRel) }}
+                        </div>
+                        <label class="col-sm-1 control-label">Contacto:</label>
+                        <div class="col-sm-5">
+                            {{ form_widget(form.contacto) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Correo:</label>
+                        <div class="col-sm-5">
+                            {{ form_widget(form.correo) }}
+                        </div>
+                        <label class="col-sm-1 control-label">Telefono(ext):</label>
+                        <div class="col-sm-5">
+                            {{ form_widget(form.telefono) }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Descripcion:</label>
+                        <div class="col-sm-11">
+                            {{ form_widget(form.descripcion, { 'attr': {'style':'height: 325px;'} }) }}
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a class="btn btn-default btn-sm" style="float:left" href="{{ path('cliente_caso_lista') }}">Cancelar</a>
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form_widget(form.guardar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+
+
+
+{% endblock %}

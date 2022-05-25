@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="col-md-12">
+        <section class="panel">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nit</th>
+                            <th>DV</th>
+                            <th>Nombre</th>
+                            <th>Nombre completo</th>
+                            <th>direccion</th>
+                            <th>Telefono</th>
+                            <th>FE</th>
+                            <th>Suscriptor</th>
+                            <th>NE</th>
+                            <th>Empleador</th>
+                            <th>SP_F</th>
+                            <th>SP_N</th>
+                            <th>TestID_F</th>
+                            <th>TestID_N</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for arCliente in arClientes %}
+                            <tr>
+                                <td>{{arCliente.codigoClientePk}}</td>
+                                <td>{{arCliente.nit}}</td>
+                                <td>{{arCliente.digitoVerificacion}}</td>
+                                <td>{{arCliente.nombreCorto}}</td>
+                                <td>{{arCliente.nombreExtendido}}</td>
+                                <td>{{arCliente.direccion}}</td>
+                                <td>{{arCliente.telefono}}</td>
+                                <td>{{arCliente.facturacionElectronica ? "SI": "NO" }}</td>
+                                <td>{{arCliente.suscriptor}}</td>
+                                <td>{{arCliente.nominaElectronica ? "SI": "NO" }}</td>
+                                <td>{{arCliente.empleador}}</td>
+                                <td>{{arCliente.setPruebas ? "SI": "NO" }}</td>
+                                <td>{{arCliente.setPruebasNomina  ? "SI": "NO" }}</td>
+                                <td>{{arCliente.codigoSetPruebas}}</td>
+                                <td>{{arCliente.codigoSetPruebasNominas}}</td>
+                                <td class="text-center">
+                                    <a href="{{ path('soporte_cliente_nuevo', { 'id': arCliente.codigoClientePk }) }}">
+                                        <i class="fa fa-edit fa-lg"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-12">
+                        Total {{ arClientes.getTotalItemCount }} registros
+                        {{ knp_pagination_render(arClientes) }}
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </div>
+{% endblock %}

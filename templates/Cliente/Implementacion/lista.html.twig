@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+        <div class="col-md-12">
+            <table width="100%" class="table table-condensed table-bordered">
+                <tr>
+                    <td class="titulo">CODIGO:</td>
+                    <td class="td-in-well">{{ arImplementacion.codigoImplementacionPk }}</td>
+                    <td class="titulo">NOMBRE:</td>
+                    <td class="td-in-well">{{ arImplementacion.nombre }}</td>
+                    <td class="titulo">CLIENTE</td>
+                    <td class="td-in-well">{{ arImplementacion.clienteRel.nombreCorto }}</td>
+                </tr>
+                <tr>
+                    <td class="titulo">IMPLEMENTADOR:</td>
+                    <td class="td-in-well">{{ arImplementacion.implementadorRel.nombre |default('') }}</td>
+                    <td class="titulo">TELEFONO:</td>
+                    <td class="td-in-well">{{ arImplementacion.implementadorRel.telefono |default('') }}</td>
+                    <td class="titulo"></td>
+                    <td class="td-in-well"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">Filtro de busqueda</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label">Modulo:</label>
+                        <div class="col-sm-5">
+                            {{ form_widget(form.modulo) }}
+                        </div>
+                        <label class="col-sm-1 control-label">Capacitado:</label>
+                        <div class="col-sm-2">
+                            {{ form_widget(form.estadoCapacitado) }}
+                        </div>
+                        <label class="col-sm-1 control-label">Terminado:</label>
+                        <div class="col-sm-2">
+                            {{ form_widget(form.estadoTerminado) }}
+                        </div>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3">
+                            {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+        <div class="col-md-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-bordered table-hover mb-none">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Modulo</th>
+                                <th>Cod</th>
+                                <th>Tema</th>
+                                <th>Descripcion</th>
+                                <th>Comentario</th>
+                                <th>Implementador</th>
+                                <th>Accion</th>
+                                <th>Responsable</th>
+                                <th>Fecha</th>
+                                <th title="Estado inicio">Ini</th>
+                                <th title="Estado capacitado">Cap</th>
+                                <th title="Estado terminado">Ter</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for arImplementacionDetalle in arImplementacionDetalles %}
+                                <tr>
+                                    <td>{{ arImplementacionDetalle.codigoImplementacionDetallePk }}</td>
+                                    <td>{{ arImplementacionDetalle.moduloNombre }}</td>
+                                    <td>{{ arImplementacionDetalle.codigoTemaFk }}</td>
+                                    <td>{{ arImplementacionDetalle.temaNombre }}</td>
+                                    <td>{{ arImplementacionDetalle.temaDescripcion }}</td>
+                                    <td>{{ arImplementacionDetalle.comentario }}</td>
+                                    <td>{{ arImplementacionDetalle.comentarioImplementador }}</td>
+                                    <td>{{ arImplementacionDetalle.accionNombre }}</td>
+                                    <td>{{ arImplementacionDetalle.responsableNombre }}</td>
+                                    <td>{{ arImplementacionDetalle.estadoCapacitado?arImplementacionDetalle.fecha | date('Y-m-d H:i'):'' }}</td>
+                                    <td>{{ arImplementacionDetalle.estadoInicio?'SI':'NO' }}</td>
+                                    <td>{{ arImplementacionDetalle.estadoCapacitado?'SI':'NO' }}</td>
+                                    <td>{{ arImplementacionDetalle.estadoTerminado?'SI':'NO' }}</td>
+                                    <td class="text-center">
+                                        {% if arImplementacionDetalle.estadoInicio == 0 %}
+                                        <a href="javascript:abrirVentana3('{{ path('cliente_implementacion_nuevo', {'id': arImplementacionDetalle.codigoImplementacionDetallePk}) }}', 'Escalar', 600, 1200)">
+                                            <i class="fa fa-edit fa-lg"></i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="javascript:abrirVentana3('{{ path('documental_archivo_ver', {'tipo': '1',  'codigo': arImplementacionDetalle.codigoImplementacionDetallePk}) }}', 'Archivo', 600, 1200)">
+                                            <i class="fa fa-download"></i>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        {% if arImplementacionDetalle.codigoDocumentacionFk %}
+                                        <a href="http://semantica.com.co/semanticaweb/public/index.php/documetacion/detalle/{{ arImplementacionDetalle.codigoDocumentacionFk }}" target="_blank">
+                                            <i class="fa fa-edit fa-file-text-o "></i>
+                                        </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-9 col-sm-offset-3" >
+                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group" aria-label="...">
+
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </div>
+
+
+
+{% endblock %}

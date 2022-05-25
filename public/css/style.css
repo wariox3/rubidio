@@ -1,0 +1,183 @@
+html {
+    font-size: 0.90em;
+}
+
+body { margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ }
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+.icon {
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+.icon:last-child {
+    margin: 0;
+}
+
+.icon-orange {
+    background-color: #e67e22;
+}
+
+.icon-green {
+    background-color: #2ecc71;
+}
+
+.icon-rounded {
+    border-radius: 50%;
+}
+
+.icon-triangle {
+    width: 0px;
+    height: 0px;
+    border: 5px solid transparent;
+    border-left: 10px solid gray;
+}
+
+.icon-small {
+    width: 20px;
+    height: 20px;
+}
+
+.container {
+    padding: 0px 20px;
+}
+
+header {
+    background-color: #313A46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+
+.header-right {
+    display: flex;
+}
+
+.content-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.main-body {
+    display: flex;
+    flex-direction: column;
+    background-color: #ecf0f1;
+    width: calc(100vw - 200px);
+    /*
+      100vw width of the viewport's width
+      200px is the width of the sidebar.
+    */
+}
+
+.main-content {
+    padding: 20px;
+    height: calc(100vh - 150px);
+    /*
+      100vh height content of the viewport's height
+      150px is the height of the header-bar(50px), breadcrumb(50px), and current-bar(50px).
+    */
+}
+
+.sidebar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    background-color: #bdc3c7;
+    height: calc(100vh - 50px);
+    /*
+      100vh height content of the viewport's height
+      50px is the height of the header-bar
+    */
+}
+
+.sidebar-link {
+    padding: 15px 20px;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.sidebar-link > .icon {
+    margin-right: 10px;
+}
+
+.sidebar-link-left,
+.sidebar-link-right {
+    display: inline-flex;
+    align-items: center;
+}
+
+.breadcrumb {
+    background-color: #ecf0f1;
+    display: flex;
+    align-items: center;
+    height: 50px;
+    padding: 0px 20px;
+}
+
+.current-bar {
+    height: 50px;
+    background-color: #797979;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+    color: white;
+}
+
+.status {
+    display: inline-flex;
+    margin-right: 20px;
+}
+
+.status-row {
+    margin-bottom: 20px;
+}
+
+.status-logo {
+    height: 60px;
+    width: 60px;
+    background-color: #e67e22;
+}
+
+.status-info {
+    height: 60px;
+    width: 130px;
+    background-color: #bdc3c7;
+}
+
+.stat-content {
+    height: 60px;
+    width: 100%;
+    background-color: #2ecc71;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 64px - 20px);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+}
+
+.grid-container > div {
+    text-align: center;
+}
+
+table,td,th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td.titulo {
+    background-color: #f5f5f5;
+}

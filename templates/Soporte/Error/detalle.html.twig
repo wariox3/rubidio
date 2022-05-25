@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="btn-toolbar" style="float:left">
+        <div class="btn-group">
+            <a class="btn btn-default btn-sm" href="{{ path('soporte_error_lista') }}">Volver</a>
+        </div>
+    </div>
+    <br/><br/>
+    <table width="100%" class="table table-condensed table-bordered">
+        <tr>
+            <td class="titulo">CODIGO:</td>
+            <td class="td-in-well">{{ arError.codigoErrorPk }}</td>
+            <td class="titulo">FECHA:</td>
+            <td class="td-in-well">{{ arError.fecha | date('Y-m-d') }}</td>
+            <td class="titulo"></td>
+            <td class="td-in-well"></td>
+        </tr>
+    </table>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tabs tabs-primary">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#devoluciones" data-toggle="tab"><i class="fa fa-star"></i> Trazas</a></li>
+                    <li><a href="#otro" data-toggle="tab">Otro</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="tareas" class="tab-pane active">
+                        <table class="table table-condensed table-bordered table-hover mb-none">
+                            <thead>
+                            <tr>
+                                <th>File</th>
+                                <th>Line</th>
+                                <th>Function</th>
+                                <th>Class</th>
+                                <th>Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for traza in trazas %}
+                                <tr>
+                                    <td>{{ traza.file }}</td>
+                                    <td>{{ traza.line }}</td>
+                                    <td>{{ traza.function }}</td>
+                                    <td>{{ traza.class }}</td>
+                                    <td>{{ traza.type }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="otro" class="tab-pane">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
