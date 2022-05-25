@@ -101,6 +101,9 @@
     "psr/log": {
         "version": "1.1.4"
     },
+    "royopa/fpdf-symfony2": {
+        "version": "4.0"
+    },
     "sensio/framework-extra-bundle": {
         "version": "6.2",
         "recipe": {
@@ -112,6 +115,12 @@
         "files": [
             "config/packages/sensio_framework_extra.yaml"
         ]
+    },
+    "setasign/fpdf": {
+        "version": "1.8.4"
+    },
+    "setasign/fpdi": {
+        "version": "v2.3.6"
     },
     "symfony/asset": {
         "version": "v5.4.7"

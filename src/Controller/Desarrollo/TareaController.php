@@ -105,7 +105,7 @@ class TareaController extends AbstractController
         $arTarea = $em->getRepository(Tarea::class)->find($id);
 
         $form = $this->createFormBuilder()
-            ->add('fechaEntrega', DateTimeType::class, ['data' => $arTarea->getFecha(), 'required' => true])
+            ->add('fechaEntrega', DateTimeType::class, ['data' => $arTarea->getFecha(), 'required' => true,  'widget' => 'single_text'])
             ->add('btnEjecutar', SubmitType::class, ['label' => 'Ejecutar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);

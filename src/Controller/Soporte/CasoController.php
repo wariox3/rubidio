@@ -68,9 +68,7 @@ class CasoController extends AbstractController
             },
             'choice_label' => 'nombreCorto',
             'required' => false,
-            'empty_data' => "",
             'placeholder' => "TODOS",
-            'data' => ""
         );
         if ($session->get('filtroCasoCodigoCliente')) {
             $arrayPropiedadesCliente['data'] = $em->getReference("App\Entity\Cliente", $session->get('filtroCasoCodigoCliente'));

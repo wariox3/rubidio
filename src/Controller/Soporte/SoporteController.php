@@ -3,6 +3,7 @@
 namespace App\Controller\Soporte;
 
 use App\Entity\Caso;
+use App\Entity\Cliente;
 use App\Entity\Configuracion;
 use App\Entity\Devolucion;
 use App\Entity\Obligacion;
@@ -17,13 +18,13 @@ use App\Form\Type\VigenciaType;
 use App\Utilidades\Mensajes;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,51 +35,21 @@ class SoporteController extends AbstractController
 {
 
     /**
-     * @Route("/soporte/soporte/nuevo/{id}", name="soporte_soporte_nuevo")
-     */
-    public function nuevo(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $arSoporte = new Soporte();
-        if ($id != 0) {
-            $arSoporte = $em->getRepository(Soporte::class)->find($id);
-        }
-        $form = $this->createForm(SoporteType::class, $arSoporte);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arSoporte = $form->getData();
-                if($id == 0) {
-                    $arSoporte->setFecha(new \DateTime('now'));
-                }
-                $em->persist($arSoporte);
-                $em->flush();
-                return $this->redirect($this->generateUrl('soporte_soporte_lista'));
-            }
-        }
-        return $this->render('Soporte/Soporte/nuevo.html.twig', [
-            'arSoporte' => $arSoporte,
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
      * @Route("/soporte/soporte/lista", name="soporte_soporte_lista")
      */
     public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $arrayPropiedadesCliente = array(
-            'class' => 'App\Entity\Cliente',
+            'class' => Cliente::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('c')
                     ->orderBy('c.nombreCorto', 'ASC');
             },
             'choice_label' => 'nombreCorto',
             'required' => false,
-            'empty_data' => "",
             'placeholder' => "TODOS",
-            'data' => ""
+
         );
         if ($session->get('filtroSoporteCodigoCliente')) {
             $arrayPropiedadesCliente['data'] = $em->getReference("App\Entity\Cliente", $session->get('filtroSoporteCodigoCliente'));
@@ -116,6 +87,36 @@ class SoporteController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/soporte/soporte/nuevo/{id}", name="soporte_soporte_nuevo")
+     */
+    public function nuevo(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arSoporte = new Soporte();
+        if ($id != 0) {
+            $arSoporte = $em->getRepository(Soporte::class)->find($id);
+        }
+        $form = $this->createForm(SoporteType::class, $arSoporte);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arSoporte = $form->getData();
+                if($id == 0) {
+                    $arSoporte->setFecha(new \DateTime('now'));
+                }
+                $em->persist($arSoporte);
+                $em->flush();
+                return $this->redirect($this->generateUrl('soporte_soporte_lista'));
+            }
+        }
+        return $this->render('Soporte/Soporte/nuevo.html.twig', [
+            'arSoporte' => $arSoporte,
+            'form' => $form->createView()
+        ]);
+    }
+
 
     /**
      * @Route("/soporte/soporte/solucion/{id}", name="soporte_soporte_solucion")

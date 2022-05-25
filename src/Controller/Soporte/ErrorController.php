@@ -38,9 +38,7 @@ class ErrorController extends AbstractController
             },
             'choice_label' => 'codigoUsuarioPk',
             'required' => false,
-            'empty_data' => "",
             'placeholder' => "TODOS",
-            'data' => ""
         );
         $arrayPropiedadesCliente = array(
             'class' => Cliente::class,
@@ -50,9 +48,7 @@ class ErrorController extends AbstractController
             },
             'choice_label' => 'nombreCorto',
             'required' => false,
-            'empty_data' => "",
             'placeholder' => "TODOS",
-            'data' => ""
         );
         if ($session->get('filtroErrorCodigoUsuario')) {
             $arrayPropiedadesUsuario['data'] = $em->getReference("App\Entity\Usuario", $session->get('filtroErrorCodigoUsuario'));
@@ -162,9 +158,7 @@ class ErrorController extends AbstractController
             },
             'choice_label' => 'codigoUsuarioPk',
             'required' => false,
-            'empty_data' => "",
             'placeholder' => "TODOS",
-            'data' => ""
         );
         $form = $this->createFormBuilder()
             ->add('usuarioRel', EntityType::class, $arrayPropiedadesUsuario)

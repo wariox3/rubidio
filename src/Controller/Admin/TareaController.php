@@ -85,9 +85,7 @@ class TareaController extends AbstractController
             },
             'choice_label' => 'nombre',
             'required' => false,
-            'empty_data' => "",
             'placeholder' => "TODOS",
-            'data' => ""
         );
         if ($session->get('filtroTareaCodigoProyecto')) {
             $arrayPropiedadesProyecto['data'] = $em->getReference("App\Entity\Proyecto", $session->get('filtroTareaCodigoProyecto'));
