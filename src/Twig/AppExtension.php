@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use Symfony\Component\HttpFoundation\Session\Session;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -17,11 +18,12 @@ class AppExtension extends AbstractExtension
 //    }
 
 
-    public function getFilters()
+    public function getFunctions()
     {
         return [
            // new TwigFunction('calcularTiempo', [$this, "getCalcularTiempo"]),
             new TwigFunction('notificar', [$this, 'getNotifies']),
+
         ];
     }
 

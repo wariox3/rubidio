@@ -44,13 +44,10 @@
         {% block body %}
         <section class="body">
                 <section role="main">
-                    {#{{ notificar()|raw }}#}
+                    {{ notificar()|raw }}
                     {% block content %}
-
                     {% endblock %}
                 </section>
-
-
         </section>
         {% endblock %}
 
