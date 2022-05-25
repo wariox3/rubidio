@@ -13,6 +13,7 @@ use App\Form\Type\ObligacionType;
 use App\Form\Type\CasoType;
 use App\Form\Type\VigenciaType;
 use App\Utilidades\Mensajes;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -68,10 +69,9 @@ class CasoController extends AbstractController
     /**
      * @Route("/cliente/caso/lista", name="cliente_caso_lista")
      */
-    public function lista(Request $request) {
+    public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $form = $this->createFormBuilder()
             ->add('estadoAtendido', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoAtendido'), 'required' => false])
             ->add('estadoDesarrollo', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoDesarrollo'), 'required' => false])
@@ -99,9 +99,8 @@ class CasoController extends AbstractController
     /**
      * @Route("/cliente/caso/detalle/{id}", name="cliente_caso_detalle")
      */
-    public function detalle(Request $request, $id)
+    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
-        $paginator = $this->get('knp_paginator');
         $em = $this->getDoctrine()->getManager();
         $arCaso = $em->getRepository(Caso::class)->find($id);
 

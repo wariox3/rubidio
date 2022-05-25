@@ -13,6 +13,7 @@ use App\Form\Type\ObligacionType;
 use App\Form\Type\ProyectoType;
 use App\Form\Type\VigenciaType;
 use App\Utilidades\Mensajes;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -29,10 +30,9 @@ class ProyectoController extends AbstractController
     /**
      * @Route("/admin/proyecto/lista", name="admin_proyecto_lista")
      */
-    public function lista(Request $request) {
+    public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $form = $this->createFormBuilder()
             ->getForm();
         $form->handleRequest($request);
@@ -48,9 +48,8 @@ class ProyectoController extends AbstractController
     /**
      * @Route("/admin/proyecto/detalle/{id}", name="admin_proyecto_detalle")
      */
-    public function detalle(Request $request, $id)
+    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
-        $paginator = $this->get('knp_paginator');
         $em = $this->getDoctrine()->getManager();
         $arProyecto = $em->getRepository(Proyecto::class)->find($id);
 

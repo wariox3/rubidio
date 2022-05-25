@@ -10,6 +10,7 @@ use App\Form\Type\ObligacionType;
 use App\Form\Type\VigenciaType;
 use App\Utilidades\Dubnio;
 use Doctrine\ORM\EntityRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,11 +26,10 @@ class ErrorController extends AbstractController
     /**
      * @Route("/soporte/error/lista", name="soporte_error_lista")
      */
-    public function lista(Request $request, Dubnio $dubnio)
+    public function lista(Request $request, Dubnio $dubnio, PaginatorInterface $paginator)
     {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $arrayPropiedadesUsuario = array(
             'class' => 'App\Entity\Usuario',
             'query_builder' => function (EntityRepository $er) {
@@ -128,9 +128,8 @@ class ErrorController extends AbstractController
     /**
      * @Route("/soporte/error/detalle/{id}", name="soporte_error_detalle")
      */
-    public function detalle(Request $request, $id)
+    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
-        $paginator = $this->get('knp_paginator');
         $em = $this->getDoctrine()->getManager();
         $arError = $em->getRepository(Error::class)->find($id);
 
@@ -151,9 +150,8 @@ class ErrorController extends AbstractController
     /**
      * @Route("/soporte/error/asignar/{id}", name="soporte_error_asignar")
      */
-    public function asignarUsuario(Request $request, $id)
+    public function asignarUsuario(Request $request,  PaginatorInterface $paginator, $id)
     {
-        $paginator = $this->get('knp_paginator');
         $em = $this->getDoctrine()->getManager();
         $arError = $em->getRepository(Error::class)->find($id);
         $arrayPropiedadesUsuario = array(

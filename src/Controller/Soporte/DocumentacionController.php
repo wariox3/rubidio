@@ -19,6 +19,7 @@ use App\Form\Type\VigenciaType;
 use App\Formatos\Documentancion;
 use App\Servicios\Correo;
 use App\Utilidades\Mensajes;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -65,11 +66,10 @@ class DocumentacionController extends AbstractController
     /**
      * @Route("/soporte/documentacion/lista", name="soporte_documentacion_lista")
      */
-    public function lista(Request $request)
+    public function lista(Request $request,  PaginatorInterface $paginator)
     {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $form = $this->createFormBuilder()
             ->add('btnImprimir', SubmitType::class, ['label' => 'Imprimir', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->add('modulo', TextType::class, ['data' => $session->get('filtroDocumentacionModulo'), 'required' => false])

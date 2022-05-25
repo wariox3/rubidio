@@ -20,6 +20,7 @@ use App\Form\Type\TareaType;
 use App\Form\Type\VigenciaType;
 use App\Formatos\FormatoActaCapacitacion;
 use App\Utilidades\Mensajes;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -40,10 +41,9 @@ class ElectronicaController extends AbstractController
     /**
      * @Route("/implementacion/electronica/lista", name="implementacion_electronica_lista")
      */
-    public function lista(Request $request) {
+    public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $form = $this->createFormBuilder()
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();

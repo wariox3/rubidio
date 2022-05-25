@@ -15,6 +15,7 @@ use App\Form\Type\SoporteType;
 use App\Form\Type\TareaType;
 use App\Form\Type\VigenciaType;
 use App\Utilidades\Mensajes;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -64,10 +65,9 @@ class SoporteController extends AbstractController
     /**
      * @Route("/soporte/soporte/lista", name="soporte_soporte_lista")
      */
-    public function lista(Request $request) {
+    public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $arrayPropiedadesCliente = array(
             'class' => 'App\Entity\Cliente',
             'query_builder' => function (EntityRepository $er) {

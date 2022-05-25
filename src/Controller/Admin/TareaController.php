@@ -15,6 +15,7 @@ use App\Form\Type\TareaType;
 use App\Form\Type\VigenciaType;
 use App\Utilidades\Mensajes;
 use Doctrine\ORM\EntityRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -73,10 +74,9 @@ class TareaController extends AbstractController
     /**
      * @Route("/admin/tarea/lista", name="admin_tarea_lista")
      */
-    public function lista(Request $request) {
+    public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $arrayPropiedadesProyecto = array(
             'class' => 'App\Entity\Proyecto',
             'query_builder' => function (EntityRepository $er) {
@@ -131,9 +131,8 @@ class TareaController extends AbstractController
     /**
      * @Route("/admin/tarea/detalle/{id}", name="admin_tarea_detalle")
      */
-    public function detalle(Request $request, $id)
+    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
-        $paginator = $this->get('knp_paginator');
         $em = $this->getDoctrine()->getManager();
         $arTarea = $em->getRepository(Tarea::class)->find($id);
         $arrBtnVerificar = ['label' => 'Verificar', 'disabled' => true, 'attr' => ['class' => 'btn btn-sm btn-default']];

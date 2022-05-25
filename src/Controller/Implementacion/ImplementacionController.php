@@ -21,6 +21,7 @@ use App\Formatos\FormatoActaCapacitacion;
 use App\Formatos\FormatoActaTerminacion;
 use App\Formatos\FormatoPlanTrabajo;
 use App\Utilidades\Mensajes;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -63,11 +64,10 @@ class ImplementacionController extends AbstractController
     /**
      * @Route("/implementacion/implementacion/lista", name="implementacion_implementacion_lista")
      */
-    public function lista(Request $request)
+    public function lista(Request $request,  PaginatorInterface $paginator)
     {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $form = $this->createFormBuilder()
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
@@ -119,9 +119,8 @@ class ImplementacionController extends AbstractController
     /**
      * @Route("/implementacion/implementacion/detalle/{id}", name="implementacion_implementacion_detalle")
      */
-    public function detalle(Request $request, $id)
+    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
-        $paginator = $this->get('knp_paginator');
         $em = $this->getDoctrine()->getManager();
         $arImplementacion = $em->getRepository(Implementacion::class)->find($id);
         $session = new Session();

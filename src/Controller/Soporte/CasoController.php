@@ -14,6 +14,7 @@ use App\Form\Type\ObligacionType;
 use App\Form\Type\VigenciaType;
 use App\Servicios\Correo;
 use Doctrine\ORM\EntityRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,11 +56,10 @@ class CasoController extends AbstractController
     /**
      * @Route("/soporte/caso/lista", name="soporte_caso_lista")
      */
-    public function lista(Request $request)
+    public function lista(Request $request,  PaginatorInterface $paginator)
     {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $arrayPropiedadesCliente = array(
             'class' => 'App\Entity\Cliente',
             'query_builder' => function (EntityRepository $er) {
@@ -122,9 +122,8 @@ class CasoController extends AbstractController
     /**
      * @Route("/soporte/caso/detalle/{id}", name="soporte_caso_detalle")
      */
-    public function detalle(Request $request, $id)
+    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
-        $paginator = $this->get('knp_paginator');
         $em = $this->getDoctrine()->getManager();
         $arCaso = $em->getRepository(Caso::class)->find($id);
 

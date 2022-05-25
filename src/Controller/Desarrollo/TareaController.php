@@ -12,6 +12,7 @@ use App\Form\Type\ObligacionType;
 use App\Form\Type\TareaType;
 use App\Form\Type\VigenciaType;
 use App\Utilidades\Mensajes;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -32,10 +33,9 @@ class TareaController extends AbstractController
     /**
      * @Route("/desarrollo/tarea/lista", name="desarrollo_tarea_lista")
      */
-    public function lista(Request $request) {
+    public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $form = $this->createFormBuilder()
             ->add('estadoEjecucion', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroTareaEstadoEjecucion'), 'required' => false])
             ->add('estadoTerminado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => 0, 'required' => false])
@@ -64,9 +64,8 @@ class TareaController extends AbstractController
     /**
      * @Route("/desarrollo/tarea/detalle/{id}", name="desarrollo_tarea_detalle")
      */
-    public function detalle(Request $request, $id)
+    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
-        $paginator = $this->get('knp_paginator');
         $em = $this->getDoctrine()->getManager();
         $arTarea = $em->getRepository(Tarea::class)->find($id);
         $arrBtnTerminar = ['label' => 'Terminar', 'disabled' => true, 'attr' => ['class' => 'btn btn-sm btn-default']];

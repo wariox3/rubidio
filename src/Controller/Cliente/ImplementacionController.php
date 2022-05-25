@@ -12,6 +12,7 @@ use App\Form\Type\ImplementacionDetalleClienteType;
 use App\Form\Type\ObligacionType;
 use App\Form\Type\VigenciaType;
 use App\Utilidades\Mensajes;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -54,10 +55,9 @@ class ImplementacionController extends AbstractController
     /**
      * @Route("/cliente/implementacion/lista", name="cliente_implementacion_lista")
      */
-    public function lista(Request $request) {
+    public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
         $arrModulo = [
             'TODOS' => '',
             'Cartera' => 'CAR',
