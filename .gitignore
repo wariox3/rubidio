@@ -8,6 +8,10 @@
 /nbproject/*
 /.idea/
 /.idea/*
+.idea/
+.idea/*
+/idea/calcio.iml
+/idea/php.xml
 composer.lock
 symfony.lock
 /config/packages/sensio_framework_extra.yaml
