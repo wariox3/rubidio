@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="fixed" lang="es">
+<html class="fixed">
     <head>
         <meta charset="UTF-8" />
         {% block metas %}
@@ -46,8 +46,11 @@
                 <section role="main">
                     {{ notificar()|raw }}
                     {% block content %}
+
                     {% endblock %}
                 </section>
+
+
         </section>
         {% endblock %}
 

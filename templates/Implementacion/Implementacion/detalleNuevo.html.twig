@@ -1,5 +1,4 @@
-{% extends 'base.html.twig' %}
-
+{% extends 'base_sin_menu.html.twig' %}
 {% block content %}
     <div class="row">
         {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
@@ -15,55 +14,46 @@
                 </header>
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Prioridad:</label>
+                        <label class="col-sm-1 control-label">Fecha:</label>
                         <div class="col-sm-5">
-                            {{ form_widget(form.prioridadRel) }}
+                            {{ form_widget(form.fecha) }}
                         </div>
-                        <label class="col-sm-1 control-label">Compromiso:</label>
+                        <label class="col-sm-1 control-label">Fecha compromiso:</label>
                         <div class="col-sm-5">
-                            {{ form_widget(form.compromiso) }}
+                            {{ form_widget(form.fechaCompromiso) }}
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-1 control-label"></label>
                         <div class="col-sm-5">
-                            {{ form_widget(form.estadoPostergado) }}
-                        </div>
-                        <label class="col-sm-1 control-label"></label>
-                        <div class="col-sm-5">
-
+                            {{ form_widget(form.estadoInicio) }}
+                            {{ form_widget(form.estadoTerminado) }}
+                            {{ form_widget(form.estadoCapacitado) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Solucion:</label>
+                        <label class="col-sm-1 control-label">Comentario implementador:</label>
                         <div class="col-sm-11">
-                            {{ form_widget(form.solucion, { 'attr': {'style':'height: 180px;'} }) }}
+                            {{ form_widget(form.comentarioImplementador, { 'attr': {'style':'height: 325px;'} }) }}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-1 control-label">Comentario postergado:</label>
+                        <label class="col-sm-1 control-label">Comentario:</label>
                         <div class="col-sm-11">
-                            {{ form_widget(form.comentarioPostergado, { 'attr': {'style':'height: 180px;'} }) }}
+                            {{ form_widget(form.comentario, { 'attr': {'style':'height: 325px;'} }) }}
                         </div>
                     </div>
                 </div>
                 <footer class="panel-footer">
                     <div class="row">
-                        <div class="col-sm-6">
-                            <a class="btn btn-default btn-sm" style="float:left" href="{{ path('soporte_caso_lista') }}">Cancelar</a>
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             {{ form_widget(form.guardar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
                         </div>
                     </div>
                 </footer>
             </section>
         </div>
-
         {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>
-
-
-
 {% endblock %}

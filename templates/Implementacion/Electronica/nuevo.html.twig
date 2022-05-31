@@ -16,6 +16,13 @@
                 <div class="panel-body">
                     {{ form(form) }}
                 </div>
+                <footer class="panel-footer">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ form_widget(form.btnHabilitar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
+                        </div>
+                    </div>
+                </footer>
             </section>
         </div>
         {{ form_rest(form) }}

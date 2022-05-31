@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Descripcion:</label>
                         <div class="col-sm-10">
-                            {{ form_widget(form.descripcion, { 'attr': {'style':'height: 325px;'} }) }}
+                            {{ form_widget(form.descripcion, { 'attr': {'style':'height: 200px;'} }) }}
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,38 @@
                 </footer>
             </section>
         </div>
+        <div class="col-md-12">
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
 
+                    <h2 class="panel-title">Clientes suspendidos</h2>
+                </header>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Cliente</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for arCliente in arClientesSuspendidos %}
+                                <tr>
+                                    <td>{{ arCliente.codigoClientePk }}</td>
+                                    <td>{{ arCliente.nombreCorto }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
         {{ form_rest(form) }}
         {{ form_end(form) }}
     </div>

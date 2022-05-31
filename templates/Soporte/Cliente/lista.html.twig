@@ -11,9 +11,7 @@
                             <th>Nit</th>
                             <th>DV</th>
                             <th>Nombre</th>
-                            <th>Nombre completo</th>
-                            <th>direccion</th>
-                            <th>Telefono</th>
+                            <th>Sop</th>
                             <th>FE</th>
                             <th>Suscriptor</th>
                             <th>NE</th>
@@ -32,9 +30,7 @@
                                 <td>{{arCliente.nit}}</td>
                                 <td>{{arCliente.digitoVerificacion}}</td>
                                 <td>{{arCliente.nombreCorto}}</td>
-                                <td>{{arCliente.nombreExtendido}}</td>
-                                <td>{{arCliente.direccion}}</td>
-                                <td>{{arCliente.telefono}}</td>
+                                <td>{{arCliente.servicioSoporte ? "SI" : arCliente.fechaSuspension ? arCliente.fechaSuspension | date('Y-m-d') : "NO"}}</td>
                                 <td>{{arCliente.facturacionElectronica ? "SI": "NO" }}</td>
                                 <td>{{arCliente.suscriptor}}</td>
                                 <td>{{arCliente.nominaElectronica ? "SI": "NO" }}</td>

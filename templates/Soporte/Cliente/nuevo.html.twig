@@ -135,6 +135,39 @@
                     </div>
                 </div>
             </section>
+            <section class="panel">
+                <header class="panel-heading">
+                    <div class="panel-actions">
+                        <a href="#" class="fa fa-caret-down"></a>
+                        <a href="#" class="fa fa-times"></a>
+                    </div>
+
+                    <h2 class="panel-title">Servicio </h2>
+                </header>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Fecha suspension:</label>
+                        <div class="col-sm-4">
+                            {{ form_widget(form.fechaSuspension) }}
+                        </div>
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-4">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-4">
+                            {{ form_widget(form.servicioSoporte) }}
+                        </div>
+                        <label class="col-sm-2 control-label"></label>
+                        <div class="col-sm-4">
+
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
         {{ form_rest(form) }}
         {{ form_end(form) }}
