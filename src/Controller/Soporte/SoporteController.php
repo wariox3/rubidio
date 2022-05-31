@@ -35,6 +35,37 @@ class SoporteController extends AbstractController
 {
 
     /**
+     * @Route("/soporte/soporte/nuevo/{id}", name="soporte_soporte_nuevo")
+     */
+    public function nuevo(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arSoporte = new Soporte();
+        if ($id != 0) {
+            $arSoporte = $em->getRepository(Soporte::class)->find($id);
+        }
+        $form = $this->createForm(SoporteType::class, $arSoporte);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arSoporte = $form->getData();
+                if($id == 0) {
+                    $arSoporte->setFecha(new \DateTime('now'));
+                }
+                $em->persist($arSoporte);
+                $em->flush();
+                return $this->redirect($this->generateUrl('soporte_soporte_lista'));
+            }
+        }
+        $arClientesSuspendidos = $em->getRepository(Cliente::class)->clientesSuspendidos();
+        return $this->render('Soporte/Soporte/nuevo.html.twig', [
+            'arSoporte' => $arSoporte,
+            'arClientesSuspendidos' => $arClientesSuspendidos,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/soporte/soporte/lista", name="soporte_soporte_lista")
      */
     public function lista(Request $request,  PaginatorInterface $paginator) {
@@ -54,6 +85,11 @@ class SoporteController extends AbstractController
         if ($session->get('filtroSoporteCodigoCliente')) {
             $arrayPropiedadesCliente['data'] = $em->getReference("App\Entity\Cliente", $session->get('filtroSoporteCodigoCliente'));
         }
+
+        if ($session->get('filtroSoporteEstadoSolucionado') == null) {
+            $session->set('filtroSoporteEstadoSolucionado', 0);
+        }
+
         $form = $this->createFormBuilder()
             ->add('clienteRel', EntityType::class, $arrayPropiedadesCliente)
             ->add('estadoAtendido', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroSoporteEstadoAtendido'), 'required' => false])
@@ -87,36 +123,6 @@ class SoporteController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
-    /**
-     * @Route("/soporte/soporte/nuevo/{id}", name="soporte_soporte_nuevo")
-     */
-    public function nuevo(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $arSoporte = new Soporte();
-        if ($id != 0) {
-            $arSoporte = $em->getRepository(Soporte::class)->find($id);
-        }
-        $form = $this->createForm(SoporteType::class, $arSoporte);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arSoporte = $form->getData();
-                if($id == 0) {
-                    $arSoporte->setFecha(new \DateTime('now'));
-                }
-                $em->persist($arSoporte);
-                $em->flush();
-                return $this->redirect($this->generateUrl('soporte_soporte_lista'));
-            }
-        }
-        return $this->render('Soporte/Soporte/nuevo.html.twig', [
-            'arSoporte' => $arSoporte,
-            'form' => $form->createView()
-        ]);
-    }
-
 
     /**
      * @Route("/soporte/soporte/solucion/{id}", name="soporte_soporte_solucion")

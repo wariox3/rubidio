@@ -160,7 +160,7 @@ class Documentancion extends \FPDF
                 break;
             case 'FONT':
                 if (isset($attr['COLOR']) && $attr['COLOR']!='') {
-                    $coul=hex2dec($attr['COLOR']);
+                    $coul= $this->hex2dec($attr['COLOR']);
                     $this->SetTextColor($coul['R'],$coul['V'],$coul['B']);
                     $this->issetcolor=true;
                 }

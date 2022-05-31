@@ -12,6 +12,7 @@ use App\Entity\Tarea;
 use App\Entity\Vigencia;
 use App\Entity\Soporte;
 use App\Form\Type\ImplementacionDetalleImplementadorType;
+use App\Form\Type\ImplementacionType;
 use App\Form\Type\SoporteSolucionType;
 use App\Form\Type\ObligacionType;
 use App\Form\Type\SoporteType;
@@ -23,13 +24,13 @@ use App\Formatos\FormatoPlanTrabajo;
 use App\Utilidades\Mensajes;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,28 +39,6 @@ use Doctrine\ORM\EntityRepository;
 
 class ImplementacionController extends AbstractController
 {
-    /**
-     * @Route("/implementacion/implementacion/nuevo/{id}", name="implementacion_implementacion_nuevo")
-     */
-    public function nuevo(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->find($id);
-        $form = $this->createForm(ImplementacionDetalleImplementadorType::class, $arImplementacionDetalle);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arImplementacionDetalle = $form->getData();
-                $em->persist($arImplementacionDetalle);
-                $em->flush();
-                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
-            }
-        }
-        return $this->render('Implementacion/Implementacion/nuevo.html.twig', [
-            'arImplementacionDetalle' => $arImplementacionDetalle,
-            'form' => $form->createView()
-        ]);
-    }
 
     /**
      * @Route("/implementacion/implementacion/lista", name="implementacion_implementacion_lista")
@@ -112,6 +91,29 @@ class ImplementacionController extends AbstractController
         $arImplementaciones = $paginator->paginate($em->getRepository(Implementacion::class)->lista(), $request->query->getInt('page', 1), 500);
         return $this->render('Implementacion/Implementacion/lista.html.twig', [
             'arImplementaciones' => $arImplementaciones,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/implementacion/implementacion/nuevo/{id}", name="implementacion_implementacion_nuevo")
+     */
+    public function nuevo(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arImplementacion = new Implementacion();
+        $form = $this->createForm(ImplementacionType::class, $arImplementacion);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arImplementacion = $form->getData();
+                $em->persist($arImplementacion);
+                $em->flush();
+                return $this->redirect($this->generateUrl('implementacion_implementacion_lista'));
+            }
+        }
+        return $this->render('Implementacion/Implementacion/nuevo.html.twig', [
+            'arImplementacion' => $arImplementacion,
             'form' => $form->createView()
         ]);
     }
@@ -183,6 +185,29 @@ class ImplementacionController extends AbstractController
         return $this->render('Implementacion/Implementacion/detalle.html.twig', ['arImplementacion' => $arImplementacion,
             'arImplementacionDetalles' => $arImplementacionDetalles,
             'form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/implementacion/implementacion/detalle/nuevo/{id}", name="implementacion_implementacion_detalle_nuevo")
+     */
+    public function detalleNuevo(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->find($id);
+        $form = $this->createForm(ImplementacionDetalleImplementadorType::class, $arImplementacionDetalle);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arImplementacionDetalle = $form->getData();
+                $em->persist($arImplementacionDetalle);
+                $em->flush();
+                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+            }
+        }
+        return $this->render('Implementacion/Implementacion/detalleNuevo.html.twig', [
+            'arImplementacionDetalle' => $arImplementacionDetalle,
+            'form' => $form->createView()
+        ]);
     }
 
 }

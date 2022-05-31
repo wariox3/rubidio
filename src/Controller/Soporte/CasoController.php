@@ -15,14 +15,13 @@ use App\Form\Type\VigenciaType;
 use App\Servicios\Correo;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Annotation\Route;
 
 class CasoController extends AbstractController
 {
@@ -76,6 +75,9 @@ class CasoController extends AbstractController
 
         if ($session->get('filtroCasoEstadoPostergado') == null) {
             $session->set('filtroCasoEstadoPostergado', 0);
+        }
+        if ($session->get('filtroCasoEstadoAtendido') == null) {
+            $session->set('filtroCasoEstadoAtendido', 0);
         }
 
         $form = $this->createFormBuilder()

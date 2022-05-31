@@ -22,13 +22,13 @@ use App\Formatos\FormatoActaCapacitacion;
 use App\Utilidades\Mensajes;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -521,10 +521,10 @@ class ElectronicaController extends AbstractController
                     "Estado" => false
                 ],
                 "Periodos" => [
-                    "FechaIngreso" => "2019-06-17T00:00:00",
+                    "FechaIngreso" => "2022-01-01T00:00:00",
                     "FechaRetiro" => "0001-01-01T00:00:00",
-                    "FechaLiquidacionInicio" => "2021-09-01T00:00:00",
-                    "FechaLiquidacionFin" => "2021-09-15T00:00:00",
+                    "FechaLiquidacionInicio" => "2022-01-01T00:00:00",
+                    "FechaLiquidacionFin" => "2022-01-31T00:00:00",
                     "TiempoLaborado" => 1
                 ],
                 "NumeroSecuenciaXML" => [
@@ -539,7 +539,7 @@ class ElectronicaController extends AbstractController
                 "InformacionGeneral" => [
                     "Ambiente" => 2,
                     "TipoXML" => $documento,
-                    "PeriodoNomina" => 4,
+                    "PeriodoNomina" => "4",
                     "TipoMoneda" => "COP",
                     "Notas" => null,
                     "TRM" => 0
@@ -560,9 +560,9 @@ class ElectronicaController extends AbstractController
                     "LugarTrabajoMunicipioCiudad" => "05001",
                     "LugarTrabajoDireccion" => "CALLE 48A N 100A-34",
                     "SalarioIntegral" => false,
-                    "TipoContrato" => 2,
-                    "Sueldo" => 1600000,
-                    "CodigoTrabajador" => 2
+                    "TipoContrato" => "2",
+                    "Sueldo" => 1100000,
+                    "CodigoTrabajador" => 1
                 ],
                 "Pago" => [
                     "Forma" => "1",
@@ -572,16 +572,16 @@ class ElectronicaController extends AbstractController
                     "NumeroCuenta" => "51189783519"
                 ],
                 "FechasPagos" => [
-                    "2021-07-15T00:00:00",
-                    "2021-07-30T00:00:00"
+                    "2022-01-31T00:00:00",
+                    "2022-01-31T00:00:00"
                 ],
                 "Devengados" => [
                     "Basico" => [
-                        'DiasTrabajados' => 0,
-                        'SueldoTrabajado' => 800000
+                        'DiasTrabajados' => 30,
+                        'SueldoTrabajado' => 1100000
                     ],
                     "Transporte" => [
-                        "AuxilioTransporte" => 53227,
+                        "AuxilioTransporte" => 106454,
                         "ViaticoManuAlojS" => 0,
                         "ViaticoManuAlojNS" => 0
                     ],
@@ -659,11 +659,11 @@ class ElectronicaController extends AbstractController
                 "Deducciones" => [
                     "Salud" => [
                         "Porcentaje" => 4,
-                        "Deduccion" => 108500
+                        "Deduccion" => 44000
                     ],
                     "FondoPension" => [
                         "Porcentaje" => 4,
-                        "Deduccion" => 108500
+                        "Deduccion" => 44000
                     ],
                     "FondoSP" => [
                         "Porcentaje" => 0,
@@ -694,9 +694,9 @@ class ElectronicaController extends AbstractController
                     "Deuda" => 0
                 ],
                 "Redondeo" => 0,
-                "DevengadosTotal" => 953227,
-                "DeduccionesTotal" => 64000,
-                "ComprobanteTotal" => 889227
+                "DevengadosTotal" => 1206454,
+                "DeduccionesTotal" => 88000,
+                "ComprobanteTotal" => 1118454
             ]
         ];
         return $arrResultado;

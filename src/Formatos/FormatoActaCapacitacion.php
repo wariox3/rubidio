@@ -89,8 +89,8 @@ class FormatoActaCapacitacion extends \FPDF
         foreach (self::$temas as $tema) {
 
             $arImplementacionDetalle = self::$em->getRepository(ImplementacionDetalle::class)->find($tema);
-            $pdf->Cell(25, 4, $arImplementacionDetalle->getTemaRel()->getModuloRel()->getNombre(), 1, 0, 'L');
-            $pdf->Cell(40, 4, $arImplementacionDetalle->getTemaRel()->getNombre(), 1, 0, 'L');
+            $pdf->Cell(25, 4, utf8_decode($arImplementacionDetalle->getTemaRel()->getModuloRel()->getNombre()), 1, 0, 'L');
+            $pdf->Cell(40, 4, utf8_decode($arImplementacionDetalle->getTemaRel()->getNombre()), 1, 0, 'L');
             $pdf->Cell(125, 4, utf8_decode($arImplementacionDetalle->getTemaRel()->getDescripcion()), 1, 0, 'L');
             $pdf->ln();
         }

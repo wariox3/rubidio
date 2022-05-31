@@ -21,13 +21,13 @@ use App\Servicios\Correo;
 use App\Utilidades\Mensajes;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,12 +73,18 @@ class DocumentacionController extends AbstractController
         $form = $this->createFormBuilder()
             ->add('btnImprimir', SubmitType::class, ['label' => 'Imprimir', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->add('modulo', TextType::class, ['data' => $session->get('filtroDocumentacionModulo'), 'required' => false])
+            ->add('modelo', TextType::class, ['data' => $session->get('filtroDocumentacionModelo'), 'required' => false])
+            ->add('grupo', TextType::class, ['data' => $session->get('filtroDocumentacionGrupo'), 'required' => false])
+            ->add('titulo', TextType::class, ['data' => $session->get('filtroDocumentacionTitulo'), 'required' => false])
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('btnFiltrar')->isClicked()) {
                 $session->set('filtroDocumentacionModulo', $form->get('modulo')->getData());
+                $session->set('filtroDocumentacionModelo', $form->get('modelo')->getData());
+                $session->set('filtroDocumentacionGrupo', $form->get('grupo')->getData());
+                $session->set('filtroDocumentacionTitulo', $form->get('titulo')->getData());
             }
             if ($form->get('btnImprimir')->isClicked()) {
                 $formatoDocumentacion = new Documentancion();
