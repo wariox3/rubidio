@@ -132,7 +132,6 @@ class SoporteRepository extends ServiceEntityRepository
         return $cantidad[1];
     }
 
-
     public function cantidadSoportesMes()
     {
         $em = $this->getEntityManager();

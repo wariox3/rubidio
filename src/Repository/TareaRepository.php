@@ -86,7 +86,7 @@ class TareaRepository extends ServiceEntityRepository
             ->addSelect('t.estadoTerminado')
             ->addSelect('t.estadoVerificado')
             ->addSelect('t.estadoDevolucion')
-        ->where("t.codigoUsuarioFk = '${codigoUsuario}'");
+            ->where("t.codigoUsuarioFk = '${codigoUsuario}'");
         switch ($session->get('filtroTareaEstadoEjecucion')) {
             case '0':
                 $queryBuilder->andWhere("t.estadoEjecucion = 0");
@@ -150,21 +150,21 @@ class TareaRepository extends ServiceEntityRepository
         $queryBuilder = $em->createQueryBuilder()->from(Tarea::class, 't')
             ->select('COUNT(t.codigoTareaPk)')
             ->where("t.codigoUsuarioFk = '${codigoUsuario}'")
-        ->andWhere("t.fecha >='" . $fechaDesde . " 00:00:00' AND t.fecha <= '" . $fechaHasta . " 23:59:59'");
+            ->andWhere("t.fecha >='" . $fechaDesde . " 00:00:00' AND t.fecha <= '" . $fechaHasta . " 23:59:59'");
 
         $arrTareas = $queryBuilder->getQuery()->getResult();
-        if($arrTareas) {
+        if ($arrTareas) {
             $arrDatos['tareas'] = $arrTareas[0][1];
         }
 
         $queryBuilder = $em->createQueryBuilder()->from(Tarea::class, 't')
             ->select('COUNT(t.codigoTareaPk)')
             ->where("t.codigoUsuarioFk = '${codigoUsuario}'")
-            ->andWhere('t.estadoVerificado = 1' )
+            ->andWhere('t.estadoVerificado = 1')
             ->andWhere("t.fecha >='" . $fechaDesde . " 00:00:00' AND t.fecha <= '" . $fechaHasta . " 23:59:59'");
 
         $arrTareas = $queryBuilder->getQuery()->getResult();
-        if($arrTareas) {
+        if ($arrTareas) {
             $arrDatos['tareasVerificadas'] = $arrTareas[0][1];
         }
 
@@ -175,7 +175,7 @@ class TareaRepository extends ServiceEntityRepository
             ->andWhere("d.fecha >='" . $fechaDesde . " 00:00:00' AND d.fecha <= '" . $fechaHasta . " 23:59:59'");
 
         $arrDevoluciones = $queryBuilder->getQuery()->getResult();
-        if($arrDevoluciones) {
+        if ($arrDevoluciones) {
             $arrDatos['devoluciones'] = $arrDevoluciones[0][1];
         }
         return $arrDatos;

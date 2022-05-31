@@ -61,5 +61,17 @@ class ErrorRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
+    public function resumenErrores()
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Error::class, 'e')
+            ->select('COUNT(e.codigoErrorPk) as cantidad')
+            ->addSelect('c.nombreCorto as clienteNombreCorto')
+            ->leftJoin('e.clienteRel', 'c')
+            ->andWhere('e.estadoSolucionado = 0')
+            ->groupBy('e.codigoClienteFk');
+        $arErrores = $queryBuilder->getQuery()->getResult();
+        return $arErrores;
+    }
 
 }

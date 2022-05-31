@@ -69,16 +69,16 @@ class ImplementacionRepository extends ServiceEntityRepository
                 $queryBuilder->andWhere("id.estadoTerminado = 1");
                 break;
         }
-        if($session->get('filtroImplementacionModulo')) {
-            $queryBuilder->andWhere("t.codigoModuloFk = '".$session->get('filtroImplementacionModulo')."'");
+        if ($session->get('filtroImplementacionModulo')) {
+            $queryBuilder->andWhere("t.codigoModuloFk = '" . $session->get('filtroImplementacionModulo') . "'");
         }
         return $queryBuilder;
     }
 
     public function lista()
     {
-        $session = new Session();
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Implementacion::class, 'i')
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Implementacion::class, 'i')
             ->select('i.codigoImplementacionPk')
             ->addSelect('i.nombre')
             ->addSelect('i.liderCliente')
@@ -101,12 +101,14 @@ class ImplementacionRepository extends ServiceEntityRepository
             ->addSelect('i.porcentajeDetalles')
             ->addSelect('i.porcentajeTiempo')
             ->addSelect('c.nombreCorto as clienteNombreCorto')
-            ->leftJoin('i.clienteRel', 'c');
+            ->leftJoin('i.clienteRel', 'c')
+            ->orderBy('i.codigoImplementacionPk', 'DESC');
         $arImplementaciones = $queryBuilder->getQuery()->getResult();
         return $arImplementaciones;
     }
 
-    public function actualizar($codigoImplementacion, $modulo) {
+    public function actualizar($codigoImplementacion, $modulo)
+    {
         $em = $this->getEntityManager();
         $arImplementacion = $em->getRepository(Implementacion::class)->find($codigoImplementacion);
         $queryBuilder = $em->createQueryBuilder()->from(Tema::class, 't')
@@ -118,7 +120,7 @@ class ImplementacionRepository extends ServiceEntityRepository
         $arTemas = $queryBuilder->getQuery()->getResult();
         foreach ($arTemas as $arTema) {
             $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->findOneBy(['codigoImplementacionFk' => $codigoImplementacion, 'codigoTemaFk' => $arTema['codigoTemaPk']]);
-            if(!$arImplementacionDetalle) {
+            if (!$arImplementacionDetalle) {
                 $arImplementacionDetalle = new ImplementacionDetalle();
                 $arImplementacionDetalle->setImplementacionRel($arImplementacion);
                 $arImplementacionDetalle->setTemaRel($em->getReference(Tema::class, $arTema['codigoTemaPk']));
@@ -130,7 +132,8 @@ class ImplementacionRepository extends ServiceEntityRepository
         $em->flush();
     }
 
-    public function resumen($codigoImplementacion) {
+    public function resumen($codigoImplementacion)
+    {
         $em = $this->getEntityManager();
         $arImplementacion = $em->getRepository(Implementacion::class)->find($codigoImplementacion);
         $queryBuilder = $em->createQueryBuilder()->from(ImplementacionDetalle::class, 'id')
@@ -155,11 +158,11 @@ class ImplementacionRepository extends ServiceEntityRepository
         $arImplementacion->setTiempo($tiempo);
         $arImplementacion->setTiempoTerminado($tiempoTerminado);
         $porcentajeDetalles = 0;
-        if($detalles > 0) {
+        if ($detalles > 0) {
             $porcentajeDetalles = ($detallesTerminados / $detalles) * 100;
         }
         $porcentajeTiempo = 0;
-        if($tiempo > 0) {
+        if ($tiempo > 0) {
             $porcentajeTiempo = ($tiempoTerminado / $tiempo) * 100;
         }
         $arImplementacion->setPorcentajeDetalles($porcentajeDetalles);

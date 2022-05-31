@@ -57,9 +57,38 @@ class ClienteRepository extends ServiceEntityRepository
             ->addSelect('c.setPruebasNomina')
             ->addSelect('c.correoError')
             ->addSelect('c.codigoSetPruebas')
-            ->addSelect('c.codigoSetPruebasNominas');
+            ->addSelect('c.codigoSetPruebasNominas')
+            ->addSelect('c.servicioSoporte')
+            ->addSelect('c.fechaSuspension');
         $arClientes = $queryBuilder->getQuery()->getResult();
         return $arClientes;
     }
 
+    public function clientesSuspendidos()
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Cliente::class, 'c')
+            ->select('c.codigoClientePk')
+            ->addSelect('c.nombreCorto')
+            ->where('c.servicioSoporte = 0');
+        $arClientes = $queryBuilder->getQuery()->getResult();
+        return $arClientes;
+    }
+
+    public function apiVerificarSoporte($codigoCliente)
+    {
+        $em = $this->getEntityManager();
+        $arCliente = $em->getRepository(Cliente::class)->find($codigoCliente);
+        if($arCliente) {
+            return [
+                "error" => false,
+                "soporte" => $arCliente->isServicioSoporte()
+            ];
+        } else {
+            return [
+                "error" => true,
+                "errorMensaje" => "El cliente no existe"
+            ];
+        }
+    }
 }

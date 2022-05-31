@@ -22,15 +22,35 @@ class NoticiaRepository extends ServiceEntityRepository
 
     public function apiLista()
     {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Noticia::class, 'n')
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Noticia::class, 'n')
             ->select('n.codigoNoticiaPk as codigoNoticia')
             ->addSelect('n.descripcion')
             ->addSelect('n.fecha')
             ->addSelect('n.titulo')
             ->addSelect('n.urlImagen')
+            ->where('n.movil = 0')
+            ->andWhere('n.estadoInactivo = 0')
             ->orderBy('n.fecha', 'DESC');
+        $arrNoticias = $queryBuilder->getQuery()->getResult();
+        return $arrNoticias;
+    }
 
-        return $queryBuilder->getQuery()->getResult();
-
+    public function apiListaMovil()
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Noticia::class, 'n')
+            ->select('n.codigoNoticiaPk as codigoNoticia')
+            ->addSelect('n.descripcion')
+            ->addSelect('n.fecha')
+            ->addSelect('n.titulo')
+            ->addSelect('n.urlImagen')
+            ->where('n.movil = 1')
+            ->andWhere('n.estadoInactivo = 0')
+            ->orderBy('n.fecha', 'DESC');
+        $arrNoticias = $queryBuilder->getQuery()->getResult();
+        return [
+            'noticias' => $arrNoticias
+        ];
     }
 }
