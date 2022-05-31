@@ -15,7 +15,6 @@ use App\Form\Type\TareaType;
 use App\Form\Type\VigenciaType;
 use App\Utilidades\Mensajes;
 use Doctrine\ORM\EntityRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -85,7 +84,9 @@ class TareaController extends AbstractController
             },
             'choice_label' => 'nombre',
             'required' => false,
+            'empty_data' => "",
             'placeholder' => "TODOS",
+            'data' => ""
         );
         if ($session->get('filtroTareaCodigoProyecto')) {
             $arrayPropiedadesProyecto['data'] = $em->getReference("App\Entity\Proyecto", $session->get('filtroTareaCodigoProyecto'));
