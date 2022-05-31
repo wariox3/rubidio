@@ -4,15 +4,10 @@ namespace App\Controller\Soporte;
 
 use App\Entity\Archivo;
 use App\Entity\Caso;
-use App\Entity\Obligacion;
 use App\Entity\Tarea;
-use App\Entity\Vigencia;
 use App\Form\Type\CasoEditarType;
 use App\Form\Type\CasoEscaladoType;
 use App\Form\Type\CasoSolucionType;
-use App\Form\Type\ObligacionType;
-use App\Form\Type\VigenciaType;
-use App\Servicios\Correo;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -166,7 +161,7 @@ class CasoController extends AbstractController
                         'Soporte/Caso/correoSolucion.html.twig',
                         array('arCaso' => $arCaso)
                     ));
-                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
         return $this->render('Soporte/Caso/solucion.html.twig', [

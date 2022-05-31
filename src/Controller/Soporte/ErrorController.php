@@ -4,21 +4,16 @@ namespace App\Controller\Soporte;
 
 use App\Entity\Cliente;
 use App\Entity\Error;
-use App\Entity\Obligacion;
-use App\Entity\Vigencia;
-use App\Form\Type\ObligacionType;
-use App\Form\Type\VigenciaType;
 use App\Utilidades\Dubnio;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ErrorController extends AbstractController
 {

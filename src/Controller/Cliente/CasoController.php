@@ -3,26 +3,14 @@
 namespace App\Controller\Cliente;
 
 use App\Entity\Archivo;
-use App\Entity\Devolucion;
-use App\Entity\Obligacion;
-use App\Entity\Vigencia;
 use App\Entity\Caso;
-use App\Form\Type\CasoEditarType;
 use App\Form\Type\CasoPostergadoType;
-use App\Form\Type\ObligacionType;
 use App\Form\Type\CasoType;
-use App\Form\Type\VigenciaType;
-use App\Utilidades\Mensajes;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use function PHPSTORM_META\type;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 

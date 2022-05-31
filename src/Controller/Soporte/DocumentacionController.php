@@ -2,37 +2,16 @@
 
 namespace App\Controller\Soporte;
 
-use App\Entity\Configuracion;
-use App\Entity\Devolucion;
 use App\Entity\Documentacion;
-use App\Entity\Obligacion;
-use App\Entity\Tarea;
-use App\Entity\Vigencia;
-use App\Entity\Caso;
-use App\Form\Type\CasoEditarType;
-use App\Form\Type\CasoEscaladoType;
-use App\Form\Type\CasoSolucionType;
 use App\Form\Type\DocumentacionType;
-use App\Form\Type\ObligacionType;
-use App\Form\Type\CasoType;
-use App\Form\Type\VigenciaType;
 use App\Formatos\Documentancion;
-use App\Servicios\Correo;
-use App\Utilidades\Mensajes;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use function PHPSTORM_META\type;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Doctrine\ORM\EntityRepository;
 
 class DocumentacionController extends AbstractController
 {

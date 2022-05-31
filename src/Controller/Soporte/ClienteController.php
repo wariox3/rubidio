@@ -6,16 +6,14 @@ use App\Entity\Cliente;
 use App\Form\Type\ClienteType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ClienteController extends AbstractController
 {
     /**
-     * @Route("/soporte/cliente/lista", name="soporte_cliente_lista")
+         * @Route("/soporte/cliente/lista", name="soporte_cliente_lista")
      */
     public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();

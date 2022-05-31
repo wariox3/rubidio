@@ -25,33 +25,36 @@
         <div class="col-md-12">
             <div class="tabs tabs-primary">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#devoluciones" data-toggle="tab"><i class="fa fa-star"></i> Trazas</a></li>
+                    <li class="active"><a href="#tareas" data-toggle="tab"><i class="fa fa-star"></i> Trazas</a></li>
                     <li><a href="#otro" data-toggle="tab">Otro</a></li>
                 </ul>
                 <div class="tab-content">
                     <div id="tareas" class="tab-pane active">
-                        <table class="table table-condensed table-bordered table-hover mb-none">
-                            <thead>
-                            <tr>
-                                <th>File</th>
-                                <th>Line</th>
-                                <th>Function</th>
-                                <th>Class</th>
-                                <th>Type</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for traza in trazas %}
+                        <div class="table-responsive">
+
+                            <table class="table table-condensed table-bordered table-hover mb-none">
+                                <thead>
                                 <tr>
-                                    <td>{{ traza.file }}</td>
-                                    <td>{{ traza.line }}</td>
-                                    <td>{{ traza.function }}</td>
-                                    <td>{{ traza.class }}</td>
-                                    <td>{{ traza.type }}</td>
+                                    <th>File</th>
+                                    <th>Line</th>
+                                    <th>Function</th>
+                                    <th>Class</th>
+                                    <th>Type</th>
                                 </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                {% for traza in trazas %}
+                                    <tr>
+                                        <td>{{ traza.file }}</td>
+                                        <td>{{ traza.line }}</td>
+                                        <td>{{ traza.function }}</td>
+                                        <td>{{ traza.class }}</td>
+                                        <td>{{ traza.type }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div id="otro" class="tab-pane">
                     </div>

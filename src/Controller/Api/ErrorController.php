@@ -6,14 +6,10 @@ namespace App\Controller\Api;
 
 use App\Entity\Cliente;
 use App\Entity\Error;
-use App\Entity\Operador;
 use App\Utilidades\Dubnio;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use FOS\RestBundle\View\View;
 
 class ErrorController extends AbstractFOSRestController
 {

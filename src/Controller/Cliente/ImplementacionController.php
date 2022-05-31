@@ -2,26 +2,14 @@
 
 namespace App\Controller\Cliente;
 
-use App\Entity\Cliente;
-use App\Entity\Devolucion;
 use App\Entity\ImplementacionDetalle;
-use App\Entity\Obligacion;
-use App\Entity\Vigencia;
 use App\Entity\Implementacion;
 use App\Form\Type\ImplementacionDetalleClienteType;
-use App\Form\Type\ObligacionType;
-use App\Form\Type\VigenciaType;
-use App\Utilidades\Mensajes;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use function PHPSTORM_META\type;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -42,7 +30,7 @@ class ImplementacionController extends AbstractController
                 $arImplementacionDetalle = $form->getData();
                 $em->persist($arImplementacionDetalle);
                 $em->flush();
-                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
         return $this->render('Cliente/Implementacion/nuevo.html.twig', [

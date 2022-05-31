@@ -4,7 +4,6 @@
 namespace App\Controller\Cliente;
 
 
-use App\Entity\Caso;
 use App\Entity\Soporte;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -5,7 +5,6 @@ namespace App\Controller\Api;
 
 
 use App\Entity\Cliente;
-use App\Entity\Documentacion;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;

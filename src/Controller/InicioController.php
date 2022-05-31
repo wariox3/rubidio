@@ -3,13 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Error;
-use App\Entity\Llamada;
 use App\Entity\Soporte;
 use App\Entity\Usuario;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-//use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,7 +67,7 @@ class InicioController extends AbstractController
                             $em->persist($arUsuario);
                             $em->flush();
                             Mensajes::success("Cambio clave correcto");
-                            echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+                            echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
                         } else {
                             Mensajes::error("Las claves ingresadas deben ser iguales");
                         }

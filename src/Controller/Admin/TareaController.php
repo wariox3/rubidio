@@ -5,25 +5,16 @@ namespace App\Controller\Admin;
 
 use App\Entity\Caso;
 use App\Entity\Devolucion;
-use App\Entity\Obligacion;
-use App\Entity\Proyecto;
-use App\Entity\Vigencia;
 use App\Entity\Tarea;
 use App\Form\Type\DevolucionType;
-use App\Form\Type\ObligacionType;
 use App\Form\Type\TareaType;
-use App\Form\Type\VigenciaType;
-use App\Utilidades\Mensajes;
 use Doctrine\ORM\EntityRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use function PHPSTORM_META\type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -84,9 +75,7 @@ class TareaController extends AbstractController
             },
             'choice_label' => 'nombre',
             'required' => false,
-            'empty_data' => "",
             'placeholder' => "TODOS",
-            'data' => ""
         );
         if ($session->get('filtroTareaCodigoProyecto')) {
             $arrayPropiedadesProyecto['data'] = $em->getReference("App\Entity\Proyecto", $session->get('filtroTareaCodigoProyecto'));
@@ -116,8 +105,15 @@ class TareaController extends AbstractController
 
             if($form->get('btnEliminar')->isClicked()){
                 $arrSeleccionados = $request->request->get('ChkSeleccionar');
-                $this->get('UtilidadesModelo')->eliminar(Tarea::class, $arrSeleccionados);
-                return $this->redirect($this->generateUrl('admin_tarea_lista'));
+                if ($arrSeleccionados) {
+                    foreach ($arrSeleccionados as $codigo) {
+                        $arError = $em->getRepository(Tarea::class)->find($codigo);
+                        if ($arError) {
+                            $em->remove($arError);
+                        }
+                    }
+                    $em->flush();
+                }
             }
         }
         $arTareas = $paginator->paginate($em->getRepository(Tarea::class)->lista(), $request->query->getInt('page', 1), 500);
@@ -193,7 +189,7 @@ class TareaController extends AbstractController
                 $arTarea->setEstadoDevolucion(1);
                 $em->persist($arTarea);
                 $em->flush();
-                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
         return $this->render('Admin/Tarea/devolucion.html.twig', [
