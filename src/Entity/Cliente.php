@@ -131,6 +131,16 @@ class Cliente
     protected $implementacionesClienteRel;
 
     /**
+     * @ORM\Column(name="servicio_soporte", type="boolean", nullable=true, options={"default" : true})
+     */
+    private $servicioSoporte = true;
+
+    /**
+     * @ORM\Column(name="fecha_suspension", type="date", nullable=true)
+     */
+    private $fechaSuspension;
+
+    /**
      * @return mixed
      */
     public function getCodigoClientePk()
@@ -497,6 +507,39 @@ class Cliente
     {
         $this->nominaElectronica = $nominaElectronica;
     }
+
+    /**
+     * @return bool
+     */
+    public function isServicioSoporte(): bool
+    {
+        return $this->servicioSoporte;
+    }
+
+    /**
+     * @param bool $servicioSoporte
+     */
+    public function setServicioSoporte(bool $servicioSoporte): void
+    {
+        $this->servicioSoporte = $servicioSoporte;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaSuspension()
+    {
+        return $this->fechaSuspension;
+    }
+
+    /**
+     * @param mixed $fechaSuspension
+     */
+    public function setFechaSuspension($fechaSuspension): void
+    {
+        $this->fechaSuspension = $fechaSuspension;
+    }
+
 
 
 }

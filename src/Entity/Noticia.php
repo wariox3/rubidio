@@ -41,6 +41,16 @@ class Noticia
     private $urlImagen;
 
     /**
+     * @ORM\Column(name="movil", type="boolean", options={"default" : false})
+     */
+    private $movil = false;
+
+    /**
+     * @ORM\Column(name="estado_inactivo", type="boolean", options={"default" : false})
+     */
+    private $estadoInactivo = false;
+
+    /**
      * @return mixed
      */
     public function getCodigoNoticiaPk()
@@ -119,5 +129,38 @@ class Noticia
     {
         $this->urlImagen = $urlImagen;
     }
+
+    /**
+     * @return bool
+     */
+    public function isMovil(): bool
+    {
+        return $this->movil;
+    }
+
+    /**
+     * @param bool $movil
+     */
+    public function setMovil(bool $movil): void
+    {
+        $this->movil = $movil;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEstadoInactivo(): bool
+    {
+        return $this->estadoInactivo;
+    }
+
+    /**
+     * @param bool $estadoInactivo
+     */
+    public function setEstadoInactivo(bool $estadoInactivo): void
+    {
+        $this->estadoInactivo = $estadoInactivo;
+    }
+
 
 }

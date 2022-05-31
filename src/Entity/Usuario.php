@@ -3,10 +3,8 @@
 namespace App\Entity;
 
 
-
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Role\Role;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
@@ -16,36 +14,36 @@ class Usuario implements UserInterface, \Serializable
 {
 
 
-	/**
-	 * @ORM\Column(name="codigo_usuario_pk",type="string")
-	 * @ORM\Id
-	 */
-	private $codigoUsuarioPk;
+    /**
+     * @ORM\Column(name="codigo_usuario_pk",type="string")
+     * @ORM\Id
+     */
+    private $codigoUsuarioPk;
 
-	/**
-	 * @ORM\Column(type="string", nullable=true)
-	 */
-	private $nombres;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $nombres;
 
-	/**
-	 * @ORM\Column(type="string", nullable=true)
-	 */
-	private $apellidos;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $apellidos;
 
-	/**
-	 * @ORM\Column(type="string", nullable=true)
-	 */
-	private $clave;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $clave;
 
-	/**
-	 * @ORM\Column(type="boolean", nullable=true)
-	 */
-	private $verificado;
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $verificado;
 
-	/**
-	 * @ORM\Column(type="string", nullable=true)
-	 */
-	private $token;
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $token;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -57,15 +55,20 @@ class Usuario implements UserInterface, \Serializable
      */
     private $telefono;
 
-	/**
-	 * @ORM\Column(name="codigo_rol_fk", type="string", length=200, nullable=true)
-	 */
-	private $codigoRolFk;
+    /**
+     * @ORM\Column(name="codigo_rol_fk", type="string", length=200, nullable=true)
+     */
+    private $codigoRolFk;
 
     /**
      * @ORM\Column(name="adicionar_tarea", type="boolean", nullable=true, options={"default" : false})
      */
     private $adicionarTarea = false;
+
+    /**
+     * @ORM\Column(name="estado_inactivo", type="boolean", nullable=true, options={"default" : false})
+     */
+    private $estadoInactivo = false;
 
     /**
      * @ORM\Column(name="control", type="boolean", nullable=true)
@@ -88,52 +91,52 @@ class Usuario implements UserInterface, \Serializable
      */
     protected $tareasUsuarioRel;
 
-	/**
-	 * Se implementan métodos de la clase User del core de Symfony además de los metodos de la entidad própia.
-	 *
-	 */
-	public function serialize()
-	{
-		return serialize(array(
-			$this->codigoUsuarioPk,
-			$this->clave
-		));
-	}
+    /**
+     * Se implementan métodos de la clase User del core de Symfony además de los metodos de la entidad própia.
+     *
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->codigoUsuarioPk,
+            $this->clave
+        ));
+    }
 
-	public function unserialize($serialized)
-	{
-		list(
-			$this->codigoUsuarioPk,
-			$this->clave
+    public function unserialize($serialized)
+    {
+        list(
+            $this->codigoUsuarioPk,
+            $this->clave
 
-			) = unserialize($serialized);
-	}
+            ) = unserialize($serialized);
+    }
 
-	public function getUsername()
-	{
-		return $this->getCodigoUsuarioPk();
-	}
+    public function getUsername()
+    {
+        return $this->getCodigoUsuarioPk();
+    }
 
-	public function getRoles()
-	{
-        $roles = explode(",",$this->getCodigoRolFk());
+    public function getRoles()
+    {
+        $roles = explode(",", $this->getCodigoRolFk());
         return $roles;
-	}
+    }
 
-	public function getPassword()
-	{
-		return $this->getClave();
-	}
+    public function getPassword()
+    {
+        return $this->getClave();
+    }
 
-	public function getSalt()
-	{
-		return null;
-	}
+    public function getSalt()
+    {
+        return null;
+    }
 
-	public function eraseCredentials()
-	{
+    public function eraseCredentials()
+    {
 
-	}
+    }
 
     /**
      * @return mixed
@@ -359,6 +362,19 @@ class Usuario implements UserInterface, \Serializable
         $this->adicionarTarea = $adicionarTarea;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getEstadoInactivo()
+    {
+        return $this->estadoInactivo;
+    }
 
-
+    /**
+     * @param mixed $estadoInactivo
+     */
+    public function setEstadoInactivo($estadoInactivo): void
+    {
+        $this->estadoInactivo = $estadoInactivo;
+    }
 }
