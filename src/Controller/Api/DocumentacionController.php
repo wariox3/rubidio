@@ -7,34 +7,35 @@ use App\Entity\Documentacion;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DocumentacionController extends AbstractFOSRestController
 {
-    /**
-     * @Rest\Post("/api/documentacion/lista")
-     */
-    public function lista(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $raw = json_decode($request->getContent(), true);
-        $criterio = $raw['criterio'] ?? null;
-        $modulo = $raw['modulo'] ?? null;
-        $arRegistros = $em->getRepository(Documentacion::class)->apiLista($criterio, $modulo);
-        return $arRegistros;
-    }
+	/**
+	 * @Rest\Post("/api/documentacion/lista")
+	 */
+	public function lista(Request $request)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$raw = json_decode($request->getContent(), true);
+		$criterio = $raw['criterio']??null;
+		$modulo = $raw['modulo']??null;
+		$arRegistros = $em->getRepository(Documentacion::class)->apiLista($criterio, $modulo);
+		return $arRegistros;
+	}
 
 
-    /**
-     * @Rest\Post("/api/documentacion/detalle")
-     */
-    public function detalle(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $raw = json_decode($request->getContent(), true);
-        $id = $raw['id'] ?? null;
-        $arRegistro = $em->getRepository(Documentacion::class)->apiDetalle($id);
-        return $arRegistro;
-    }
+	/**
+	 * @Rest\Post("/api/documentacion/detalle")
+	 */
+	public function detalle(Request $request)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$raw = json_decode($request->getContent(), true);
+		$id = $raw['id']??null;
+		$arRegistro = $em->getRepository(Documentacion::class)->apiDetalle($id);
+		return $arRegistro;
+	}
 
     /**
      * @Rest\Post("/api/documentacion/indice")

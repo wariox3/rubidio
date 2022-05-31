@@ -21,20 +21,19 @@ class ErrorController extends AbstractFOSRestController
      * @return array
      * @Rest\Post("/api/error/nuevo")
      */
-    public function nuevo(Request $request, Dubnio $dubnio)
-    {
+    public function nuevo(Request $request, Dubnio $dubnio) {
         try {
             $em = $this->getDoctrine()->getManager();
             $raw = json_decode($request->getContent(), true);
-            $codigoCliente = $raw['codigoCliente'] ?? null;
-            $mensaje = $raw['mensaje'] ?? null;
-            $codigo = $raw['codigo'] ?? null;
-            $ruta = $raw['ruta'] ?? null;
-            $archivo = $raw['archivo'] ?? null;
-            $traza = $raw['traza'] ?? null;
-            $linea = $raw['linea'] ?? null;
-            $usuario = $raw['usuario'] ?? null;
-            $email = $raw['email'] ?? null;
+            $codigoCliente = $raw['codigoCliente']??null;
+            $mensaje = $raw['mensaje']??null;
+            $codigo = $raw['codigo']??null;
+            $ruta = $raw['ruta']??null;
+            $archivo = $raw['archivo']??null;
+            $traza = $raw['traza']??null;
+            $linea = $raw['linea']??null;
+            $usuario = $raw['usuario']??null;
+            $email = $raw['email']??null;
             $arCliente = null;
             $arError = new Error();
             $arError->setFecha(new \DateTime('now'));
@@ -46,17 +45,17 @@ class ErrorController extends AbstractFOSRestController
             $arError->setLinea($linea);
             $arError->setUsuario($usuario);
             $arError->setEmail($email);
-            if ($codigoCliente) {
+            if($codigoCliente) {
                 $arCliente = $em->getRepository(Cliente::class)->find($codigoCliente);
-                if ($arCliente) {
+                if($arCliente) {
                     $arError->setClienteRel($arCliente);
                 }
             }
 
             $em->persist($arError);
             $em->flush();
-            if ($arCliente) {
-                if ($arCliente->getCorreoError()) {
+            if($arCliente) {
+                if($arCliente->getCorreoError()) {
                     $html = $this->renderView('Utilidades/correoError.html.twig', ['arError' => $arError]);
                     $dubnio->enviarCorreo("Se ha generado un error", $html, $arCliente->getCorreoError());
                 }
