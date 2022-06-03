@@ -30,7 +30,6 @@ security:
                 path: /logout
                 target: /
             security: true
-            # anonymous: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -44,6 +43,8 @@ security:
         - { path: /api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /Admin, roles: ROLE_ADMIN }
+        - { path: /, roles: PUBLIC_ACCESS }
+
         - { path: /.*, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:

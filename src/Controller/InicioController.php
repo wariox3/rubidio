@@ -18,7 +18,34 @@ class InicioController extends AbstractController
     /**
      * @Route("/", name="inicio")
      */
-    public function inicioAction(Dubnio $dubnio)
+    public function inicioAction(){
+//        $em = $this->getDoctrine();
+//        $roles = $this->getUser()->getRoles();
+//        $soporteSinAtender = 0;
+//        $soporteSinSolucionar = 0;
+//        $soporteDia = 0;
+//        $soporteMes = 0;
+//        $arErrores = [];
+//        if (in_array('ROLE_SOPORTE', $roles) || in_array('ROLE_ADMIN', $roles)) {
+//            $soporteSinAtender = $em->getRepository(Soporte::class)->cantidadSoportesSinAtender();
+//            $soporteSinSolucionar = $em->getRepository(Soporte::class)->cantidadSoportesSinSolucion();
+//            $soporteDia = $em->getRepository(Soporte::class)->cantidadSoportesDia();
+//            $soporteMes = $em->getRepository(Soporte::class)->cantidadSoportesMes();
+//            $arErrores = $em->getRepository(Error::class)->resumenErrores();
+//        }
+        return $this->render('Inicio/inicio.html.twig', [
+//            'soporteSinAtender' => $soporteSinAtender,
+//            'soporteSinSolucionar' => $soporteSinSolucionar,
+//            'soporteDia' => $soporteDia,
+//            'soporteMes' => $soporteMes,
+//            'arErrores' => $arErrores
+        ]);
+    }
+
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function admin(Dubnio $dubnio)
     {
         $em = $this->getDoctrine();
         $roles = $this->getUser()->getRoles();
@@ -34,7 +61,7 @@ class InicioController extends AbstractController
             $soporteMes = $em->getRepository(Soporte::class)->cantidadSoportesMes();
             $arErrores = $em->getRepository(Error::class)->resumenErrores();
         }
-        return $this->render('Inicio/inicio.html.twig', [
+        return $this->render('Inicio/admin.html.twig', [
             'soporteSinAtender' => $soporteSinAtender,
             'soporteSinSolucionar' => $soporteSinSolucionar,
             'soporteDia' => $soporteDia,
@@ -42,6 +69,7 @@ class InicioController extends AbstractController
             'arErrores' => $arErrores
         ]);
     }
+
 
     /**
      * @Route("/inicio/usuario/perfil/clave/{codigoUsuario}", name="inicio_usuario_perfil_nuevo_clave")
