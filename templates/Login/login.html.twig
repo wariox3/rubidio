@@ -1,65 +1,75 @@
-<!doctype html>
-<html lang="es">
-<head>
-</head>
-<body>
- <!-- start: page -->
- <section class="body-sign">
-    <div class="center-sign">
-        <a href="/" class="logo pull-left">
-            <img src="{{ asset('plantilla/images/logo.png') }}" height="54" alt="Porto Admin" />
-        </a>
+{% extends 'base.html.twig' %}
+{% block body %}
+    <!-- Start Home Area -->
+    <div class="home-area" style="height: 100vh">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 col-md-12">
+                            <div class="main-banner-content">
+                                <h1>Ingreso <span class="color-text">Mesa de ayuda</span>
+                                </h1>
+                                <form action="{{ path('admin') }}" method="post">
+                                    <div class="form-group mb-lg">
+                                        <label>Nombre de usuario</label>
+                                        <input name="_username" type="text" class="form-control input-lg"/>
+                                    </div>
 
-        <div class="panel panel-sign">
-            <div class="panel-title-sign mt-xl text-right">
-                <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Registrarse</h2>
-            </div>
-            <div class="panel-body">
-                <form action="{{ path('admin') }}" method="post">
-                    <div class="form-group mb-lg">
-                        <label>Nombre de usuario</label>
-                        <div class="input-group input-group-icon">
-                            <input name="_username" type="text" class="form-control input-lg" />
-                            <span class="input-group-addon">
-                                        <span class="icon icon-lg">
-                                            <i class="fa fa-user"></i>
-                                        </span>
-                                    </span>
-                        </div>
-                    </div>
-
-                    <div class="form-group mb-lg">
-                        <div class="clearfix">
-                            <label class="pull-left">Contraseña</label>
-                            <a href="#" class="pull-right" onclick="alert('En construcción')">¿Perdiste la contraseña?</a>
-                        </div>
-                        <div class="input-group input-group-icon">
-                            <input name="_password" type="password" class="form-control input-lg" />
-                            <span class="input-group-addon">
-                                        <span class="icon icon-lg">
-                                            <i class="fa fa-lock"></i>
-                                        </span>
-                                    </span>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <div class="checkbox-custom checkbox-default">
-
+                                    <div class="form-group mb-lg">
+                                        <div class="clearfix">
+                                            <label class="pull-left">Contraseña</label>
+                                            <a href="#" class="pull-right" onclick="alert('En construcción')">¿Perdiste
+                                                la contraseña?</a>
+                                        </div>
+                                        <div class="input-group input-group-icon">
+                                            <input name="_password" type="password" class="form-control input-lg"/>
+                                        </div>
+                                    </div>
+                                    <div class="banner-btn">
+                                        <button type="submit" class="default-btn-one">Ingresar</button>
+                                        <button type="submit"
+                                                class="default-btn  btn-lg visible-xs mt-lg">
+                                            Registrarse
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="col-sm-4 text-right">
-                            <button type="submit" class="btn btn-primary hidden-xs">Ingresar</button>
-                            <button type="submit" class="btn btn-primary btn-block btn-lg visible-xs mt-lg">Registrarse</button>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="banner-image">
+                                <img src="{{ asset('landingPage/img/home-font.png') }}" alt="logo">
+                            </div>
                         </div>
                     </div>
-
-                </form>
+                </div>
             </div>
         </div>
+        <div class="grey-cr"></div>
     </div>
- </section>
+{% endblock %}
+{# <!doctype html> #}
+{# <html lang="es"> #}
+{# <head> #}
+{# </head> #}
+{# <body> #}
+{# <!-- start: page --> #}
+{# <section class="body-sign"> #}
+{#    <div class="center-sign"> #}
+{#        <a href="/" class="logo pull-left"> #}
+{#            <img src="{{ asset('plantilla/images/logo.png') }}" height="54" alt="Porto Admin" /> #}
+{#        </a> #}
+
+{#        <div class="panel panel-sign"> #}
+{#            <div class="panel-title-sign mt-xl text-right"> #}
+{#                <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Registrarse</h2> #}
+{#            </div> #}
+{#            <div class="panel-body"> #}
+
+{#            </div> #}
+{#        </div> #}
+{#    </div> #}
+{# </section> #}
 {# <!-- end: page --> #}
 
 {# <!-- Vendor --> #}
@@ -86,25 +96,25 @@
 {# <!-- Theme Initialization Files --> #}
 {# <script src="{{ asset('plantilla/javascripts/theme.init.js') }}"></script> #}
 
-<!-- jQuery Min JS -->
-<script src="{{ asset('landingPage/js/jquery.min.js') }}"></script>
-<!-- Bootstrap Min JS -->
-<script src="{{ asset('landingPage/js/bootstrap.min.js') }}"></script>
-<!-- MeanMenu JS  -->
-<script src="{{ asset('landingPage/js/jquery.meanmenu.js') }}"></script>
-<!-- Appear Min JS -->
-<script src="{{ asset('landingPage/js/jquery.appear.min.js') }}"></script>
-<!-- CounterUp Min JS -->
-<script src="{{ asset('landingPage/js/jquery.waypoints.min.js') }}"></script>
-<script src="{{ asset('landingPage/js/jquery.counterup.min.js') }}"></script>
+{# <!-- jQuery Min JS --> #}
+{# <script src="{{ asset('landingPage/js/jquery.min.js') }}"></script> #}
+{# <!-- Bootstrap Min JS --> #}
+{# <script src="{{ asset('landingPage/js/bootstrap.min.js') }}"></script> #}
+{# <!-- MeanMenu JS  --> #}
+{# <script src="{{ asset('landingPage/js/jquery.meanmenu.js') }}"></script> #}
+{# <!-- Appear Min JS --> #}
+{# <script src="{{ asset('landingPage/js/jquery.appear.min.js') }}"></script> #}
+{# <!-- CounterUp Min JS --> #}
+{# <script src="{{ asset('landingPage/js/jquery.waypoints.min.js') }}"></script> #}
+{# <script src="{{ asset('landingPage/js/jquery.counterup.min.js') }}"></script> #}
 
-<!-- Owl Carousel Min JS -->
-<script src="{{ asset('landingPage/js/owl.carousel.min.js') }}"></script>
-<!-- WOW Min JS -->
-<script src="{{ asset('landingPage/js/wow.min.js') }}"></script>
-<!-- Main JS -->
-<script src="{{ asset('landingPage/js/main.js') }}"></script>
+{# <!-- Owl Carousel Min JS --> #}
+{# <script src="{{ asset('landingPage/js/owl.carousel.min.js') }}"></script> #}
+{# <!-- WOW Min JS --> #}
+{# <script src="{{ asset('landingPage/js/wow.min.js') }}"></script> #}
+{# <!-- Main JS --> #}
+{# <script src="{{ asset('landingPage/js/main.js') }}"></script> #}
 
 
-</body>
-</html>
+{# </body> #}
+{# </html> #}

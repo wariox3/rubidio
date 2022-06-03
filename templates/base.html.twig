@@ -1,66 +1,109 @@
 <!DOCTYPE html>
-<html class="fixed">
-    <head>
-        <meta charset="UTF-8" />
-        {% block metas %}
-            <title>{% block title %}mai{% endblock %}</title>
-            <meta name="keywords" content="HTML5 Admin Template" />
-            <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
-            <meta name="author" content="JSOFT.net">
+<html class="fixed" lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    {% block metas %}
+        <title>{% block title %}mai{% endblock %}</title>
+        <meta name="keywords" content="HTML5 Admin Template"/>
+        <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
+        <meta name="author" content="JSOFT.net">
+        <!-- Mobile Metas -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    {% endblock %}
 
-            <!-- Mobile Metas -->
-            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        {% endblock %}
-        <!-- Web Fonts  -->
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Title -->
+    <title>Semantica Digital</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="stylesheet" href="{{ asset('landingPage/img/favicon.png') }}">
+    <!-- Bootstrap Min CSS -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/bootstrap.min.css') }}">
+    <!-- Animate Min CSS -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/animate.min.css') }}">
+    <!-- Pe-icon-7 CSS -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/pe-icon-7-stroke.css') }}">
+    <!-- Font Awesome Min CSS -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/fontawesome.min.css') }}">
+    <!-- Mran Menu CSS -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/meanmenu.css') }}">
+    <!-- Owl Carousel Min CSS -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/owl.carousel.min.css') }}">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/style.css') }}">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{{ asset('landingPage/css/responsive.css') }}">
 
 
-        {% block stylesheets %}
-        {% endblock %}
-{#        <script src="{{ asset('plantilla/vendor/modernizr/modernizr.js') }}"></script>#}
+    {% block stylesheets %}
+    {% endblock %}
+    {#        <script src="{{ asset('plantilla/vendor/modernizr/modernizr.js') }}"></script> #}
 
-    </head>
-    <body>
+</head>
+<body>
 
-        {% block body %}
-        <section class="body">
-            {% include('base/encabezado.html.twig') %}
-            <div class="inner-wrapper">
-                <!-- start: sidebar -->
-                {% include('base/menu.html.twig') %}
-                <!-- end: sidebar -->
+{% block body %}
+    {#    <section class="body"> #}
+    {#        {% include('base/encabezado.html.twig') %} #}
+    {#        <div class="inner-wrapper"> #}
+    {#            <!-- start: sidebar --> #}
+    {#            {% include('base/menu.html.twig') %} #}
+    {#            <!-- end: sidebar --> #}
 
-                <section role="main" class="content-body">
-                    <header class="page-header">
-                        <h2>Dashboard</h2>
+    {#            <section role="main" class="content-body"> #}
+    {#                <header class="page-header"> #}
+    {#                    <h2>Dashboard</h2> #}
 
-                        <div class="right-wrapper pull-right">
-                            <ol class="breadcrumbs">
-                                <li>
-                                    <a href="{{ path('inicio') }}">
-                                        <i class="fa fa-home"></i>
-                                    </a>
-                                </li>
-                                <li><span>Dashboard</span></li>
-                            </ol>
+    {#                    <div class="right-wrapper pull-right"> #}
+    {#                        <ol class="breadcrumbs"> #}
+    {#                            <li> #}
+    {#                                <a href="{{ path('inicio') }}"> #}
+    {#                                    <i class="fa fa-home"></i> #}
+    {#                                </a> #}
+    {#                            </li> #}
+    {#                            <li><span>Dashboard</span></li> #}
+    {#                        </ol> #}
 
-                            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
-                        </div>
-                    </header>
-                    {{ notificar()|raw }}
-                    {% block content %}
+    {#                        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a> #}
+    {#                    </div> #}
+    {#                </header> #}
+    {#                {{ notificar()|raw }} #}
+    {#                {% block content %} #}
 
-                    {% endblock %}
-                </section>
-            </div>
-            {% include('base/columaDerecha.html.twig') %}
+    {#                {% endblock %} #}
+    {#            </section> #}
+    {#        </div> #}
+    {#        {% include('base/columaDerecha.html.twig') %} #}
 
-        </section>
-        {% endblock %}
+    {#    </section> #}
+{% endblock %}
 
-        {% block javascripts %}
-        {% endblock %}
-        {% block javascriptsPersonales %}{% endblock %}
+{% block javascripts %}
+{% endblock %}
 
-    </body>
+<!-- jQuery Min JS -->
+<script src="{{ asset('landingPage/js/jquery.min.js') }}"></script>
+<!-- Bootstrap Min JS -->
+<script src="{{ asset('landingPage/js/bootstrap.min.js') }}"></script>
+<!-- MeanMenu JS  -->
+<script src="{{ asset('landingPage/js/jquery.meanmenu.js') }}"></script>
+<!-- Appear Min JS -->
+<script src="{{ asset('landingPage/js/jquery.appear.min.js') }}"></script>
+<!-- CounterUp Min JS -->
+<script src="{{ asset('landingPage/js/jquery.waypoints.min.js') }}"></script>
+<script src="{{ asset('landingPage/js/jquery.counterup.min.js') }}"></script>
+
+<!-- Owl Carousel Min JS -->
+<script src="{{ asset('landingPage/js/owl.carousel.min.js') }}"></script>
+<!-- WOW Min JS -->
+<script src="{{ asset('landingPage/js/wow.min.js') }}"></script>
+<!-- Main JS -->
+<script src="{{ asset('landingPage/js/main.js') }}"></script>
+{% block javascriptsPersonales %}{% endblock %}
+
+</body>
+
 </html>
