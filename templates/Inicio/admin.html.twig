@@ -1,142 +1,94 @@
- {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
  {% block content %}
-    {% if is_granted('ROLE_SOPORTE') or is_granted('ROLE_ADMIN') %}
-        <div class="row">
-            <div class="col-md-12 col-lg-3 col-xl-3">
-                <section class="panel panel-featured-left panel-featured-secondary">
-                    <div class="panel-body">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon bg-secondary">
-                                    <i class="fa fa-usd"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">Sin atender</h4>
-                                    <div class="info">
-                                        <strong class="amount">{{ soporteSinAtender }}</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a class="text-muted text-uppercase">Actual</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="col-md-12 col-lg-3 col-xl-3">
-                <section class="panel panel-featured-left panel-featured-quartenary">
-                    <div class="panel-body">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon bg-quartenary">
-                                    <i class="fa fa-user"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">Sin solución</h4>
-                                    <div class="info">
-                                        <strong class="amount">{{ soporteSinSolucionar }}</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a class="text-muted text-uppercase">Actual</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="col-md-12 col-lg-3 col-xl-3">
-                <section class="panel panel-featured-left panel-featured-quartenary">
-                    <div class="panel-body">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon bg-quartenary">
-                                    <i class="fa fa-user"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">Por día</h4>
-                                    <div class="info">
-                                        <strong class="amount">{{ soporteDia }}</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a class="text-muted text-uppercase">Actual</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="col-md-12 col-lg-3 col-xl-3">
-                <section class="panel panel-featured-left panel-featured-quartenary">
-                    <div class="panel-body">
-                        <div class="widget-summary">
-                            <div class="widget-summary-col widget-summary-col-icon">
-                                <div class="summary-icon bg-quartenary">
-                                    <i class="fa fa-user"></i>
-                                </div>
-                            </div>
-                            <div class="widget-summary-col">
-                                <div class="summary">
-                                    <h4 class="title">Por mes</h4>
-                                    <div class="info">
-                                        <strong class="amount">{{ soporteMes }}</strong>
-                                    </div>
-                                </div>
-                                <div class="summary-footer">
-                                    <a class="text-muted text-uppercase">Actual</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-12">
-                <section class="panel">
-                    <header class="panel-heading panel-heading-transparent">
-                        <div class="panel-actions">
-                            <a href="#" class="fa fa-caret-down"></a>
-                            <a href="#" class="fa fa-times"></a>
-                        </div>
+     {% if is_granted('ROLE_SOPORTE') or is_granted('ROLE_ADMIN') %}
+         <!-- Start Services Section -->
+         <section class="services-section">
+             <div class="container">
+                 <div class="row">
+                     <div class="col-lg-7 p-1 ">
+                         <div class="row">
+                             <div class="col-lg-4 col-md-6">
+                                 <div class="single-services-item">
+                                     <div class="services-icon">
+                                         <i class="pe-7s-tools"></i>
+                                     </div>
+                                     <h3>Sin atender</h3>
+                                     <p>{{ soporteSinAtender }}</p>
+                                     <div class="services-btn-link">
+                                         <a href="#0" class="services-link">Actual</a>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-lg-4 col-md-6">
+                                 <div class="single-services-item">
+                                     <div class="services-icon">
+                                         <i class="pe-7s-close-circle"></i>
+                                     </div>
 
-                        <h2 class="panel-title">Errores</h2>
-                    </header>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped mb-none">
-                                <thead>
-                                <tr>
-                                    <th>Cliente</th>
-                                    <th>Errores</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for arError in arErrores %}
-                                    <tr>
-                                        <td>{{ arError.clienteNombreCorto }}</td>
-                                        <td><span class="label label-success">{{ arError.cantidad }}</span></td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-            </div>
-            <div class="col-lg-6 col-md-12">
-
-            </div>
-
-        </div>
-    {% endif %}
+                                     <h3>Sin solución</h3>
+                                     <p>{{ soporteSinSolucionar }}</p>
+                                     <div class="services-btn-link">
+                                         <a href="#0" class="services-link">Actual</a>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="row">
+                             <div class="col-lg-4 col-md-4">
+                                 <div class="single-services-item">
+                                     <div class="services-icon">
+                                         <i class="pe-7s-sun"></i>
+                                     </div>
+                                     <h3>Por día</h3>
+                                     <p>{{ soporteDia }}</p>
+                                     <div class="services-btn-link">
+                                         <a href="#0" class="services-link">Actual</a>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-lg-4 col-md-4">
+                                 <div class="single-services-item">
+                                     <div class="services-icon">
+                                         <i class="pe-7s-date"></i>
+                                     </div>
+                                     <h3>Por mes</h3>
+                                     <p>{{ soporteMes }}</p>
+                                     <div class="services-btn-link">
+                                         <a href="#0" class="services-link">Actual</a>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-lg-5 p-1">
+                         <div class="row">
+                             <div class="single-services-item">
+                                 <div class="table-responsive">
+                                     <h3 class="panel-title">Errores</h3>
+                                     <table class="table table-striped mb-none">
+                                         <thead>
+                                         <tr>
+                                             <th>Cliente</th>
+                                             <th>Errores</th>
+                                         </tr>
+                                         </thead>
+                                         <tbody>
+                                         {% for arError in arErrores %}
+                                             <tr>
+                                                 <td>{{ arError.clienteNombreCorto }}</td>
+                                                 <td><span class="label label-success">{{ arError.cantidad }}</span>
+                                                 </td>
+                                             </tr>
+                                         {% endfor %}
+                                         </tbody>
+                                     </table>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </section>
+     {% endif %}
  {% endblock %}

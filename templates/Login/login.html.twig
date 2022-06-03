@@ -10,7 +10,10 @@
                             <div class="main-banner-content">
                                 <h1>Ingreso <span class="color-text">Mesa de ayuda</span>
                                 </h1>
-                                <form action="{{ path('admin') }}" method="post">
+                                {% if error %}
+                                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
+                                <form action="{{ path('login') }}" method="post">
                                     <div class="form-group mb-lg">
                                         <label>Nombre de usuario</label>
                                         <input name="_username" type="text" class="form-control input-lg"/>
@@ -27,7 +30,7 @@
                                         </div>
                                     </div>
                                     <div class="banner-btn">
-                                        <button type="submit" class="default-btn-one">Ingresar</button>
+                                        <button type="submit" class="default-btn nav-btn-1">Ingresar</button>
                                         <button type="submit"
                                                 class="default-btn  btn-lg visible-xs mt-lg">
                                             Registrarse
@@ -48,73 +51,3 @@
         <div class="grey-cr"></div>
     </div>
 {% endblock %}
-{# <!doctype html> #}
-{# <html lang="es"> #}
-{# <head> #}
-{# </head> #}
-{# <body> #}
-{# <!-- start: page --> #}
-{# <section class="body-sign"> #}
-{#    <div class="center-sign"> #}
-{#        <a href="/" class="logo pull-left"> #}
-{#            <img src="{{ asset('plantilla/images/logo.png') }}" height="54" alt="Porto Admin" /> #}
-{#        </a> #}
-
-{#        <div class="panel panel-sign"> #}
-{#            <div class="panel-title-sign mt-xl text-right"> #}
-{#                <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Registrarse</h2> #}
-{#            </div> #}
-{#            <div class="panel-body"> #}
-
-{#            </div> #}
-{#        </div> #}
-{#    </div> #}
-{# </section> #}
-{# <!-- end: page --> #}
-
-{# <!-- Vendor --> #}
-{# <script src="{{ asset('plantilla/vendor/jquery/jquery.js') }}"></script> #}
-
-{# <script src="{{ asset('plantilla/vendor/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script> #}
-
-{# <script src="{{ asset('plantilla/vendor/bootstrap/js/bootstrap.js') }}"></script> #}
-
-{# <script src="{{ asset('plantilla/vendor/nanoscroller/nanoscroller.js') }}"></script> #}
-
-{# <script src="{{ asset('plantilla/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script> #}
-
-{# <script src="{{ asset('plantilla/vendor/magnific-popup/magnific-popup.js') }}"></script> #}
-
-{# <script src="{{ asset('plantilla/vendor/jquery-placeholder/jquery.placeholder.js') }}"></script> #}
-
-{# <!-- Theme Base, Components and Settings --> #}
-{# <script src="{{ asset('plantilla/javascripts/theme.js') }}"></script> #}
-
-{# <!-- Theme Custom --> #}
-{# <script src="{{ asset('plantilla/javascripts/theme.custom.js') }}"></script> #}
-
-{# <!-- Theme Initialization Files --> #}
-{# <script src="{{ asset('plantilla/javascripts/theme.init.js') }}"></script> #}
-
-{# <!-- jQuery Min JS --> #}
-{# <script src="{{ asset('landingPage/js/jquery.min.js') }}"></script> #}
-{# <!-- Bootstrap Min JS --> #}
-{# <script src="{{ asset('landingPage/js/bootstrap.min.js') }}"></script> #}
-{# <!-- MeanMenu JS  --> #}
-{# <script src="{{ asset('landingPage/js/jquery.meanmenu.js') }}"></script> #}
-{# <!-- Appear Min JS --> #}
-{# <script src="{{ asset('landingPage/js/jquery.appear.min.js') }}"></script> #}
-{# <!-- CounterUp Min JS --> #}
-{# <script src="{{ asset('landingPage/js/jquery.waypoints.min.js') }}"></script> #}
-{# <script src="{{ asset('landingPage/js/jquery.counterup.min.js') }}"></script> #}
-
-{# <!-- Owl Carousel Min JS --> #}
-{# <script src="{{ asset('landingPage/js/owl.carousel.min.js') }}"></script> #}
-{# <!-- WOW Min JS --> #}
-{# <script src="{{ asset('landingPage/js/wow.min.js') }}"></script> #}
-{# <!-- Main JS --> #}
-{# <script src="{{ asset('landingPage/js/main.js') }}"></script> #}
-
-
-{# </body> #}
-{# </html> #}

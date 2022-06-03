@@ -19,31 +19,11 @@ class InicioController extends AbstractController
      * @Route("/", name="inicio")
      */
     public function inicioAction(){
-//        $em = $this->getDoctrine();
-//        $roles = $this->getUser()->getRoles();
-//        $soporteSinAtender = 0;
-//        $soporteSinSolucionar = 0;
-//        $soporteDia = 0;
-//        $soporteMes = 0;
-//        $arErrores = [];
-//        if (in_array('ROLE_SOPORTE', $roles) || in_array('ROLE_ADMIN', $roles)) {
-//            $soporteSinAtender = $em->getRepository(Soporte::class)->cantidadSoportesSinAtender();
-//            $soporteSinSolucionar = $em->getRepository(Soporte::class)->cantidadSoportesSinSolucion();
-//            $soporteDia = $em->getRepository(Soporte::class)->cantidadSoportesDia();
-//            $soporteMes = $em->getRepository(Soporte::class)->cantidadSoportesMes();
-//            $arErrores = $em->getRepository(Error::class)->resumenErrores();
-//        }
-        return $this->render('Inicio/inicio.html.twig', [
-//            'soporteSinAtender' => $soporteSinAtender,
-//            'soporteSinSolucionar' => $soporteSinSolucionar,
-//            'soporteDia' => $soporteDia,
-//            'soporteMes' => $soporteMes,
-//            'arErrores' => $arErrores
-        ]);
+        return $this->render('Inicio/inicio.html.twig');
     }
 
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/inicio/admin", name="inicio_admin")
      */
     public function admin(Dubnio $dubnio)
     {

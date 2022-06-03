@@ -1,99 +1,129 @@
-<aside id="sidebar-left" class="sidebar-left">
-
-    <div class="sidebar-header">
-        <div class="sidebar-title">
-            Navigation
-        </div>
-        <div class="sidebar-toggle hidden-xs" data-toggle-class="sidebar-left-collapsed" data-target="html" data-fire-event="sidebar-left-toggle">
-            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
+<!-- Start Navbar Area -->
+<div class="navbar-area">
+    <div class="techmax-responsive-nav index-navber-responsive">
+        <div class="container">
+            <div class="techmax-responsive-menu">
+                <div class="logo">
+                    <a href="index.html">
+                        <img src="{{ asset('landingPage/img/logo-black.png') }}" class="white-logo" alt="logo">
+                        <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
+    <div class="techmax-nav index-navber">
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light">
+                <a class="navbar-brand" href="index.html">
+                    <img src="{{ asset('landingPage/img/logo-black.png') }}" class="white-logo" alt="logo">
+                    <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
+                </a>
+                <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="{{ path('inicio_admin') }}" class="nav-link">
+                                <i class="fa fa-home fa-3x" aria-hidden="true"></i>
+                                Inicio
+                            </a>
+                        </li>
+                        {% if is_granted('ROLE_DESARROLLO') %}
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Desarrollo <i class="fas fa-chevron-down"></i></a>
+{#                                <ul class="dropdown-menu">#}
+{#                                    <li class="nav-item">#}
+{#                                        <a href="services.html" class="nav-link">Services</a>#}
+{#                                    </li>#}
+{#                                    <li class="nav-item">#}
+{#                                        <a href="single-services.html" class="nav-link">Services Details</a>#}
+{#                                    </li>#}
+{#                                </ul>#}
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_SOPORTE') %}
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Soporte <i class="fas fa-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a href="{{ path('soporte_soporte_lista') }}" class="nav-link">Soporte</a>
+                                    </li>
+                                    <li class="nav-item"><a href="{{ path('soporte_caso_lista') }}"
+                                                            class="nav-link">Caso</a></li>
+                                    <li class="nav-item"><a href="{{ path('soporte_error_lista') }}"
+                                                            class="nav-link">Error</a></li>
+                                    <li class="nav-item"><a
+                                                href="{{ path('soporte_documentacion_lista') }}" class="nav-link">Documentacion</a>
+                                    </li>
+                                    <li class="nav-item"><a href="{{ path('soporte_cliente_lista') }}" class="nav-link">Cliente</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_IMPLEMENTACION') %}
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Implementación <i class="fas fa-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
 
-    <div class="nano">
-        <div class="nano-content">
-            <nav id="menu" class="nav-main" role="navigation">
-                <ul class="nav nav-main">
-                    <li class="nav-active">
-                        <a href="{{ path('inicio') }}">
-                            <i class="fa fa-home" aria-hidden="true"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    {% if is_granted('ROLE_DESARROLLO') %}
-                        <li class="nav-parent">
-                            <a><i class="fa fa-align-left" aria-hidden="true"></i><span>Desarrollo</span></a>
-                            <ul class="nav nav-children">
-                                <li><a href="{{ path('desarrollo_tarea_lista') }}">Tarea</a></li>
-                                {#                            <li class="nav-parent">
-                                                                <a>Second Level</a>
-                                                                <ul class="nav nav-children">
-                                                                    <li class="nav-parent">
-                                                                        <a>Third Level</a>
-                                                                        <ul class="nav nav-children">
-                                                                            <li>
-                                                                                <a>Third Level Link #1</a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <a>Third Level Link #2</a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a>Second Level Link #1</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a>Second Level Link #2</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </li>#}
-                            </ul>
-                        </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_SOPORTE') %}
-                        <li class="nav-parent">
-                            <a><i class="fa fa-align-left" aria-hidden="true"></i><span>Soporte</span></a>
-                            <ul class="nav nav-children">
-                                <li><a href="{{ path('soporte_soporte_lista') }}">Soporte</a></li>
-                                <li><a href="{{ path('soporte_caso_lista') }}">Caso</a></li>
-                                <li><a href="{{ path('soporte_error_lista') }}">Error</a></li>
-                                <li><a href="{{ path('soporte_documentacion_lista') }}">Documentacion</a></li>
-                                <li><a href="{{ path('soporte_cliente_lista') }}">Cliente</a></li>
-                            </ul>
-                        </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_IMPLEMENTACION') %}
-                        <li class="nav-parent">
-                            <a><i class="fa fa-align-left" aria-hidden="true"></i><span>Implementacion</span></a>
-                            <ul class="nav nav-children">
-                                <li><a href="{{ path('implementacion_implementacion_lista') }}">Implementacion</a></li>
-                                <li><a href="{{ path('implementacion_electronica_lista') }}">Factura electronica</a></li>
-                            </ul>
-                        </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <li class="nav-parent">
-                        <a><i class="fa fa-align-left" aria-hidden="true"></i><span>Admin</span></a>
-                        <ul class="nav nav-children">
-                            <li><a href="{{ path('admin_tarea_lista') }}">Tarea</a></li>
-                            <li><a href="{{ path('admin_proyecto_lista') }}">Proyecto</a></li>
-                        </ul>
-                    </li>
-                    {% endif %}
-                    {% if is_granted('ROLE_CLIENTE') %}
-                        <li class="nav-parent">
-                            <a><i class="fa fa-align-left" aria-hidden="true"></i><span>Cliente</span></a>
-                            <ul class="nav nav-children">
-                                <li><a href="{{ path('cliente_caso_lista') }}">Caso</a></li>
-                                <li><a href="{{ path('cliente_implementacion_lista') }}">Implementacion</a></li>
-                                <li><a href="{{ path('cliente_soporte_lista') }}">Soportes</a></li>
-                            </ul>
-                        </li>
-                    {% endif %}
-                </ul>
+                                    <li class="nav-item">
+                                        <a href="{{ path('implementacion_implementacion_lista') }}" class="nav-link">Implementación</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('implementacion_electronica_lista') }}" class="nav-link">Factura
+                                            electronica</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Administración <i class="fas fa-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="{{ path('admin_tarea_lista') }}" class="nav-link">Tarea</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('admin_proyecto_lista') }}" class="nav-link">Proyecto</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_CLIENTE') %}
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Cliente <i class="fas fa-chevron-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item">
+                                        <a href="{{ path('cliente_caso_lista') }}" class="nav-link">Caso</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ path('cliente_implementacion_lista') }}"
+                                           class="nav-link">Implementacion</a>
+                                    </li>
+                                    <li class="nav-item"><a href="{{ path('cliente_soporte_lista') }}" class="nav-link">Soportes</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                    <div class="other-option">
+                        <div class="dropdown">
+                            <button class="default-btn nav-btn-1 dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                {{ app.user.nombres }}  {{ app.user.apellidos }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li class="nav-item">
+                                    <a class="nav-link" tabindex="-1" href="#" onclick="alert('En construcción')"><i class="fa fa-user"></i> Mi perfil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" tabindex="-1" href="javascript:abrirVentana3('{{ path('inicio_usuario_perfil_nuevo_clave', {'codigoUsuario': app.user.codigoUsuarioPk}) }}', 'Escalar', 600, 1200)" ><i class="fa fa-lock"></i>Cambiar contraseña</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link"  tabindex="-1" href="{{ path('logout') }}"><i class="fa fa-power-off"></i> Cierre de sesión</a>
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </nav>
-
         </div>
-
     </div>
-
-</aside>
+</div>

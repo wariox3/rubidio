@@ -26,6 +26,7 @@ security:
                 login_path: /login
                 check_path: /login
                 remember_me: false
+                default_target_path: inicio_admin
             logout:
                 path: /logout
                 target: /
@@ -43,8 +44,7 @@ security:
         - { path: /api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /Admin, roles: ROLE_ADMIN }
-        - { path: /, roles: PUBLIC_ACCESS }
-
+        - { path: /, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: /.*, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
