@@ -42,17 +42,43 @@
 <body>
 
 {% block body %}
+    <!-- Start Preloader Area -->
+    <div class="preloader">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Preloader Area -->
+
+
     {% include('base/menu.html.twig') %}
     <div class="pt-5">
         {% block content %}
 
         {% endblock %}
     </div>
+    <!-- Start Go Top Section -->
+    <div class="go-top">
+        <i class="fas fa-chevron-up"></i>
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    <!-- End Go Top Section -->
 
-
-{% endblock %}
-
-{% block javascripts %}
 {% endblock %}
 
 <!-- jQuery Min JS -->
