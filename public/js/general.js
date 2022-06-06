@@ -28,6 +28,29 @@ function ChequearTodosTabla(source, nombre) {
     }
 }
 
+/**
+ * @idea poner el nombre del archivo seleccionado
+ * @author andres felipe cano
+ */
+$('input[type="file"]').change(function (e) {
+    let archivos = e.target.files
+    //Obtener el nombre del archivo
+    let nombreAchivosCargados = ''
+    if (archivos.length < 3) {
+        for (const archivo of archivos) {
+            let archivoNombre = archivo.name;
+            nombreAchivosCargados += (`${archivoNombre}, `)
+        }
+        nombreAchivosCargados = nombreAchivosCargados.substring(0, nombreAchivosCargados.length - 2)
+    } else {
+        nombreAchivosCargados = `La cantidad de archivos seleccionados es de ${archivos.length}`
+    }
+    console.log(archivos.length)
+    //Asignar el nombre del archivo al label
+    $(".custom-file-label").text(nombreAchivosCargados);
+});
+
+
 
 
 
