@@ -1,41 +1,42 @@
 {% extends 'base_sin_menu.html.twig' %}
 {% block content %}
-<div class="container">
     {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-    <h3>Informacion archivo</h3>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div>
-                <div class="form-group form-group-sm">
-                    <label class="col-sm-2 control-label">Nombre:</label>
-                    <div class="col-sm-10">
-                        {{ form_widget(form.descripcion, { 'attr': {'class': 'form-control'} }) }}
-                    </div>
-                </div>
-                <div class="form-group form-group-sm">
-                    <label class="col-sm-2 control-label">Cargar:</label>
-                    <div class="col-sm-10">
-                        {{ form_widget(form.attachment, { 'attr': {'class': 'btn btn-sm btn-default'} }) }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Comentarios:</label>
-                    <div class="col-sm-10">
-                        {{ form_widget(form.comentarios, { 'attr': {'class': 'form-control'} }) }}
-                    </div>
-                </div>
-                <div class="form-group form-group-sm">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        {{ form_widget(form.BtnCargar, { 'attr': {'class': 'btn btn-sm btn-primary', 'style':'float:right'} }) }}
+
+    <div class="container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header title-bg-color">
+                            <h5>Archivos</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="control-label">Nombre:</label>
+                                {{ form_widget(form.descripcion) }}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Cargar:</label>
+                                {{ form_widget(form.attachment) }}
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Comentarios:</label>
+                                {{ form_widget(form.comentarios) }}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-end">
+                                {{ form_widget(form.BtnCargar, { 'attr': {'class': 'btnCustom'} }) }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <blockquote>
+            <p>Recuerde: El tamaño maximo por archivo a subir es de 6mb</p>
+            <footer>Tipo <cite title="Source Title">archivos</cite></footer>
+        </blockquote>
+        {{ form_end(form) }}
     </div>
-    <blockquote>
-        <p>Recuerde: El tamaño maximo por archivo a subir es de 6mb</p>
-        <footer>Tipo <cite title="Source Title">archivos</cite></footer>
-    </blockquote>
-    {{ form_end(form) }}
-</div>
 {% endblock %}
