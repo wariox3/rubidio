@@ -3871,7 +3871,33 @@ blockquote::after, .blockquote::after {
 }
 
 .pagination .page-item.active .page-link{
-	background-color: #635CDB;
-	border-color: #635CDB;
+	background-color: #611bdd;
+	border-color: #611bdd;
 	color: #FFFFFF;
+}
+
+
+.btnCustom{
+	border: none;
+	position: relative;
+	display: inline-block;
+	text-align: center;
+	overflow: hidden;
+	z-index: 1;
+	color: #ffffff;
+	background-color: #5e87eb;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+	border-radius: 30px;
+	font-weight: 600;
+	font-size: 15px;
+	padding-left: 35px;
+	padding-right: 35px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+
+.btnCustom:hover {
+	color: #ffffff;
+	background-image: linear-gradient(-135deg, #611bdd 0%, #5e87eb 100%);
 }

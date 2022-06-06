@@ -11,7 +11,9 @@
                                 <h1>Ingreso <span class="color-text">Mesa de ayuda</span>
                                 </h1>
                                 {% if error %}
-                                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                    <div class="alert alert-danger">
+                                        <strong>Error!</strong> {{ error.messageKey|trans(error.messageData, 'security') }}
+                                    </div>
                                 {% endif %}
                                 <form action="{{ path('login') }}" method="post">
                                     <div class="form-group mb-lg">
@@ -30,9 +32,9 @@
                                         </div>
                                     </div>
                                     <div class="banner-btn">
-                                        <button type="submit" class="default-btn nav-btn-1">Ingresar</button>
+                                        <button type="submit" class="btnCustom">Ingresar</button>
                                         <button type="submit"
-                                                class="default-btn  btn-lg visible-xs mt-lg">
+                                                class="btnCustom  btn-lg visible-xs mt-lg">
                                             Registrarse
                                         </button>
                                     </div>

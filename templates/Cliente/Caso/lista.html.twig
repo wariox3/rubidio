@@ -1,141 +1,152 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
-                    </div>
-
-                    <h2 class="panel-title">Filtro de busqueda</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-6 control-label"></label>
-                        <label class="col-sm-1 control-label">Atendido:</label>
-                        <div class="col-sm-2">
-                            {{ form_widget(form.estadoAtendido) }}
-                        </div>
-                        <label class="col-sm-1 control-label">Desarrollo:</label>
-                        <div class="col-sm-2">
-                            {{ form_widget(form.estadoDesarrollo) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-6 control-label"></label>
-                        <label class="col-sm-1 control-label">Escalado:</label>
-                        <div class="col-sm-2">
-                            {{ form_widget(form.estadoEscalado) }}
-                        </div>
-                        <label class="col-sm-1 control-label">Solucionado:</label>
-                        <div class="col-sm-2">
-                            {{ form_widget(form.estadoSolucionado) }}
-                        </div>
-                    </div>
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
-                        </div>
-                    </div>
-                </footer>
-            </section>
-        </div>
-        <div class="col-md-12">
-            <section class="panel">
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-bordered table-hover mb-none">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Fecha</th>
-                                <th title="Fecha de compromiso">Com</th>
-                                <th>Contacto</th>
-                                <th>Descripcion</th>
-                                <th>Semantica</th>
-                                <th>Prioridad</th>
-                                <th title="Indica si su caso ya gue atendido">Ate</th>
-                                <th title="Indica si su caso fue asignado al equipo de desarrollo">Des</th>
-                                <th title="Si por su complejidad el caso fue asignado a un departamento con mas especializacion en el tema">Esc</th>
-                                <th title="Si el caso fue solucionado">Sol</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for arCaso in arCasos %}
-                                <tr>
-                                    <td>{{ arCaso.codigoCasoPk }}</td>
-                                    <td>{{ arCaso.fecha | date('Y-m-d') }}</td>
-                                    <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
-                                    <td>{{ arCaso.contacto }}</td>
-                                    <td>
-                                        {{ arCaso.descripcion }}
-                                        {% if arCaso.estadoPostergado == 1%}
-                                            <p style="color: red">
-                                                <b>Postergado:</b> {{ arCaso.comentarioPostergado }} <br/>
-                                                <b>Respuesta:</b> {{ arCaso.respuestaPostergado }}
-                                            </p>
-                                        {% endif %}
-                                    </td>
-                                    <td>{{ arCaso.solucion }}</td>
-                                    <td>{{ arCaso.prioridadNombre }}</td>
-                                    <td>
-                                        {% if arCaso.estadoAtendido %}
-                                            <i title="El caso ya fue atendido" class="fa fa-smile-o fa-lg"></i>
-                                        {% else %}
-                                            <i title="No se ha atendido el caso, estamos trabajando en otros casos" class="fa fa-frown-o fa-lg"></i>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if arCaso.estadoDesarrollo %}
-                                            <i title="El caso lo asume el equipo de desarrollo" class="fa fa-users fa-lg"></i>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if arCaso.estadoEscalado %}
-                                            <i title="Fue necesario utilizar un equipo especializado" class="fa fa-share-alt fa-lg"></i>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if arCaso.estadoSolucionado %}
-                                            <i title="Caso solucionado" class="fa fa-check fa-lg"></i>
-                                        {% endif %}
-                                        {% if arCaso.estadoPostergado == 1 %}
-                                            <a href="javascript:abrirVentana3('{{ path('cliente_caso_postergado', { 'id': arCaso.codigoCasoPk }) }}', 'postergado', 600, 1300)"> <img src="{{ asset('imagenes/cargando.gif') }}" height="25" width="25"> </a>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ path('cliente_caso_detalle', { 'id': arCaso.codigoCasoPk }) }}">
-                                            <i class="fa fa-eye fa-lg"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3" >
-                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group" aria-label="...">
-                                <a class="btn btn-sm btn-default"  href="{{ path('cliente_caso_nuevo', {'id': 0}) }}">Nuevo</a>
+    <section class="services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="single-testimonial">
+                        <div class="card">
+                            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                            <div class="card-header title-bg-color">
+                                <h5>Filtros</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Atendido:</label>
+                                        {{ form_widget(form.estadoAtendido) }}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPassword4">Desarrollo:</label>
+                                        {{ form_widget(form.estadoDesarrollo) }}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPassword4">Escalado:</label>
+                                        {{ form_widget(form.estadoEscalado) }}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPassword4">Solucionado:</label>
+                                        {{ form_widget(form.estadoSolucionado) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-end">
+                                    {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btnCustom'} }) }}
+                                </div>
                             </div>
                         </div>
+                        {{ form_rest(form) }}
+                        {{ form_end(form) }}
                     </div>
-                </footer>
-            </section>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <section class="card">
+                            <div class="card-header bg-white">
+                                <div class="d-flex justify-content-end">
+                                    <a class="btnCustom" href="{{ path('cliente_caso_nuevo', {'id': 0}) }}">Nuevo</a>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-datos m-0">
+                                        <thead class="title-bg-color">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Fecha</th>
+                                            <th title="Fecha de compromiso">Com</th>
+                                            <th>Contacto</th>
+                                            <th>Descripcion</th>
+                                            <th>Semantica</th>
+                                            <th>Prioridad</th>
+                                            <th title="Indica si su caso ya gue atendido">Ate</th>
+                                            <th title="Indica si su caso fue asignado al equipo de desarrollo">Des</th>
+                                            <th title="Si por su complejidad el caso fue asignado a un departamento con mas especializacion en el tema">
+                                                Esc
+                                            </th>
+                                            <th title="Si el caso fue solucionado">Sol</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for arCaso in arCasos %}
+                                            <tr>
+                                                <td>{{ arCaso.codigoCasoPk }}</td>
+                                                <td>{{ arCaso.fecha | date('Y-m-d') }}</td>
+                                                <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
+                                                <td>{{ arCaso.contacto }}</td>
+                                                <td>
+                                                    {{ arCaso.descripcion }}
+                                                    {% if arCaso.estadoPostergado == 1 %}
+                                                        <p class="text-danger">
+                                                            <b>Postergado:</b> {{ arCaso.comentarioPostergado }} <br/>
+                                                            <b>Respuesta:</b> {{ arCaso.respuestaPostergado }}
+                                                        </p>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ arCaso.solucion }}</td>
+                                                <td>{{ arCaso.prioridadNombre }}</td>
+                                                <td class="text-center">
+                                                    {% if arCaso.estadoAtendido %}
+                                                        <i title="El caso ya fue atendido"
+                                                           class="far fa-smile fa-2x text-info"></i>
+                                                    {% else %}
+                                                        <i title="No se ha atendido el caso, estamos trabajando en otros casos"
+                                                           class="far fa-frown fa-2x text-info"></i>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    {% if arCaso.estadoDesarrollo %}
+                                                        <i title="El caso lo asume el equipo de desarrollo"
+                                                           class="fas fa-users fa-2x"></i>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    {% if arCaso.estadoEscalado %}
+                                                        <i title="Fue necesario utilizar un equipo especializado"
+                                                           class="fas fa-share-alt fa-2x"></i>
+                                                    {% endif %}
+
+                                                </td>
+                                                <td class="text-center">
+                                                    {% if arCaso.estadoSolucionado %}
+                                                        <i title="Caso solucionado"
+                                                           class="fas fa-check fa-2x text-success"></i>
+                                                    {% endif %}
+                                                    {% if arCaso.estadoPostergado == 1 %}
+                                                        <a href="javascript:abrirVentana3('{{ path('cliente_caso_postergado', { 'id': arCaso.codigoCasoPk }) }}', 'postergado', 600, 1300)">
+                                                            <img src="{{ asset('imagenes/cargando.gif') }}" height="25"
+                                                                 width="25"> </a>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="{{ path('cliente_caso_detalle', { 'id': arCaso.codigoCasoPk }) }}">
+                                                        <i class="fas fa-eye fa-2x"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-white">
+                                <div class="d-flex justify-content-between">
+                                    <div class="btn btn-default btn-sm">Registros
+                                        <span>{{ arCasos.getTotalItemCount }}</span>
+                                    </div>
+                                    <div class="btn-group btn-xs">
+                                        {{ knp_pagination_render(arCasos) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
         </div>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
-    </div>
-
-
-
+    </section>
 {% endblock %}
