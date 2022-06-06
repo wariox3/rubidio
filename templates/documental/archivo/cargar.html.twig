@@ -1,7 +1,6 @@
 {% extends 'base_sin_menu.html.twig' %}
 {% block content %}
     {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-
     <div class="container">
         <div class="container">
             <div class="row">
@@ -11,6 +10,7 @@
                             <h5>Archivos</h5>
                         </div>
                         <div class="card-body">
+                            {{ form_errors(form) }}
                             <div class="form-group">
                                 <label class="control-label">Nombre:</label>
                                 {{ form_widget(form.descripcion) }}

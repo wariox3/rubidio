@@ -52,11 +52,11 @@ class DocumentalController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('BtnCargar')->isClicked()) {
                 $objArchivo = $form['attachment']->getData();
-                if ($objArchivo->getClientSize()) {
+                if ($objArchivo->getSize()) {
                     $arArchivo = new Archivo();
                     $arArchivo->setNombre($objArchivo->getClientOriginalName());
                     $arArchivo->setExtensionOriginal($objArchivo->getClientOriginalExtension());
-                    $arArchivo->setTamano($objArchivo->getClientSize());
+                    $arArchivo->setTamano($objArchivo->getSize());
                     $arArchivo->setTipo($objArchivo->getClientMimeType());
                     $arArchivo->setCodigoArchivoTipoFk($tipo);
                     $arArchivo->setCodigo($codigo);
