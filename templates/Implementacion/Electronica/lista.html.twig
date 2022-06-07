@@ -1,141 +1,119 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
-                    </div>
-
-                    <h2 class="panel-title">Filtro de busqueda</h2>
-                </header>
-                <div class="panel-body">
-
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
-                        </div>
-                    </div>
-                </footer>
-            </section>
-        </div>
-        <div class="col-md-12">
-            <section class="panel">
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nit</th>
-                                <th>Suscriptor</th>
-                                <th>Estado</th>
-                                <th>Set</th>
-                                <th>Ciudad</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for arrSuscriptor in arrSuscriptores %}
-                                <tr>
-                                    <td>{{ arrSuscriptor.Suscriptor }}</td>
-                                    <td>{{ arrSuscriptor.Documento }}</td>
-                                    <td>{{ arrSuscriptor.RazonSocial }}</td>
-                                    <td>{{ arrSuscriptor.EstadoDescripcion }}</td>
-                                    <td>{{ arrSuscriptor.TestSetIdDian }}</td>
-                                    <td>{{ arrSuscriptor.NombreCiudad }}</td>
-                                    <td>
-                                        <a href="javascript:abrirVentana3('{{ path('implementacion_electronica_editar', {'id': arrSuscriptor.Suscriptor}) }}', 'Escalar', 600, 1200)">
-                                            <i class="fa fa-arrow-up fa-lg"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3" >
-                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group" aria-label="...">
-                                <a href="javascript:abrirVentana3('{{ path('implementacion_electronica_nuevo', {'id': '0'}) }}', 'Nuevo', 600, 1200)">
-                                    Nuevo
-                                </a>
+    <section class="services-section">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <section class="card">
+                            <div class="card-header bg-white">
+                                <div class="d-flex justify-content-end">
+                                    <a class="btnCustom"
+                                       href="javascript:abrirVentana3('{{ path('implementacion_electronica_nuevo', {'id': '0'}) }}', 'Nuevo', 600, 1200)">
+                                        Nuevo
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </footer>
-            </section>
-        </div>
-
-        <div class="col-md-12">
-            <section class="panel">
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Suscriptor</th>
-                                <th>Empleador</th>
-                                <th>SP</th>
-                                <th>SPN</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for arCliente in arClientes %}
-                                <tr>
-                                    <td>{{ arCliente.codigoClientePk }}</td>
-                                    <td>{{ arCliente.nombreCorto }}</td>
-                                    <td>{{ arCliente.suscriptor }}</td>
-                                    <td>{{ arCliente.empleador }}</td>
-                                    <td>
-                                        {% if arCliente.facturacionElectronica == 1 %}
-                                            {% if arCliente.setPruebas == 1 %}
-                                                SI
-                                            {% else %}
-                                                <button class="btn btn-default btn-xs" type="submit" name="OpEnviar" value="{{ arCliente.codigoClientePk }}">Enviar</button>
-                                            {% endif %}
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if arCliente.nominaElectronica == 1 %}
-                                            {% if arCliente.setPruebasNomina == 1 %}
-                                                SI
-                                            {% else %}
-                                                <button class="btn btn-default btn-xs" type="submit" name="OpEnviarNomina" value="{{ arCliente.codigoClientePk }}">Enviar</button>
-                                            {% endif %}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-datos m-0">
+                                        <thead class="title-bg-color">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nit</th>
+                                            <th>Suscriptor</th>
+                                            <th>Estado</th>
+                                            <th>Set</th>
+                                            <th>Ciudad</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for arrSuscriptor in arrSuscriptores %}
+                                            <tr>
+                                                <td>{{ arrSuscriptor.Suscriptor }}</td>
+                                                <td>{{ arrSuscriptor.Documento }}</td>
+                                                <td>{{ arrSuscriptor.RazonSocial }}</td>
+                                                <td>{{ arrSuscriptor.EstadoDescripcion }}</td>
+                                                <td>{{ arrSuscriptor.TestSetIdDian }}</td>
+                                                <td>{{ arrSuscriptor.NombreCiudad }}</td>
+                                                <td>
+                                                    <a href="javascript:abrirVentana3('{{ path('implementacion_electronica_editar', {'id': arrSuscriptor.Suscriptor}) }}', 'Escalar', 600, 1200)">
+                                                        <i class="fa fa-arrow-up fa-lg"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3" >
-                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group" aria-label="...">
-
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <section class="card">
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-datos m-0">
+                                        <thead class="title-bg-color">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Suscriptor</th>
+                                            <th>Empleador</th>
+                                            <th>SP</th>
+                                            <th>SPN</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for arCliente in arClientes %}
+                                            <tr>
+                                                <td>{{ arCliente.codigoClientePk }}</td>
+                                                <td>{{ arCliente.nombreCorto }}</td>
+                                                <td>{{ arCliente.suscriptor }}</td>
+                                                <td>{{ arCliente.empleador }}</td>
+                                                <td class="text-center text-success">
+                                                    {% if arCliente.facturacionElectronica == 1 %}
+                                                        {% if arCliente.setPruebas == 1 %}
+                                                            SI
+                                                        {% else %}
+                                                            <button class="btnCustom btn-xs" type="submit"
+                                                                    name="OpEnviar"
+                                                                    value="{{ arCliente.codigoClientePk }}">Enviar
+                                                            </button>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center text-success">
+                                                    {% if arCliente.nominaElectronica == 1 %}
+                                                        {% if arCliente.setPruebasNomina == 1 %}
+                                                            SI
+                                                        {% else %}
+                                                            <button class="btnCustom btn-xs" type="submit"
+                                                                    name="OpEnviarNomina"
+                                                                    value="{{ arCliente.codigoClientePk }}">Enviar
+                                                            </button>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
-                </footer>
-            </section>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
         </div>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
-    </div>
-
-
-
+    </section>
 {% endblock %}

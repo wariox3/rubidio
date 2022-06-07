@@ -1,62 +1,66 @@
 {% extends 'base_sin_menu.html.twig' %}
 
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
+    <section class="services-section">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <section class="card">
+                            <div class="card-body p-0">
+                                {{ form(form) }}
+                            </div>
+                        </section>
                     </div>
-
-                    <h2 class="panel-title">Informacion</h2>
-                </header>
-                <div class="panel-body">
-                    {{ form(form) }}
                 </div>
-{#
-#}
-            </section>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <section class="card">
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-datos m-0">
+                                        <thead class="title-bg-color">
+                                        <tr>
+                                            <th>ClaveTecnica</th>
+                                            <th>ResolucionNumero</th>
+                                            <th>VigenciaDesde</th>
+                                            <th>VigenciaHasta</th>
+                                            <th>ConsecutivoDesde</th>
+                                            <th>ConsecutivoHasta</th>
+                                            <th>Prefijo</th>
+                                            <th>Suscriptor</th>
+                                            <th>ConsecutivoActual</th>
+                                            <th>Tipo</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for arrResolucion in arrResoluciones %}
+                                            <tr>
+                                                <td>{{ arrResolucion.ClaveTecnica }}</td>
+                                                <td>{{ arrResolucion.ResolucionNumero }}</td>
+                                                <td>{{ arrResolucion.VigenciaDesde }}</td>
+                                                <td>{{ arrResolucion.VigenciaHasta }}</td>
+                                                <td>{{ arrResolucion.ConsecutivoDesde }}</td>
+                                                <td>{{ arrResolucion.ConsecutivoHasta }}</td>
+                                                <td>{{ arrResolucion.Prefijo }}</td>
+                                                <td>{{ arrResolucion.Suscriptor }}</td>
+                                                <td>{{ arrResolucion.ConsecutivoAtual }}</td>
+                                                <td>{{ arrResolucion.Tipo }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
         </div>
-        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
-            <thead>
-            <tr>
-                <th>ClaveTecnica</th>
-                <th>ResolucionNumero</th>
-                <th>VigenciaDesde</th>
-                <th>VigenciaHasta</th>
-                <th>ConsecutivoDesde</th>
-                <th>ConsecutivoHasta</th>
-                <th>Prefijo</th>
-                <th>Suscriptor</th>
-                <th>ConsecutivoActual</th>
-                <th>Tipo</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for arrResolucion in arrResoluciones %}
-                <tr>
-                    <td>{{ arrResolucion.ClaveTecnica }}</td>
-                    <td>{{ arrResolucion.ResolucionNumero }}</td>
-                    <td>{{ arrResolucion.VigenciaDesde }}</td>
-                    <td>{{ arrResolucion.VigenciaHasta }}</td>
-                    <td>{{ arrResolucion.ConsecutivoDesde }}</td>
-                    <td>{{ arrResolucion.ConsecutivoHasta }}</td>
-                    <td>{{ arrResolucion.Prefijo }}</td>
-                    <td>{{ arrResolucion.Suscriptor }}</td>
-                    <td>{{ arrResolucion.ConsecutivoAtual }}</td>
-                    <td>{{ arrResolucion.Tipo }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
-    </div>
-
-
-
+    </section>
 {% endblock %}

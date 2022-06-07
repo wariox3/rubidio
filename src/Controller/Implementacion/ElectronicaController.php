@@ -22,7 +22,7 @@ class ElectronicaController extends AbstractController
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()
-            ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
+//            ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
