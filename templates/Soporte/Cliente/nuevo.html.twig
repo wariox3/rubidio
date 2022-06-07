@@ -1,175 +1,133 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
-                    </div>
-
-                    <h2 class="panel-title">Informacion </h2>
-                </header>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Nombre:</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(form.nombreCorto) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Nombre completo:</label>
-                        <div class="col-sm-10">
-                            {{ form_widget(form.nombreExtendido) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Nit:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.nit) }}
-                        </div>
-                        <label class="col-sm-2 control-label">DV:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.digitoVerificacion) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Teléfono:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.telefono) }}
-                        </div>
-                        <label class="col-sm-2 control-label">Direccion:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.direccion) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Correo error:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.correoError) }}
-                        </div>
-                        <label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-4">
-
+    <section class="services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="single-testimonial">
+                        <div class="d-flex justify-content-start">
+                            <a class="btnCustom" href="{{ path('soporte_cliente_lista') }}">Volver <span></span></a>
                         </div>
                     </div>
                 </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a class="btn btn-default btn-sm" style="float:left" href="{{ path('soporte_cliente_lista') }}">Cancelar</a>
-                        </div>
-                        <div class="col-sm-6">
-                            {{ form_widget(form.guardar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
-                        </div>
-                    </div>
-                </footer>
-            </section>
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="single-testimonial">
+                        <div class="card">
+                            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                            <div class="card-header title-bg-color">
+                                <h5>Nuevo</h5>
+                                <h6>Información</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label class="control-label">Nombre:</label>
+                                    {{ form_widget(form.nombreCorto) }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Nombre completo:</label>
+                                    {{ form_widget(form.nombreExtendido) }}
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Nit:</label>
+                                        {{ form_widget(form.nit) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">DV:</label>
+                                        {{ form_widget(form.digitoVerificacion) }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Teléfono:</label>
+                                        {{ form_widget(form.telefono) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Dirección:</label>
+                                        {{ form_widget(form.direccion) }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Correo error:</label>
+                                        {{ form_widget(form.correoError) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header title-bg-color">
+                                <h6>Facturación electronica</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Suscriptor:</label>
+                                        {{ form_widget(form.suscriptor) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">TestId:</label>
+                                        {{ form_widget(form.codigoSetPruebas) }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        {{ form_widget(form.facturacionElectronica) }}
+                                        {{ form_widget(form.setPruebas) }}
+                                    </div>
+                                </div>
 
-                    <h2 class="panel-title">Facturacion electronica </h2>
-                </header>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Suscriptor</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.suscriptor) }}
-                        </div>
-                        <label class="col-sm-2 control-label">TestId:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.codigoSetPruebas) }}
-                        </div>
+                            </div>
+                            <div class="card-header title-bg-color">
+                                <h6>Nómina electrónica</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Empleador:</label>
+                                        {{ form_widget(form.empleador) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">TestId:</label>
+                                        {{ form_widget(form.codigoSetPruebasNominas) }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        {{ form_widget(form.nominaElectronica) }}
+                                        {{ form_widget(form.setPruebasNomina) }}
+                                    </div>
+                                </div>
 
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.facturacionElectronica) }}
-                            {{ form_widget(form.setPruebas) }}
+                            </div>
+                            <div class="card-header title-bg-color">
+                                <h6>Servicios</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Fecha suspensión:</label>
+                                        {{ form_widget(form.fechaSuspension) }}
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        {{ form_widget(form.servicioSoporte) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-end">
+                                    {{ form_widget(form.guardar, { 'attr': {'class': 'btnCustom'} }) }}
+                                </div>
+                            </div>
                         </div>
-                        <label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-4">
-
-                        </div>
+                        {{ form_rest(form) }}
+                        {{ form_end(form) }}
                     </div>
                 </div>
-            </section>
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
-                    </div>
-
-                    <h2 class="panel-title">Nomina electronica </h2>
-                </header>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Empleador:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.empleador) }}
-                        </div>
-                        <label class="col-sm-2 control-label">TestId:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.codigoSetPruebasNominas) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-
-                        <label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.nominaElectronica) }}
-                            {{ form_widget(form.setPruebasNomina) }}
-                        </div>
-                        <label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-4">
-
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
-                    </div>
-
-                    <h2 class="panel-title">Servicio </h2>
-                </header>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Fecha suspension:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.fechaSuspension) }}
-                        </div>
-                        <label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-4">
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-
-                        <label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.servicioSoporte) }}
-                        </div>
-                        <label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-4">
-
-                        </div>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
-    </div>
+    </section>
+
 {% endblock %}
