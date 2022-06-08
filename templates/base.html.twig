@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html class="fixed" lang="es">
 <head>
-    <meta charset="UTF-8"/>
     {% block metas %}
-        <title>{% block title %}mai{% endblock %}</title>
+        <title>{% block title %}Semantica{% endblock %}</title>
         <meta name="keywords" content="HTML5 Admin Template"/>
         <meta name="description" content="JSOFT Admin - Responsive HTML5 Template">
         <meta name="author" content="JSOFT.net">
         <!-- Mobile Metas -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta charset="UTF-8"/>
     {% endblock %}
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Title -->
-    <title>Semantica Digital</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Favicon -->
@@ -64,15 +59,119 @@
         </div>
     </div>
     <!-- End Preloader Area -->
-    {% include('base/menu.html.twig') %}
-    <div class="bg-admin pt-5">
-        <div class="container pt-5">
-            {{ notificar()|raw }}
-        </div>
+    {% include('base/menuPagina.html.twig') %}
         {% block content %}
 
         {% endblock %}
+
+    <!-- Start Footer Section -->
+    <section class="footer-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-heading">
+                            <h3>About Us</h3>
+                        </div>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                            consectetur laboris.</p>
+                        <ul class="footer-social">
+                            <li>
+                                <a href="#"> <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"> <i class="fab fa-twitter"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"> <i class="fab fa-pinterest"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"> <i class="fab fa-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-heading">
+                            <h3>Our Services</h3>
+                        </div>
+                        <ul class="footer-quick-links">
+                            <li><a href="#">IT Solution</a></li>
+                            <li><a href="#">Web Development</a></li>
+                            <li><a href="#">Networking Services</a></li>
+                            <li><a href="#">SEO Optimization</a></li>
+                            <li><a href="#">App Optimization</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-heading">
+                            <h3>Enlaces</h3>
+                        </div>
+                        <ul class="footer-quick-links">
+                            <li><a href="about.html">Nosotros</a></li>
+                            <li><a href="projects.html">Servicios</a></li>
+                            <li><a href="contact.html">Contactenos</a></li>
+                            <li><a href="privacy-policy.html">Politica Privacidad</a></li>
+                            <li><a href="terms-condition.html">Terminos & Condiciones</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <div class="footer-heading">
+                            <h3>Informacion Contacto</h3>
+                        </div>
+                        <div class="footer-info-contact">
+                            <span><strong>Telefono:</strong> <a href="tel:0802235678">+4 320 5015059</a></span>
+                        </div>
+                        <div class="footer-info-contact">
+                            <span><strong>Correo:</strong> <a href="mailto:demo@example.com">administracion@semantica.com.co</a></span>
+                        </div>
+                        <div class="footer-info-contact">
+                            <span><strong>Direccion:</strong> Calle 34 N66 A 33, Conquistadores, Medellin - Antioquia</span>
+                        </div>
+                        <!-- Start Subscribe Area -->
+                        <form class="newsletter-form">
+                            <input type="email" class="input-newsletter" placeholder="Enter your email" name="EMAIL"
+                                   required autocomplete="off">
+                            <button class="default-btn" type="submit">Suscribase <span></span></button>
+                        </form>
+                        <!-- End Subscribe Area -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Footer Section -->
+
+    <!-- Start Copy Right Section -->
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-6">
+                    <p><i class="far fa-copyright"></i> 2022 Semantica Digital - Todos los derechos reservados.</p>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <ul>
+                        <li><a href="terms-condition.html">Terminos & Condiciones</a>
+                        </li>
+                        <li><a href="privacy-policy.html">Politicas Privacidad</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- End Copy Right Section -->
+
     <!-- Start Go Top Section -->
     <div class="go-top">
         <i class="fas fa-chevron-up"></i>
