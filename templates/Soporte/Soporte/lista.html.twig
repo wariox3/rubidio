@@ -82,7 +82,9 @@
                                                     {% if arSoporte.estadoAtendido == 1 %}
                                                         SI
                                                     {% else %}
-                                                        <button class="btnCustom btn-xs" type="submit" name="OpAtender" value="{{ arSoporte.codigoSoportePk }}">Atender</button>
+                                                        <button class="btnCustom btn-xs" type="submit" name="OpAtender"
+                                                                value="{{ arSoporte.codigoSoportePk }}">Atender
+                                                        </button>
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-center">
@@ -90,7 +92,8 @@
                                                         SI
                                                     {% else %}
                                                         {% if arSoporte.estadoAtendido == 1 %}
-                                                            <a class="btnCustom" href="javascript:abrirVentana3('{{ path('soporte_soporte_solucion', {'id': arSoporte.codigoSoportePk}) }}', 'SolucionSoporte', 600, 1200)">Solucion</a>
+                                                            <a class="btnCustom"
+                                                               href="javascript:abrirVentana3('{{ path('soporte_soporte_solucion', {'id': arSoporte.codigoSoportePk}) }}', 'SolucionSoporte', 600, 1200)">Solucion</a>
                                                         {% else %}
                                                             NO
                                                         {% endif %}
@@ -104,7 +107,8 @@
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-center">
-                                                    <input type="checkbox" name="ChkSeleccionar[]" value="{{ arSoporte.codigoSoportePk }}"/>
+                                                    <input type="checkbox" name="ChkSeleccionar[]"
+                                                           value="{{ arSoporte.codigoSoportePk }}"/>
                                                 </td>
                                             </tr>
                                         {% endfor %}

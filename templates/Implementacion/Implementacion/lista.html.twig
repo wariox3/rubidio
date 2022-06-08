@@ -1,147 +1,121 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
-                    </div>
-
-                    <h2 class="panel-title">Filtro de busqueda</h2>
-                </header>
-                <div class="panel-body">
-
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
-                        </div>
-                    </div>
-                </footer>
-            </section>
-        </div>
-        <div class="col-md-12">
-            <section class="panel">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group"
-                                 aria-label="...">
-                                <a class="btn btn-sm btn-default"
-                                   href="{{ path('implementacion_implementacion_nuevo', {'id': 0}) }}">Nuevo</a>
+    <section class="services-section">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <section class="card">
+                            <div class="card-header bg-white">
+                                <div class="d-flex justify-content-end">
+                                    <a class="btnCustom"
+                                       href="javascript:abrirVentana3('{{ path('implementacion_implementacion_nuevo', {'id': '0'}) }}', 'Nuevo', 600, 1200)">
+                                        Nuevo
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th>Cliente</th>
-                                <th>Lider</th>
-                                <th>Celular</th>
-                                <th>Correo</th>
-                                <th>Gen</th>
-                                <th>Rhu</th>
-                                <th>Tur</th>
-                                <th>Inv</th>
-                                <th>Car</th>
-                                <th>Tes</th>
-                                <th>Jur</th>
-                                <th>CRM</th>
-                                <th>Fin</th>
-                                <th title="Estado terminado">TER</th>
-                                <th>DETALLES</th>
-                                <th>TIEMPO</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for arImplementacion in arImplementaciones %}
-                                <tr>
-                                    <td>{{ arImplementacion.codigoImplementacionPk }}</td>
-                                    <td>{{ arImplementacion.nombre }}</td>
-                                    <td>{{ arImplementacion.clienteNombreCorto }}</td>
-                                    <td>{{ arImplementacion.liderCliente }}</td>
-                                    <td>{{ arImplementacion.celularLider }}</td>
-                                    <td>{{ arImplementacion.correoLider }}</td>
-                                    <td>{{ arImplementacion.general?'SI':'NO' }}</td>
-                                    <td>{{ arImplementacion.recursoHumano?'SI':'NO' }}</td>
-                                    <td>{{ arImplementacion.turnos?'SI':'NO' }}</td>
-                                    <td>{{ arImplementacion.inventario?'SI':'NO' }}</td>
-                                    <td>{{ arImplementacion.cartera?'SI':'NO' }}</td>
-                                    <td>{{ arImplementacion.tesoreria?'SI':'NO' }}</td>
-                                    <td>{{ arImplementacion.juridico?'SI':'NO' }}</td>
-                                    <td>{{ arImplementacion.crm?'SI':'NO' }}</td>
-                                    <td>{{ arImplementacion.financiero?'SI':'NO' }}</td>
-                                    <td>{{ arImplementacion.estadoTerminado?'SI':'NO' }}</td>
-                                    <td>
-                                        <div class="progress progress-striped light active m-md">
-                                            <div class="progress-bar progress-bar-primary" role="progressbar"
-                                                 aria-valuenow="{{ arImplementacion.cantidadDetallesTerminados }}"
-                                                 aria-valuemin="0"
-                                                 aria-valuemax="{{ arImplementacion.cantidadDetalles }}"
-                                                 style="width: {{ arImplementacion.porcentajeDetalles }}%;">
-                                                {{ arImplementacion.porcentajeDetalles }}%
-                                                | {{ arImplementacion.cantidadDetallesTerminados }}
-                                                /{{ arImplementacion.cantidadDetalles }}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="progress progress-striped light active m-md">
-                                            <div class="progress-bar progress-bar-warning" role="progressbar"
-                                                 aria-valuenow="{{ arImplementacion.tiempoTerminado }}"
-                                                 aria-valuemin="0" aria-valuemax="{{ arImplementacion.tiempo }}"
-                                                 style="width: {{ arImplementacion.porcentajeTiempo }}%;">
-                                                {{ arImplementacion.porcentajeTiempo }}%
-                                                | {{ arImplementacion.tiempoTerminado }}/{{ arImplementacion.tiempo }}
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        {% if arImplementacion.estadoTerminado == 0 %}
-                                            <button class="btn btn-default btn-xs" type="submit" name="OpActualizar"
-                                                    value="{{ arImplementacion.codigoImplementacionPk }}">Actualizar
-                                            </button>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ path('implementacion_implementacion_detalle', { 'id': arImplementacion.codigoImplementacionPk }) }}">
-                                            <i class="fa fa-eye fa-lg"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group"
-                                 aria-label="...">
-
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-datos m-0">
+                                        <thead class="title-bg-color">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th>Cliente</th>
+                                            <th>Lider</th>
+                                            <th>Celular</th>
+                                            <th>Correo</th>
+                                            <th>Gen</th>
+                                            <th>Rhu</th>
+                                            <th>Tur</th>
+                                            <th>Inv</th>
+                                            <th>Car</th>
+                                            <th>Tes</th>
+                                            <th>Jur</th>
+                                            <th>CRM</th>
+                                            <th>Fin</th>
+                                            <th title="Estado terminado">TER</th>
+                                            <th>DETALLES</th>
+                                            <th>TIEMPO</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for arImplementacion in arImplementaciones %}
+                                            <tr>
+                                                <td>{{ arImplementacion.codigoImplementacionPk }}</td>
+                                                <td>{{ arImplementacion.nombre }}</td>
+                                                <td>{{ arImplementacion.clienteNombreCorto }}</td>
+                                                <td>{{ arImplementacion.liderCliente }}</td>
+                                                <td>{{ arImplementacion.celularLider }}</td>
+                                                <td>{{ arImplementacion.correoLider }}</td>
+                                                <td class="text-center">{{ arImplementacion.general?'SI':'NO' }}</td>
+                                                <td class="text-center">{{ arImplementacion.recursoHumano?'SI':'NO' }}</td>
+                                                <td class="text-center">{{ arImplementacion.turnos?'SI':'NO' }}</td>
+                                                <td class="text-center">{{ arImplementacion.inventario?'SI':'NO' }}</td>
+                                                <td class="text-center">{{ arImplementacion.cartera?'SI':'NO' }}</td>
+                                                <td class="text-center">{{ arImplementacion.tesoreria?'SI':'NO' }}</td>
+                                                <td class="text-center">{{ arImplementacion.juridico?'SI':'NO' }}</td>
+                                                <td class="text-center">{{ arImplementacion.crm?'SI':'NO' }}</td>
+                                                <td  class="text-center">{{ arImplementacion.financiero?'SI':'NO' }}</td>
+                                                <td  class="text-center">{{ arImplementacion.estadoTerminado?'SI':'NO' }}</td>
+                                                <td>
+                                                    <div class="progress progress-striped light active m-md">
+                                                        <div class="progress-bar progress-bar-primary"
+                                                             role="progressbar"
+                                                             aria-valuenow="{{ arImplementacion.cantidadDetallesTerminados }}"
+                                                             aria-valuemin="0"
+                                                             aria-valuemax="{{ arImplementacion.cantidadDetalles }}"
+                                                             style="width: {{ arImplementacion.porcentajeDetalles }}%;">
+                                                            {{ arImplementacion.porcentajeDetalles }}%
+                                                            | {{ arImplementacion.cantidadDetallesTerminados }}
+                                                            /{{ arImplementacion.cantidadDetalles }}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="progress progress-striped light active m-md">
+                                                        <div class="progress-bar bg-
+                                                        warning"
+                                                             role="progressbar"
+                                                             aria-valuenow="{{ arImplementacion.tiempoTerminado }}"
+                                                             aria-valuemin="0"
+                                                             aria-valuemax="{{ arImplementacion.tiempo }}"
+                                                             style="width: {{ arImplementacion.porcentajeTiempo }}%;">
+                                                            {{ arImplementacion.porcentajeTiempo }}%
+                                                            | {{ arImplementacion.tiempoTerminado }}
+                                                            /{{ arImplementacion.tiempo }}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    {% if arImplementacion.estadoTerminado == 0 %}
+                                                        <button class="btnCustom btn-xs" type="submit"
+                                                                name="OpActualizar"
+                                                                value="{{ arImplementacion.codigoImplementacionPk }}">
+                                                            Actualizar
+                                                        </button>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="{{ path('implementacion_implementacion_detalle', { 'id': arImplementacion.codigoImplementacionPk }) }}">
+                                                        <i class="fas fa-eye fa-2x"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </div>
-                </footer>
-            </section>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
         </div>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
-    </div>
-
-
-
+    </section>
 {% endblock %}
