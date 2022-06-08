@@ -1,45 +1,33 @@
 {% extends 'base_sin_menu.html.twig' %}
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header title-bg-color">
+                        <h5>Nuevo</h5>
                     </div>
-
-                    <h2 class="panel-title">Informacion</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Nueva clave:</label>
-                        <div class="col-sm-4">
+                    <div class="card-body">
+                        {{ form_errors(form) }}
+                        <div class="form-group">
+                            <label class="control-label">Nueva clave:</label>
                             {{ form_widget(form.txtNuevaClave, { 'attr': {'class': 'form-control'} }) }}
                         </div>
-                        <label class="col-sm-2 control-label">Confirmar clave:</label>
-                        <div class="col-sm-4">
+                        <div class="form-group">
+                            <label class="control-label">Nueva clave:</label>
                             {{ form_widget(form.txtConfirmacionClave, { 'attr': {'class': 'form-control'} }) }}
                         </div>
                     </div>
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3" >
-                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group" aria-label="...">
-                                {{ form_widget(form.btnActualizar, { 'attr': {'class': 'btn btn-sm btn-primary '} }) }}
-                            </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-end">
+                            {{ form_widget(form.btnActualizar, { 'attr': {'class': 'btnCustom'} }) }}
                         </div>
                     </div>
-                </footer>
-            </section>
+                </div>
+            </div>
         </div>
-
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
     </div>
-
-
-
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
 {% endblock %}

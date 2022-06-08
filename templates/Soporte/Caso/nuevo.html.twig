@@ -1,69 +1,59 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
-                    </div>
-
-                    <h2 class="panel-title">Informacion</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">Prioridad:</label>
-                        <div class="col-sm-5">
-                            {{ form_widget(form.prioridadRel) }}
-                        </div>
-                        <label class="col-sm-1 control-label">Compromiso:</label>
-                        <div class="col-sm-5">
-                            {{ form_widget(form.compromiso) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label"></label>
-                        <div class="col-sm-5">
-                            {{ form_widget(form.estadoPostergado) }}
-                        </div>
-                        <label class="col-sm-1 control-label"></label>
-                        <div class="col-sm-5">
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">Solucion:</label>
-                        <div class="col-sm-11">
-                            {{ form_widget(form.solucion, { 'attr': {'style':'height: 180px;'} }) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">Comentario postergado:</label>
-                        <div class="col-sm-11">
-                            {{ form_widget(form.comentarioPostergado, { 'attr': {'style':'height: 180px;'} }) }}
+    <section class="services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="single-testimonial">
+                        <div class="d-flex justify-content-start">
+                            <a class="btnCustom" href="{{ path('soporte_caso_lista') }}">Volver <span></span></a>
                         </div>
                     </div>
                 </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <a class="btn btn-default btn-sm" style="float:left" href="{{ path('soporte_caso_lista') }}">Cancelar</a>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="single-testimonial">
+                        <div class="card">
+                            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                            <div class="card-header title-bg-color">
+                                <h5>Nuevo</h5>
+                            </div>
+                            <div class="card-body">>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Prioridad:</label>
+                                        {{ form_widget(form.prioridadRel) }}
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Compromiso:</label>
+                                        {{ form_widget(form.compromiso) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_widget(form.estadoPostergado) }}
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Solución:</label>
+                                    {{ form_widget(form.solucion, { 'attr': {'style':'height: 180px;'} }) }}
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Comentario postergado:</label>
+                                    {{ form_widget(form.comentarioPostergado, { 'attr': {'style':'height: 180px;'} }) }}
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-end">
+                                    {{ form_widget(form.guardar, { 'attr': {'class': 'btnCustom'} }) }}
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-sm-6">
-                            {{ form_widget(form.guardar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
-                        </div>
+                        {{ form_rest(form) }}
+                        {{ form_end(form) }}
                     </div>
-                </footer>
-            </section>
+                </div>
+            </div>
         </div>
-
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
-    </div>
-
-
-
+    </section>
 {% endblock %}

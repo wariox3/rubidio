@@ -1,42 +1,29 @@
 {% extends 'base_sin_menu.html.twig' %}
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header title-bg-color">
+                        <h5>Nuevo</h5>
                     </div>
-
-                    <h2 class="panel-title">Informacion</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-1 control-label">Respuesta postergado:</label>
-                        <div class="col-sm-11">
-                            {{ form_widget(form.respuestaPostergado, { 'attr': {'style':'height: 180px;'} }) }}
+                    <div class="card-body">
+                        {{ form_errors(form) }}
+                        <div class="form-group">
+                            <label class="control-label">Respuesta postergado:</label>
+                            {{ form_widget(form.respuestaPostergado, { 'attr': {'style':'height: 325px;'} }) }}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-end">
+                            {{ form_widget(form.guardar, { 'attr': {'class': 'btnCustom'} }) }}
                         </div>
                     </div>
                 </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-6">
-
-                        </div>
-                        <div class="col-sm-6">
-                            {{ form_widget(form.guardar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
-                        </div>
-                    </div>
-                </footer>
-            </section>
+            </div>
         </div>
-
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
     </div>
-
-
-
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
 {% endblock %}
