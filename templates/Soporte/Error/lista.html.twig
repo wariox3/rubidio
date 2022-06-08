@@ -1,145 +1,149 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <header class="panel-heading">
-                    <div class="panel-actions">
-                        <a href="#" class="fa fa-caret-down"></a>
-                        <a href="#" class="fa fa-times"></a>
-                    </div>
-
-                    <h2 class="panel-title">Filtro de busqueda</h2>
-                </header>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Usuario:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.usuarioRel) }}
+    {{ form_start(form) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="single-testimonial">
+                    <div class="card">
+                        <div class="card-header title-bg-color">
+                            <h5>Filtros</h5>
                         </div>
-                        <label class="col-sm-1 control-label">Atendido:</label>
-                        <div class="col-sm-2">
-                            {{ form_widget(form.estadoAtendido) }}
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Usuario:</label>
+                                    {{ form_widget(form.usuarioRel) }}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Atendido:</label>
+                                    {{ form_widget(form.estadoAtendido) }}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputEmail4">Cliente:</label>
+                                    {{ form_widget(form.clienteRel) }}
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="inputPassword4">Solucionado:</label>
+                                    {{ form_widget(form.estadoSolucionado) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-end">
+                                {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btnCustom'} }) }}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Cliente:</label>
-                        <div class="col-sm-4">
-                            {{ form_widget(form.clienteRel) }}
-                        </div>
-                        <label class="col-sm-1 control-label">Solucionado:</label>
-                        <div class="col-sm-2">
-                            {{ form_widget(form.estadoSolucionado) }}
-                        </div>
-                    </div>
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-9 col-sm-offset-3">
-                            {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }}
-                        </div>
-                    </div>
-                </footer>
-            </section>
-        </div>
-        <div class="col-md-12" style="margin-bottom: 5px">
-            <div class="pull-right">
-                {{ form_widget(form.btnEliminar) }}
             </div>
         </div>
-        <div class="col-md-12">
-            <section class="panel">
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Fecha</th>
-                                <th>Cliente</th>
-                                <th>Línea</th>
-                                <th>Ruta</th>
-                                <th>Mensaje</th>
-                                <th>Usuario</th>
-                                <th>Correo</th>
-                                <th>UsuAte</th>
-                                <th>Ate</th>
-                                <th>Sol</th>
-                                <th></th>
-                                <th></th>
-                                <th class="text-center" title="seleccionar todos">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="ChkSeleccionar[]" class="custom-control-input"
-                                               id="todosInput"
-                                               onclick="ChequearTodosTabla(this, 'ChkSeleccionar[]')"/>
-                                        <label class="custom-control-label" for="todosInput"></label>
-                                    </div>
-                                </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for arError in arErrores %}
-                                <tr>
-                                    <td>{{ arError.codigoErrorPk }}</td>
-                                    <td>{{ arError.fecha | date('Y-m-d H:i') }}</td>
-                                    <td>{{ arError.clienteNombreCorto }}</td>
-                                    <td>{{ arError.linea }}</td>
-                                    <td>{{ arError.ruta }}</td>
-                                    <td>{{ arError.mensaje }}</td>
-                                    <td>{{ arError.usuario }}</td>
-                                    <td>{{ arError.email }}</td>
-                                    <td>{{ arError.usuarioSoluciona }}</td>
-                                    <td>
-                                    {% if arError.estadoAtendido == 1 %}
-                                        SI
-                                    {% else %}
-                                        <button class="btn btn-default btn-xs" type="submit" name="OpAtender" value="{{ arError.codigoErrorPk }}">Atender</button>
-                                    {% endif %}
-                                    </td>
-                                    <td>
-                                        {% if arError.estadoAtendido == 1 and arError.estadoSolucionado == 1 %}
-                                            SI
-                                        {% else %}
-                                            <button class="btn btn-default btn-xs" type="submit" name="OpSolucionar" value="{{ arError.codigoErrorPk }}">Solucionar</button>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        {% if is_granted('ROLE_ADMIN') and arError.estadoAtendido == 0 %}
-                                            <a class="btn btn-xs btn-default" href="javascript:abrirVentana3('{{ path('soporte_error_asignar', {'id': arError.codigoErrorPk}) }}', 'Asignar', 600, 1200)">Asignar</a>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-center">
-                                        <a href="{{ path('soporte_error_detalle', { 'id': arError.codigoErrorPk }) }}">
-                                            <i class="fa fa-eye fa-lg"></i>
-                                        </a>
-                                    </td>
-                                    <td class="text-center">
-                                        <input type="checkbox" name="ChkSeleccionar[]" value="{{ arError.codigoErrorPk }}"/>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <footer class="panel-footer">
-                    <div class="row">
-                        <div class="col-sm-12" >
-                                Total {{ arErrores.getTotalItemCount }} registros
-                                {{ knp_pagination_render(arErrores) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="single-testimonial">
+                    <section class="card">
+                        <div class="card-header bg-white">
+                            <div class="d-flex justify-content-end">
+                                {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
+                            </div>
                         </div>
-                    </div>
-                </footer>
-            </section>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-condensed table-bordered table-hover mb-none tabla-datos m-0">
+                                    <thead class="title-bg-color">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Fecha</th>
+                                        <th>Cliente</th>
+                                        <th>Línea</th>
+                                        <th>Ruta</th>
+                                        <th>Mensaje</th>
+                                        <th>Usuario</th>
+                                        <th>Correo</th>
+                                        <th>UsuAte</th>
+                                        <th>Ate</th>
+                                        <th>Sol</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th class="text-center" title="seleccionar todos">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" name="ChkSeleccionar[]"
+                                                       class="custom-control-input"
+                                                       id="todosInput"
+                                                       onclick="ChequearTodosTabla(this, 'ChkSeleccionar[]')"/>
+                                                <label class="custom-control-label" for="todosInput"></label>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for arError in arErrores %}
+                                        <tr>
+                                            <td>{{ arError.codigoErrorPk }}</td>
+                                            <td>{{ arError.fecha | date('Y-m-d H:i') }}</td>
+                                            <td>{{ arError.clienteNombreCorto }}</td>
+                                            <td>{{ arError.linea }}</td>
+                                            <td>{{ arError.ruta }}</td>
+                                            <td>{{ arError.mensaje }}</td>
+                                            <td>{{ arError.usuario }}</td>
+                                            <td>{{ arError.email }}</td>
+                                            <td>{{ arError.usuarioSoluciona }}</td>
+                                            <td class="text-center">
+                                                {% if arError.estadoAtendido == 1 %}
+                                                    SI
+                                                {% else %}
+                                                    <button class="btnCustom btn-xs" type="submit"
+                                                            name="OpAtender" value="{{ arError.codigoErrorPk }}">Atender
+                                                    </button>
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-center">
+                                                {% if arError.estadoAtendido == 1 and arError.estadoSolucionado == 1 %}
+                                                    SI
+                                                {% else %}
+                                                    <button class="btnCustom btn-xs" type="submit"
+                                                            name="OpSolucionar" value="{{ arError.codigoErrorPk }}">
+                                                        Solucionar
+                                                    </button>
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-center">
+                                                {% if is_granted('ROLE_ADMIN') and arError.estadoAtendido == 0 %}
+                                                    <a class="btn btn-xs btn-default"
+                                                       href="javascript:abrirVentana3('{{ path('soporte_error_asignar', {'id': arError.codigoErrorPk}) }}', 'Asignar', 600, 1200)">Asignar</a>
+                                                {% endif %}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ path('soporte_error_detalle', { 'id': arError.codigoErrorPk }) }}">
+                                                    <i class="fas fa-eye fa-2x"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <input type="checkbox" name="ChkSeleccionar[]"
+                                                       value="{{ arError.codigoErrorPk }}"/>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <div class="d-flex justify-content-between">
+                                <div class="btn btn-default btn-sm">Registros
+                                    <span>{{ arErrores.getTotalItemCount }}</span>
+                                </div>
+                                <div class="btn-group btn-xs">
+                                    {{ knp_pagination_render(arErrores) }}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
     </div>
-
-
-
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
 {% endblock %}

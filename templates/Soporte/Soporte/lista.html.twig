@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block content %}
+    {{ form_start(form) }}
     <section class="services-section">
         <div class="container">
             <div class="row">
@@ -132,4 +133,6 @@
             </div>
         </div>
     </section>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
 {% endblock %}
