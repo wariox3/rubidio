@@ -6,9 +6,9 @@
          <section class="services-section">
              <div class="container">
                  <div class="row">
-                     <div class="col-lg-7 p-1 ">
+                     <div class="col-lg-6">
                          <div class="row">
-                             <div class="col-lg-4 col-md-6">
+                             <div class="col-lg-6 col-md-6">
                                  <div class="single-services-item">
                                      <div class="services-icon">
                                          <i class="pe-7s-tools"></i>
@@ -20,7 +20,7 @@
                                      </div>
                                  </div>
                              </div>
-                             <div class="col-lg-4 col-md-6">
+                             <div class="col-lg-6 col-md-6">
                                  <div class="single-services-item">
                                      <div class="services-icon">
                                          <i class="pe-7s-close-circle"></i>
@@ -35,7 +35,7 @@
                              </div>
                          </div>
                          <div class="row">
-                             <div class="col-lg-4 col-md-4">
+                             <div class="col-lg-6 col-md-6">
                                  <div class="single-services-item">
                                      <div class="services-icon">
                                          <i class="pe-7s-sun"></i>
@@ -47,7 +47,7 @@
                                      </div>
                                  </div>
                              </div>
-                             <div class="col-lg-4 col-md-4">
+                             <div class="col-lg-6 col-md-6">
                                  <div class="single-services-item">
                                      <div class="services-icon">
                                          <i class="pe-7s-date"></i>
@@ -61,31 +61,33 @@
                              </div>
                          </div>
                      </div>
-                     <div class="col-lg-5 p-1">
-                         <div class="row">
-                             <div class="single-services-item">
-                                 <div class="table-responsive">
-                                     <h3 class="panel-title">Errores</h3>
-                                     <table class="table table-striped mb-none">
-                                         <thead>
-                                         <tr>
-                                             <th>Cliente</th>
-                                             <th>Errores</th>
-                                         </tr>
-                                         </thead>
-                                         <tbody>
-                                         {% for arError in arErrores %}
-                                             <tr>
-                                                 <td>{{ arError.clienteNombreCorto }}</td>
-                                                 <td><span class="label label-success">{{ arError.cantidad }}</span>
-                                                 </td>
-                                             </tr>
-                                         {% endfor %}
-                                         </tbody>
-                                     </table>
-                                 </div>
-                             </div>
-                         </div>
+                     <div class="col-lg-6">
+                          <div class="single-services-item">
+                              <div class="card">
+                                  <div class="card-header title-bg-color p-0">
+                                      <h5>Filtros</h5>
+                                  </div>
+                                  <div class="card-body">
+                                      <table class="table table-striped mb-none">
+                                          <thead>
+                                          <tr>
+                                              <th>Cliente</th>
+                                              <th>Errores</th>
+                                          </tr>
+                                          </thead>
+                                          <tbody>
+                                          {% for arError in arErrores %}
+                                              <tr>
+                                                  <td>{{ arError.clienteNombreCorto }}</td>
+                                                  <td><span class="label label-success">{{ arError.cantidad }}</span>
+                                                  </td>
+                                              </tr>
+                                          {% endfor %}
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
                      </div>
                  </div>
              </div>
