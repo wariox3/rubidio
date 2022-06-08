@@ -1,42 +1,41 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
-    <div class="row">
-        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-        <div class="col-md-12">
-            <section class="panel">
-                <div class="panel-body">
-                    <div class="table-responsive">
-                        <table class="table table-condensed table-bordered table-hover mb-none tabla-datos">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nombre</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for arProyecto in arProyectos %}
-                                <tr>
-                                    <td>{{ arProyecto.codigoProyectoPk }}</td>
-                                    <td>{{ arProyecto.nombre }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ path('admin_proyecto_detalle', { 'id': arProyecto.codigoProyectoPk }) }}">
-                                            <i class="fa fa-eye fa-lg"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+    <section class="services-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <section class="card">
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-datos m-0">
+                                        <thead class="title-bg-color">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nombre</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for arProyecto in arProyectos %}
+                                            <tr>
+                                                <td>{{ arProyecto.codigoProyectoPk }}</td>
+                                                <td>{{ arProyecto.nombre }}</td>
+                                                <td class="text-center">
+                                                    <a href="{{ path('admin_proyecto_detalle', { 'id': arProyecto.codigoProyectoPk }) }}">
+                                                        <i class="fa fa-eye fa-2x"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
-        {{ form_rest(form) }}
-        {{ form_end(form) }}
-    </div>
-
-
-
+    </section>
 {% endblock %}
