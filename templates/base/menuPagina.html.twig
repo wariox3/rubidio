@@ -15,14 +15,14 @@
     <div class="techmax-nav index-navber">
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{ path('inicio') }}">
                     <img src="{{ asset('landingPage/img/logo-black.png') }}" class="white-logo" alt="logo">
                     <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
                 </a>
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="index.html" class="nav-link">Inicio</a>
+                            <a href="{{ path('inicio') }}" class="nav-link">Inicio</a>
                         </li>
                         <li class="nav-item">
                             <a href="about.html" class="nav-link">Nosotros</a>
@@ -35,6 +35,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="services.html" class="nav-link">Consultoria</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="services.html" class="nav-link">Capacitacion</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="single-services.html" class="nav-link">Servicios nube</a>
@@ -75,7 +78,7 @@
                     </ul>
                     <div class="other-option">
                         <a class="default-btn nav-btn-1" href="{{ path('login') }}">Log In <span></span></a>
-                        <a class="default-btn" href="#0">Soporte <span></span></a>
+                        <a class="default-btn" href="{{ path('soporte') }}">Soporte <span></span></a>
                     </div>
                 </div>
             </nav>

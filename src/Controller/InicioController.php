@@ -18,8 +18,15 @@ class InicioController extends AbstractController
     /**
      * @Route("/", name="inicio")
      */
-    public function inicioAction(){
+    public function inicio(){
         return $this->render('Inicio/inicio.html.twig');
+    }
+
+    /**
+     * @Route("/soporte", name="soporte")
+     */
+    public function soporte(){
+        return $this->render('Inicio/soporte.html.twig');
     }
 
     /**
