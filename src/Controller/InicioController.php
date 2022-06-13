@@ -30,6 +30,13 @@ class InicioController extends AbstractController
     }
 
     /**
+     * @Route("/soporte/comosehace", name="soporte_comosehace")
+     */
+    public function comoSeHace(){
+        return $this->render('Inicio/comoSeHace.html.twig');
+    }
+
+    /**
      * @Route("/inicio/admin", name="inicio_admin")
      */
     public function admin(Dubnio $dubnio)
