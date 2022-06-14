@@ -36,9 +36,9 @@ class InicioController extends AbstractController
     }
 
     /**
-     * @Route("/soporte/personalizado", name="soporte_personalizado")
+     * @Route("/soporte/asesor", name="soporte_asesor")
      */
-    public function soportePersonalizado(Request $request, ManagerRegistry $doctrine): Response {
+    public function soporteAsesor(Request $request, ManagerRegistry $doctrine): Response {
         $em = $doctrine->getManager();
         $arSoporte = new Soporte();
         $arSoporte->setFecha(new \DateTime('now'));
@@ -49,18 +49,18 @@ class InicioController extends AbstractController
                 $arSoporte = $form->getData();
                 $em->persist($arSoporte);
                 $em->flush();
-                return $this->redirectToRoute('soporte_personalizado_detalle', ['id' => $arSoporte->getCodigoSoportePk()]);
+                return $this->redirectToRoute('soporte_asesor_detalle', ['id' => $arSoporte->getCodigoSoportePk()]);
             }
         }
-        return $this->render('Inicio/soportePersonalizado.html.twig' , [
+        return $this->render('Inicio/soporteAsesor.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/soporte/personalizado/detalle/{id}", name="soporte_personalizado_detalle")
+     * @Route("/soporte/asesor/detalle/{id}", name="soporte_asesor_detalle")
      */
-    public function soportePersonalizadoDetalle(Request $request, ManagerRegistry $doctrine, $id): Response {
+    public function soporteAsesorDetalle(Request $request, ManagerRegistry $doctrine, $id): Response {
         $em = $doctrine->getManager();
         $arSoporte = [];
         if($id) {
@@ -77,7 +77,7 @@ class InicioController extends AbstractController
                 $arSoporte = $em->getRepository(Soporte::class)->find($codigoSoporte);
             }
         }
-        return $this->render('Inicio/soportePersonalizadoDetalle.html.twig' , [
+        return $this->render('Inicio/soporteAsesorDetalle.html.twig', [
             'arSoporte' => $arSoporte,
             'formBuscar' => $formBuscar->createView()
         ]);
