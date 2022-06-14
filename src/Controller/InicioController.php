@@ -101,28 +101,6 @@ class InicioController extends AbstractController
     }
 
     /**
-     * @Route("/contacto", name="contacto")
-     */
-    public function contacto(Request $request, ManagerRegistry $doctrine): Response {
-        $em = $doctrine->getManager();
-        $arSoporte = new Soporte();
-        $arSoporte->setFecha(new \DateTime('now'));
-        $form = $this->createForm(ContactoType::class, $arSoporte);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arSoporte = $form->getData();
-                $em->persist($arSoporte);
-                $em->flush();
-                return $this->redirectToRoute('soporte_asesor_informacion', ['id' => $arSoporte->getCodigoSoportePk()]);
-            }
-        }
-        return $this->render('Inicio/contacto.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
      * @Route("/inicio/admin", name="inicio_admin")
      */
     public function admin(Dubnio $dubnio): Response
