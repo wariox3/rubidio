@@ -94,7 +94,8 @@
                             </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
-                                    {{ form_widget(form.attachment, { 'attr': {'placeholder': 'Sin archivos cargados'} }) }}
+{#                                    {{ form_widget(form.attachment, { 'attr': {'placeholder': 'Sin archivos cargados'} }) }}#}
+                                    <input type="file" multiple="multiple" class="multi form-control" name="files[]"/>
                                 </div>
                             </div>
                             <div class="col-lg-12 col-md-12">

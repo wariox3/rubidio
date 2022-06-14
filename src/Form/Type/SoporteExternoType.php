@@ -20,7 +20,7 @@ class SoporteExternoType extends AbstractType
             ->add('correo', TextType::class, array('required' => true))
             ->add('clienteIngreso', TextType::class, array('required' => true))
             ->add('descripcion', TextareaType::class, array('required' => true))
-            ->add('attachment', FileType::class, array('required' => false, 'mapped' => false, 'multiple'=> true))
+//            ->add('attachment', FileType::class, array('required' => false, 'mapped' => false, 'multiple'=> true))
             ->add('guardar', SubmitType::class, array('label' => 'Guardar'));
     }
 
