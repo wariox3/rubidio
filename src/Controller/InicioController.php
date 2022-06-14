@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Caso;
 use App\Entity\Error;
 use App\Entity\Soporte;
 use App\Entity\Usuario;
+use App\Form\Type\CasoSolucionType;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -27,6 +30,27 @@ class InicioController extends AbstractController
      */
     public function soporte(){
         return $this->render('Inicio/soporte.html.twig');
+    }
+
+    /**
+     * @Route("/soporte/personalizado", name="soporte_personalizado")
+     */
+    public function soportePersonalizado(Request $request, ManagerRegistry $doctrine) {
+        $em = $doctrine->getManager();
+        $arCaso = new Caso();
+        $form = $this->createForm(CasoSolucionType::class, $arCaso);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arCaso = $form->getData();
+                $em->persist($arCaso);
+                $em->flush();
+            }
+        }
+        return $this->render('Inicio/soportePersonalizado.html.twig' , [
+            'arCaso' => $arCaso,
+            'form' => $form->createView()
+        ]);
     }
 
     /**
