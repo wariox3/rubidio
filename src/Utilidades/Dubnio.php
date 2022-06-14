@@ -10,7 +10,7 @@ class Dubnio
 
     }
 
-    public function enviarCorreo($asunto, $mensaje, $correo) {
+    public function enviarCorreo($correo, $asunto, $mensaje) {
         $datosJson = json_encode([
             "correo" => $correo,
             "asunto" => $asunto,
@@ -25,8 +25,10 @@ class Dubnio
                 'Content-Type: application/json',
                 'Content-Length: ' . strlen($datosJson))
         );
-        curl_exec($ch);
+        $respuesta = curl_exec($ch);
         curl_close($ch);
+        $respuesta = json_decode($respuesta);
+        return $respuesta;
     }
 
 }

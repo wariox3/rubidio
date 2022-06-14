@@ -109,7 +109,7 @@ class ErrorController extends AbstractController
                 $em->flush();
                 if (filter_var($arError->getEmail(), FILTER_VALIDATE_EMAIL)) {
                     $html = $this->renderView('Utilidades/correoErrorCliente.html.twig', ['arError' => $arError]);
-                    $dubnio->enviarCorreo("Hemos solucionado un error", $html, $arError->getEmail());
+                    $dubnio->enviarCorreo($arError->getEmail(), "Hemos solucionado un error", $html);
                 }
             }
         }

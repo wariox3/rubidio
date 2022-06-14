@@ -49,11 +49,20 @@ class InicioController extends AbstractController
                 $arSoporte = $form->getData();
                 $em->persist($arSoporte);
                 $em->flush();
-                return $this->redirectToRoute('soporte_asesor_detalle', ['id' => $arSoporte->getCodigoSoportePk()]);
+                return $this->redirectToRoute('soporte_asesor_informacion', ['id' => $arSoporte->getCodigoSoportePk()]);
             }
         }
         return $this->render('Inicio/soporteAsesor.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/soporte/asesor/informacion/{id}", name="soporte_asesor_informacion")
+     */
+    public function soporteAsesorInformacion($id): Response {
+        return $this->render('Inicio/soporteAsesorInformacion.html.twig', [
+            'codigoSoporte' => $id
         ]);
     }
 

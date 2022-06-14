@@ -8,6 +8,7 @@ use App\Entity\Tarea;
 use App\Form\Type\CasoEditarType;
 use App\Form\Type\CasoEscaladoType;
 use App\Form\Type\CasoSolucionType;
+use App\Utilidades\Dubnio;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -141,7 +142,7 @@ class CasoController extends AbstractController
     /**
      * @Route("/soporte/caso/solucion/{id}", name="soporte_caso_solucion")
      */
-    public function solucion(Request $request, $id, Correo $correo)
+    public function solucion(Request $request, $id, Dubnio $correo)
     {
         $em = $this->getDoctrine()->getManager();
         $arCaso = $em->getRepository(Caso::class)->find($id);
@@ -156,7 +157,7 @@ class CasoController extends AbstractController
                 $arCaso->setEstadoSolucionado(1);
                 $em->persist($arCaso);
                 $em->flush();
-                $correo->enviarCorreo($arCaso->getCorreo(), 'Solución de caso' . ' - ' . $arCaso->getCodigoCasoPk(),
+                $respuesta = $correo->enviarCorreo($arCaso->getCorreo(), 'Solución de caso' . ' - ' . $arCaso->getCodigoCasoPk(),
                     $this->renderView(
                         'Soporte/Caso/correoSolucion.html.twig',
                         array('arCaso' => $arCaso)

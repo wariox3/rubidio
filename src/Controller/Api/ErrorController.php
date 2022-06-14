@@ -53,7 +53,7 @@ class ErrorController extends AbstractFOSRestController
             if($arCliente) {
                 if($arCliente->getCorreoError()) {
                     $html = $this->renderView('Utilidades/correoError.html.twig', ['arError' => $arError]);
-                    $dubnio->enviarCorreo("Se ha generado un error", $html, $arCliente->getCorreoError());
+                    $dubnio->enviarCorreo($arCliente->getCorreoError(), "Se ha generado un error", $html);
                 }
             }
             return [
