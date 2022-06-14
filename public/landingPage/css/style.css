@@ -3953,3 +3953,7 @@ blockquote::after, .blockquote::after {
 	background-color: #e3e3e3 !important;
 	color: #5e87eb;
 }
+
+.custom-file-input ~ .custom-file-label::after {
+	content: "Buscar archivos";
+}

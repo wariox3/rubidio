@@ -4,9 +4,14 @@
         <div class="container">
             <div class="techmax-responsive-menu">
                 <div class="logo">
-                    <a href="index.html">
-                        <img src="{{ asset('landingPage/img/logo-black.png') }}" class="white-logo" alt="logo">
-                        <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
+                    <a href="{{ path('inicio') }}">
+                        {% if oscuro == false %}
+                            <img src="{{ asset('landingPage/img/logo-black.png') }}" class="white-logo" alt="logo">
+                            <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
+                        {% else %}
+                            <img src="{{ asset('landingPage/img/logo.png') }}" class="white-logo" alt="logo">
+                            <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
+                        {% endif %}
                     </a>
                 </div>
             </div>
@@ -18,12 +23,22 @@
                 <a class="navbar-brand" href="{{ path('inicio') }}">
                     {% if oscuro == false %}
                         <img src="{{ asset('landingPage/img/logo-black.png') }}" class="white-logo" alt="logo">
+                        <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
                     {% else %}
+                        <img src="{{ asset('landingPage/img/logo.png') }}" class="white-logo" alt="logo">
                         <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
                     {% endif %}
                 </a>
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav">
+                        <div class="d-lg-none d-sm-block">
+                            <li class="nav-item">
+                                <a href="{{ path('login') }}" class="nav-link">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('soporte') }}" class="nav-link">Soporte</a>
+                            </li>
+                        </div>
                         <li class="nav-item">
                             <a href="{{ path('inicio') }}" class="nav-link">Inicio</a>
                         </li>

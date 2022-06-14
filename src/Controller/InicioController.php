@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Error;
 use App\Entity\Soporte;
 use App\Entity\Usuario;
+use App\Form\Type\ContactoType;
 use App\Form\Type\SoporteExternoType;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
@@ -106,7 +107,7 @@ class InicioController extends AbstractController
         $em = $doctrine->getManager();
         $arSoporte = new Soporte();
         $arSoporte->setFecha(new \DateTime('now'));
-        $form = $this->createForm(SoporteExternoType::class, $arSoporte);
+        $form = $this->createForm(ContactoType::class, $arSoporte);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
