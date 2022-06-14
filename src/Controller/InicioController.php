@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Caso;
 use App\Entity\Error;
 use App\Entity\Soporte;
 use App\Entity\Usuario;
-use App\Form\Type\CasoSolucionType;
+use App\Form\Type\SoporteExternoType;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class InicioController extends AbstractController
@@ -21,49 +24,76 @@ class InicioController extends AbstractController
     /**
      * @Route("/", name="inicio")
      */
-    public function inicio(){
+    public function inicio(): Response {
         return $this->render('Inicio/inicio.html.twig');
     }
 
     /**
      * @Route("/soporte", name="soporte")
      */
-    public function soporte(){
+    public function soporte(): Response {
         return $this->render('Inicio/soporte.html.twig');
     }
 
     /**
      * @Route("/soporte/personalizado", name="soporte_personalizado")
      */
-    public function soportePersonalizado(Request $request, ManagerRegistry $doctrine) {
+    public function soportePersonalizado(Request $request, ManagerRegistry $doctrine): Response {
         $em = $doctrine->getManager();
-        $arCaso = new Caso();
-        $form = $this->createForm(CasoSolucionType::class, $arCaso);
+        $arSoporte = new Soporte();
+        $arSoporte->setFecha(new \DateTime('now'));
+        $form = $this->createForm(SoporteExternoType::class, $arSoporte);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
-                $arCaso = $form->getData();
-                $em->persist($arCaso);
+                $arSoporte = $form->getData();
+                $em->persist($arSoporte);
                 $em->flush();
+                return $this->redirectToRoute('soporte_personalizado_detalle', ['id' => $arSoporte->getCodigoSoportePk()]);
             }
         }
         return $this->render('Inicio/soportePersonalizado.html.twig' , [
-            'arCaso' => $arCaso,
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/soporte/personalizado/detalle/{id}", name="soporte_personalizado_detalle")
+     */
+    public function soportePersonalizadoDetalle(Request $request, ManagerRegistry $doctrine, $id): Response {
+        $em = $doctrine->getManager();
+        $arSoporte = [];
+        if($id) {
+            $arSoporte = $em->getRepository(Soporte::class)->find($id);
+        }
+        $formBuscar = $this->createFormBuilder()
+            ->add('codigoSoporte', TextType::class)
+            ->add('buscar', SubmitType::class)
+            ->getForm();
+        $formBuscar->handleRequest($request);
+        if ($formBuscar->isSubmitted() && $formBuscar->isValid()) {
+            if ($formBuscar->get('buscar')->isClicked()) {
+                $codigoSoporte = $formBuscar->get('codigoSoporte')->getData();
+                $arSoporte = $em->getRepository(Soporte::class)->find($codigoSoporte);
+            }
+        }
+        return $this->render('Inicio/soportePersonalizadoDetalle.html.twig' , [
+            'arSoporte' => $arSoporte,
+            'formBuscar' => $formBuscar->createView()
         ]);
     }
 
     /**
      * @Route("/soporte/comosehace", name="soporte_comosehace")
      */
-    public function comoSeHace(){
+    public function comoSeHace(): Response{
         return $this->render('Inicio/comoSeHace.html.twig');
     }
 
     /**
      * @Route("/inicio/admin", name="inicio_admin")
      */
-    public function admin(Dubnio $dubnio)
+    public function admin(Dubnio $dubnio): Response
     {
         $em = $this->getDoctrine();
         $roles = $this->getUser()->getRoles();
@@ -88,11 +118,10 @@ class InicioController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/inicio/usuario/perfil/clave/{codigoUsuario}", name="inicio_usuario_perfil_nuevo_clave")
      */
-    public function cambiarContrasena(Request $request, $codigoUsuario)
+    public function cambiarContrasena(Request $request, $codigoUsuario): Response
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()

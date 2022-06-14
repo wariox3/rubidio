@@ -66,6 +66,11 @@ class Soporte
     private $solucion;
 
     /**
+     * @ORM\Column(name="cliente_ingreso", type="string", length=200, nullable=true)
+     */
+    private $clienteIngreso;
+
+    /**
      * @ORM\Column(name="estado_atendido", type="boolean", nullable=true, options={"default" : false})
      */
     private $estadoAtendido = false;
@@ -287,6 +292,22 @@ class Soporte
     public function setClienteRel($clienteRel): void
     {
         $this->clienteRel = $clienteRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClienteIngreso()
+    {
+        return $this->clienteIngreso;
+    }
+
+    /**
+     * @param mixed $clienteIngreso
+     */
+    public function setClienteIngreso($clienteIngreso): void
+    {
+        $this->clienteIngreso = $clienteIngreso;
     }
 
 

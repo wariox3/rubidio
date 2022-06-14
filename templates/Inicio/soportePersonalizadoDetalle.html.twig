@@ -1,0 +1,169 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <!-- Start Page Title Area -->
+    <div class="page-title-area">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="page-title-content">
+                        <h2>Detalle de soporte</h2>
+                        <ul>
+                            <li><a href="{{ path('soporte') }}">Soporte</a>
+                            </li>
+                            <li>Informacion del soporte</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+
+    <!-- Start Blog Details Area -->
+    <section class="blog-details-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <div class="blog-details-desc">
+                        {% if arSoporte %}
+                            <div class="article-content">
+                                <div class="entry-meta">
+                                    <ul>
+                                        <li> <span>Creado en:</span>  <a href="#">{{ arSoporte.fecha | date('F jS \\a\\t g:ia')}}</a>
+                                        </li>
+                                        <li> <span>Publicado por:</span>  <a href="#">{{ arSoporte.contacto }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <h3>Descripcion cliente</h3>
+                                <p>{{ arSoporte.descripcion }}</p>
+                            </div>
+                            <div class="comments-area">
+                                <h3 class="comments-title">Respuestas:</h3>
+                                <ol class="comment-list">
+                                    <li class="comment">
+                                        <article class="comment-body">
+                                            <footer class="comment-meta">
+                                                <div class="comment-author vcard">
+                                                    <img src="assets/img/client/comment-1.jpg" class="avatar" alt="image">
+                                                    <b class="fn">Sue Mathis</b>
+                                                    <span class="says">says:</span>
+                                                </div>
+                                                <div class="comment-metadata">
+                                                    <a href="#">
+                                                        <span>January 15 - 2022</span>
+                                                    </a>
+                                                </div>
+                                            </footer>
+                                            <div class="comment-content">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation.</p>
+                                            </div>
+                                            <div class="reply"> <a href="#" class="comment-reply-link">Reply</a>
+                                            </div>
+                                        </article>
+                                        <ol class="children">
+                                            <li class="comment">
+                                                <article class="comment-body">
+                                                    <footer class="comment-meta">
+                                                        <div class="comment-author vcard">
+                                                            <img src="assets/img/client/comment-2.jpg" class="avatar" alt="image">
+                                                            <b class="fn">Sara Valdez</b>
+                                                            <span class="says">says:</span>
+                                                        </div>
+                                                        <div class="comment-metadata">
+                                                            <a href="#">
+                                                                <span>January 20 - 2022</span>
+                                                            </a>
+                                                        </div>
+                                                    </footer>
+                                                    <div class="comment-content">
+                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation.</p>
+                                                    </div>
+                                                    <div class="reply"> <a href="#" class="comment-reply-link">Reply</a>
+                                                    </div>
+                                                </article>
+                                            </li>
+                                        </ol>
+                                    </li>
+                                    <li class="comment">
+                                        <article class="comment-body">
+                                            <footer class="comment-meta">
+                                                <div class="comment-author vcard">
+                                                    <img src="assets/img/client/comment-3.jpg" class="avatar" alt="image">
+                                                    <b class="fn">Ora Davis</b>
+                                                    <span class="says">says:</span>
+                                                </div>
+                                                <div class="comment-metadata">
+                                                    <a href="#">
+                                                        <span>January 25 - 2022</span>
+                                                    </a>
+                                                </div>
+                                            </footer>
+                                            <div class="comment-content">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation.</p>
+                                            </div>
+                                            <div class="reply"> <a href="#" class="comment-reply-link">Reply</a></div>
+                                        </article>
+                                    </li>
+                                </ol>
+                                <div class="comment-respond">
+                                    <h3 class="comment-reply-title">Leave a Reply</h3>
+                                    <form class="comment-form">
+                                        <p class="comment-notes"> <span id="email-notes">Your email address will not be published.</span>
+                                            Required fields are marked <span class="required">*</span>
+                                        </p>
+                                        <p class="comment-form-author">
+                                            <label>Name <span class="required">*</span>
+                                            </label>
+                                            <input type="text" id="author" name="author" required="required">
+                                        </p>
+                                        <p class="comment-form-email">
+                                            <label>Email <span class="required">*</span>
+                                            </label>
+                                            <input type="email" id="email" name="email" required="required">
+                                        </p>
+                                        <p class="comment-form-comment">
+                                            <label>Comment</label>
+                                            <textarea name="comment" id="comment" cols="45" rows="5" maxlength="65525" required="required"></textarea>
+                                        </p>
+                                        <p class="form-submit">
+                                            <input type="submit" name="submit" id="submit" class="submit" value="Post Comment">
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <aside class="widget-area" id="secondary">
+                        <section class="widget widget_search">
+                            {{ form_start(formBuscar, { 'attr': {'class': 'search-form search-top'} }) }}
+                                <label> <span class="screen-reader-text">Search for:</span>
+                                    {{ form_widget(formBuscar.codigoSoporte, { 'attr': {'class':'search-field', 'placeholder': 'Buscar...'} }) }}
+                                </label>
+                                {{ form_widget(formBuscar.buscar) }}
+                            {{ form_end(formBuscar) }}
+                        </section>
+                        {% if arSoporte %}
+                        <section class="widget widget_categories">
+                            <h3 class="widget-title">Estados</h3>
+                            <ul>
+                                {% if arSoporte.estadoAtendido %}
+                                    <li> <a href="#">Atendido <span class="categories-link-count"> {{ arSoporte.fechaAtendido | date('Y-m-d H:i') }}</span></a></li>
+                                {% endif %}
+                                {% if arSoporte.estadoSolucionado %}
+                                    <li> <a href="#">Solucionado <span class="categories-link-count"> {{ arSoporte.fechaSolucion | date('Y-m-d H:i') }}</span></a></li>
+                                {% endif %}
+                            </ul>
+                        </section>
+                        {% endif %}
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Blog Details Area -->
+
+{% endblock %}

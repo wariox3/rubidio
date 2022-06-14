@@ -11,7 +11,7 @@
                         <ul>
                             <li><a href="index.html">Soporte</a>
                             </li>
-                            <li>Soporte personalizado</li>
+                            <li>Solicitar soporte personalizado</li>
                         </ul>
                     </div>
                 </div>
@@ -82,16 +82,12 @@
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        <input type="text" name="phone" id="phone" required class="form-control" placeholder="Cliente"> </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="form-group">
                                         {{ form_widget(form.telefono, { 'attr': {'placeholder': 'Telefono'} }) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
-                                        {{ form_widget(form.prioridadRel) }}
+                                        {{ form_widget(form.clienteIngreso, { 'attr': {'placeholder': 'Cliente'} }) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12">
@@ -101,6 +97,7 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12">
                                     {{ form_widget(form.guardar, { 'attr': {'class': 'default-btn'} }) }}
+                                    <a href="{{ path('soporte_personalizado_detalle', {'id':0}) }}">Consultar</a>
                                 </div>
                             </div>
                         {{ form_end(form) }}
