@@ -12,12 +12,15 @@
             </div>
         </div>
     </div>
-    <div class="techmax-nav index-navber">
+    <div class="techmax-nav {% if oscuro == false %}index-navber{% endif %}">
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="{{ path('inicio') }}">
-                    <img src="{{ asset('landingPage/img/logo-black.png') }}" class="white-logo" alt="logo">
-                    <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
+                    {% if oscuro == false %}
+                        <img src="{{ asset('landingPage/img/logo-black.png') }}" class="white-logo" alt="logo">
+                    {% else %}
+                        <img src="{{ asset('landingPage/img/logo-black.png') }}" class="black-logo" alt="logo">
+                    {% endif %}
                 </a>
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav">
