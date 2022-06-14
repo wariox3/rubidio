@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseAdmin.html.twig' %}
 {% block content %}
     {{ form_start(form) }}
     <section class="services-section">
@@ -18,7 +18,7 @@
                         <section class="card">
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-datos m-0">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
                                         <tr>
                                             <td class="title-bg-color">Proyecto:</td>
                                             <td class="td-in-well" colspan="5">{{ arProyecto.nombre }}</td>
@@ -36,7 +36,7 @@
                         <section class="card">
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-datos m-0">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
                                         <thead class="title-bg-color">
                                         <tr>
                                             <th>Id</th>
@@ -64,7 +64,7 @@
     {#        </div> #}
     {#    </div> #}
     {#    <br/><br/> #}
-    {#    <table width="100%" class="table table-condensed table-bordered tabla-datos"> #}
+    {#    <table width="100%" class="table table-condensed table-bordered tabla-administracion"> #}
 
     {#    </table> #}
     {#    <div class="row"> #}

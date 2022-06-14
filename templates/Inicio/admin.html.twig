@@ -6,88 +6,82 @@
          <section class="services-section">
              <div class="container">
                  <div class="row">
-                     <div class="col-lg-6">
-                         <div class="row">
-                             <div class="col-lg-6 col-md-6">
-                                 <div class="single-services-item">
-                                     <div class="services-icon">
-                                         <i class="pe-7s-tools"></i>
-                                     </div>
-                                     <h3>Sin atender</h3>
-                                     <p>{{ soporteSinAtender }}</p>
-                                     <div class="services-btn-link">
-                                         <a href="#0" class="services-link">Actual</a>
-                                     </div>
-                                 </div>
+                     <div class="col-lg-3 col-md-3">
+                         <div class="single-services-item">
+                             <div class="services-icon">
+                                 <i class="pe-7s-tools"></i>
                              </div>
-                             <div class="col-lg-6 col-md-6">
-                                 <div class="single-services-item">
-                                     <div class="services-icon">
-                                         <i class="pe-7s-close-circle"></i>
-                                     </div>
-
-                                     <h3>Sin solución</h3>
-                                     <p>{{ soporteSinSolucionar }}</p>
-                                     <div class="services-btn-link">
-                                         <a href="#" class="services-link">Actual</a>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="row">
-                             <div class="col-lg-6 col-md-6">
-                                 <div class="single-services-item">
-                                     <div class="services-icon">
-                                         <i class="pe-7s-sun"></i>
-                                     </div>
-                                     <h3>Por día</h3>
-                                     <p>{{ soporteDia }}</p>
-                                     <div class="services-btn-link">
-                                         <a href="#0" class="services-link">Actual</a>
-                                     </div>
-                                 </div>
-                             </div>
-                             <div class="col-lg-6 col-md-6">
-                                 <div class="single-services-item">
-                                     <div class="services-icon">
-                                         <i class="pe-7s-date"></i>
-                                     </div>
-                                     <h3>Por mes</h3>
-                                     <p>{{ soporteMes }}</p>
-                                     <div class="services-btn-link">
-                                         <a href="#" class="services-link">Actual</a>
-                                     </div>
-                                 </div>
+                             <h3>Sin atender</h3>
+                             <p>{{ soporteSinAtender }}</p>
+                             <div class="services-btn-link">
+                                 <a href="#0" class="services-link">Actual</a>
                              </div>
                          </div>
                      </div>
-                     <div class="col-lg-6">
-                          <div class="single-services-item">
-                              <div class="card">
-                                  <div class="card-header title-bg-color p-0">
-                                      <h5>Filtros</h5>
-                                  </div>
-                                  <div class="card-body">
-                                      <table class="table table-striped mb-none">
-                                          <thead>
-                                          <tr>
-                                              <th>Cliente</th>
-                                              <th>Errores</th>
-                                          </tr>
-                                          </thead>
-                                          <tbody>
-                                          {% for arError in arErrores %}
-                                              <tr>
-                                                  <td>{{ arError.clienteNombreCorto }}</td>
-                                                  <td><span class="label label-success">{{ arError.cantidad }}</span>
-                                                  </td>
-                                              </tr>
-                                          {% endfor %}
-                                          </tbody>
-                                      </table>
-                                  </div>
-                              </div>
-                          </div>
+                     <div class="col-lg-3 col-md-3">
+                         <div class="single-services-item">
+                             <div class="services-icon">
+                                 <i class="pe-7s-close-circle"></i>
+                             </div>
+
+                             <h3>Sin solución</h3>
+                             <p>{{ soporteSinSolucionar }}</p>
+                             <div class="services-btn-link">
+                                 <a href="#" class="services-link">Actual</a>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-lg-3 col-md-3">
+                         <div class="single-services-item">
+                             <div class="services-icon">
+                                 <i class="pe-7s-sun"></i>
+                             </div>
+                             <h3>Por día</h3>
+                             <p>{{ soporteDia }}</p>
+                             <div class="services-btn-link">
+                                 <a href="#0" class="services-link">Actual</a>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="col-lg-3 col-md-3">
+                         <div class="single-services-item">
+                             <div class="services-icon">
+                                 <i class="pe-7s-date"></i>
+                             </div>
+                             <h3>Por mes</h3>
+                             <p>{{ soporteMes }}</p>
+                             <div class="services-btn-link">
+                                 <a href="#" class="services-link">Actual</a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="row mt-2">
+                     <div class="col-12">
+                         <div class="card">
+                             <div class="card-header title-bg-color">
+                                 <h5>Filtros</h5>
+                             </div>
+                             <div class="card-body p-0">
+                                 <table class="table table-striped tabla-administracion mb-none ">
+                                     <thead>
+                                     <tr>
+                                         <th>Cliente</th>
+                                         <th>Errores</th>
+                                     </tr>
+                                     </thead>
+                                     <tbody>
+                                     {% for arError in arErrores %}
+                                         <tr>
+                                             <td>{{ arError.clienteNombreCorto }}</td>
+                                             <td><span class="label label-success">{{ arError.cantidad }}</span>
+                                             </td>
+                                         </tr>
+                                     {% endfor %}
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
                      </div>
                  </div>
              </div>
