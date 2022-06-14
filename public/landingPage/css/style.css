@@ -3876,7 +3876,6 @@ blockquote::after, .blockquote::after {
 	color: #FFFFFF;
 }
 
-
 .btnCustom{
 	border: none;
 	position: relative;
@@ -3925,4 +3924,32 @@ blockquote::after, .blockquote::after {
 .btnCustomDanger:hover {
 	color: #ffffff;
 	background-image: linear-gradient(-135deg, #611bdd 0%, #EE6352 100%);
+}
+
+.title-bg-color{
+	background-color: #5e87eb;
+	color: #FFFFFF;
+}
+
+.tabla-administracion {
+	border: 1px solid #c9c9c9 !important;
+	margin: 0;
+}
+
+.tabla-administracion > thead > tr > td, .tabla-administracion > thead > tr > th {
+	padding: 5px 4px !important;
+	background-color: #5e87eb;
+	color: #FFFFFF;
+	text-align: center;
+	font-size: 10px !important;
+}
+
+.tabla-administracion > tbody > tr > td, .tabla-administracion > tbody > tr > th, .tabla-administracion > tfoot > tr > td, .tabla-administracion > tfoot > tr > th {
+	padding: 2px 3px !important;
+	font-size: 10px !important;
+}
+
+.tabla-administracion > tbody > tr:hover{
+	background-color: #e3e3e3 !important;
+	color: #5e87eb;
 }
