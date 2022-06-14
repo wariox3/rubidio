@@ -442,7 +442,7 @@ p:last-child {
 	width: 100%;
 	height: 100%;
 	z-index: -1;
-	background: #505060;
+	background-image: linear-gradient(-135deg, #611bdd 0%, #5e87eb 100%);
 	opacity: 0;
 	visibility: hidden;
 	-webkit-transition: 0.4s;
