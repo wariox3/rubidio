@@ -3926,6 +3926,11 @@ blockquote::after, .blockquote::after {
 	background-image: linear-gradient(-135deg, #611bdd 0%, #EE6352 100%);
 }
 
+.title-bg-color{
+	background-color: #5e87eb;
+	color: #FFFFFF;
+}
+
 .tabla-administracion {
 	border: 1px solid #c9c9c9 !important;
 	margin: 0;
