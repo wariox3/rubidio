@@ -48,7 +48,7 @@
                                 <div class="d-flex justify-content-end">
                                     {{ form_widget(form.btnImprimir, { 'attr': {'class': 'btnCustom'} }) }}
                                     <a class="btnCustom"
-                                       href="javascript:abrirVentana3('{{ path('soporte_documentacion_nuevo', {'id': 0}) }}', 'Solucion', 600, 1200)">Nuevo</a>
+                                       href="{{ path('soporte_documentacion_nuevo', {'id': 0}) }}">Nuevo</a>
                                 </div>
                             </div>
                             <div class="card-body p-0">
