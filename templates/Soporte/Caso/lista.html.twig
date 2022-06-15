@@ -87,6 +87,7 @@
                                         <tbody>
                                         {% for arCaso in arCasos %}
                                             <tr>
+
                                                 <td>{{ arCaso.codigoCasoPk }}</td>
                                                 <td>{{ arCaso.fecha | date('Y-m-d') }}</td>
                                                 <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>

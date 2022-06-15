@@ -1,6 +1,6 @@
 {% extends 'baseAdmin.html.twig' %}
 {% block content %}
-<section class="services-section">
+    <section class="services-section">
     <div class="container">
         <div class="row px-4">
             <div class="col-lg-3">
@@ -83,154 +83,62 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="single-testimonial">
-                    <section class="card">
-                        <div class="card-body p-0">
-                            <div class="table-responsive">
-                                <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
-                                    <thead class="title-bg-color">
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Fecha</th>
-                                        <th>Entrega</th>
-                                        <th>Prioridad</th>
-                                        <th>Descripcion</th>
-                                        <th>Caso</th>
-                                        <th title="Estado ejecucion">EJE</th>
-                                        <th title="Estado terminado">TER</th>
-                                        <th title="Estado verificado">VER</th>
-                                        <th title="Estado devolucion">DEV</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for arTarea in arTareas %}
-                                        <tr>
-                                            <td>{{ arTarea.codigoTareaPk }}</td>
-                                            <td>{{ arTarea.fecha | date('Y-m-d H:i') }}</td>
-                                            <td>{{ arTarea.fechaEntrega ? arTarea.fechaEntrega | date('Y-m-d H:i') : '' }}</td>
-                                            <td>{{ arTarea.codigoPrioridadFk }}</td>
-                                            <td>{{ arTarea.descripcion }}</td>
-                                            <td>{{ arTarea.codigoCasoFk }}</td>
-                                            <td class="text-center">{{ arTarea.estadoEjecucion ? 'SI':'NO' }}</td>
-                                            <td class="text-center">{{ arTarea.estadoTerminado ? 'SI':'NO' }}</td>
-                                            <td class="text-center">{{ arTarea.estadoVerificado ? 'I':'NO' }}</td>
-                                            <td {% if arTarea.estadoDevolucion %}class="danger" {% endif %}>{{ arTarea.estadoDevolucion ? 'SI':'NO' }}</td>
-                                            <td>
-                                                {% if arTarea.estadoEjecucion == 0 and arTarea.estadoTerminado == 0 %}
+                    <div class="table-responsive-sm">
+                        <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                            <thead class="title-bg-color">
+                            <tr>
+                                <th>Id</th>
+                                <th>Fecha</th>
+                                <th>Entrega</th>
+                                <th>Prioridad</th>
+                                <th>Descripcion</th>
+                                <th>Caso</th>
+                                <th title="Estado ejecucion">EJE</th>
+                                <th title="Estado terminado">TER</th>
+                                <th title="Estado verificado">VER</th>
+                                <th title="Estado devolucion">DEV</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for arTarea in arTareas %}
+                                <tr>
+                                    <td>{{ arTarea.codigoTareaPk }}</td>
+                                    <td>{{ arTarea.fecha | date('Y-m-d H:i') }}</td>
+                                    <td>{{ arTarea.fechaEntrega ? arTarea.fechaEntrega | date('Y-m-d H:i') : '' }}</td>
+                                    <td>{{ arTarea.codigoPrioridadFk }}</td>
+                                    <td>{{ arTarea.descripcion }}</td>
+                                    <td>{{ arTarea.codigoCasoFk }}</td>
+                                    <td class="text-center">{{ arTarea.estadoEjecucion ? 'SI':'NO' }}</td>
+                                    <td class="text-center">{{ arTarea.estadoTerminado ? 'SI':'NO' }}</td>
+                                    <td class="text-center">{{ arTarea.estadoVerificado ? 'I':'NO' }}</td>
+                                    <td {% if arTarea.estadoDevolucion %}class="danger" {% endif %}>{{ arTarea.estadoDevolucion ? 'SI':'NO' }}</td>
+                                    <td>
+                                        {% if arTarea.estadoEjecucion == 0 and arTarea.estadoTerminado == 0 %}
 
-                                                {% endif %}
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="{{ path('desarrollo_tarea_detalle', { 'id': arTarea.codigoTareaPk }) }}">
-                                                    <i class="fa fa-eye fa-2x"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="{{ path('desarrollo_tarea_detalle', { 'id': arTarea.codigoTareaPk }) }}">
+                                            <i class="fa fa-eye fa-2x"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="btn btn-default btn-sm">Registros
+                            <span>{{ arTareas.getTotalItemCount }}</span>
                         </div>
-                        <div class="card-footer bg-white">
-                            <div class="d-flex justify-content-between">
-                                <div class="btn btn-default btn-sm">Registros
-                                    <span>{{ arTareas.getTotalItemCount }}</span>
-                                </div>
-                                <div class="btn-group btn-xs">
-                                    {{ knp_pagination_render(arTareas) }}
-                                </div>
-                            </div>
+                        <div class="btn-group btn-xs">
+                            {{ knp_pagination_render(arTareas) }}
                         </div>
-                    </section>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    {#        <div class="col-md-12"> #}
-    {#            <section class="panel"> #}
-    {#                <header class="panel-heading"> #}
-    {#                    <div class="panel-actions"> #}
-    {#                        <a href="#" class="fa fa-caret-down"></a> #}
-    {#                        <a href="#" class="fa fa-times"></a> #}
-    {#                    </div> #}
-
-    {#                    <h2 class="panel-title">Filtro de busqueda</h2> #}
-    {#                </header> #}
-    {#                <div class="panel-body"> #}
-    {#                    <div class="form-group"> #}
-    {#                        <label class="col-sm-1 control-label"></label> #}
-    {#                        <div class="col-sm-5"> #}
-
-    {#                        </div> #}
-    {#                        <label class="col-sm-1 control-label"></label> #}
-    {#                        <div class="col-sm-2"> #}
-
-    {#                        </div> #}
-    {#                        <label class="col-sm-1 control-label"></label> #}
-    {#                        <div class="col-sm-2"> #}
-    {#                            {{ form_widget(form.) }} #}
-    {#                        </div> #}
-    {#                    </div> #}
-    {#                    <div class="form-group"> #}
-    {#                        <label class="col-sm-6 control-label"></label> #}
-    {#                        <label class="col-sm-1 control-label"></label> #}
-    {#                        <div class="col-sm-2"> #}
-    {#                        </div> #}
-    {#                        <label class="col-sm-1 control-label">Terminado:</label> #}
-    {#                        <div class="col-sm-2"> #}
-    {#                        </div> #}
-    {#                    </div> #}
-    {#                    <div class="form-group"> #}
-    {#                        <label class="col-sm-6 control-label"></label> #}
-    {#                        <label class="col-sm-1 control-label"></label> #}
-    {#                        <div class="col-sm-2"> #}
-    {#                        </div> #}
-    {#                        <label class="col-sm-1 control-label">Verificado:</label> #}
-    {#                        <div class="col-sm-2"> #}
-    {#                        </div> #}
-    {#                    </div> #}
-    {#                </div> #}
-    {#                <footer class="panel-footer"> #}
-    {#                    <div class="row"> #}
-    {#                        <div class="col-sm-9 col-sm-offset-3"> #}
-    {#                            {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }} #}
-    {#                        </div> #}
-    {#                    </div> #}
-    {#                </footer> #}
-    {#            </section> #}
-    {#        </div> #}
-    {#        <div class="col-md-12"> #}
-    {#            <section class="panel"> #}
-    {#                <div class="panel-body"> #}
-    {#                    <div class="table-responsive"> #}
-    {#                        <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion"> #}
-    {#                            <thead> #}
-    {#                            <tr> #}
-
-    {#                            </tr> #}
-    {#                            </thead> #}
-    {#                            <tbody> #}
-    {#
-    {#                            </tbody> #}
-    {#                        </table> #}
-    {#                    </div> #}
-    {#                </div> #}
-    {#                <footer class="panel-footer"> #}
-    {#                    <div class="row"> #}
-    {#                        <div class="col-sm-9 col-sm-offset-3" > #}
-    {#                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group" aria-label="..."> #}
-    {#                                #}{# <a class="btn btn-sm btn-default"  href="{{ path('tarea_nuevo', {'id': 0}) }}">Nuevo</a> #}
-
-    {#                            </div> #}
-    {#                        </div> #}
-    {#                    </div> #}
-    {#                </footer> #}
-    {#            </section> #}
-    {#        </div> #}
-    {#        {{ form_rest(form) }} #}
-    {#        {{ form_end(form) }} #}
-    {#    </div> #}
-    {% endblock %}
+{% endblock %}

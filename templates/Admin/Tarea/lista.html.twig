@@ -43,82 +43,75 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="single-testimonial">
-                        <section class="card">
-                            <div class="card-header bg-white">
-                                <div class="d-flex justify-content-end">
-                                    {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
-                                    <a class="btnCustom"
-                                       href="{{ path('admin_tarea_nuevo', {'id': 0, 'codigoCaso': 0}) }}">Nuevo</a>
-                                </div>
+
+                        <div class="d-flex justify-content-end">
+                            {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
+                            <a class="btnCustom"
+                               href="{{ path('admin_tarea_nuevo', {'id': 0, 'codigoCaso': 0}) }}">Nuevo</a>
+                        </div>
+                        <div class="table-responsive-sm  mt-2">
+                            <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                <thead class="title-bg-color">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Fecha</th>
+                                    <th>Entrega</th>
+                                    <th>Prioridad</th>
+                                    <th>Proyecto</th>
+                                    <th>Usuario</th>
+                                    <th>Caso</th>
+                                    <th>Descripcion</th>
+                                    <th title="Estado ejecucion">EJE</th>
+                                    <th title="Estado terminado">TER</th>
+                                    <th title="Estado verificado">VER</th>
+                                    <th title="Estado devolucion">DEV</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for arTarea in arTareas %}
+                                    <tr>
+                                        <td>{{ arTarea.codigoTareaPk }}</td>
+                                        <td>{{ arTarea.fecha | date('Y-m-d H:i') }}</td>
+                                        <td>{{ arTarea.fechaEntrega ? arTarea.fechaEntrega | date('Y-m-d H:i') : '' }}</td>
+                                        <td>{{ arTarea.codigoPrioridadFk }}</td>
+                                        <td>{{ arTarea.proyectoNombre }}</td>
+                                        <td>{{ arTarea.codigoUsuarioFk }}</td>
+                                        <td>{{ arTarea.codigoCasoFk }}</td>
+                                        <td>{{ arTarea.descripcion }}</td>
+                                        <td class="text-center">{{ arTarea.estadoEjecucion ? 'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arTarea.estadoTerminado ? 'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arTarea.estadoVerificado ? 'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arTarea.estadoDevolucion ? 'SI':'NO' }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ path('admin_tarea_nuevo', { 'id': arTarea.codigoTareaPk, 'codigoCaso': 0 }) }}">
+                                                <i class="fas fa-pen fa-2x"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('admin_tarea_detalle', { 'id': arTarea.codigoTareaPk }) }}">
+                                                <i class="fas fa-eye fa-2x"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="ChkSeleccionar[]"
+                                                   value="{{ arTarea.codigoTareaPk }}"/>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="btn btn-default btn-sm">Registros
+                                <span>{{ arTareas.getTotalItemCount }}</span>
                             </div>
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
-                                        <thead class="title-bg-color">
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Fecha</th>
-                                            <th>Entrega</th>
-                                            <th>Prioridad</th>
-                                            <th>Proyecto</th>
-                                            <th>Usuario</th>
-                                            <th>Caso</th>
-                                            <th>Descripcion</th>
-                                            <th title="Estado ejecucion">EJE</th>
-                                            <th title="Estado terminado">TER</th>
-                                            <th title="Estado verificado">VER</th>
-                                            <th title="Estado devolucion">DEV</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for arTarea in arTareas %}
-                                            <tr>
-                                                <td>{{ arTarea.codigoTareaPk }}</td>
-                                                <td>{{ arTarea.fecha | date('Y-m-d H:i') }}</td>
-                                                <td>{{ arTarea.fechaEntrega ? arTarea.fechaEntrega | date('Y-m-d H:i') : '' }}</td>
-                                                <td>{{ arTarea.codigoPrioridadFk }}</td>
-                                                <td>{{ arTarea.proyectoNombre }}</td>
-                                                <td>{{ arTarea.codigoUsuarioFk }}</td>
-                                                <td>{{ arTarea.codigoCasoFk }}</td>
-                                                <td>{{ arTarea.descripcion }}</td>
-                                                <td class="text-center">{{ arTarea.estadoEjecucion ? 'SI':'NO' }}</td>
-                                                <td class="text-center">{{ arTarea.estadoTerminado ? 'SI':'NO' }}</td>
-                                                <td class="text-center">{{ arTarea.estadoVerificado ? 'SI':'NO' }}</td>
-                                                <td class="text-center">{{ arTarea.estadoDevolucion ? 'SI':'NO' }}</td>
-                                                <td class="text-center">
-                                                    <a href="{{ path('admin_tarea_nuevo', { 'id': arTarea.codigoTareaPk, 'codigoCaso': 0 }) }}">
-                                                        <i class="fas fa-pen fa-2x"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="{{ path('admin_tarea_detalle', { 'id': arTarea.codigoTareaPk }) }}">
-                                                        <i class="fas fa-eye fa-2x"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox" name="ChkSeleccionar[]"
-                                                           value="{{ arTarea.codigoTareaPk }}"/>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="btn-group btn-xs">
+                                {{ knp_pagination_render(arTareas) }}
                             </div>
-                            <div class="card-footer bg-white">
-                                <div class="d-flex justify-content-between">
-                                    <div class="btn btn-default btn-sm">Registros
-                                        <span>{{ arTareas.getTotalItemCount }}</span>
-                                    </div>
-                                    <div class="btn-group btn-xs">
-                                        {{ knp_pagination_render(arTareas) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,85 +119,4 @@
     </section>
     {{ form_rest(form) }}
     {{ form_end(form) }}
-    {#    <div class="row"> #}
-    {#        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }} #}
-
-    {#        <div class="col-md-12"> #}
-    {#            <section class="panel"> #}
-    {#                <header class="panel-heading"> #}
-    {#                    <div class="panel-actions"> #}
-    {#                        <a href="#" class="fa fa-caret-down"></a> #}
-    {#                        <a href="#" class="fa fa-times"></a> #}
-    {#                    </div> #}
-
-    {#                    <h2 class="panel-title">Filtro de busqueda</h2> #}
-    {#                </header> #}
-    {#                <div class="panel-body"> #}
-    {#                    <div class="form-group"> #}
-    {#                        <label class="col-sm-1 control-label"></label> #}
-    {#                        <div class="col-sm-5"> #}
-    {#                            {{ form_widget(form.) }} #}
-    {#                        </div> #}
-    {#                        <label class="col-sm-1 control-label"></label> #}
-    {#                        <div class="col-sm-2"> #}
-
-    {#                        </div> #}
-
-    {#                    </div> #}
-    {#                    <div class="form-group"> #}
-    {#                        <label class="col-sm-6 control-label"></label> #}
-    {#                        <label class="col-sm-1 control-label"></label> #}
-    {#                        <div class="col-sm-2"> #}
-    {#                        </div> #}
-
-    {#                    </div> #}
-    {#                    <div class="form-group"> #}
-    {#                        <label class="col-sm-6 control-label"></label> #}
-    {#                        <label class="col-sm-1 control-label"></label> #}
-    {#                        <div class="col-sm-2"> #}
-    {#                        </div> #}
-
-    {#                    </div> #}
-    {#                </div> #}
-    {#                <footer class="panel-footer"> #}
-    {#                    <div class="row"> #}
-    {#                        <div class="col-sm-9 col-sm-offset-3"> #}
-    {#                            {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btn btn-primary', 'style':'float:right'} }) }} #}
-    {#                        </div> #}
-    {#                    </div> #}
-    {#                </footer> #}
-    {#            </section> #}
-    {#        </div> #}
-
-    {#        <div class="col-md-12"> #}
-    {#            <section class="panel"> #}
-    {#                <div class="panel-body"> #}
-    {#                    <div class="table-responsive"> #}
-    {#                        <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion"> #}
-    {#                            <thead> #}
-    {#                            <tr> #}
-
-    {#                            </tr> #}
-    {#                            </thead> #}
-    {#                            <tbody> #}
-
-    {#                            </tbody> #}
-    {#                        </table> #}
-    {#                    </div> #}
-    {#                </div> #}
-    {#                <footer class="panel-footer"> #}
-    {#                    <div class="row"> #}
-    {#                        <div class="col-sm-9 col-sm-offset-3" > #}
-    {#                            <div style="float: right; margin-right: 5px !important;" class="btn-group" role="group" aria-label="..."> #}
-
-    {#                                {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }} #}
-    {#                            </div> #}
-    {#                        </div> #}
-    {#                    </div> #}
-    {#                </footer> #}
-    {#            </section> #}
-    {#        </div> #}
-    {#        {{ form_rest(form) }} #}
-    {#        {{ form_end(form) }} #}
-    {#    </div> #}
 {% endblock %}
