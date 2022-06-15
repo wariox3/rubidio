@@ -17,10 +17,15 @@ class DocumentacionRepository extends ServiceEntityRepository
         parent::__construct($registry, Documentacion::class);
     }
 
-    public function lista()
+    public function lista($raw)
     {
-        $session = new Session();
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Documentacion::class, 'd')
+        $filtros = $raw['filtros'] ?? null;
+        $modulo = null;
+        if ($filtros) {
+            $modulo = $filtros['modulo'] ?? null;
+        }
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Documentacion::class, 'd')
             ->select('d.codigoDocumentacionPk')
             ->addSelect('d.codigoModeloFk')
             ->addSelect('d.codigoModuloFk')
@@ -29,45 +34,17 @@ class DocumentacionRepository extends ServiceEntityRepository
             ->addSelect('d.titulo')
             ->addSelect('d.ruta')
             ->addSelect('d.contenido')
-            ->orderBy('d.codigoFuncionFk', 'DESC');
-        if ($session->get('filtroDocumentacionModulo')) {
-            $queryBuilder->andWhere("d.codigoModuloFk ='" . $session->get('filtroDocumentacionModulo') . "'");
-        }
-        if ($session->get('filtroDocumentacionGrupo')) {
-            $queryBuilder->andWhere("d.codigoGrupoFk ='" . $session->get('filtroDocumentacionGrupo') . "'");
-        }
-        if ($session->get('filtroDocumentacionModelo')) {
-            $queryBuilder->andWhere("d.codigoModeloFk ='" . $session->get('filtroDocumentacionModelo') . "'");
-        }
-        if ($session->get('filtroDocumentacionTitulo')) {
-            $queryBuilder->andWhere("d.titulo LIKE '%{$session->get('filtroDocumentacionTitulo')}%'");
-        }
-        return $queryBuilder;
-    }
-
-    public function apiLista($criterio, $modulo)
-    {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Documentacion::class, 'd')
-            ->select('d.codigoDocumentacionPk')
-            ->addSelect('d.codigoModuloFk')
-            ->addSelect('d.titulo')
             ->addSelect('d.fechaActualizacion')
-            ->addSelect('d.ruta')
-            ->addSelect('d.contenido')
-            ->orderBy('d.orden', 'ASC');
-        if ($criterio) {
-            $queryBuilder->andWhere("(d.titulo LIKE '%{$criterio}%' or d.contenido LIKE '%{$criterio}%')");
-        }
+            ->orderBy('d.codigoModuloFk', 'ASC')
+            ->addOrderBy('d.codigoFuncionFk', 'ASC');
         if ($modulo) {
             $queryBuilder->andWhere("d.codigoModuloFk = '{$modulo}'");
-
         }
-        $queryBuilder->setMaxResults(30);
-        return $queryBuilder->getQuery()->getResult();
-
+        $arDocumentaciones = $queryBuilder->getQuery()->getResult();
+        return $arDocumentaciones;
     }
 
-    public function apiDetalle($id)
+    public function documentacionDetalle($id)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Documentacion::class, 'd')
             ->select('d.codigoDocumentacionPk')
