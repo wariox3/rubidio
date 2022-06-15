@@ -106,6 +106,16 @@ class Cliente
     private $codigoSetPruebasNominas;
 
     /**
+     * @ORM\Column(name="servicio_soporte", type="boolean", nullable=true, options={"default" : true})
+     */
+    private $servicioSoporte = true;
+
+    /**
+     * @ORM\Column(name="fecha_suspension", type="date", nullable=true)
+     */
+    private $fechaSuspension;
+
+    /**
      * @ORM\OneToMany(targetEntity="Caso", mappedBy="clienteRel")
      */
     protected $casosClienteRel;
@@ -129,16 +139,6 @@ class Cliente
      * @ORM\OneToMany(targetEntity="App\Entity\Implementacion", mappedBy="clienteRel")
      */
     protected $implementacionesClienteRel;
-
-    /**
-     * @ORM\Column(name="servicio_soporte", type="boolean", nullable=true, options={"default" : true})
-     */
-    private $servicioSoporte = true;
-
-    /**
-     * @ORM\Column(name="fecha_suspension", type="date", nullable=true)
-     */
-    private $fechaSuspension;
 
     /**
      * @return mixed

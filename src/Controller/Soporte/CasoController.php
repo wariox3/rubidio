@@ -142,7 +142,7 @@ class CasoController extends AbstractController
     /**
      * @Route("/soporte/caso/solucion/{id}", name="soporte_caso_solucion")
      */
-    public function solucion(Request $request, $id, Dubnio $correo)
+    public function solucion(Request $request, Dubnio $correo, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arCaso = $em->getRepository(Caso::class)->find($id);

@@ -55,14 +55,17 @@
                                             <th>Id</th>
                                             <th>Cliente</th>
                                             <th>Fecha</th>
+                                            <th>Modulo</th>
                                             <th>F_ATE</th>
                                             <th>F_SOL</th>
                                             <th>Contacto</th>
                                             <th>Telefono</th>
+                                            <th>Correo</th>
                                             <th>Descripcion</th>
                                             <th>Solucion</th>
                                             <th>Ate</th>
                                             <th>Sol</th>
+                                            <th></th>
                                             <th></th>
                                             <th></th>
                                         </tr>
@@ -73,10 +76,12 @@
                                                 <td>{{ arSoporte.codigoSoportePk }}</td>
                                                 <td>{{ arSoporte.clienteNombreCorto }}</td>
                                                 <td>{{ arSoporte.fecha | date('Y-m-d H:i') }}</td>
+                                                <td>{{ arSoporte.moduloNombre }}</td>
                                                 <td>{{ arSoporte.estadoAtendido ? arSoporte.fechaAtendido | date('Y-m-d H:i'): '' }}</td>
                                                 <td>{{ arSoporte.estadoSolucionado ? arSoporte.fechaSolucion | date('Y-m-d H:i'): '' }}</td>
                                                 <td>{{ arSoporte.contacto }}</td>
                                                 <td>{{ arSoporte.telefono }}</td>
+                                                <td>{{ arSoporte.correo }}</td>
                                                 <td>{{ arSoporte.descripcion }}</td>
                                                 <td>{{ arSoporte.solucion }}</td>
                                                 <td class="text-center">
@@ -106,6 +111,11 @@
                                                             <i class="fas fa-pen fa-2x"></i>
                                                         </a>
                                                     {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="{{ path('soporte_soporte_detalle', { 'id': arSoporte.codigoSoportePk }) }}">
+                                                        <i class="fas fa-eye fa-2x"></i>
+                                                    </a>
                                                 </td>
                                                 <td class="text-center">
                                                     <input type="checkbox" name="ChkSeleccionar[]"

@@ -2,12 +2,15 @@
 
 namespace App\Controller\Soporte;
 
+use App\Entity\Archivo;
 use App\Entity\Cliente;
 use App\Entity\Soporte;
 use App\Form\Type\SoporteSolucionType;
 use App\Form\Type\SoporteType;
+use App\Utilidades\Dubnio;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -110,9 +113,43 @@ class SoporteController extends AbstractController
     }
 
     /**
+     * @Route("/soporte/soporte/detalle/{id}", name="soporte_soporte_detalle")
+     */
+    public function detalle(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arSoporte = $em->getRepository(Soporte::class)->find($id);
+        $form = $this->createFormBuilder()
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($request->request->get('OpDescargar')) {
+                $codigoFichero = $request->request->get('OpDescargar');
+                $respuesta = $em->getRepository(Archivo::class)->descargar($codigoFichero);
+                if(!$respuesta['error']) {
+                    $response = new Response();
+                    $response->headers->set('Cache-Control', 'private');
+                    $response->headers->set('Content-type', $respuesta['tipo']);
+                    $response->headers->set('Content-Disposition', 'attachment; filename="' . $respuesta['nombre'] . '";');
+                    $response->headers->set('Content-length', $respuesta['tamano']);
+                    $response->sendHeaders();
+                    $response->setContent($respuesta['contenido']);
+                    return $response;
+                }
+            }
+        }
+        $arArchivos = $em->getRepository(Archivo::class)->listaArchivo("soporte", $id);
+        return $this->render('Soporte/Soporte/detalle.html.twig', [
+            'arSoporte' => $arSoporte,
+            'arArchivos' => $arArchivos,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/soporte/soporte/solucion/{id}", name="soporte_soporte_solucion")
      */
-    public function solucion(Request $request, $id)
+    public function solucion(Request $request, Dubnio $correo, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arSoporte = $em->getRepository(Soporte::class)->find($id);
@@ -126,6 +163,13 @@ class SoporteController extends AbstractController
                 $arSoporte->setEstadoSolucionado(1);
                 $em->persist($arSoporte);
                 $em->flush();
+                if($arSoporte->getCorreo()) {
+                    $respuesta = $correo->enviarCorreo($arSoporte->getCorreo(), 'Atencion a solicitud de soporte' . ' - ' . $arSoporte->getCodigoSoportePk(),
+                        $this->renderView(
+                            'Soporte/Soporte/correoSolucion.html.twig',
+                            array('arSoporte' => $arSoporte)
+                        ));
+                }
 
                 echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }

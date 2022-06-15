@@ -13,7 +13,7 @@ class ArchivoTipo
 
     /**
      * @ORM\Id
-     * @ORM\Column(name="codigo_archivo_tipo_pk", type="integer")
+     * @ORM\Column(name="codigo_archivo_tipo_pk", type="string", length=50)
      */
     private $codigoArchivoTipoPk;
 
@@ -74,8 +74,6 @@ class ArchivoTipo
     {
         $this->archivosArchivoTipoRel = $archivosArchivoTipoRel;
     }
-
-
 
 }
 

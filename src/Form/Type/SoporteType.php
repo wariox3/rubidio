@@ -4,6 +4,7 @@ namespace App\Form\Type;
 
 
 use App\Entity\Cliente;
+use App\Entity\Modulo;
 use App\Entity\Prioridad;
 use App\Entity\Proyecto;
 use App\Entity\Usuario;
@@ -30,8 +31,18 @@ class SoporteType extends AbstractType {
                 'choice_label' => 'nombreCorto',
                 'required' => true,
             ))
+            ->add('moduloRel', EntityType::class, array(
+                'class' => Modulo::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('m')
+                        ->orderBy('m.nombre', 'ASC');
+                },
+                'choice_label' => 'nombre',
+                'required' => true,
+            ))
             ->add('contacto', TextType::class, array('required' => true))
             ->add('telefono', TextType::class, array('required' => true))
+            ->add('correo', TextType::class, array('required' => true))
             ->add('descripcion', TextareaType::class, array('required' => true))
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));
     }

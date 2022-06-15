@@ -29,6 +29,11 @@ class Modulo
     protected $temasModuloRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Soporte", mappedBy="moduloRel")
+     */
+    protected $soportesModuloRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoModuloPk()
@@ -74,6 +79,22 @@ class Modulo
     public function setTemasModuloRel($temasModuloRel): void
     {
         $this->temasModuloRel = $temasModuloRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoportesModuloRel()
+    {
+        return $this->soportesModuloRel;
+    }
+
+    /**
+     * @param mixed $soportesModuloRel
+     */
+    public function setSoportesModuloRel($soportesModuloRel): void
+    {
+        $this->soportesModuloRel = $soportesModuloRel;
     }
 
 

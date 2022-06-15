@@ -1,42 +1,42 @@
 <table>
-    <thead style="background-color: #efefef;color: #202020;">Solución de Caso: <span style="background-color: #2e6da4;color: white;padding: 5px;" >{{ arCaso.codigoCasoPk }}</span>
+    <thead style="background-color: #efefef;color: #202020;">Atencion a solicitud de soporte: <span style="background-color: #2e6da4;color: white;padding: 5px;" >{{ arSoporte.codigoSoportePk }}</span>
 
     </thead><br>
     <tbody>
     <tr>
         <td colspan="2" style="color: #ffffff; background-color: #2e6da4;padding: 8px;">
-            <p>Este correo se envía como notificación de la solución al caso relacionado:</p>
+            <p>Este correo se envía como notificación de la atencion al soporte relacionado:</p>
         </td>
     </tr>
     <tr>
         <td><strong>Número: </strong></td>
-        <td><span>{{ arCaso.codigoCasoPk }}</span></td>
+        <td><span>{{ arSoporte.codigoSoportePk }}</span></td>
     </tr>
     <tr>
         <td><strong>Fecha de Registro:</strong></td>
-        <td><span>{{ arCaso.fecha |date('d/m/Y') }}</span></td>
+        <td><span>{{ arSoporte.fecha |date('d/m/Y') }}</span></td>
     </tr>
     <tr>
         <td><strong>Registra: </strong></td>
-        <td><span>{{ arCaso.contacto }}</span></td>
+        <td><span>{{ arSoporte.contacto }}</span></td>
     </tr>
     <tr>
         <td><strong>Correo: </strong></td>
-        <td><span>{{ arCaso.correo }}</span></td>
+        <td><span>{{ arSoporte.correo }}</span></td>
     </tr>
     <tr>
         <td><strong>Teléfono: </strong></td>
-        <td><span>{{ arCaso.telefono }}</span></td>
+        <td><span>{{ arSoporte.telefono }}</span></td>
     </tr><tr>
         <td colspan="2"><hr></td>
     </tr>
     <tr>
         <td><strong>Descripción: </strong></td>
-        <td><span>{{ arCaso.descripcion }}</span></td>
+        <td><span>{{ arSoporte.descripcion }}</span></td>
     </tr>
     <tr>
-        <td><strong>Solución: </strong></td>
-        <td><span>{{ arCaso.solucion }}</span></td>
+        <td><strong>Atencion: </strong></td>
+        <td><span>{{ arSoporte.solucion }}</span></td>
     </tr><br>
     <tr>
         <td colspan="2" style="background-color: #2e6da4;color: #ffffff;text-align: center;">

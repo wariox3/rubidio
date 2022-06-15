@@ -36,6 +36,11 @@ class Soporte
     private $fechaSolucion;
 
     /**
+     * @ORM\Column(name="codigo_modulo_fk", type="string", length=20, nullable=true)
+     */
+    private $codigoModuloFk;
+
+    /**
      * @ORM\Column(name="codigo_cliente_fk", type="integer", nullable=true)
      */
     private $codigoClienteFk;
@@ -85,6 +90,12 @@ class Soporte
      * @ORM\JoinColumn(name="codigo_cliente_fk", referencedColumnName="codigo_cliente_pk")
      */
     private $clienteRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modulo", inversedBy="soportesModuloRel")
+     * @ORM\JoinColumn(name="codigo_modulo_fk", referencedColumnName="codigo_modulo_pk")
+     */
+    private $moduloRel;
 
     /**
      * @return mixed
@@ -308,6 +319,38 @@ class Soporte
     public function setClienteIngreso($clienteIngreso): void
     {
         $this->clienteIngreso = $clienteIngreso;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoModuloFk()
+    {
+        return $this->codigoModuloFk;
+    }
+
+    /**
+     * @param mixed $codigoModuloFk
+     */
+    public function setCodigoModuloFk($codigoModuloFk): void
+    {
+        $this->codigoModuloFk = $codigoModuloFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModuloRel()
+    {
+        return $this->moduloRel;
+    }
+
+    /**
+     * @param mixed $moduloRel
+     */
+    public function setModuloRel($moduloRel): void
+    {
+        $this->moduloRel = $moduloRel;
     }
 
 

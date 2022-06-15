@@ -19,22 +19,17 @@ class Archivo
     private $codigoArchivoPk;
 
     /**
-     * @ORM\Column(name="codigo_archivo_tipo_fk", type="integer", nullable=true)
+     * @ORM\Column(name="codigo_archivo_tipo_fk", type="string", length=50)
      */
     private $codigoArchivoTipoFk;
 
     /**
-     * @ORM\Column(name="directorio", type="string", length=200, nullable=true)
-     */
-    private $directorio;
-
-    /**
-     * @ORM\Column(name="codigo", type="string", length=50, nullable=true)
+     * @ORM\Column(name="codigo", type="integer")
      */
     private $codigo;
 
     /**
-     * @ORM\Column(name="fecha_hasta", type="datetime", nullable=true)
+     * @ORM\Column(name="fecha", type="datetime", nullable=true)
      */
     private $fecha;
 
@@ -74,6 +69,11 @@ class Archivo
     private $usuario;
 
     /**
+     * @ORM\Column(name="ruta", type="string", length=500)
+     */
+    private $ruta;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ArchivoTipo", inversedBy="archivosArchivoTipoRel")
      * @ORM\JoinColumn(name="codigo_archivo_tipo_fk", referencedColumnName="codigo_archivo_tipo_pk")
      */
@@ -109,22 +109,6 @@ class Archivo
     public function setCodigoArchivoTipoFk($codigoArchivoTipoFk): void
     {
         $this->codigoArchivoTipoFk = $codigoArchivoTipoFk;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDirectorio()
-    {
-        return $this->directorio;
-    }
-
-    /**
-     * @param mixed $directorio
-     */
-    public function setDirectorio($directorio): void
-    {
-        $this->directorio = $directorio;
     }
 
     /**
@@ -208,17 +192,17 @@ class Archivo
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getTamano()
+    public function getTamano(): int
     {
         return $this->tamano;
     }
 
     /**
-     * @param mixed $tamano
+     * @param int $tamano
      */
-    public function setTamano($tamano): void
+    public function setTamano(int $tamano): void
     {
         $this->tamano = $tamano;
     }
@@ -287,7 +271,21 @@ class Archivo
         $this->archivoTipoRel = $archivoTipoRel;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRuta()
+    {
+        return $this->ruta;
+    }
 
+    /**
+     * @param mixed $ruta
+     */
+    public function setRuta($ruta): void
+    {
+        $this->ruta = $ruta;
+    }
 
 
 }
