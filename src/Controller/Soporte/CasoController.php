@@ -173,7 +173,7 @@ class CasoController extends AbstractController
     /**
      * @Route("/soporte/caso/escalar/{id}", name="soporte_caso_escalar")
      */
-    public function escalar(Request $request, $id, Correo $correo)
+    public function escalar(Request $request, $id, Dubnio $correo)
     {
         $em = $this->getDoctrine()->getManager();
         $arCaso = $em->getRepository(Caso::class)->find($id);

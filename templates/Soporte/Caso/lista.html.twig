@@ -82,7 +82,6 @@
                                             <th></th>
                                             <th></th>
                                             <th></th>
-                                            <th></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -118,19 +117,19 @@
                                                             <a href="{{ path('admin_tarea_nuevo', { 'id': 0, 'codigoCaso': arCaso.codigoCasoPk }) }}">
                                                                 <i class="fas fa-tasks fa-2x"></i>
                                                             </a>
-
                                                         {% endif %}
                                                     {% endif %}
                                                 </td>
-                                                <td class="text-center">
-                                                    {% if is_granted('ROLE_ADMIN') %}
+                                                {% if is_granted('ROLE_ADMIN') %}
+                                                    <td class="text-center">
                                                         {% if arCaso.estadoEscalado == 0 %}
                                                             <a href="javascript:abrirVentana3('{{ path('soporte_caso_escalar', {'id': arCaso.codigoCasoPk}) }}', 'Escalar', 600, 1200)">
-                                                                <i class="fas fa-arrow-alt-up fa-2x"></i>
+                                                                <i class="fas fa-level-up-alt fa-2x"></i>
                                                             </a>
                                                         {% endif %}
-                                                    {% endif %}
-                                                </td>
+                                                    </td>
+                                                {% endif %}
+
                                                 <td class="text-center">
                                                     {% if is_granted('ROLE_ADMIN') %}
                                                         <a href="{{ path('soporte_caso_nuevo', { 'id': arCaso.codigoCasoPk }) }}">
@@ -148,7 +147,7 @@
                                                            value="{{ arCaso.codigoCasoPk }}"/>
                                                 </td>
                                             </tr>
-                                        {% endfor %} 
+                                        {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>

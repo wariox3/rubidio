@@ -159,9 +159,7 @@ class ErrorController extends AbstractController
             },
             'choice_label' => 'codigoUsuarioPk',
             'required' => false,
-            'empty_data' => "",
             'placeholder' => "TODOS",
-            'data' => ""
         );
         $form = $this->createFormBuilder()
             ->add('usuarioRel', EntityType::class, $arrayPropiedadesUsuario)
@@ -173,7 +171,7 @@ class ErrorController extends AbstractController
             $arError->setUsuarioSoluciona($arUsuario->getCodigoUsuarioPk());
             $em->persist($arError);
             $em->flush();
-            echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+            echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
         }
         return $this->render('Soporte/Error/asignar.html.twig', [
             'arError' => $arError,
