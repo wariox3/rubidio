@@ -87,4 +87,21 @@
              </div>
          </section>
      {% endif %}
+     {% if is_granted('ROLE_CLIENTE') %}
+         <section class="services-section">
+             <div class="container">
+                 <div class="d-flex justify-content-center align-content-center">
+                     <div class="single-services-item">
+                         <div class="services-icon">
+                             <i class="pe-7s-info"></i>
+                         </div>
+                         <h3>Información</h3>
+                         <p>{{ app.user.correo | default("Sin correo electronico registrado en mesa de ayuda") }}</p>
+                         <p>{{ app.user.nombres ~ ' ' ~ app.user.apellidos | default("Sin nombres registrado en mesa de ayuda") }}</p>
+                         <p>{{ app.user.telefono | default("Sin teléfono registrado en mesa de ayuda") }}</p>
+                     </div>
+                 </div>
+             </div>
+         </section>
+     {% endif %}
  {% endblock %}
