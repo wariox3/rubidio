@@ -11,17 +11,17 @@
                                 <h5>Filtros</h5>
                             </div>
                             <div class="card-body">
-                                <div class="form-group row">
-                                    <label class="col-sm-2 control-label">Modulo:</label>
-                                    <div class="col-sm-2">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Modulo:</label>
                                         {{ form_widget(form.modulo) }}
                                     </div>
-                                    <label class="col-sm-2 control-label">Capacitado:</label>
-                                    <div class="col-sm-2">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Capacitado:</label>
                                         {{ form_widget(form.estadoCapacitado) }}
                                     </div>
-                                    <label class="col-sm-2 control-label">Terminado:</label>
-                                    <div class="col-sm-2">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Terminado:</label>
                                         {{ form_widget(form.estadoTerminado) }}
                                     </div>
                                 </div>
@@ -129,7 +129,7 @@
                                                     {% if arImplementacionDetalle.codigoDocumentacionFk %}
                                                         <a href="http://semantica.com.co/semanticaweb/public/index.php/documetacion/detalle/{{ arImplementacionDetalle.codigoDocumentacionFk }}"
                                                            target="_blank">
-                                                            <i class="fa fa-edit fa-file-text-o fa-2x"></i>
+                                                            <i class="far fa-file-alt fa-2x"></i>
                                                         </a>
                                                     {% endif %}
                                                 </td>
