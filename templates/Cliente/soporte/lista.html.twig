@@ -11,15 +11,16 @@
                                 <h5>Filtros</h5>
                             </div>
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label class="control-label">Atendido:</label>
-                                    {{ form_widget(form.estadoAtendido) }}
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Atendido:</label>
+                                        {{ form_widget(form.estadoAtendido) }}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputPassword4">Solucionado:</label>
+                                        {{ form_widget(form.estadoSolucionado) }}
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label">Solucionado:</label>
-                                    {{ form_widget(form.estadoSolucionado) }}
-                                </div>
-
                             </div>
                             <div class="card-footer">
                                 <div class="d-flex justify-content-end">

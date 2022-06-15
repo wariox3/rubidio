@@ -75,7 +75,9 @@
                                         <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
                                         <td>{{ arCaso.contacto }}</td>
                                         <td>
-                                            {{ arCaso.descripcion }}
+                                            <p>
+                                                <b>Descripción:</b> {{ arCaso.descripcion }} <br/>
+                                            </p>
                                             {% if arCaso.estadoPostergado == 1 %}
                                                 <p class="text-danger">
                                                     <b>Postergado:</b> {{ arCaso.comentarioPostergado }} <br/>
