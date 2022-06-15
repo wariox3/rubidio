@@ -96,6 +96,7 @@
                              <i class="pe-7s-info"></i>
                          </div>
                          <h3>Información</h3>
+                         <p>{{ app.user.codigoUsuarioPk }}</p>
                          <p>{{ app.user.correo | default("Sin correo electronico registrado en mesa de ayuda") }}</p>
                          <p>{{ app.user.nombres ~ ' ' ~ app.user.apellidos | default("Sin nombres registrado en mesa de ayuda") }}</p>
                          <p>{{ app.user.telefono | default("Sin teléfono registrado en mesa de ayuda") }}</p>
