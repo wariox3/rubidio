@@ -57,38 +57,35 @@
             <div class="row mt-2">
                 <div class="col-md-12">
                     <div class="single-testimonial py-0">
-                        <section class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered tabla-administracion">
-                                        <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Fecha</th>
-                                            <th>Nombre</th>
-                                            <th title="Tamaño">MB</th>
-                                            <th>Tipo</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for arArchivo in arArchivos %}
-                                            <tr>
-                                                <td>{{ arArchivo.codigoArchivoPk }}</td>
-                                                <td>{{ arArchivo.fecha | date('Y-m-d H:i') }}</td>
-                                                <td>{{ arArchivo.nombre }}</td>
-                                                <td>{{ arArchivo.tamano | number_format(2) }}</td>
-                                                <td>{{ arArchivo.tipo }}</td>
-                                                <td>
-                                                    <button class="fa fa-download" type="submit" name="OpDescargar" value="{{ arArchivo.codigoArchivoPk }}"></button>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </section>
+
+                        div class="table-responsive-sm">
+                        <table class="table table-condensed table-bordered tabla-administracion">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Fecha</th>
+                                <th>Nombre</th>
+                                <th title="Tamaño">MB</th>
+                                <th>Tipo</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for arArchivo in arArchivos %}
+                                <tr>
+                                    <td>{{ arArchivo.codigoArchivoPk }}</td>
+                                    <td>{{ arArchivo.fecha | date('Y-m-d H:i') }}</td>
+                                    <td>{{ arArchivo.nombre }}</td>
+                                    <td>{{ arArchivo.tamano | number_format(2) }}</td>
+                                    <td>{{ arArchivo.tipo }}</td>
+                                    <td>
+                                        <button class="fa fa-download" type="submit" name="OpDescargar"
+                                                value="{{ arArchivo.codigoArchivoPk }}"></button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

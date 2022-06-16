@@ -19,56 +19,72 @@
     </div>
     <!-- End Page Title Area -->
     <div class="container">
-        <div class="row my-2">
-            <div class="col-md-12">
-                {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
-                    <div class="card">
-                        <div class="card-header title-bg-color">
-                            <h5>Filtros</h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="inputEmail4">Modulo:</label>
-                                    {{ form_widget(form.modulo) }}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-end">
-                                {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btnCustom'} }) }}
-                            </div>
-                        </div>
-                    </div>
-                    {{ form_rest(form) }}
-                    {{ form_end(form) }}
+
+        <nav>
+            <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
+                <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-documentacion" role="tab" aria-controls="nav-home" aria-selected="true">Documentación</a>
+                <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Recursos</a>
             </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body p-0">
-                        {% for arDocumentacion in  arDocumentaciones %}
-                            <li class="list-group-item py-4">
-                                <div class="services-btn-link">
-                                    <a href="{{ path('soporte_documentacion_detalle', {'id':arDocumentacion.codigoDocumentacionPk }) }}"
-                                       class="services-link">{{ arDocumentacion.titulo | default("...") }}</a>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-documentacion" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row my-2">
+                    <div class="col-md-12">
+                        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                        <div class="card">
+                            <div class="card-header title-bg-color">
+                                <h5>Filtros</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Modulo:</label>
+                                        {{ form_widget(form.modulo) }}
+                                    </div>
                                 </div>
-                                <div class="fs-xs mt-1">
-                                    <a>{{ arDocumentacion.ruta }}</a>
-                                    <a class="text-success">{{ arDocumentacion.codigoModuloFk }}</a>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-end">
+                                    {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btnCustom'} }) }}
                                 </div>
-                                <div class="mt-2">
-                                    <p class="text-justify">
-                                        <span class="text-muted">Ultima actualización {{ arDocumentacion.fechaActualizacion | date('Y-m-d') }}</span>
-                                    </p>
-                                </div>
-                            </li>
-                        {% endfor %}
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                {% for arDocumentacion in  arDocumentaciones %}
+                                    <li class="list-group-item py-4">
+                                        <div class="services-btn-link">
+                                            <a href="{{ path('soporte_documentacion_detalle', {'id':arDocumentacion.codigoDocumentacionPk }) }}"
+                                               class="services-link">{{ arDocumentacion.titulo | default("...") }}</a>
+                                        </div>
+                                        <div class="fs-xs mt-1">
+                                            <a>{{ arDocumentacion.ruta }}</a>
+                                            <a class="text-success">{{ arDocumentacion.codigoModuloFk }}</a>
+                                        </div>
+                                        <div class="mt-2">
+                                            <p class="text-justify">
+                                                <span class="text-muted">Ultima actualización {{ arDocumentacion.fechaActualizacion | date('Y-m-d') }}</span>
+                                            </p>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
         </div>
+
+
+
     </div>
     <!-- Start Services Section -->
     <!-- End Services Section -->
