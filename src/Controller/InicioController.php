@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Articulo;
 use App\Entity\Error;
 use App\Entity\Soporte;
 use App\Entity\Usuario;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
+use App\Utilidades\Noticias;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -19,8 +22,13 @@ class InicioController extends AbstractController
     /**
      * @Route("/", name="inicio")
      */
-    public function inicio(): Response {
-        return $this->render('Inicio/inicio.html.twig');
+    public function inicio(ManagerRegistry $doctrine): Response {
+        $em = $doctrine->getManager();
+        $arArticulos = $em->getRepository(Articulo::class)->lista();
+        $arrNoticias = [];
+        return $this->render('Inicio/inicio.html.twig', [
+            'arArticulos' => $arArticulos
+        ]);
     }
 
     /**
