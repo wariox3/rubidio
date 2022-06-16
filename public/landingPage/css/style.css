@@ -46,8 +46,9 @@
 :root {
     --principal-azul-semantica: #143049;
     --secundario-azul-semantica: #024873;
-    --principal-azul-claro-semantica: #f4f4f4;
+    --azul-claro: #3681c4;
     --bg-color: #F7F7F7;
+    --linear-gradient: linear-gradient(-135deg, var(--azul-claro) 0%, var(--principal-azul-semantica) 100%);
 }
 
 body {
@@ -178,7 +179,7 @@ p:last-child {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background-color:  var(--secundario-azul-semantica);;
+    background-color: var(--azul-claro);;
     -webkit-transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
     transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
     -webkit-transform: translate(-50%, -50%);
@@ -225,7 +226,7 @@ p:last-child {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background-color:  var(--secundario-azul-semantica);;
+    background-color: var(--secundario-azul-semantica);;
     -webkit-transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
     transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
     -webkit-transform: translate(-50%, -50%);
@@ -265,7 +266,7 @@ p:last-child {
 }
 
 .color-text {
-    color: var(--principal-azul-semantica);
+    color: var(--azul-claro);
 }
 
 .valign {
@@ -452,7 +453,7 @@ p:last-child {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
     opacity: 0;
     visibility: hidden;
     -webkit-transition: 0.4s;
@@ -518,7 +519,7 @@ p:last-child {
     width: 5px;
     height: 20px;
     border-radius: 20%;
-    background:  var(--secundario-azul-semantica);;
+    background: var(--secundario-azul-semantica);;
 }
 
 .preloader .lds-spinner div:nth-child(1) {
@@ -1244,7 +1245,7 @@ p:last-child {
     top: 0px;
     left: 0px;
     z-index: -1;
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
     -o-transition: all 0.3s ease 0s;
@@ -1265,6 +1266,7 @@ p:last-child {
     color: #FF9800;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+    color: var(--principal-azul-semantica)
 }
 
 .overview-content h2 {
@@ -1339,7 +1341,7 @@ p:last-child {
     bottom: 0;
     border-radius: 0px 0px 10px 0px;
     background-color: var(--principal-azul-semantica);
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
     z-index: -1;
     -webkit-transition: 0.4s;
     transition: 0.4s;
@@ -1384,7 +1386,7 @@ p:last-child {
     width: 100%;
     opacity: .5;
     background-color: var(--principal-azul-semantica);
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
 }
 
 .counter-area .section-title h5 {
@@ -1582,7 +1584,7 @@ p:last-child {
     opacity: 0;
     visibility: hidden;
     background-color: var(--principal-azul-semantica);
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
     -webkit-transition: 0.5s;
     transition: 0.5s;
 }
@@ -1696,7 +1698,7 @@ p:last-child {
     width: 100%;
     opacity: 0.4;
     background-color: var(--principal-azul-semantica);
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
 }
 
 .hire-content h6 {
@@ -1922,7 +1924,7 @@ p:last-child {
     top: 0;
     opacity: 0.5;
     background-color: var(--principal-azul-semantica);
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
 }
 
 .page-title-content {
@@ -2536,7 +2538,7 @@ p:last-child {
     height: 100%;
     opacity: .5;
     background-color: var(--principal-azul-semantica);
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
 }
 
 .coming-soon-area .social-list {
@@ -3692,7 +3694,7 @@ blockquote::after, .blockquote::after {
     width: 100%;
     opacity: 0.5;
     background-color: var(--principal-azul-semantica);
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
 }
 
 .footer-heading {
@@ -3999,7 +4001,7 @@ blockquote::after, .blockquote::after {
 
 .btn-info-custom:hover {
     color: #ffffff;
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
     box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
 }
 
@@ -4021,7 +4023,7 @@ table .dropdown-toggle::after {
 
 table .dropdown-item {
     text-decoration: none;
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    background-image: var(--linear-gradient);
     background-repeat: no-repeat;
     background-position: bottom left;
     background-size: 0% 3px;
@@ -4061,12 +4063,13 @@ table .dropdown-item:hover {
 
 .btnCustom:hover {
     color: #ffffff;
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, var(--principal-azul-semantica) 100%);
+    /*background-image: linear-gradient(-135deg, var(--secundario-azul-semantica) 0%, var(--principal-azul-semantica) 100%);*/
+    background-image: var(--linear-gradient);
 }
 
 .btnCustomDanger:hover {
     color: #ffffff;
-    background-image: linear-gradient(-135deg, var(--principal-azul-claro-semantica) 0%, #EE6352 100%);
+    background-image: linear-gradient(-135deg, var(--secundario-azul-semantica) 0%, #EE6352 100%);
 }
 
 .title-bg-color {
