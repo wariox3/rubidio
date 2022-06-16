@@ -3998,6 +3998,10 @@ blockquote::after, .blockquote::after {
     box-shadow: 0 0 0 0.2rem rgb(97 27 221 / 25%);
 }
 
+table {
+    font-family: sans-serif, Arial;
+}
+
 table .dropdown-toggle::after {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;

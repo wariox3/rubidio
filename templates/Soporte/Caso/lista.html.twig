@@ -52,129 +52,122 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="single-testimonial">
-                        <section class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
-                                        <thead class="title-bg-color">
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Fecha</th>
-                                            <th title="Fecha de compromiso">Com</th>
-                                            <th>Cliente</th>
-                                            <th>Contacto</th>
-                                            <th>Descripción</th>
-                                            <th>Solución</th>
-                                            <th title="Comentario postergado">C_P</th>
-                                            <th title="Respuesta postergado">R_P</th>
-                                            <th>Prioridad</th>
-                                            <th title="Atendido">Ate</th>
-                                            <th title="Desarrollo">Des</th>
-                                            <th title="Escalado">Esc</th>
-                                            <th title="Solucionado">Sol</th>
-                                            <th title="Postergado">Pos</th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for arCaso in arCasos %}
-                                            <tr>
+                        <div class="table-responsive-sm mt-2">
+                            <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                <thead class="title-bg-color">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Fecha</th>
+                                    <th title="Fecha de compromiso">Com</th>
+                                    <th>Cliente</th>
+                                    <th>Contacto</th>
+                                    <th>Descripción</th>
+                                    <th>Solución</th>
+                                    <th title="Comentario postergado">C_P</th>
+                                    <th title="Respuesta postergado">R_P</th>
+                                    <th>Prioridad</th>
+                                    <th title="Atendido">Ate</th>
+                                    <th title="Desarrollo">Des</th>
+                                    <th title="Escalado">Esc</th>
+                                    <th title="Solucionado">Sol</th>
+                                    <th title="Postergado">Pos</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for arCaso in arCasos %}
+                                    <tr>
 
-                                                <td>{{ arCaso.codigoCasoPk }}</td>
-                                                <td>{{ arCaso.fecha | date('Y-m-d') }}</td>
-                                                <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
-                                                <td>{{ arCaso.clienteNombreCorto }}</td>
-                                                <td>{{ arCaso.contacto }}</td>
-                                                <td>{{ arCaso.descripcion }}</td>
-                                                <td>{{ arCaso.solucion }}</td>
-                                                <td>{{ arCaso.comentarioPostergado }}</td>
-                                                <td>{{ arCaso.respuestaPostergado }}</td>
-                                                <td>{{ arCaso.prioridadNombre }}</td>
-                                                <td class="text-center">
-                                                    {% if arCaso.estadoAtendido == 1 %}
-                                                        SI
+                                        <td>{{ arCaso.codigoCasoPk }}</td>
+                                        <td>{{ arCaso.fecha | date('Y-m-d') }}</td>
+                                        <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
+                                        <td>{{ arCaso.clienteNombreCorto }}</td>
+                                        <td>{{ arCaso.contacto }}</td>
+                                        <td>{{ arCaso.descripcion }}</td>
+                                        <td>{{ arCaso.solucion }}</td>
+                                        <td>{{ arCaso.comentarioPostergado }}</td>
+                                        <td>{{ arCaso.respuestaPostergado }}</td>
+                                        <td>{{ arCaso.prioridadNombre }}</td>
+                                        <td class="text-center">
+                                            {% if arCaso.estadoAtendido == 1 %}
+                                                SI
+                                            {% else %}
+                                                NO
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">{{ arCaso.estadoDesarrollo ? 'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arCaso.estadoEscalado ? 'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arCaso.estadoSolucionado ? 'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arCaso.estadoPostergado ? 'SI':'NO' }}</td>
+                                        <td class="text-center">
+                                            <div class="dropdown d-flex justify-content-center align-content-start">
+                                                <a class=" dropdown-toggle" type="button" id="dropdownMenu2"
+                                                   data-toggle="dropdown" aria-haspopup="true"
+                                                   aria-expanded="false">
+                                                    Opciones
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                    {% if arCaso.estadoAtendido == 0 %}
+                                                        <button class="dropdown-item" type="submit"
+                                                                name="OpAtender"
+                                                                value="{{ arCaso.codigoCasoPk }}">Atender
+                                                        </button>
                                                     {% else %}
-                                                        NO
+                                                        <a class="dropdown-item disabled" aria-disabled="true">Atendido</a>
                                                     {% endif %}
-                                                </td>
-                                                <td class="text-center">{{ arCaso.estadoDesarrollo ? 'SI':'NO' }}</td>
-                                                <td class="text-center">{{ arCaso.estadoEscalado ? 'SI':'NO' }}</td>
-                                                <td class="text-center">{{ arCaso.estadoSolucionado ? 'SI':'NO' }}</td>
-                                                <td class="text-center">{{ arCaso.estadoPostergado ? 'SI':'NO' }}</td>
-                                                <td class="text-center">
-
-                                                    <div class="dropdown d-flex justify-content-center align-content-start">
-                                                        <a class=" dropdown-toggle" type="button" id="dropdownMenu2"
-                                                           data-toggle="dropdown" aria-haspopup="true"
-                                                           aria-expanded="false">
-                                                            Opciones
-                                                        </a>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                            {% if arCaso.estadoAtendido == 0 %}
-                                                                <button class="dropdown-item" type="submit"
-                                                                        name="OpAtender"
-                                                                        value="{{ arCaso.codigoCasoPk }}">Atender
-                                                                </button>
-                                                            {% else %}
-                                                                <a class="dropdown-item disabled" aria-disabled="true">Atendido</a>
-                                                            {% endif %}
-                                                            {% if is_granted('ROLE_ADMIN') %}
-                                                                {% if arCaso.estadoDesarrollo == 0 %}
-                                                                    <a class="dropdown-item"
-                                                                       href="{{ path('admin_tarea_nuevo', { 'id': 0, 'codigoCaso': arCaso.codigoCasoPk }) }}">
-                                                                        Nueva tarea
-                                                                    </a>
-                                                                {% endif %}
-                                                            {% endif %}
-                                                            {% if is_granted('ROLE_ADMIN') %}
-                                                                {% if arCaso.estadoEscalado == 0 %}
-                                                                    <a class="dropdown-item"
-                                                                       href="javascript:abrirVentana3('{{ path('soporte_caso_escalar', {'id': arCaso.codigoCasoPk}) }}', 'Escalar', 600, 1200)">
-                                                                        Escalar caso
-                                                                    </a>
-                                                                {% endif %}
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                </td>
-
-
-                                                <td class="text-center">
                                                     {% if is_granted('ROLE_ADMIN') %}
-                                                        <a href="{{ path('soporte_caso_nuevo', { 'id': arCaso.codigoCasoPk }) }}">
-                                                            <i class="fas fa-pen fa-2x"></i>
-                                                        </a>
+                                                        {% if arCaso.estadoDesarrollo == 0 %}
+                                                            <a class="dropdown-item"
+                                                               href="{{ path('admin_tarea_nuevo', { 'id': 0, 'codigoCaso': arCaso.codigoCasoPk }) }}">
+                                                                Nueva tarea
+                                                            </a>
+                                                        {% endif %}
                                                     {% endif %}
-                                                </td>
-                                                <td class="text-center">
-                                                    <a href="{{ path('soporte_caso_detalle', { 'id': arCaso.codigoCasoPk }) }}">
-                                                        <i class="fas fa-eye fa-2x"></i>
-                                                    </a>
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox" name="ChkSeleccionar[]"
-                                                           value="{{ arCaso.codigoCasoPk }}"/>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                                    {% if is_granted('ROLE_ADMIN') %}
+                                                        {% if arCaso.estadoEscalado == 0 %}
+                                                            <a class="dropdown-item"
+                                                               href="javascript:abrirVentana3('{{ path('soporte_caso_escalar', {'id': arCaso.codigoCasoPk}) }}', 'Escalar', 600, 1200)">
+                                                                Escalar caso
+                                                            </a>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+
+
+                                        <td class="text-center">
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a href="{{ path('soporte_caso_nuevo', { 'id': arCaso.codigoCasoPk }) }}">
+                                                    <i class="fas fa-pen fa-2x"></i>
+                                                </a>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('soporte_caso_detalle', { 'id': arCaso.codigoCasoPk }) }}">
+                                                <i class="fas fa-eye fa-2x"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="ChkSeleccionar[]"
+                                                   value="{{ arCaso.codigoCasoPk }}"/>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="btn btn-default btn-sm">Registros
+                                <span>{{ arCasos.getTotalItemCount }}</span>
                             </div>
-                            <div class="card-footer bg-white">
-                                <div class="d-flex justify-content-between">
-                                    <div class="btn btn-default btn-sm">Registros
-                                        <span>{{ arCasos.getTotalItemCount }}</span>
-                                    </div>
-                                    <div class="btn-group btn-xs">
-                                        {{ knp_pagination_render(arCasos) }}
-                                    </div>
-                                </div>
+                            <div class="btn-group btn-xs">
+                                {{ knp_pagination_render(arCasos) }}
                             </div>
-                        </section>
+                        </div>
                     </div>
                 </div>
             </div>
