@@ -2672,7 +2672,6 @@ p:last-child {
     background-color: #f3f3f3;
     font-weight: 600;
     border-radius: 5px;
-    text-transform: capitalize;
     border-left: 2px solid #b4b7bd;
     transition: all 0.4s;
 }
