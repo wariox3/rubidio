@@ -120,10 +120,7 @@ class SoporteController extends AbstractController
      */
     public function documentacion(Request $request, PaginatorInterface $paginator)
     {
-        $session = new Session();
-        $raw = [
-            'filtros' => $session->get('filtroDocumentacion')
-        ];
+        $raw = [];
         $em = $this->getDoctrine()->getManager();
         $arrModulos = [
             'Todos' => null,

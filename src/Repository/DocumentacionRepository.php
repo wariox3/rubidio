@@ -19,12 +19,12 @@ class DocumentacionRepository extends ServiceEntityRepository
 
     public function lista($raw)
     {
+        $em = $this->getEntityManager();
         $filtros = $raw['filtros'] ?? null;
         $modulo = null;
         if ($filtros) {
             $modulo = $filtros['modulo'] ?? null;
         }
-        $em = $this->getEntityManager();
         $queryBuilder = $em->createQueryBuilder()->from(Documentacion::class, 'd')
             ->select('d.codigoDocumentacionPk')
             ->addSelect('d.codigoModeloFk')
