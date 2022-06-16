@@ -22,12 +22,16 @@
 
         <nav>
             <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
+                <a class="nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-indice" role="tab" aria-controls="nav-home" aria-selected="true">Índice</a>
                 <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-documentacion" role="tab" aria-controls="nav-home" aria-selected="true">Documentación</a>
-                <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Recursos</a>
+                <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-recursos" role="tab" aria-controls="nav-profile" aria-selected="false">Recursos</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-documentacion" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="tab-pane fade" id="nav-indice" role="tabpanel" aria-labelledby="nav-home-tab">
+                ...
+            </div>
+            <div class="tab-pane fade show active" id="nav-documentacion" role="tabpanel" aria-labelledby="nav-profile-tab">
                 <div class="row my-2">
                     <div class="col-md-12">
                         {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
@@ -79,8 +83,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+            <div class="tab-pane fade" id="nav-recursos" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
         </div>
 
 
