@@ -1,12 +1,12 @@
 {% extends 'baseAdmin.html.twig' %}
 {% block content %}
+    {{ form_start(form) }}
     <section class="services-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="single-testimonial">
                         <div class="card">
-                            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
                             <div class="card-header title-bg-color">
                                 <h5>Filtros</h5>
                             </div>
@@ -46,8 +46,6 @@
                                 </div>
                             </div>
                         </div>
-                        {{ form_rest(form) }}
-                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
@@ -75,9 +73,6 @@
                                             <th title="Escalado">Esc</th>
                                             <th title="Solucionado">Sol</th>
                                             <th title="Postergado">Pos</th>
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                                <th></th>
-                                            {% endif %}
                                             <th></th>
                                             <th></th>
                                             <th></th>
@@ -102,10 +97,7 @@
                                                     {% if arCaso.estadoAtendido == 1 %}
                                                         SI
                                                     {% else %}
-                                                        <button class="btn btn-default btn-xs" type="submit"
-                                                                name="OpAtender"
-                                                                value="{{ arCaso.codigoCasoPk }}">Atender
-                                                        </button>
+                                                        NO
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-center">{{ arCaso.estadoDesarrollo ? 'SI':'NO' }}</td>
@@ -113,23 +105,42 @@
                                                 <td class="text-center">{{ arCaso.estadoSolucionado ? 'SI':'NO' }}</td>
                                                 <td class="text-center">{{ arCaso.estadoPostergado ? 'SI':'NO' }}</td>
                                                 <td class="text-center">
-                                                    {% if is_granted('ROLE_ADMIN') %}
-                                                        {% if arCaso.estadoDesarrollo == 0 %}
-                                                            <a href="{{ path('admin_tarea_nuevo', { 'id': 0, 'codigoCaso': arCaso.codigoCasoPk }) }}">
-                                                                <i class="fas fa-tasks fa-2x"></i>
-                                                            </a>
-                                                        {% endif %}
-                                                    {% endif %}
+
+                                                    <div class="dropdown d-flex justify-content-center align-content-start">
+                                                        <a class=" dropdown-toggle" type="button" id="dropdownMenu2"
+                                                           data-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                            Opciones
+                                                        </a>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                            {% if arCaso.estadoAtendido == 0 %}
+                                                                <button class="dropdown-item" type="submit"
+                                                                        name="OpAtender"
+                                                                        value="{{ arCaso.codigoCasoPk }}">Atender
+                                                                </button>
+                                                            {% else %}
+                                                                <a class="dropdown-item disabled" aria-disabled="true">Atendido</a>
+                                                            {% endif %}
+                                                            {% if is_granted('ROLE_ADMIN') %}
+                                                                {% if arCaso.estadoDesarrollo == 0 %}
+                                                                    <a class="dropdown-item"
+                                                                       href="{{ path('admin_tarea_nuevo', { 'id': 0, 'codigoCaso': arCaso.codigoCasoPk }) }}">
+                                                                        Nueva tarea
+                                                                    </a>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                            {% if is_granted('ROLE_ADMIN') %}
+                                                                {% if arCaso.estadoEscalado == 0 %}
+                                                                    <a class="dropdown-item"
+                                                                       href="javascript:abrirVentana3('{{ path('soporte_caso_escalar', {'id': arCaso.codigoCasoPk}) }}', 'Escalar', 600, 1200)">
+                                                                        Escalar caso
+                                                                    </a>
+                                                                {% endif %}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
                                                 </td>
-                                                {% if is_granted('ROLE_ADMIN') %}
-                                                    <td class="text-center">
-                                                        {% if arCaso.estadoEscalado == 0 %}
-                                                            <a href="javascript:abrirVentana3('{{ path('soporte_caso_escalar', {'id': arCaso.codigoCasoPk}) }}', 'Escalar', 600, 1200)">
-                                                                <i class="fas fa-level-up-alt fa-2x"></i>
-                                                            </a>
-                                                        {% endif %}
-                                                    </td>
-                                                {% endif %}
+
 
                                                 <td class="text-center">
                                                     {% if is_granted('ROLE_ADMIN') %}
@@ -169,4 +180,6 @@
             </div>
         </div>
     </section>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
 {% endblock %}

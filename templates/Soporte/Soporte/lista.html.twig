@@ -64,6 +64,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -84,22 +85,40 @@
                                             {% if arSoporte.estadoAtendido == 1 %}
                                                 SI
                                             {% else %}
-                                                <button class="btnCustom btn-xs" type="submit" name="OpAtender"
-                                                        value="{{ arSoporte.codigoSoportePk }}">Atender
-                                                </button>
+                                                NO
                                             {% endif %}
                                         </td>
                                         <td class="text-center">
                                             {% if arSoporte.estadoSolucionado == 1 %}
                                                 SI
                                             {% else %}
-                                                {% if arSoporte.estadoAtendido == 1 %}
-                                                    <a class="btnCustom"
-                                                       href="javascript:abrirVentana3('{{ path('soporte_soporte_solucion', {'id': arSoporte.codigoSoportePk}) }}', 'SolucionSoporte', 600, 1200)">Solucion</a>
-                                                {% else %}
-                                                    NO
-                                                {% endif %}
+                                                NO
                                             {% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="dropdown d-flex justify-content-center align-content-start">
+                                                <a class=" dropdown-toggle" type="button" id="dropdownMenu2"
+                                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    Opciones
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                                    {% if arSoporte.estadoAtendido == 0 %}
+                                                        <button class="dropdown-item" type="submit" name="OpAtender"
+                                                                value="{{ arSoporte.codigoSoportePk }}">Atender
+                                                        </button>
+                                                    {% else %}
+                                                        <a class="dropdown-item disabled"
+                                                           aria-disabled="true">Atendido</a>
+                                                    {% endif %}
+                                                    {% if arSoporte.estadoSolucionado == 0 %}
+                                                        <a class="dropdown-item"
+                                                           href="javascript:abrirVentana3('{{ path('soporte_soporte_solucion', {'id': arSoporte.codigoSoportePk}) }}', 'SolucionSoporte', 600, 1200)">Solucion</a>
+                                                    {% else %}
+                                                        <a class="dropdown-item disabled"
+                                                           aria-disabled="true">Solucionado</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
                                         </td>
                                         <td class="text-center">
                                             {% if arSoporte.estadoSolucionado == 0 %}
