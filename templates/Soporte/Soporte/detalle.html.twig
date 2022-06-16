@@ -18,78 +18,73 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="single-testimonial py-0">
-                        <section class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered tabla-administracion">
-                                        <tr>
-                                            <td class="title-bg-color">CODIGO:</td>
-                                            <td class="td-in-well">{{ arSoporte.codigoSoportePk }}</td>
-                                            <td class="title-bg-color">FECHA:</td>
-                                            <td class="td-in-well">{{ arSoporte.fecha | date('Y-m-d') }}</td>
-                                            <td class="title-bg-color"></td>
-                                            <td class="td-in-well"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-bg-color">CONTACTO:</td>
-                                            <td class="td-in-well">{{ arSoporte.contacto }}</td>
-                                            <td class="title-bg-color">TELEFONO:</td>
-                                            <td class="td-in-well">{{ arSoporte.telefono }}</td>
-                                            <td class="title-bg-color">CORREO:</td>
-                                            <td class="td-in-well">{{ arSoporte.correo }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-bg-color">DESCRIPCION:</td>
-                                            <td class="td-in-well" colspan="5">{{ arSoporte.descripcion }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-bg-color">SOLUCION:</td>
-                                            <td class="td-in-well" colspan="5">{{ arSoporte.solucion }}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </section>
+                    <div class="single-testimonial">
+                        <div class="table-responsive-sm">
+                            <table class="table table-condensed table-bordered tabla-administracion">
+                                <tr>
+                                    <td class="title-bg-color">CODIGO:</td>
+                                    <td class="td-in-well">{{ arSoporte.codigoSoportePk }}</td>
+                                    <td class="title-bg-color">FECHA:</td>
+                                    <td class="td-in-well">{{ arSoporte.fecha | date('Y-m-d') }}</td>
+                                    <td class="title-bg-color"></td>
+                                    <td class="td-in-well"></td>
+                                </tr>
+                                <tr>
+                                    <td class="title-bg-color">CONTACTO:</td>
+                                    <td class="td-in-well">{{ arSoporte.contacto }}</td>
+                                    <td class="title-bg-color">TELEFONO:</td>
+                                    <td class="td-in-well">{{ arSoporte.telefono }}</td>
+                                    <td class="title-bg-color">CORREO:</td>
+                                    <td class="td-in-well">{{ arSoporte.correo }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="title-bg-color">DESCRIPCION:</td>
+                                    <td class="td-in-well" colspan="5">{{ arSoporte.descripcion }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="title-bg-color">SOLUCION:</td>
+                                    <td class="td-in-well" colspan="5">{{ arSoporte.solucion }}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
                     <div class="single-testimonial py-0">
-
-                        div class="table-responsive-sm">
-                        <table class="table table-condensed table-bordered tabla-administracion">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Fecha</th>
-                                <th>Nombre</th>
-                                <th title="Tamaño">MB</th>
-                                <th>Tipo</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for arArchivo in arArchivos %}
+                        <div class="table-responsive-sm">
+                            <table class="table table-condensed table-bordered tabla-administracion">
+                                <thead>
                                 <tr>
-                                    <td>{{ arArchivo.codigoArchivoPk }}</td>
-                                    <td>{{ arArchivo.fecha | date('Y-m-d H:i') }}</td>
-                                    <td>{{ arArchivo.nombre }}</td>
-                                    <td>{{ arArchivo.tamano | number_format(2) }}</td>
-                                    <td>{{ arArchivo.tipo }}</td>
-                                    <td>
-                                        <button class="fa fa-download" type="submit" name="OpDescargar"
-                                                value="{{ arArchivo.codigoArchivoPk }}"></button>
-                                    </td>
+                                    <th>Id</th>
+                                    <th>Fecha</th>
+                                    <th>Nombre</th>
+                                    <th title="Tamaño">MB</th>
+                                    <th>Tipo</th>
+                                    <th></th>
                                 </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                {% for arArchivo in arArchivos %}
+                                    <tr>
+                                        <td>{{ arArchivo.codigoArchivoPk }}</td>
+                                        <td>{{ arArchivo.fecha | date('Y-m-d H:i') }}</td>
+                                        <td>{{ arArchivo.nombre }}</td>
+                                        <td>{{ arArchivo.tamano | number_format(2) }}</td>
+                                        <td>{{ arArchivo.tipo }}</td>
+                                        <td>
+                                            <button class="fa fa-download" type="submit" name="OpDescargar"
+                                                    value="{{ arArchivo.codigoArchivoPk }}"></button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
     {{ form_end(form) }}
 {% endblock %}

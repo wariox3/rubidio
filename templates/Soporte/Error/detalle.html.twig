@@ -15,60 +15,52 @@
             <div class="row mt-2">
                 <div class="col-md-12">
                     <div class="single-testimonial py-0">
-                        <section class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
-                                        <tr>
-                                            <td class="title-bg-color">CODIGO:</td>
-                                            <td class="td-in-well">{{ arError.codigoErrorPk }}</td>
-                                            <td class="title-bg-color">FECHA:</td>
-                                            <td class="td-in-well">{{ arError.fecha | date('Y-m-d') }}</td>
-                                            <td class="title-bg-color"></td>
-                                            <td class="td-in-well"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-bg-color">ERROR:</td>
-                                            <td class="td-in-well" colspan="5">{{ arError.mensaje }}</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </section>
+                        <div class="table-responsive-sm">
+                            <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                <tr>
+                                    <td class="title-bg-color">CODIGO:</td>
+                                    <td class="td-in-well">{{ arError.codigoErrorPk }}</td>
+                                    <td class="title-bg-color">FECHA:</td>
+                                    <td class="td-in-well">{{ arError.fecha | date('Y-m-d') }}</td>
+                                    <td class="title-bg-color"></td>
+                                    <td class="td-in-well"></td>
+                                </tr>
+                                <tr>
+                                    <td class="title-bg-color">ERROR:</td>
+                                    <td class="td-in-well" colspan="5">{{ arError.mensaje }}</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="single-testimonial">
-                        <section class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
-                                        <thead class="title-bg-color">
-                                        <tr>
-                                            <th>File</th>
-                                            <th>Line</th>
-                                            <th>Function</th>
-                                            <th>Class</th>
-                                            <th>Type</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {% for traza in trazas %}
-                                            <tr>
-                                                <td>{{ traza.file }}</td>
-                                                <td>{{ traza.line }}</td>
-                                                <td>{{ traza.function }}</td>
-                                                <td>{{ traza.class }}</td>
-                                                <td>{{ traza.type }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </section>
+                        <div class="table-responsive">
+                        <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                            <thead class="title-bg-color">
+                            <tr>
+                                <th>File</th>
+                                <th>Line</th>
+                                <th>Function</th>
+                                <th>Class</th>
+                                <th>Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for traza in trazas %}
+                                <tr>
+                                    <td>{{ traza.file }}</td>
+                                    <td>{{ traza.line }}</td>
+                                    <td>{{ traza.function }}</td>
+                                    <td>{{ traza.class }}</td>
+                                    <td>{{ traza.type }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                     </div>
                 </div>
             </div>

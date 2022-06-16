@@ -20,50 +20,46 @@
             <div class="row mt-2">
                 <div class="col-md-12">
                     <div class="single-testimonial py-0">
-                        <section class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
-                                        <tr>
-                                            <td class="title-bg-color">CODIGO:</td>
-                                            <td class="td-in-well">{{ arTarea.codigoTareaPk }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-bg-color">ASUNTO:</td>
-                                            <td class="td-in-well" colspan="5">{{ arTarea.descripcion }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="title-bg-color">COMENTARIO (TER):</td>
-                                            <td class="td-in-well" colspan="5">{{ arTarea.comentarioTerminado }}</td>
-                                        </tr>
-                                    </table>
-                                    {% if arTarea.codigoCasoFk is not null %}
-                                        <table class="table table-condensed table-bordered mt-2">
-                                            <tr>
-                                                <td class="title-bg-color">CODIGO:</td>
-                                                <td class="td-in-well">{{ arCaso.codigoCasoPk }}</td>
-                                                <td class="title-bg-color">FECHA:</td>
-                                                <td class="td-in-well">{{ arCaso.fecha | date('Y-m-d') }}</td>
-                                                <td class="title-bg-color"></td>
-                                                <td class="td-in-well"></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="title-bg-color">CONTACTO:</td>
-                                                <td class="td-in-well">{{ arCaso.contacto }}</td>
-                                                <td class="title-bg-color">TELEFONO:</td>
-                                                <td class="td-in-well">{{ arCaso.telefono }}</td>
-                                                <td class="title-bg-color">CORREO:</td>
-                                                <td class="td-in-well">{{ arCaso.correo }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="title-bg-color">DESCRIPCION:</td>
-                                                <td class="td-in-well" colspan="5">{{ arCaso.descripcion }}</td>
-                                            </tr>
-                                        </table>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </section>
+                        <div class="table-responsive">
+                            <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                <tr>
+                                    <td class="title-bg-color">CODIGO:</td>
+                                    <td class="td-in-well">{{ arTarea.codigoTareaPk }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="title-bg-color">ASUNTO:</td>
+                                    <td class="td-in-well" colspan="5">{{ arTarea.descripcion }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="title-bg-color">COMENTARIO (TER):</td>
+                                    <td class="td-in-well" colspan="5">{{ arTarea.comentarioTerminado }}</td>
+                                </tr>
+                            </table>
+                            {% if arTarea.codigoCasoFk is not null %}
+                                <table class="table table-condensed table-bordered mt-2">
+                                    <tr>
+                                        <td class="title-bg-color">CODIGO:</td>
+                                        <td class="td-in-well">{{ arCaso.codigoCasoPk }}</td>
+                                        <td class="title-bg-color">FECHA:</td>
+                                        <td class="td-in-well">{{ arCaso.fecha | date('Y-m-d') }}</td>
+                                        <td class="title-bg-color"></td>
+                                        <td class="td-in-well"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="title-bg-color">CONTACTO:</td>
+                                        <td class="td-in-well">{{ arCaso.contacto }}</td>
+                                        <td class="title-bg-color">TELEFONO:</td>
+                                        <td class="td-in-well">{{ arCaso.telefono }}</td>
+                                        <td class="title-bg-color">CORREO:</td>
+                                        <td class="td-in-well">{{ arCaso.correo }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="title-bg-color">DESCRIPCION:</td>
+                                        <td class="td-in-well" colspan="5">{{ arCaso.descripcion }}</td>
+                                    </tr>
+                                </table>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
