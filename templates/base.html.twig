@@ -84,7 +84,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#"> <i class="fab fa-pinterest"></i>
+                                <a href="#"> <i class="fab fa-instagram"></i>
                                 </a>
                             </li>
                             <li>
@@ -100,9 +100,9 @@
                             <h3>Otros servicios</h3>
                         </div>
                         <ul class="footer-quick-links">
-                            <li><a href="#">Infraestructura</a></li>
-                            <li><a href="#">Asesorias</a></li>
-                            <li><a href="#">Consultoria</a></li>
+                            <li><a href="{{ path('servicio_nube') }}">Infraestructura</a></li>
+                            <li><a href="{{ path('servicio_capacitacion') }}">Asesorias & Capacitaciones</a></li>
+                            <li><a href="{{ path('servicio_consultoria') }}">Consultoria</a></li>
                         </ul>
                     </div>
                 </div>
@@ -112,9 +112,9 @@
                             <h3>Enlaces</h3>
                         </div>
                         <ul class="footer-quick-links">
-                            <li><a href="about.html">Nosotros</a></li>
+                            <li><a href="{{ path('nosotros') }}">Nosotros</a></li>
                             <li><a href="projects.html">Servicios</a></li>
-                            <li><a href="contact.html">Contactenos</a></li>
+                            <li><a href="{{ path('contacto') }}">Contactenos</a></li>
                             <li><a href="privacy-policy.html">Politica Privacidad</a></li>
                             <li><a href="terms-condition.html">Terminos & Condiciones</a></li>
                         </ul>

@@ -8,7 +8,6 @@ use App\Entity\Soporte;
 use App\Entity\Usuario;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
-use App\Utilidades\Noticias;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
