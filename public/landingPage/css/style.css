@@ -4091,23 +4091,36 @@ table .dropdown-item:hover {
     border-bottom: 1px solid var(--principal-azul-semantica);
 }
 
-.nav-tabs .nav-link:hover {
+.nav-tabs .nav-link:hover,
+.nav-pills .nav-link:hover{
     color: #FFFFFF;
     background-color:  var(--azul-claro);
     border-color: var(--azul-claro);
     transition: 1s;
-
 }
 
 
-.nav-tabs .nav-link.active {
+.nav-tabs .nav-link.active,
+.nav-pills .nav-link.active {
     color: #FFFFFF;
     background-color:  var(--principal-azul-semantica);
     border-color: var(--principal-azul-semantica);
     transition: 2.5s;
 }
 
+
 .form-control:focus{
     border-color: var(--principal-azul-semantica);
     box-shadow: 0 0 0 0.2rem rgb(20 48 73 / 25%);
+}
+
+.gerencia-area {
+    position: relative;
+    z-index: 1;
+    background-image: url(../img/client/AndresMontoya.jpeg);
+    background-attachment: local;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 569px;
 }
