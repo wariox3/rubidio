@@ -53,7 +53,6 @@ class SoporteController extends AbstractController
                 $parametros = $request->files;
                 foreach ($parametros as $archivos) {
                     foreach ($archivos as $archivo) {
-                        $prueba = $archivo;
                         $extension = $archivo->getClientOriginalExtension();
                         $nombre = $archivo->getClientOriginalName();
                         $tamano = $archivo->getSize();

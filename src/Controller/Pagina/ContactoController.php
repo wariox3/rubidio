@@ -2,6 +2,7 @@
 
 namespace App\Controller\Pagina;
 
+use App\Entity\Contacto;
 use App\Entity\Error;
 use App\Entity\Soporte;
 use App\Entity\Usuario;
@@ -28,22 +29,30 @@ class ContactoController extends AbstractController
      */
     public function contacto(Request $request, ManagerRegistry $doctrine): Response {
         $em = $doctrine->getManager();
-        $arSoporte = new Soporte();
-        $arSoporte->setFecha(new \DateTime('now'));
-        $form = $this->createForm(ContactoType::class, $arSoporte);
+        $arContacto = new Contacto();
+        $arContacto->setFecha(new \DateTime('now'));
+        $form = $this->createForm(ContactoType::class, $arContacto);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
-                $arSoporte = $form->getData();
-                $em->persist($arSoporte);
+                $arContacto = $form->getData();
+                $em->persist($arContacto);
                 $em->flush();
-                return $this->redirectToRoute('soporte_asesor_informacion', ['id' => $arSoporte->getCodigoSoportePk()]);
+                return $this->redirectToRoute('contacto_informacion', ['id' => $arContacto->getCodigoContactoPk()]);
             }
         }
-        return $this->render('Pagina/contacto.html.twig', [
+        return $this->render('Pagina/Contacto/contacto.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
-
+    /**
+     * @Route("/contacto/informacion/{id}", name="contacto_informacion")
+     */
+    public function soporteAsesorInformacion($id): Response
+    {
+        return $this->render('Pagina/Contacto/contactoInformacion.html.twig', [
+            'codigoContacto' => $id
+        ]);
+    }
 }
