@@ -39,56 +39,213 @@
     <!-- Start tap  -->
     <div class="container">
         <div class="row justify-content-center align-items-center">
-            <h3>Gestione todas las areas de su compañia con la solución Semantica erp</h3>
+            <h3>Gestione todos los procesos de su compañia + Logistica + Programacion Turnos</h3>
         </div>
         <div class="d-flex justify-content-center align-content-center">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active mr-1" id="pills-home-tab" data-toggle="pill" href="#pills-erp" role="tab"
-                       aria-controls="pills-erp" aria-selected="true">Erp</a>
+                    <a class="nav-link active mr-1" id="pills-home-tab" data-toggle="pill" href="#pills-finanzas" role="tab"
+                       aria-controls="pills-erp" aria-selected="true">Finanzas</a>
                 </li>
                 <li class="nav-item mr-1" role="presentation">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-                       aria-controls="pills-profile" aria-selected="false">Profile</a>
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-compras-tesoreria" role="tab"
+                       aria-controls="pills-profile" aria-selected="false">Compras & Tesoreria</a>
+                </li>
+                <li class="nav-item mr-1" role="presentation">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-ventas-cartera" role="tab"
+                       aria-controls="pills-profile" aria-selected="false">Ventas & Cartera</a>
+                </li>
+                <li class="nav-item mr-1" role="presentation">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-recurso-humano" role="tab"
+                       aria-controls="pills-profile" aria-selected="false">Recurso Humano</a>
+                </li>
+                <li class="nav-item mr-1" role="presentation">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-inventario" role="tab"
+                       aria-controls="pills-profile" aria-selected="false">Inventario</a>
                 </li>
             </ul>
         </div>
         <div class="tab-content mb-2" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-erp" role="tabpanel"
+            <div class="tab-pane fade show active" id="pills-finanzas" role="tabpanel"
                  aria-labelledby="pills-home-tab">
                 <div class="row">
                     <div class="col-md-6">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab aspernatur blanditiis eius eos
-                        excepturi exercitationem illo illum ipsam laborum modi quod rem tenetur veniam, voluptatem.
-                        Atque eaque earum nobis!
+                        <div class="overview-image">
+                            <img src="{{ asset('landingPage/img/choose-2.png') }}" alt="logo">
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="overview-content">
-                            <h2>Semantica ERP</h2>
-                            <p class="text-justify">Con el software Semantica ERP, centralice todas las áreas y
-                                procesos de su compañía, generando información sólida que le permita
-                                tomar decisiones acertadas y alineadas con su negocio.</p>
+                            <h2>Funcionalidad suite Financiera</h2>
+                            <p class="text-justify">Acceda a toda la información financiera de su compañía,
+                                genere reportes detallados de forma sencilla y cuente con información altamente confiable.</p>
                             <ul class="features-list mb-3">
-                                <li><span><i class="fas fa-angle-right"></i> Finanzas</span></li>
-                                <li><span><i class="fas fa-angle-right"></i> Compras &amp; Tesoreria</span></li>
-                                <li><span><i class="fas fa-angle-right"></i> Ventas &amp; Cartera</span></li>
-                                <li><span><i class="fas fa-angle-right"></i> Recurso humano</span></li>
-                                <li><span><i class="fas fa-angle-right"></i> Inventario</span></li>
-                                <li><span><i class="fas fa-angle-right"></i> CRM</span></li>
-                                <li><span><i class="fas fa-angle-right"></i> Programacion turnos</span></li>
-                                <li><span><i class="fas fa-angle-right"></i> Logistica &amp; Transporte</span></li>
+                                <li><span class="active"><i class="fas fa-angle-right"></i> Contabilidad general</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Activos fijos</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Informacion exogena</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Costos</span></li>
                             </ul>
-                            <a class="default-btn" href="/rubidio/public/index.php/soporte">Soporte <span></span></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">2</div>
+            <div class="tab-pane fade" id="pills-compras-tesoreria" role="tabpanel"
+                 aria-labelledby="pills-home-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="overview-image">
+                            <img src="{{ asset('landingPage/img/choose-2.png') }}" alt="logo">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="overview-content">
+                            <h2>Suite comercial Compras & tesoreria</h2>
+                            <p class="text-justify">Gestiones sus compras desde la fuente (solicitud-forecast-abastecimiento-stock-proyectos) y consolide
+                            la relacion con sus proveedores desde la programacion de pagos</p>
+                            <ul class="features-list mb-3">
+                                <li><span class="active"><i class="fas fa-angle-right"></i> Compras de bienes y servicios</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Solicitudes & Ordenes</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Lista precios</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Informes forecast</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Anticipos</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Legalizacion</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Importacion</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Archivos planos</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Informes a corte</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-ventas-cartera" role="tabpanel"
+                 aria-labelledby="pills-home-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="overview-image">
+                            <img src="{{ asset('landingPage/img/choose-2.png') }}" alt="logo">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="overview-content">
+                            <h2>Suite comercial Ventas & Cartera</h2>
+                            <p class="text-justify">Disponga de la informacion en tiempo real de la gestion comercial de ventas y cobro</p>
+                            <ul class="features-list mb-3">
+                                <li><span class="active"><i class="fas fa-angle-right"></i> Facturacion</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Facturacion electronica DIAN</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Control de inventario</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Pedidos</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Remisiones</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Listas precios</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Clasificacion CXC</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-recurso-humano" role="tabpanel"
+                 aria-labelledby="pills-home-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="overview-image">
+                            <img src="{{ asset('landingPage/img/choose-2.png') }}" alt="logo">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="overview-content">
+                            <h2>Gestion Recurso humano & Nomina</h2>
+                            <p class="text-justify">Vincule la gestión de su recurso humano a la estrategia corporativa de su empresa,
+                                automatizando los procesos asociados a la gestión operativa y táctica de su personal.</p>
+                            <ul class="features-list mb-3">
+                                <li><span class="active"><i class="fas fa-angle-right"></i> Nomina</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Seguridad social</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Seguridad y salud en el trabajo</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Contratacion</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Bienestar</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Portal auto-gestion</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-inventario" role="tabpanel"
+                 aria-labelledby="pills-home-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="overview-image">
+                            <img src="{{ asset('landingPage/img/choose-2.png') }}" alt="logo">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="overview-content">
+                            <h2>Inventario y almacenamiento</h2>
+                            <p class="text-justify">Maneja y controla de manera ágil y práctica los movimientos de los inventarios de tu compañía.</p>
+                            <ul class="features-list mb-3">
+                                <li><span class="active"><i class="fas fa-angle-right"></i> Control Stock</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Bodega, ubicacion, tercero</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Movimientos de control (comodatos)</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Clasificacion linea, grupo y subgrupo</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Codigos de barra, QR</span></li>
+                                <li><span><i class="fas fa-angle-right"></i> Registro de entrega</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- End tap -->
+
+    <!-- Start Overview Section -->
+    <section class="overview-section bg-grey section-padding">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="overview-content">
+                        <h2>Logistica & transporte</h2>
+                        <p>Vamos hasta la ultima milla, soluciones especializadas con diferentes aplicaciones
+                        para el manejo de los procesos logisticos y de transporte. Toda la informacion tiene registro
+                        financiero</p>
+                        <ul class="features-list">
+                            <li><span class="active">Integracion RNDC</span></li>
+                            <li><span>Tracking recogidas, guias y despachos</span></li>
+                            <li><span>Seguimiento GPS</span></li>
+                            <li><span>Informacion comercial</span></li>
+                            <li><span>Liquidacion de guias acuerdos</span></li>
+                            <li><span>Novedades</span></li>
+                            <li><span>Operaciones recaudo</span></li>
+                            <li><span>Gestion documental</span></li>
+                            <li><span>App movil entrega y seguimiento</span></li>
+                            <li><span>Facturacion especializada</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="overview-content">
+                        <h2>Programacion de turnos</h2>
+                        <p>Analice la informacion detallada por puesto y proyecto, determine de forma precisa el
+                            costo de su operacion y controle los margenes de rentabilidad de su negocio</p>
+                        <ul class="features-list">
+                            <li><span class="active">Nomina desde la programacion de turnos</span></li>
+                            <li><span>Control de horas venta vs programadas </span></li>
+                            <li><span>Programacion automatizada con secuencias</span></li>
+                            <li><span>Inventario integrado puestos</span></li>
+                            <li><span>App movil rondas, novedades +</span></li>
+                            <li><span>Contrato de control segun las caracteristicas del servicio</span></li>
+                            <li><span>Informacion proyecto, operacion, puesto </span></li>
+                            <li><span>Facturacion especializada</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Overview Section -->
+
     <!-- Start beneficios  -->
     <section class="services-section pt-50 pb-50 bg-grey">
+        <div class="row justify-content-center align-items-center">
+            <h3>Llenese de motivos para escoger una herramienta ERP +eficiente +simple +efectiva</h3>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">
@@ -97,8 +254,7 @@
                             <i class="pe-7s-cash"></i>
                         </div>
                         <h3>Costo / Beneficio</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            dolore magna aliqua</p>
+                        <p>Presupueste su inversión, mídala a corto plazo y optimice sus procesos.</p>
 
                     </div>
                 </div>
@@ -108,8 +264,7 @@
                             <i class="pe-7s-display1"></i>
                         </div>
                         <h3>Análisis inteligente</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            dolore magna aliqua</p>
+                        <p>Convierta la información en acciones estratégicas y bien fundamentadas.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -118,8 +273,7 @@
                             <i class="pe-7s-cloud"></i>
                         </div>
                         <h3>Información en la nube</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            dolore magna aliqua</p>
+                        <p>Acceda a la data de su compañía de forma remota, sin complicaciones técnicas y de manera segura.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -128,8 +282,7 @@
                             <i class="pe-7s-safe"></i>
                         </div>
                         <h3>Seguridad total</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            dolore magna aliqua</p>
+                        <p>Opere su compañía a grandes escalas sin preocuparse por la seguridad de la información.</p>
 
                     </div>
                 </div>
@@ -141,8 +294,7 @@
                             <i class="pe-7s-timer"></i>
                         </div>
                         <h3>Más productividad</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            dolore magna aliqua</p>
+                        <p>Optimice la productividad de sus empleados eliminando procesos manuales</p>
 
                     </div>
                 </div>
@@ -152,8 +304,7 @@
                             <i class="pe-7s-box2"></i>
                         </div>
                         <h3>Producción optimizada</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            dolore magna aliqua</p>
+                        <p>Controle sus inventarios, la planeación, la exactitud en los tiempos de entrega y producción</p>
 
                     </div>
                 </div>
@@ -163,8 +314,7 @@
                             <i class="pe-7s-like2"></i>
                         </div>
                         <h3>Clientes satisfechos</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            dolore magna aliqua</p>
+                        <p>Centralice la información de sus clientes y enfoque sus esfuerzos comerciales en construir y mantener relaciones exitosas.</p>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -173,15 +323,13 @@
                             <i class="pe-7s-share"></i>
                         </div>
                         <h3>Procesos automatizados</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            dolore magna aliqua</p>
+                        <p>Automatice sus procesos con herramientas de parametrización de precios, descuentos y promociones</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- End tap -->
-    <!-- Start caso de exito  -->
 
     <div class="gerencia-area mb-5">
         <div class="d-table d-flex justify-content-center align-items-center align-content-center">
@@ -199,9 +347,6 @@
     </div>
 
     <!-- Button trigger modal -->
-{#    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">#}
-{#        Launch static backdrop modal#}
-{#    </button>#}
 
     <!-- Modal -->
 
