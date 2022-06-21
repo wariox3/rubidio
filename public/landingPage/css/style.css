@@ -4139,6 +4139,15 @@ table .dropdown-item:hover {
     padding: 30px 15px;
 }
 
+.text-video {
+    font-size: 38px;
+    line-height: 1.15em;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+    letter-spacing: 0;
+}
+
 figcaption{
     text-align: center;
     color: #FFFFFF;
