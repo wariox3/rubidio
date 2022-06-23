@@ -26,6 +26,11 @@ class Caso
     private $fecha;
 
     /**
+     * @ORM\Column(name="codigo_caso_tipo_fk", type="string", length=3, nullable=true)
+     */
+    private $codigoCasoTipoFk;
+
+    /**
      * @ORM\Column(name="compromiso", type="date", nullable=true)
      */
     private $compromiso;
@@ -86,6 +91,11 @@ class Caso
     private $codigoPrioridadFk;
 
     /**
+     * @ORM\Column(name="cliente_ingreso", type="string", length=200, nullable=true)
+     */
+    private $clienteIngreso;
+
+    /**
      * @ORM\Column(name="estado_atendido", type="boolean", nullable=true, options={"default" : false})
      */
     private $estadoAtendido = false;
@@ -121,6 +131,12 @@ class Caso
      * @ORM\JoinColumn(name="codigo_prioridad_fk", referencedColumnName="codigo_prioridad_pk")
      */
     private $prioridadRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CasoTipo", inversedBy="casosCasoTipoRel")
+     * @ORM\JoinColumn(name="codigo_caso_tipo_fk", referencedColumnName="codigo_caso_tipo_pk")
+     */
+    private $casoTipoRel;
 
     /**
      * @ORM\OneToMany(targetEntity="Tarea", mappedBy="casoRel")
@@ -477,6 +493,54 @@ class Caso
     public function setRespuestaPostergado($respuestaPostergado): void
     {
         $this->respuestaPostergado = $respuestaPostergado;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoCasoTipoFk()
+    {
+        return $this->codigoCasoTipoFk;
+    }
+
+    /**
+     * @param mixed $codigoCasoTipoFk
+     */
+    public function setCodigoCasoTipoFk($codigoCasoTipoFk): void
+    {
+        $this->codigoCasoTipoFk = $codigoCasoTipoFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCasoTipoRel()
+    {
+        return $this->casoTipoRel;
+    }
+
+    /**
+     * @param mixed $casoTipoRel
+     */
+    public function setCasoTipoRel($casoTipoRel): void
+    {
+        $this->casoTipoRel = $casoTipoRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClienteIngreso()
+    {
+        return $this->clienteIngreso;
+    }
+
+    /**
+     * @param mixed $clienteIngreso
+     */
+    public function setClienteIngreso($clienteIngreso): void
+    {
+        $this->clienteIngreso = $clienteIngreso;
     }
 
 

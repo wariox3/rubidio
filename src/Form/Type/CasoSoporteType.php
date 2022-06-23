@@ -17,30 +17,14 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class CasoType extends AbstractType {
+class CasoSoporteType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('casoTipoRel', EntityType::class, array(
-                'class' => CasoTipo::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('ct');
-                },
-                'choice_label' => 'nombre',
-                'required' => true,
-            ))
-            ->add('prioridadRel', EntityType::class, array(
-                'class' => Prioridad::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('p')
-                        ->orderBy('p.orden', 'ASC');
-                },
-                'choice_label' => 'nombre',
-                'required' => true,
-            ))
             ->add('contacto', TextType::class, array('required' => true))
             ->add('telefono', TextType::class, array('required' => true))
             ->add('correo', TextType::class, array('required' => true))
+            ->add('clienteIngreso', TextType::class, array('required' => true))
             ->add('descripcion', TextareaType::class, array('required' => true))
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));
     }

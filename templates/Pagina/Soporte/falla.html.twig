@@ -1,0 +1,189 @@
+{% extends 'baseOscura.html.twig' %}
+{% block content %}
+
+
+
+    <!-- Start Page Title Area -->
+    <div class="page-title-area">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="container">
+                    <div class="page-title-content">
+                        <h2>Reporte de falla</h2>
+                        <ul>
+                            <li><a href="{{ path('soporte') }}">Soporte</a>
+                            </li>
+                            <li>Error 500 o mal funcionamiento </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title Area -->
+
+    <!-- Start Services Details Area -->
+    <section class="services-details-area ptb-100">
+        <div class="container">
+            <div class="services-details-overview">
+                <div class="row align-items-center">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="services-step-wrapper">
+                            <div class="services-step-title">
+                                <h2>¿Que se considera una falla?</h2>
+                            </div>
+                            <div class="services-step-content">
+                                <p>Durante el uso de nuestra aplicacion se pueden generar errores que son fracmentos de codigo que no fueron controlados
+                                    o sometidos a pruebas en alguna circunstancia por nuestros desarrolladores, arquitectos, modeladores o probadores.
+                                    Queremos darte la tranquilidad de que estos tipos de errores llegan inmediatamente a nuestro departamento
+                                    de soporte tecnico pero queremos atender de forma individual su reporte y darte una respuesta humano - humano.</p>
+                                <div class="features-text">
+                                    <p>
+                                        Para las aplicaciones web como nuestro ERP, Cuando se carga una página web se devuelve un código de estado HTTP que nos indica cómo ha ido la carga de la página.
+                                        Normalmente ese código de estado es invisible de cara al usuario que está visitando la web. Solo en caso de que se produzca un error en la carga es posible que en el navegador se nos muestre el tipo de error que se está produciendo.
+                                        Vamos a hacer aquí un repaso a los tipos de errores HTTP más comunes, para saber así cómo interpretarlos y reportarlos.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="services-step-wrapper">
+                            <div class="services-step-title">
+                                <h2>Tipos de fallas</h2>
+                            </div>
+                            <div class="services-step-content">
+                                <p>Código 200: esto no es un error HTTP, sino todo lo contrario. Significa que la página ha cargado de forma correcta.
+                                    En general todos los códigos de estado que sean 2XX (un 2 seguido de 2 números) indican que la carga ha ido bien.
+                                    Por tanto, si el HTTP status de tu página web es 200 todo va como la seda. ¡Enhorabuena!</p>
+
+                                <p>Código 301 o 302: esto tampoco se trata de un error HTTP.
+                                    Estos códigos indican que se está haciendo una redirección de una página a otra.
+                                    Esta redirección puede ser permanente (código 301) o temporal (código 302).
+                                    Es decir, cuando se ha ido a cargar una cierta página se nos ha redirigido a otra.</p>
+                                <p>
+                                    Errores 4XX: se refieren a errores de cliente. Suelen darse cuando la página que se carga no existe o se tiene el acceso bloqueado a ella. Vamos a revisar los más comunes:
+                                    Error 400: la solicitud tiene una sintaxis incorrecta. Significa que las dirección de la página web que se quiere cargar (la URL) tiene un formato no válido.
+                                    Error 403: indica que la página solicitada existe pero se ha denegado el acceso a la misma.
+                                    Por ejemplo, podría tratarse de un contenido exclusivo para usuarios registrados.
+                                    Error 401: similar al error 403, pero en este caso existiría una posibilidad de acceso a la misma que no se ha pasado o todavía no se ha superado.
+                                    Por ejemplo, al cargar la página se podría mostrar una solicitud de usuario y contraseña, que deben ser rellenados para poder acceder a la página.
+                                    Ninguna página de inicio de una web debería mostrar un error de este tipo, a menos que sea exclusiva de uso interno, no de cara al público.
+                                    Error 404: posiblemente el error más común. Indica que la página que se está tratando de cargar no se ha encontrado.
+                                    Esto puede ocurrir porque hemos escrito mal la dirección de la página web que queremos cargar, que hemos cargado la página a través de un enlace erróneo, o que la página sí que existió en su momento pero ahora ya no.
+                                    Error 406: indica que la página ha devuelto un código que no puede ser interpretado por el navegador con el que estamos cargando la página web
+                                </p>
+                                <p>
+                                    Errores 5XX: se refieren a errores del servidor. Pueden generarse por un error en el código de la página web o dentro del propio servidor. Vemos los más usuales:
+                                    Error 500: otro error muy común. Indica un error interno, lo que se puede traducir que la página web tiene algún error en el código, por lo que el servidor no puede generar el código HTML para devolver al usuario.
+                                    Error 504 gateway time-out: indica que el tiempo de espera para devolver la página web se ha agotado.
+                                    Puede estar generado por un error en el propio servidor (por ejemplo, se ha “colgado” el web server) o porque nuestra página web contiene algún código que nunca termina de ejecutarse (por ejemplo, un bucle del que nunca se sale).
+                                    Error 509: indica que se ha superado el límite de ancho de banda disponible en el servidor para nuestra página web.
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Services Details Area -->
+
+    <!-- Start Contact Section -->
+    <div class="contact-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-12">
+                    <div class="contact-information-box-3">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="single-contact-info-box">
+                                    <div class="contact-info">
+                                        <h6>Direccion:</h6>
+                                        <p>Cll 34 Nro 66 A 33 Ofc 201, Conquistadores</p>
+                                        <p>Medellin, Antioquia - Colombia</p>
+                                    </div>
+                                    <div class="contact-info-bg-icon">
+                                        <i class="pe-7s-map-marker"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="single-contact-info-box">
+                                    <div class="contact-info">
+                                        <h6>Horarios:</h6>
+                                        <p>Lunes - Viernes</p>
+                                        <p>08:00 a 12:00</p>
+                                        <p>13:00 a 17:00</p>
+                                    </div>
+                                    <div class="contact-info-bg-icon">
+                                        <i class="pe-7s-call"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="single-contact-info-box">
+                                    <div class="contact-info">
+                                        <h6>Correo:</h6>
+                                        <p>soporte@semantica.com.co</p>
+                                        <p>implementacion@semantica.com.co</p>
+                                    </div>
+                                    <div class="contact-info-bg-icon">
+                                        <i class="pe-7s-mail"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="contact-form contact-form-3">
+                        <p class="form-message"></p>
+                        {{ form_start(form, { 'attr': {'class': 'form',  'enctype':'multipart/form-data'} }) }}
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.contacto, { 'attr': {'placeholder': 'Su nombre'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.correo, { 'attr': {'placeholder': 'Correo'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.telefono, { 'attr': {'placeholder': 'Telefono'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.clienteIngreso, { 'attr': {'placeholder': 'Cliente'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.descripcion, { 'attr': {'placeholder': 'Su pregunta', 'cols':30, 'rows':6} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <input type="file" multiple="multiple" class="multi form-control" name="files[]"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-content-center ">
+                            {{ form_widget(form.guardar, { 'attr': {'class': 'btnCustom'} }) }}
+                            <a href="{{ path('soporte') }}" class="default-btn-one">
+                                Regresar
+                                <span></span>
+                            </a>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Contact Section -->
+
+{% endblock %}
