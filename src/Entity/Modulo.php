@@ -39,6 +39,16 @@ class Modulo
     protected $recursosModuloRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Funcionalidad", mappedBy="moduloRel")
+     */
+    protected $funcionalidadesModuloRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Requisito", mappedBy="requisitoRel")
+     */
+    protected $requisitosModuloRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoModuloPk()
@@ -116,6 +126,38 @@ class Modulo
     public function setRecursosModuloRel($recursosModuloRel): void
     {
         $this->recursosModuloRel = $recursosModuloRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFuncionalidadesModuloRel()
+    {
+        return $this->funcionalidadesModuloRel;
+    }
+
+    /**
+     * @param mixed $funcionalidadesModuloRel
+     */
+    public function setFuncionalidadesModuloRel($funcionalidadesModuloRel): void
+    {
+        $this->funcionalidadesModuloRel = $funcionalidadesModuloRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequisitosModuloRel()
+    {
+        return $this->requisitosModuloRel;
+    }
+
+    /**
+     * @param mixed $requisitosModuloRel
+     */
+    public function setRequisitosModuloRel($requisitosModuloRel): void
+    {
+        $this->requisitosModuloRel = $requisitosModuloRel;
     }
 
 

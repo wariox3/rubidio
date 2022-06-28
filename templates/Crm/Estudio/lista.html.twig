@@ -1,0 +1,68 @@
+{% extends 'baseAdmin.html.twig' %}
+{% block content %}
+    <section class="services-section">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <div class="d-flex justify-content-end">
+                            <a class="btnCustom"
+                               href="javascript:abrirVentana3('{{ path('crm_estudio_nuevo', {'id': '0'}) }}', 'Nuevo', 600, 1200)">
+                                Nuevo
+                            </a>
+                        </div>
+                        <div class="table-responsive-sm mt-2">
+                            <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                <thead class="title-bg-color">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Cliente</th>
+                                    <th>Inv</th>
+                                    <th>Com</th>
+                                    <th>Tes</th>
+                                    <th>Ven</th>
+                                    <th>Car</th>
+                                    <th>Rhu</th>
+                                    <th>Tur</th>
+                                    <th>Tte</th>
+                                    <th>Crm</th>
+                                    <th>Fin</th>
+                                    <th title="Estado terminado">TER</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for arEstudio in arEstudios %}
+                                    <tr>
+                                        <td>{{ arEstudio.codigoEstudioPk }}</td>
+                                        <td>{{ arEstudio.clienteNombreCorto }}</td>
+                                        <td class="text-center">{{ arEstudio.inventario?'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arEstudio.compra?'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arEstudio.tesoreria?'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arEstudio.venta?'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arEstudio.cartera?'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arEstudio.recursoHumano?'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arEstudio.turno?'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arEstudio.transporte?'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arEstudio.crm?'SI':'NO' }}</td>
+                                        <td  class="text-center">{{ arEstudio.financiero?'SI':'NO' }}</td>
+                                        <td  class="text-center">{{ arEstudio.estadoTerminado?'SI':'NO' }}</td>
+                                        <td class="text-center">
+                                            <a href="{{ path('crm_estudio_detalle', { 'id': arEstudio.codigoEstudioPk }) }}">
+                                                <i class="fas fa-eye fa-2x"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}

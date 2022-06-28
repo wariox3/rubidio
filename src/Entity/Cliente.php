@@ -141,6 +141,11 @@ class Cliente
     protected $implementacionesClienteRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Estudio", mappedBy="clienteRel")
+     */
+    protected $estudiosClienteRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoClientePk()
@@ -538,6 +543,22 @@ class Cliente
     public function setFechaSuspension($fechaSuspension): void
     {
         $this->fechaSuspension = $fechaSuspension;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstudiosClienteRel()
+    {
+        return $this->estudiosClienteRel;
+    }
+
+    /**
+     * @param mixed $estudiosClienteRel
+     */
+    public function setEstudiosClienteRel($estudiosClienteRel): void
+    {
+        $this->estudiosClienteRel = $estudiosClienteRel;
     }
 
 

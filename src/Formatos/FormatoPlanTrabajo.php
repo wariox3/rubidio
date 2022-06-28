@@ -69,7 +69,7 @@ class  FormatoPlanTrabajo extends \FPDF
 
     public function Body($pdf)
     {
-        //$arImplementacion = self::$em->getRepository(Implementacion::class)->find(self::$codigoImplementacion);
+        //$arImplementacion = self::$em->getRepository(Estudio::class)->find(self::$codigoImplementacion);
         $header = array('MODULO', 'COMPROMISO', 'TER', 'TEMA', 'DESCRIPCIÓN');
         $pdf->SetFillColor(200, 200, 200);
         $pdf->SetTextColor(0);

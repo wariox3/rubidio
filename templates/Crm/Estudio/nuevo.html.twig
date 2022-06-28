@@ -1,0 +1,57 @@
+{% extends 'base_sin_menu.html.twig' %}
+{% block content %}
+    <section class="services-section">
+        <div class="container">
+            {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <section class="card">
+                            <div class="card-header title-bg-color">
+                                <h5>Información</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="inputPassword4">Cliente:</label>
+                                        {{ form_widget(form.clienteRel) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4"></label>
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4"></label>
+
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        {{ form_widget(form.inventario) }}
+                                        {{ form_widget(form.compra) }}
+                                        {{ form_widget(form.tesoreria) }}
+                                        {{ form_widget(form.venta) }}
+                                        {{ form_widget(form.cartera) }}
+                                        {{ form_widget(form.recursoHumano) }}
+                                        {{ form_widget(form.turno) }}
+                                        {{ form_widget(form.crm) }}
+                                        {{ form_widget(form.financiero) }}
+                                        {{ form_widget(form.transporte) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-end">
+                                    {{ form_widget(form.guardar, { 'attr': {'class': 'btnCustom'} }) }}
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </section>
+{% endblock %}
