@@ -29,6 +29,16 @@ class Funcionalidad
     private $nombre;
 
     /**
+     * @ORM\Column(name="codigo_funcion_fk", type="string", length=20, nullable=true)
+     */
+    private $codigoFuncionFk;
+
+    /**
+     * @ORM\Column(name="orden", type="integer", nullable=true)
+     */
+    private $orden = 0;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Modulo", inversedBy="funcionalidadesModuloRel")
      * @ORM\JoinColumn(name="codigo_modulo_fk", referencedColumnName="codigo_modulo_pk")
      */
@@ -96,6 +106,38 @@ class Funcionalidad
     public function setModuloRel($moduloRel): void
     {
         $this->moduloRel = $moduloRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoFuncionFk()
+    {
+        return $this->codigoFuncionFk;
+    }
+
+    /**
+     * @param mixed $codigoFuncionFk
+     */
+    public function setCodigoFuncionFk($codigoFuncionFk): void
+    {
+        $this->codigoFuncionFk = $codigoFuncionFk;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrden(): int
+    {
+        return $this->orden;
+    }
+
+    /**
+     * @param int $orden
+     */
+    public function setOrden(int $orden): void
+    {
+        $this->orden = $orden;
     }
 
 

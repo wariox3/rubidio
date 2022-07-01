@@ -25,9 +25,11 @@ class FuncionalidadRepository extends ServiceEntityRepository
             ->select('f.codigoFuncionalidadPk')
             ->addSelect('f.codigoModuloFk')
             ->addSelect('f.nombre')
+            ->addSelect('f.codigoFuncionFk')
             ->addSelect('m.nombre as moduloNombre')
             ->leftJoin('f.moduloRel', 'm')
-            ->orderBy('f.codigoModuloFk', 'ASC');
+            ->orderBy('f.codigoModuloFk', 'ASC')
+            ->addOrderBy('f.orden', 'ASC');
         if ($modulo) {
             $queryBuilder->andWhere("f.codigoModuloFk = '{$modulo}'");
         }

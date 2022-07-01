@@ -123,13 +123,15 @@
                                 <thead class="title-bg-color">
                                 <tr>
                                     <th>Modulo</th>
-                                    <th>Fuuncionalidad</th>
+                                    <th>Función</th>
+                                    <th>Funcionalidad</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for arFuncionalidad in arFuncionalidades %}
                                     <tr>
                                         <td>{{ arFuncionalidad.moduloNombre }}</td>
+                                        <td>{{ arFuncionalidad.codigoFuncionFk }}</td>
                                         <td>{{ arFuncionalidad.nombre }}</td>
                                     </tr>
                                 {% endfor %}
