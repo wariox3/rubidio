@@ -3,9 +3,33 @@
     <section class="services-section">
         <div class="container">
             {{ form_start(form) }}
-            <div class="d-flex justify-content-end">
-                {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btnCustom'} }) }}
-            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="single-testimonial">
+                            <div class="card">
+                                {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                                <div class="card-header title-bg-color">
+                                    <h5>Filtros</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label for="inputEmail4">Cliente:</label>
+                                            {{ form_widget(form.clienteRel) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="d-flex justify-content-end">
+                                        {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btnCustom'} }) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="single-testimonial">

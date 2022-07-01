@@ -2,6 +2,7 @@
 
 namespace App\Controller\Crm;
 
+use App\Entity\Cliente;
 use App\Entity\Estudio;
 use App\Entity\Implementacion;
 use App\Entity\ImplementacionDetalle;
@@ -12,8 +13,11 @@ use App\Formatos\FormatoActaCapacitacion;
 use App\Formatos\FormatoActaTerminacion;
 use App\Formatos\FormatoPlanTrabajo;
 use App\Utilidades\Mensajes;
+use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -33,6 +37,16 @@ class EstudioController extends AbstractController
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()
+            ->add('clienteRel', EntityType::class, array(
+                'class' => Cliente::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombreCorto', 'ASC');
+                },
+                'required' => false,
+                'choice_label' => 'nombreCorto',
+                'placeholder' => 'TODOS',
+            ))
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
