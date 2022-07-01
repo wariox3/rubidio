@@ -100,4 +100,72 @@
     </section>
     <!-- End Services Section -->
 
+    <!-- Start Overview Section -->
+    <section class="overview-section bg-grey section-padding">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="overview-image">
+                        <img src="{{ asset('landingPage/img/choose-2.png') }}" alt="logo">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="overview-content">
+                        <h2>¿Aun no solucionamos su inquietud?</h2>
+                        <p>Tenemos al servicio de nuestros clientes distintos recursos audiovisuales de autogestion, si requiere una
+                            atencion personalizada solicite el soporte a un asesor.</p>
+                        <ul class="features-list">
+                            <li><a href="{{ path('soporte_documentacion') }}"><span class="active">Documentacion & Manuales</span></a></li>
+                            <li><a href="https://www.youtube.com/channel/UCk2FSMxqxz3Y6fkyKT_ef3w" target="_blank"><span>Canal YouTube</span></a></li>
+                            <li><a href="{{ path('inicio') }}"><span>Foro</span></a></li>
+                            <li><a href="{{ path('inicio') }}"><span>Preguntas frecuentes</span></a></li>
+                            <li><a href="{{ path('soporte_asesor') }}"><span>Soporte asesor</span></a></li>
+                            <li><a href="{{ path('soporte_asesor_detalle', {'id':0}) }}"><span>Consultar soporte</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Overview Section -->
+
+    <!-- Start Faq Section -->
+    <section class="faq-section section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div class="faq-accordion">
+                        <ul class="accordion">
+                            <li class="accordion-item">
+                                <a class="accordion-title active" href="javascript:void(0)"> <i class="fa fa-caret-down"></i>
+                                    Como ingresar a Semantica ERP?</a>
+                                <p class="accordion-content show">
+                                    Ingresa la URL en tu navegador preferido, “nombreempresa.semantica.com.co” luego en “Username” registra el nombre o número de usuario,
+                                    según como se haya creado en el sistema, en “Password” digita la contraseña registrada correspondiente al usuario y
+                                    por último dar clic en “inicio seguro”
+                                </p>
+                            </li>
+                            <li class="accordion-item">
+                                <a class="accordion-title" href="javascript:void(0)"> <i class="fa fa-caret-down"></i>
+                                    Como crear una programacion de nomina?</a>
+                                <p class="accordion-content">
+                                    Primero ingresamos al ERP, vamos a la ruta: Recurso humano/movimiento/nómina/programación. Dar clic al botón “nuevo” y diligenciar la información correspondiente (en el boton de ayuda puede encontrar cada campo y un video instructivo).
+                                    Guardamos la informacion principal y la aplicacion nos lleva al detalle, allí se debe dar clic en el botón cargar contratos (Cuando la nómina es grupo administrativo) y se cargan todos los empleados o "Cargar soporte" (cuando la nómina es grupo operativo),
+                                    luego se debe "Autorizar" para que se carguen los valores que se le va a pagar al empleado. Importante: (Si se realiza alguna corrección, se debe "Desautorizar" y "Autorizar" de nuevo para que tome la actualización) luego, cuando ya se haya revisado que todo está correcto, clic en "Aprobar".</p>
+                            </li>
+                            <li class="accordion-item">
+                                <a class="accordion-title" href="javascript:void(0)"> <i class="fa fa-caret-down"></i>
+                                    Como se genera un informe de pagos de nomina?</a>
+                                <p class="accordion-content">La ruta es: Recurso humano/informe/nómina/pago detalle,
+                                    realizar los filtros requeridos y extraer la informacion por los diferentes mecanismos (excel/pdf).</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Faq Section -->
+
+
 {% endblock %}
