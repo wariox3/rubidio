@@ -28,7 +28,7 @@ class EstudioController extends AbstractController
     /**
      * @Route("/crm/estudio/lista", name="crm_estudio_lista")
      */
-    public function lista(Request $request,  PaginatorInterface $paginator)
+    public function lista(Request $request, PaginatorInterface $paginator)
     {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
@@ -107,6 +107,7 @@ class EstudioController extends AbstractController
                     $pdfOptions->set('defaultFont', 'Arial');
                     // Crea una instancia de Dompdf con nuestras opciones
                     $dompdf = new Dompdf($pdfOptions);
+                    $dompdf->set_base_path("/www/public/css/");
                     // Recupere el HTML generado en nuestro archivo twig
 //                    dd($arEstudio->getClienteRel());
                     $html = $this->renderView('pdf/crm/detalle.html.twig', [
@@ -126,14 +127,14 @@ class EstudioController extends AbstractController
                     ]);
 
 //                    if (count($arrSeleccionados) >= 1 && count($arrSeleccionados) <= 7) {
-                        $formatoCapacitacion = new FormatoActaCapacitacion();
+//                        $formatoCapacitacion = new FormatoActaCapacitacion();
 //                        $formatoCapacitacion->Generar($em, $id, $arrSeleccionados);
 //                    } else {
 //                        Mensajes::info("La cantidad de temas es mayor a 7, seleccionar menos");
 //                    }
 //                } else {
 //                    Mensajes::error("No hay registros seleccionados");
-                }
+            }
 //            }
 //            if ($form->get('btnImprimirActaTerminacion')->isClicked()) {
 //                $validarTemasFinalizados = $em->getRepository(ImplementacionDetalle::class)->temasCapacitados($id);
