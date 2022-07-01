@@ -27,7 +27,7 @@ class ContactoController extends AbstractController
     /**
      * @Route("/contacto", name="contacto")
      */
-    public function contacto(Request $request, ManagerRegistry $doctrine): Response {
+    public function contacto(Request $request, ManagerRegistry $doctrine, Dubnio $dubnio): Response {
         $em = $doctrine->getManager();
         $arContacto = new Contacto();
         $arContacto->setFecha(new \DateTime('now'));
@@ -38,6 +38,8 @@ class ContactoController extends AbstractController
                 $arContacto = $form->getData();
                 $em->persist($arContacto);
                 $em->flush();
+                $html = "Un cliente se ha comunicado con nosotros nombre: {$arContacto->getNombre()} empresa: {$arContacto->getEmpresa()}";
+                $dubnio->enviarCorreo("maestradaz3@gmail.com", "Se han contactado con semantica", $html);
                 return $this->redirectToRoute('contacto_informacion', ['id' => $arContacto->getCodigoContactoPk()]);
             }
         }

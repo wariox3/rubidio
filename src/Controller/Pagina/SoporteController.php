@@ -223,7 +223,7 @@ class SoporteController extends AbstractController
     /**
      * @Route("/soporte/solicitud", name="soporte_solicitud")
      */
-    public function soicitud(Request $request, ManagerRegistry $doctrine): Response
+    public function solicitud(Request $request, ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
         $arCaso = new Caso();
