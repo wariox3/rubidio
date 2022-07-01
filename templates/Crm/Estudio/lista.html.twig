@@ -3,6 +3,9 @@
     <section class="services-section">
         <div class="container">
             {{ form_start(form) }}
+            <div class="d-flex justify-content-end">
+                {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btnCustom'} }) }}
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="single-testimonial">

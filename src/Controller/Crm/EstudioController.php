@@ -19,6 +19,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class EstudioController extends AbstractController
 {
@@ -92,37 +94,60 @@ class EstudioController extends AbstractController
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('btnFiltrar')->isClicked()) {
-                $session->set('filtroImplementacionEstadoCapacitado', $form->get('estadoCapacitado')->getData());
-                $session->set('filtroImplementacionModulo', $form->get('modulo')->getData());
-                $session->set('filtroImplementacionDetalleEstadoTerminado', $form->get('estadoTerminado')->getData());
-            }
+//            if ($form->get('btnFiltrar')->isClicked()) {
+//                $session->set('filtroImplementacionEstadoCapacitado', $form->get('estadoCapacitado')->getData());
+//                $session->set('filtroImplementacionModulo', $form->get('modulo')->getData());
+//                $session->set('filtroImplementacionDetalleEstadoTerminado', $form->get('estadoTerminado')->getData());
+//            }
             if ($form->get('btnImprimir')->isClicked()) {
-                $arrSeleccionados = $request->request->get('ChkSeleccionar');
-                if (!is_null($arrSeleccionados)) {
-                    if (count($arrSeleccionados) >= 1 && count($arrSeleccionados) <= 7) {
+//                $arrSeleccionados = $request->request->get('ChkSeleccionar');
+//                if (!is_null($arrSeleccionados)) {
+                    // Configure Dompdf según sus necesidades
+                    $pdfOptions = new Options();
+                    $pdfOptions->set('defaultFont', 'Arial');
+                    // Crea una instancia de Dompdf con nuestras opciones
+                    $dompdf = new Dompdf($pdfOptions);
+                    // Recupere el HTML generado en nuestro archivo twig
+//                    dd($arEstudio->getClienteRel());
+                    $html = $this->renderView('pdf/crm/detalle.html.twig', [
+                        'title' => "Welcome to our PDF Test",
+                        'arEstudio' => $arEstudio,
+                    ]);
+                    // Cargar HTML en Dompdf
+                    $dompdf->loadHtml($html);
+                    // (Opcional) Configure el tamaño del papel y la orientación 'vertical' o 'vertical'
+                    $dompdf->setPaper('A4', 'portrait');
+                    // Renderiza el HTML como PDF
+                    $dompdf->render();
+                    // Envíe el PDF generado al navegador (descarga forzada)
+                    $dompdf->stream("mypdf.pdf", [
+                        "Attachment" => true,
+
+                    ]);
+
+//                    if (count($arrSeleccionados) >= 1 && count($arrSeleccionados) <= 7) {
                         $formatoCapacitacion = new FormatoActaCapacitacion();
-                        $formatoCapacitacion->Generar($em, $id, $arrSeleccionados);
-                    } else {
-                        Mensajes::info("La cantidad de temas es mayor a 7, seleccionar menos");
-                    }
-                } else {
-                    Mensajes::error("No hay registros seleccionados");
+//                        $formatoCapacitacion->Generar($em, $id, $arrSeleccionados);
+//                    } else {
+//                        Mensajes::info("La cantidad de temas es mayor a 7, seleccionar menos");
+//                    }
+//                } else {
+//                    Mensajes::error("No hay registros seleccionados");
                 }
-            }
-            if ($form->get('btnImprimirActaTerminacion')->isClicked()) {
-                $validarTemasFinalizados = $em->getRepository(ImplementacionDetalle::class)->temasCapacitados($id);
-                if ($validarTemasFinalizados == true) {
-                    $formatoCapacitacion = new FormatoActaTerminacion();
-                    $formatoCapacitacion->Generar($em, $id, $arImplementacion->getCodigoClienteFk());
-                } else {
-                    Mensajes::error("No se puede imprimir el acta de finalizacion ya que hay temas pendientes por capacitar");
-                }
-            }
-            if ($form->get('btnImprimirPlanTrabajo')->isClicked()) {
-                $formatoPlanTrabajo = new FormatoPlanTrabajo();
-                $formatoPlanTrabajo->Generar($em, $id);
-            }
+//            }
+//            if ($form->get('btnImprimirActaTerminacion')->isClicked()) {
+//                $validarTemasFinalizados = $em->getRepository(ImplementacionDetalle::class)->temasCapacitados($id);
+//                if ($validarTemasFinalizados == true) {
+//                    $formatoCapacitacion = new FormatoActaTerminacion();
+//                    $formatoCapacitacion->Generar($em, $id, $arImplementacion->getCodigoClienteFk());
+//                } else {
+//                    Mensajes::error("No se puede imprimir el acta de finalizacion ya que hay temas pendientes por capacitar");
+//                }
+//            }
+//            if ($form->get('btnImprimirPlanTrabajo')->isClicked()) {
+//                $formatoPlanTrabajo = new FormatoPlanTrabajo();
+//                $formatoPlanTrabajo->Generar($em, $id);
+//            }
         }
         $arEstudioDetalles = [];
         return $this->render('Crm/Estudio/detalle.html.twig', [
