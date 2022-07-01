@@ -7,6 +7,7 @@ use App\Entity\Caso;
 use App\Entity\CasoTipo;
 use App\Entity\Documentacion;
 use App\Entity\Error;
+use App\Entity\Funcionalidad;
 use App\Entity\Prioridad;
 use App\Entity\Recurso;
 use App\Entity\Soporte;
@@ -288,9 +289,11 @@ class SoporteController extends AbstractController
         }
         $arDocumentaciones = $paginator->paginate($em->getRepository(Documentacion::class)->lista($raw), $request->query->getInt('page', 1), 100);
         $arRecursos = $em->getRepository(Recurso::class)->lista();
+        $arFuncionalidades = $em->getRepository(Funcionalidad::class)->lista(null);
         return $this->render('Pagina/Soporte/documentacion.html.twig', [
             'arDocumentaciones' => $arDocumentaciones,
             'arRecursos' => $arRecursos,
+            'arFuncionalidades' => $arFuncionalidades,
             'form' => $form->createView()
         ]);
     }
