@@ -11,6 +11,7 @@ use App\Form\Type\ImplementacionDetalleImplementadorType;
 use App\Form\Type\ImplementacionType;
 use App\Formatos\FormatoActaCapacitacion;
 use App\Formatos\FormatoActaTerminacion;
+use App\Formatos\FormatoEstudio;
 use App\Formatos\FormatoPlanTrabajo;
 use App\Utilidades\Mensajes;
 use Doctrine\ORM\EntityRepository;
@@ -23,8 +24,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
 class EstudioController extends AbstractController
 {
@@ -117,32 +116,9 @@ class EstudioController extends AbstractController
 //                $arrSeleccionados = $request->request->get('ChkSeleccionar');
 //                if (!is_null($arrSeleccionados)) {
                     // Configure Dompdf según sus necesidades
-                    $pdfOptions = new Options();
-                    $pdfOptions->set('defaultFont', 'Arial');
-                    // Crea una instancia de Dompdf con nuestras opciones
-                    $dompdf = new Dompdf($pdfOptions);
-                    $dompdf->set_base_path("/www/public/css/");
-                    // Recupere el HTML generado en nuestro archivo twig
-//                    dd($arEstudio->getClienteRel());
-                    $html = $this->renderView('pdf/crm/detalle.html.twig', [
-                        'title' => "Welcome to our PDF Test",
-                        'arEstudio' => $arEstudio,
-                    ]);
-                    // Cargar HTML en Dompdf
-                    $dompdf->loadHtml($html);
-                    // (Opcional) Configure el tamaño del papel y la orientación 'vertical' o 'vertical'
-                    $dompdf->setPaper('A4', 'portrait');
-                    // Renderiza el HTML como PDF
-                    $dompdf->render();
-                    // Envíe el PDF generado al navegador (descarga forzada)
-                    $dompdf->stream("mypdf.pdf", [
-                        "Attachment" => true,
-
-                    ]);
-
 //                    if (count($arrSeleccionados) >= 1 && count($arrSeleccionados) <= 7) {
-//                        $formatoCapacitacion = new FormatoActaCapacitacion();
-//                        $formatoCapacitacion->Generar($em, $id, $arrSeleccionados);
+                        $formatoEstudio = new FormatoEstudio();
+                        $formatoEstudio->Generar($em, $id);
 //                    } else {
 //                        Mensajes::info("La cantidad de temas es mayor a 7, seleccionar menos");
 //                    }
