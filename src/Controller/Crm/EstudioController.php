@@ -4,8 +4,11 @@ namespace App\Controller\Crm;
 
 use App\Entity\Cliente;
 use App\Entity\Estudio;
+use App\Entity\EstudioDetalle;
 use App\Entity\Implementacion;
 use App\Entity\ImplementacionDetalle;
+use App\Entity\RecursoHumano\RhuPoligonoDetalle;
+use App\Form\Type\EstudioDetalleType;
 use App\Form\Type\EstudioType;
 use App\Form\Type\ImplementacionDetalleImplementadorType;
 use App\Form\Type\ImplementacionType;
@@ -88,7 +91,7 @@ class EstudioController extends AbstractController
     /**
      * @Route("/crm/estudio/detalle/{id}", name="crm_estudio_detalle")
      */
-    public function detalle(Request $request, $id)
+    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arEstudio = $em->getRepository(Estudio::class)->find($id);
@@ -107,6 +110,7 @@ class EstudioController extends AbstractController
             'Turnos' => 'TUR'];
         $form = $this->createFormBuilder()
             ->add('btnImprimir', SubmitType::class, array('label' => 'Imprimir', 'attr' => ['class' => 'btn btn-primary btn-sm']))
+            ->add('btnEliminar', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -128,6 +132,10 @@ class EstudioController extends AbstractController
 //                } else {
 //                    Mensajes::error("No hay registros seleccionados");
             }
+            if ($form->get('btnEliminar')->isClicked()) {
+                $arrDetallesSeleccionados = $request->request->get('ChkSeleccionar');
+                $em->getRepository(EstudioDetalle::class)->eliminar($arrDetallesSeleccionados);
+            }
 //            }
 //            if ($form->get('btnImprimirActaTerminacion')->isClicked()) {
 //                $validarTemasFinalizados = $em->getRepository(ImplementacionDetalle::class)->temasCapacitados($id);
@@ -143,7 +151,7 @@ class EstudioController extends AbstractController
 //                $formatoPlanTrabajo->Generar($em, $id);
 //            }
         }
-        $arEstudioDetalles = [];
+        $arEstudioDetalles = $paginator->paginate($em->getRepository(EstudioDetalle::class)->lista($id), $request->query->getInt('page', 1), 100);
         return $this->render('Crm/Estudio/detalle.html.twig', [
             'arEstudio' => $arEstudio,
             'arEstudioDetalles' => $arEstudioDetalles,
@@ -151,24 +159,29 @@ class EstudioController extends AbstractController
     }
 
     /**
-     * @Route("/implementacion/implementacion/detalle/nuevo/{id}", name="implementacion_implementacion_detalle_nuevo")
+     * @Route("/crm/estudio/detalle/nuevo/{codigoEstudio}/{id}", name="crm_estudio_detalle_nuevo")
      */
-    public function detalleNuevo(Request $request, $id)
+    public function detalleNuevo(Request $request, $codigoEstudio, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->find($id);
-        $form = $this->createForm(ImplementacionDetalleImplementadorType::class, $arImplementacionDetalle);
+        $arEstudioDetalle = new EstudioDetalle();
+        $arEstudio = $em->getRepository(Estudio::class)->find($codigoEstudio);
+        if ($id != 0) {
+            $arEstudioDetalle = $em->getRepository(EstudioDetalle::class)->find($id);
+        }
+
+        $form = $this->createForm(EstudioDetalleType::class, $arEstudioDetalle);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
                 $arImplementacionDetalle = $form->getData();
+                $arEstudioDetalle->setEstudioRel($arEstudio);
                 $em->persist($arImplementacionDetalle);
                 $em->flush();
-                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
-        return $this->render('Implementacion/Implementacion/detalleNuevo.html.twig', [
-            'arImplementacionDetalle' => $arImplementacionDetalle,
+        return $this->render('Crm/Estudio/detalleNuevo.html.twig', [
             'form' => $form->createView()
         ]);
     }

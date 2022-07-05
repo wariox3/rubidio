@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-md-12">
                     <div class="single-testimonial py-0">
                         <section class="card">
@@ -23,8 +23,6 @@
                                         <tr>
                                             <td class="title-bg-color">CODIGO:</td>
                                             <td class="td-in-well">{{ arEstudio.codigoEstudioPk }}</td>
-                                            <td class="title-bg-color"></td>
-                                            <td class="td-in-well"></td>
                                             <td class="title-bg-color">CLIENTE</td>
                                             <td class="td-in-well">{{ arEstudio.clienteRel.nombreCorto }}</td>
                                         </tr>
@@ -35,13 +33,62 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="single-testimonial">
-                        <div class="table-responsive-sm mt-2">
-
-                        </div>
+            <div class="row mt-2">
+                <div class="col-lg-12">
+                    <div class="d-flex justify-content-end">
+                        {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
+                        <a class="btnCustom"
+                           href="javascript:abrirVentana3('{{ path('crm_estudio_detalle_nuevo', { 'codigoEstudio': arEstudio.codigoEstudioPk, 'id': '0'}) }}', 'Nuevo', 600, 1200)">
+                            Nuevo
+                        </a>
                     </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                        <div class="table-responsive-sm">
+                            <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>MODULO</th>
+                                    <th></th>
+                                    <th class="text-center" title="seleccionar todos">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"
+                                                   id="ChkSeleccionar"
+                                                   onclick="ChequearTodosTabla(this, 'ChkSeleccionar[]')"/>
+                                            <label class="custom-control-label" for="ChkSeleccionar"></label>
+                                        </div>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    {% for arEstudioDetalle in arEstudioDetalles %}
+                                        <tr>
+                                            <td>{{ arEstudioDetalle.codigoEstudioDetallePk }}</td>
+                                            <td>{{ arEstudioDetalle.modulo }}</td>
+                                            <td class="text-center">
+                                                <a
+                                                        href="javascript:abrirVentana3('{{ path('crm_estudio_detalle_nuevo', { 'codigoEstudio': arEstudio.codigoEstudioPk, 'id': arEstudioDetalle.codigoEstudioDetallePk }) }}', 'Nuevo', 600, 1200)">
+                                                    <i class="fas fa-pen fa-2x"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" name="ChkSeleccionar[]"
+                                                           class="custom-control-input"
+                                                           value="{{ arEstudioDetalle.codigoEstudioDetallePk }}"
+                                                           id="ChkSeleccionar{{ arEstudioDetalle.codigoEstudioDetallePk }}"/>
+                                                    <label class="custom-control-label"
+                                                           for="ChkSeleccionar{{ arEstudioDetalle.codigoEstudioDetallePk }}"></label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                 </div>
             </div>
         </div>
