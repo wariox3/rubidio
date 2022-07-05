@@ -66,6 +66,9 @@ class EstudioController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $arEstudio = new Estudio();
+        if ($id != 0) {
+            $arEstudio = $em->getRepository(Estudio::class)->find($id);
+        }
         $form = $this->createForm(EstudioType::class, $arEstudio);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -118,7 +121,7 @@ class EstudioController extends AbstractController
                     // Configure Dompdf según sus necesidades
 //                    if (count($arrSeleccionados) >= 1 && count($arrSeleccionados) <= 7) {
                         $formatoEstudio = new FormatoEstudio();
-                        $formatoEstudio->Generar($em, $id);
+                        $formatoEstudio->Generar($em, $id );
 //                    } else {
 //                        Mensajes::info("La cantidad de temas es mayor a 7, seleccionar menos");
 //                    }
