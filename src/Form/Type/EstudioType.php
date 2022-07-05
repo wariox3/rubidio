@@ -27,16 +27,6 @@ class EstudioType extends AbstractType {
                 'choice_label' => 'nombreCorto',
                 'required' => true,
             ))
-            ->add('inventario', CheckboxType::class, array('required' => false))
-            ->add('compra', CheckboxType::class, array('required' => false))
-            ->add('tesoreria', CheckboxType::class, array('required' => false))
-            ->add('venta', CheckboxType::class, array('required' => false))
-            ->add('cartera', CheckboxType::class, array('required' => false))
-            ->add('recursoHumano', CheckboxType::class, array('required' => false))
-            ->add('turno', CheckboxType::class, array('required' => false))
-            ->add('transporte', CheckboxType::class, array('required' => false))
-            ->add('crm', CheckboxType::class, array('required' => false))
-            ->add('financiero', CheckboxType::class, array('required' => false))
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));
     }
 
