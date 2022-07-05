@@ -87,6 +87,11 @@ class Estudio
     private $clienteRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EstudioDetalle", mappedBy="estudioRel")
+     */
+    protected $estudiosDetallesEstudioRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoEstudioPk()
@@ -308,6 +313,22 @@ class Estudio
     public function setRecursoHumano(bool $recursoHumano): void
     {
         $this->recursoHumano = $recursoHumano;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEstudiosDetallesEstudioRel()
+    {
+        return $this->estudiosDetallesEstudioRel;
+    }
+
+    /**
+     * @param mixed $estudiosDetallesEstudioRel
+     */
+    public function setEstudiosDetallesEstudioRel($estudiosDetallesEstudioRel): void
+    {
+        $this->estudiosDetallesEstudioRel = $estudiosDetallesEstudioRel;
     }
 
 
