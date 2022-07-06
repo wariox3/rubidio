@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Archivo;
 use App\Entity\Cliente;
 use App\Form\Type\ClienteType;
 use Doctrine\ORM\EntityRepository;
@@ -82,10 +83,26 @@ class ClienteController extends AbstractController
                 $em->persist($arCliente);
                 $em->flush();
             }
-            return $this->redirect($this->generateUrl('admin_tarea_detalle', ['id' => $id]));
+            if ($request->request->get('OpDescargar')) {
+                $codigoFichero = $request->request->get('OpDescargar');
+                $respuesta = $em->getRepository(Archivo::class)->descargar($codigoFichero);
+                if(!$respuesta['error']) {
+                    $response = new Response();
+                    $response->headers->set('Cache-Control', 'private');
+                    $response->headers->set('Content-type', $respuesta['tipo']);
+                    $response->headers->set('Content-Disposition', 'attachment; filename="' . $respuesta['nombre'] . '";');
+                    $response->headers->set('Content-length', $respuesta['tamano']);
+                    $response->sendHeaders();
+                    $response->setContent($respuesta['contenido']);
+                    return $response;
+                }
+            }
+
         }
+        $arArchivos = $em->getRepository(Archivo::class)->listaArchivo("cliente", $id);
         return $this->render('Admin/Cliente/detalle.html.twig', [
             'arCliente' => $arCliente,
+            'arArchivos' => $arArchivos,
             'form' => $form->createView()
         ]);
     }
