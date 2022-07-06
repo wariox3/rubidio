@@ -8,6 +8,7 @@ use App\Entity\CasoTipo;
 use App\Entity\Documentacion;
 use App\Entity\Error;
 use App\Entity\Funcionalidad;
+use App\Entity\Modulo;
 use App\Entity\Prioridad;
 use App\Entity\Recurso;
 use App\Entity\Soporte;
@@ -17,6 +18,7 @@ use App\Form\Type\ContactoType;
 use App\Form\Type\SoporteExternoType;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -263,28 +265,46 @@ class SoporteController extends AbstractController
     {
         $raw = [];
         $em = $this->getDoctrine()->getManager();
-        $arrModulos = [
-            'Todos' => null,
-            'Cartera' => 'Cartera',
-            'Crm' => 'CRM',
-            'Documental' => 'Documental',
-            'Financiero' => 'Fiannciero',
-            'General' => 'General',
-            'Inventario' => 'Inventario',
-            'RecursoHumano' => 'RecursoHumano',
-            'Seguridad' => 'Seguridad',
-            'Tesoreria' => 'Tesoreria',
-            'Transporte' => 'Transporte',
-            'Turno' => 'Turno'
-        ];
+//        $arrModulos = [
+//            'Todos' => null,
+//            'Cartera' => 'Cartera',
+//            'Crm' => 'CRM',
+//            'Documental' => 'Documental',
+//            'Financiero' => 'Fiannciero',
+//            'General' => 'General',
+//            'INV' => 'Inventario',
+//            'RecursoHumano' => 'RecursoHumano',
+//            'Seguridad' => 'Seguridad',
+//            'TES' => 'Tesoreria',
+//            'Transporte' => 'Transporte',
+//            'Turno' => 'Turno',
+//            'VEN' => 'Venta',
+//            'COM' => 'Compra'
+//        ];
         $form = $this->createFormBuilder()
-            ->add('modulo', ChoiceType::class, ['choices' => $arrModulos, 'required' => false, 'data' => $arrModulos ? $arrModulos : null])
+//            ->add('modulo', ChoiceType::class, ['choices' => $arrModulos, 'required' => false, 'data' => $arrModulos ? $arrModulos : null])
+            ->add('modulo', EntityType::class, array(
+                'class' => Modulo::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('d')
+                        ->orderBy('d.nombre', 'ASC');
+                },
+                'required' => false,
+                'choice_label' => 'nombre',
+                'placeholder' => 'TODOS',
+            ))
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('btnFiltrar')->isClicked()) {
                 $raw['filtros'] = $this->getFiltros($form);
+                $arModulo = $form->get('modulo')->getData();
+                if (is_object($arModulo)) {
+                    $raw['filtros']['modulo'] = $arModulo->getCodigoModuloPk();
+                } else {
+                    $raw['filtros']['modulo'] = $arModulo;
+                }
             }
         }
         $arDocumentaciones = $paginator->paginate($em->getRepository(Documentacion::class)->lista($raw), $request->query->getInt('page', 1), 100);
