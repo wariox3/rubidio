@@ -64,6 +64,38 @@ class ClienteRepository extends ServiceEntityRepository
         return $arClientes;
     }
 
+
+    public function listaAdministracion()
+    {
+        $session = new Session();
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Cliente::class, 'c')
+            ->select('c.codigoClientePk')
+            ->addSelect('c.nombreCorto')
+            ->addSelect('c.nombreExtendido')
+            ->addSelect('c.telefono')
+            ->addSelect('c.direccion')
+            ->addSelect('c.nit')
+            ->addSelect('c.digitoVerificacion')
+            ->addSelect('c.suscriptor')
+            ->addSelect('c.empleador')
+            ->addSelect('c.facturacionElectronica')
+            ->addSelect('c.nominaElectronica')
+            ->addSelect('c.setPruebas')
+            ->addSelect('c.setPruebasNomina')
+            ->addSelect('c.correoError')
+            ->addSelect('c.codigoSetPruebas')
+            ->addSelect('c.codigoSetPruebasNominas')
+            ->addSelect('c.servicioSoporte')
+            ->addSelect('c.fechaSuspension');
+
+        if ($session->get('filtroClienteNombre')) {
+            $queryBuilder->andWhere("c.nombreCorto = '{$session->get('filtroClienteNombre')}' ");
+        }
+
+        $arClientes = $queryBuilder->getQuery()->getResult();
+        return $arClientes;
+    }
+
     public function clientesSuspendidos()
     {
         $em = $this->getEntityManager();
