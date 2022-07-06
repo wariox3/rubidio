@@ -289,7 +289,7 @@ class SoporteController extends AbstractController
         }
         $arDocumentaciones = $paginator->paginate($em->getRepository(Documentacion::class)->lista($raw), $request->query->getInt('page', 1), 100);
         $arRecursos = $em->getRepository(Recurso::class)->lista();
-        $arFuncionalidades = $em->getRepository(Funcionalidad::class)->lista(null);
+        $arFuncionalidades = $em->getRepository(Funcionalidad::class)->lista($raw);
         return $this->render('Pagina/Soporte/documentacion.html.twig', [
             'arDocumentaciones' => $arDocumentaciones,
             'arRecursos' => $arRecursos,
