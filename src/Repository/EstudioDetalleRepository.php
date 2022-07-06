@@ -19,11 +19,26 @@ class EstudioDetalleRepository extends ServiceEntityRepository
         $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(EstudioDetalle::class, 'ed')
             ->select('ed.codigoEstudioDetallePk')
             ->addselect('ed.codigoModuloFk')
+            ->addSelect('ed.fechaValidacion')
             ->addSelect('m.nombre as modulo')
             ->leftJoin('ed.estudioRel', 'e')
             ->leftJoin('ed.moduloRel', 'm')
             ->where("ed.codigoEstudioFk = {$id}");
         return $queryBuilder->getQuery()->getResult();
+    }
+    public function imprimirEstudio($id)
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(EstudioDetalle::class, 'ed')
+            ->select('ed.codigoEstudioDetallePk')
+            ->addselect('ed.codigoModuloFk')
+            ->addSelect('ed.fechaValidacion')
+            ->addSelect('m.nombre as moduloNombre')
+            ->leftJoin('ed.estudioRel', 'e')
+            ->leftJoin('ed.moduloRel', 'm')
+            ->where("ed.codigoEstudioFk = {$id}");
+        $arEstudioDetalles = $queryBuilder->getQuery()->getResult();
+        return $arEstudioDetalles;
     }
 
     public function eliminar($arrDetallesSeleccionados)

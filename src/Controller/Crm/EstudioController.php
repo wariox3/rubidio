@@ -95,61 +95,20 @@ class EstudioController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $arEstudio = $em->getRepository(Estudio::class)->find($id);
-        $session = new Session();
-        $arrModulo = [
-            'TODOS' => '',
-            'Cartera' => 'CAR',
-            'CRM' => 'CRM',
-            'Financiero' => 'FIN',
-            'General' => 'GEN',
-            'Inventario' => 'INV',
-            'Juridico' => 'JUR',
-            'RHumano' => 'RHU',
-            'Tesoreria' => 'TES',
-            'Transporte' => 'TTE',
-            'Turnos' => 'TUR'];
         $form = $this->createFormBuilder()
             ->add('btnImprimir', SubmitType::class, array('label' => 'Imprimir', 'attr' => ['class' => 'btn btn-primary btn-sm']))
             ->add('btnEliminar', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-//            if ($form->get('btnFiltrar')->isClicked()) {
-//                $session->set('filtroImplementacionEstadoCapacitado', $form->get('estadoCapacitado')->getData());
-//                $session->set('filtroImplementacionModulo', $form->get('modulo')->getData());
-//                $session->set('filtroImplementacionDetalleEstadoTerminado', $form->get('estadoTerminado')->getData());
-//            }
             if ($form->get('btnImprimir')->isClicked()) {
-//                $arrSeleccionados = $request->request->get('ChkSeleccionar');
-//                if (!is_null($arrSeleccionados)) {
-                    // Configure Dompdf según sus necesidades
-//                    if (count($arrSeleccionados) >= 1 && count($arrSeleccionados) <= 7) {
-                        $formatoEstudio = new FormatoEstudio();
-                        $formatoEstudio->Generar($em, $id );
-//                    } else {
-//                        Mensajes::info("La cantidad de temas es mayor a 7, seleccionar menos");
-//                    }
-//                } else {
-//                    Mensajes::error("No hay registros seleccionados");
+                $formatoEstudio = new FormatoEstudio();
+                $formatoEstudio->Generar($em, $id );
             }
             if ($form->get('btnEliminar')->isClicked()) {
                 $arrDetallesSeleccionados = $request->request->get('ChkSeleccionar');
                 $em->getRepository(EstudioDetalle::class)->eliminar($arrDetallesSeleccionados);
             }
-//            }
-//            if ($form->get('btnImprimirActaTerminacion')->isClicked()) {
-//                $validarTemasFinalizados = $em->getRepository(ImplementacionDetalle::class)->temasCapacitados($id);
-//                if ($validarTemasFinalizados == true) {
-//                    $formatoCapacitacion = new FormatoActaTerminacion();
-//                    $formatoCapacitacion->Generar($em, $id, $arImplementacion->getCodigoClienteFk());
-//                } else {
-//                    Mensajes::error("No se puede imprimir el acta de finalizacion ya que hay temas pendientes por capacitar");
-//                }
-//            }
-//            if ($form->get('btnImprimirPlanTrabajo')->isClicked()) {
-//                $formatoPlanTrabajo = new FormatoPlanTrabajo();
-//                $formatoPlanTrabajo->Generar($em, $id);
-//            }
         }
         $arEstudioDetalles = $paginator->paginate($em->getRepository(EstudioDetalle::class)->lista($id), $request->query->getInt('page', 1), 100);
         return $this->render('Crm/Estudio/detalle.html.twig', [

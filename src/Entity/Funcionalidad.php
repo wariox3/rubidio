@@ -39,6 +39,11 @@ class Funcionalidad
     private $orden = 0;
 
     /**
+     * @ORM\Column(name="estudio", type="boolean", nullable=true, options={"default" : false})
+     */
+    private $estudio = false;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Modulo", inversedBy="funcionalidadesModuloRel")
      * @ORM\JoinColumn(name="codigo_modulo_fk", referencedColumnName="codigo_modulo_pk")
      */
@@ -138,6 +143,22 @@ class Funcionalidad
     public function setOrden(int $orden): void
     {
         $this->orden = $orden;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEstudio(): bool
+    {
+        return $this->estudio;
+    }
+
+    /**
+     * @param bool $estudio
+     */
+    public function setEstudio(bool $estudio): void
+    {
+        $this->estudio = $estudio;
     }
 
 
