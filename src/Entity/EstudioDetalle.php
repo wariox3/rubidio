@@ -36,6 +36,11 @@ class EstudioDetalle
     private $codigoModuloFk;
 
     /**
+     * @ORM\Column(name="responsable", type="string", length=200)
+     */
+    private $responsable;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Estudio", inversedBy="estudiosDetallesEstudioRel")
      * @ORM\JoinColumn(name="codigo_estudio_fk", referencedColumnName="codigo_estudio_pk")
      */
@@ -141,6 +146,22 @@ class EstudioDetalle
     public function setModuloRel($moduloRel): void
     {
         $this->moduloRel = $moduloRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    /**
+     * @param mixed $responsable
+     */
+    public function setResponsable($responsable): void
+    {
+        $this->responsable = $responsable;
     }
 
 

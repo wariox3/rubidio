@@ -11,14 +11,17 @@
                     <div class="card-body">
                         {{ form_errors(form) }}
                         <div class="form-group">
+                            <label class="control-label">Modulo:</label>
+                            {{ form_widget(form.moduloRel) }}
+                        </div>
+                        <div class="form-group">
                             <label class="control-label">Fecha validación:</label>
                             {{ form_widget(form.fechaValidacion) }}
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Modulo:</label>
-                            {{ form_widget(form.moduloRel) }}
+                            <label class="control-label">Responsable:</label>
+                            {{ form_widget(form.responsable) }}
                         </div>
-
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">

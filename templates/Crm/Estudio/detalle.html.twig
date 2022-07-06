@@ -53,6 +53,7 @@
                                     <th>ID</th>
                                     <th>MODULO</th>
                                     <th>FECHA</th>
+                                    <th>RESPONSABLE</th>
                                     <th></th>
                                     <th class="text-center" title="seleccionar todos">
                                         <div class="custom-control custom-checkbox">
@@ -70,6 +71,7 @@
                                             <td>{{ arEstudioDetalle.codigoEstudioDetallePk }}</td>
                                             <td>{{ arEstudioDetalle.modulo }}</td>
                                             <td>{{ arEstudioDetalle.fechaValidacion | date('Y-m-d H:i') }}</td>
+                                            <td>{{ arEstudioDetalle.responsable }}</td>
                                             <td class="text-center">
                                                 <a
                                                         href="javascript:abrirVentana3('{{ path('crm_estudio_detalle_nuevo', { 'codigoEstudio': arEstudio.codigoEstudioPk, 'id': arEstudioDetalle.codigoEstudioDetallePk }) }}', 'Nuevo', 600, 1200)">

@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,6 @@ class EstudioDetalleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('fechaValidacion', DateTimeType::class, ['widget' => 'single_text'])
             ->add('moduloRel', EntityType::class, [
                 'class' => Modulo::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -27,6 +27,8 @@ class EstudioDetalleType extends AbstractType
                 'required' => true,
                 'attr' => ['class' => 'form-control to-select-2']
             ])
+            ->add('responsable', TextType::class, array('required' => true))
+            ->add('fechaValidacion', DateTimeType::class, ['widget' => 'single_text'])
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));
     }
 

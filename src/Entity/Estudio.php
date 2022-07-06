@@ -26,6 +26,16 @@ class Estudio
     private $codigoClienteFk;
 
     /**
+     * @ORM\Column(name="fecha", type="datetime")
+     */
+    private $fecha;
+
+    /**
+     * @ORM\Column(name="responsable", type="string", length=200)
+     */
+    private $responsable;
+
+    /**
      * @ORM\Column(name="estado_terminado", type="boolean", nullable=true, options={"default" : false})
      */
     private $estadoTerminado = false;
@@ -120,5 +130,39 @@ class Estudio
     {
         $this->estudiosDetallesEstudioRel = $estudiosDetallesEstudioRel;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFecha()
+    {
+        return $this->fecha;
+    }
+
+    /**
+     * @param mixed $fecha
+     */
+    public function setFecha($fecha): void
+    {
+        $this->fecha = $fecha;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    /**
+     * @param mixed $responsable
+     */
+    public function setResponsable($responsable): void
+    {
+        $this->responsable = $responsable;
+    }
+
+
     
 }

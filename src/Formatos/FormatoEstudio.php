@@ -2,6 +2,7 @@
 
 namespace App\Formatos;
 
+use App\Entity\Estudio;
 use App\Entity\EstudioDetalle;
 use App\Entity\Funcionalidad;
 
@@ -29,19 +30,16 @@ class FormatoEstudio extends \FPDF
 
     public function Body($pdf)
     {
+        $arEstudio = self::$em->getRepository(Estudio::class)->imprimir(self::$codigoEstudio);
         $ejeX = 20;
         $ejeY = 30;
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Text($ejeX, $ejeY, utf8_decode("Medellín, Antioquia fecha"));
+        $pdf->Text($ejeX, $ejeY, utf8_decode("Medellín, Antioquia {$arEstudio['fecha']->format('M j \d\e Y')}"));
         $ejeY += 10;
-        $pdf->Text($ejeX, $ejeY, utf8_decode("Señor"));
-        $ejeY += 5;
-        $pdf->Text($ejeX, $ejeY, "pepito perez");
-        $ejeY += 5;
-        $pdf->Text($ejeX, $ejeY, "Gerente Operativo");
+        $pdf->Text($ejeX, $ejeY, utf8_decode("Señores"));
         $ejeY += 5;
         $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Text($ejeX, $ejeY, "CONCESIONARIA COVIAL S.A.");
+        $pdf->Text($ejeX, $ejeY, utf8_decode($arEstudio['clienteNombreCorto']));
         $ejeY += 15;
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Text($ejeX, $ejeY, utf8_decode("Asunto: "));
@@ -64,7 +62,7 @@ class FormatoEstudio extends \FPDF
         $ejeY += 35;
         $pdf->SetXY($ejeX, $ejeY);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(168, 5, utf8_decode("Con la firma de este documento el cliente garantiza que es viable y factible implementar el Software. No olvide revisar los compromisos de las partes ya que serán parte integral del contrato de implementacion."), 0, 'J', false);
+        $pdf->MultiCell(168, 5, utf8_decode("Con la firma de este documento el cliente garantiza que es viable y factible implementar el Software. No olvide revisar los compromisos de las partes ya que serán parte integral del contrato de implementacion. Las caracteristicas tecnicas en detalle las puede encontrar en www.semantica.com.co"), 0, 'J', false);
 
         $ejeY += 40;
         $pdf->Text($ejeX, $ejeY, "Atentamente.");
@@ -73,7 +71,7 @@ class FormatoEstudio extends \FPDF
         $pdf->SetXY($ejeX, $ejeY);
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Text(20, $ejeY, utf8_decode("MARIO ANDRES ESTRADA ZULUAGA"));
-        $pdf->Text(120, $ejeY, utf8_decode("PEPITO DE LOS PALOTES"));
+        $pdf->Text(120, $ejeY, utf8_decode($arEstudio['responsable']));
 
         $ejeY +=5;
         $pdf->SetFont('Arial', '', 12);
@@ -119,6 +117,15 @@ class FormatoEstudio extends \FPDF
                 $pdf->Cell(12, 6, '', 1, 0, 'C', 0);
                 $pdf->Ln();
             }
+            $pdf->Ln(30);
+            $pdf->SetFillColor(255, 255, 255);
+            $pdf->SetX(20);
+            $pdf->Cell(120, 6, utf8_decode("FIRMA RESPONSABLE VALIDACION"), 'T', 0, 'L', 1);
+            $pdf->Ln();
+            $pdf->SetX(20);
+            $pdf->Cell(120, 6, utf8_decode($arEstudioDetalle['responsable']), 0, 0, 'L', 1);
+
+
         }
 
 

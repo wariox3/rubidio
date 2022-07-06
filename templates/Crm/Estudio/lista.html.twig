@@ -44,7 +44,9 @@
                                     <thead class="title-bg-color">
                                     <tr>
                                         <th>Id</th>
+                                        <th>Fecha</th>
                                         <th>Cliente</th>
+                                        <th>Responsable</th>
                                         <th title="Estado terminado">TER</th>
                                         <th></th>
                                         <th></th>
@@ -54,7 +56,9 @@
                                     {% for arEstudio in arEstudios %}
                                         <tr>
                                             <td>{{ arEstudio.codigoEstudioPk }}</td>
+                                            <td>{{ arEstudio.fecha | date('Y-m-d') }}</td>
                                             <td>{{ arEstudio.clienteNombreCorto }}</td>
+                                            <td>{{ arEstudio.responsable }}</td>
                                             <td class="text-center">{{ arEstudio.estadoTerminado?'SI':'NO' }}</td>
                                             <td class="text-center">
                                                 <a

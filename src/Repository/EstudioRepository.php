@@ -18,6 +18,8 @@ class EstudioRepository extends ServiceEntityRepository
         $em = $this->getEntityManager();
         $queryBuilder = $em->createQueryBuilder()->from(Estudio::class, 'e')
             ->select('e.codigoEstudioPk')
+            ->addSelect('e.fecha')
+            ->addSelect('e.responsable')
             ->addSelect('e.estadoTerminado')
             ->addSelect('c.nombreCorto as clienteNombreCorto')
             ->leftJoin('e.clienteRel', 'c')
@@ -44,6 +46,27 @@ class EstudioRepository extends ServiceEntityRepository
         $arEstudios = $queryBuilder->getQuery()->getSingleResult();
 
         return $arEstudios;
+    }
+
+    public function imprimir($codigoEstudio)
+    {
+        $em = $this->getEntityManager();
+        $arEstudio = [];
+        $queryBuilder = $em->createQueryBuilder()->from(Estudio::class, 'e')
+            ->select('e.codigoEstudioPk')
+            ->addSelect('e.fecha')
+            ->addSelect('e.responsable')
+            ->addSelect('e.estadoTerminado')
+            ->addSelect('c.nombreCorto as clienteNombreCorto')
+            ->addSelect('c.nombreExtendido as clienteNombreExtendido')
+            ->leftJoin('e.clienteRel', 'c')
+            ->where("e.codigoEstudioPk = {$codigoEstudio}")
+            ->orderBy('e.codigoEstudioPk', 'DESC');
+        $arEstudios = $queryBuilder->getQuery()->getResult();
+        if($arEstudios) {
+            $arEstudio = $arEstudios[0];
+        }
+        return $arEstudio;
     }
 
 }
