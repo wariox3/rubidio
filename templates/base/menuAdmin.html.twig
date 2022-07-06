@@ -55,16 +55,16 @@
                         {% endif %}
                         {% if is_granted('ROLE_IMPLEMENTACION') %}
                             <li class="nav-item">
-                                <a href="#" class="nav-link">Implementación <i class="fas fa-chevron-down"></i></a>
+                                <a href="#" class="nav-link">Operación<i class="fas fa-chevron-down"></i></a>
                                 <ul class="dropdown-menu">
                                     <li class="nav-item">
-                                        <a href="{{ path('crm_estudio_lista') }}" class="nav-link">Estudio</a>
+                                        <a href="{{ path('operacion_estudio_lista') }}" class="nav-link">Estudio</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ path('implementacion_implementacion_lista') }}" class="nav-link">Implementación</a>
+                                        <a href="{{ path('operacion_implementacion_lista') }}" class="nav-link">Implementación</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="{{ path('implementacion_electronica_lista') }}" class="nav-link">Factura
+                                        <a href="{{ path('operacion_electronica_lista') }}" class="nav-link">Factura
                                             electronica</a>
                                     </li>
                                 </ul>

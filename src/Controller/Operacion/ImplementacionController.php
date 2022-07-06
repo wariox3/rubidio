@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Implementacion;
+namespace App\Controller\Operacion;
 
 use App\Entity\Implementacion;
 use App\Entity\ImplementacionDetalle;
@@ -22,7 +22,7 @@ class ImplementacionController extends AbstractController
 {
 
     /**
-     * @Route("/implementacion/implementacion/lista", name="implementacion_implementacion_lista")
+     * @Route("/operacion/implementacion/lista", name="operacion_implementacion_lista")
      */
     public function lista(Request $request,  PaginatorInterface $paginator)
     {
@@ -70,14 +70,14 @@ class ImplementacionController extends AbstractController
             }
         }
         $arImplementaciones = $paginator->paginate($em->getRepository(Implementacion::class)->lista(), $request->query->getInt('page', 1), 500);
-        return $this->render('Implementacion/Implementacion/lista.html.twig', [
+        return $this->render('Operacion/Implementacion/lista.html.twig', [
             'arImplementaciones' => $arImplementaciones,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/implementacion/implementacion/nuevo/{id}", name="implementacion_implementacion_nuevo")
+     * @Route("/operacion/implementacion/nuevo/{id}", name="operacion_implementacion_nuevo")
      */
     public function nuevo(Request $request, $id)
     {
@@ -90,17 +90,17 @@ class ImplementacionController extends AbstractController
                 $arImplementacion = $form->getData();
                 $em->persist($arImplementacion);
                 $em->flush();
-                return $this->redirect($this->generateUrl('implementacion_implementacion_lista'));
+                return $this->redirect($this->generateUrl('operacion_implementacion_lista'));
             }
         }
-        return $this->render('Implementacion/Implementacion/nuevo.html.twig', [
+        return $this->render('Operacion/Implementacion/nuevo.html.twig', [
             'arImplementacion' => $arImplementacion,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/implementacion/implementacion/detalle/{id}", name="implementacion_implementacion_detalle")
+         * @Route("/operacion/implementacion/detalle/{id}", name="operacion_implementacion_detalle")
      */
     public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
@@ -163,13 +163,13 @@ class ImplementacionController extends AbstractController
             }
         }
         $arImplementacionDetalles = $em->getRepository(ImplementacionDetalle::class)->lista($id);
-        return $this->render('Implementacion/Implementacion/detalle.html.twig', ['arImplementacion' => $arImplementacion,
+        return $this->render('Operacion/Implementacion/detalle.html.twig', ['arImplementacion' => $arImplementacion,
             'arImplementacionDetalles' => $arImplementacionDetalles,
             'form' => $form->createView()]);
     }
 
     /**
-     * @Route("/implementacion/implementacion/detalle/nuevo/{id}", name="implementacion_implementacion_detalle_nuevo")
+     * @Route("/operacion/implementacion/detalle/nuevo/{id}", name="operacion_implementacion_detalle_nuevo")
      */
     public function detalleNuevo(Request $request, $id)
     {
@@ -182,10 +182,10 @@ class ImplementacionController extends AbstractController
                 $arImplementacionDetalle = $form->getData();
                 $em->persist($arImplementacionDetalle);
                 $em->flush();
-                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
-        return $this->render('Implementacion/Implementacion/detalleNuevo.html.twig', [
+        return $this->render('Operacion/Implementacion/detalleNuevo.html.twig', [
             'arImplementacionDetalle' => $arImplementacionDetalle,
             'form' => $form->createView()
         ]);

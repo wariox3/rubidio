@@ -1,38 +1,28 @@
 <?php
 
-namespace App\Controller\Crm;
+namespace App\Controller\Operacion;
 
 use App\Entity\Cliente;
 use App\Entity\Estudio;
 use App\Entity\EstudioDetalle;
-use App\Entity\Implementacion;
-use App\Entity\ImplementacionDetalle;
 use App\Entity\RecursoHumano\RhuPoligonoDetalle;
 use App\Form\Type\EstudioDetalleType;
 use App\Form\Type\EstudioType;
-use App\Form\Type\ImplementacionDetalleImplementadorType;
-use App\Form\Type\ImplementacionType;
-use App\Formatos\FormatoActaCapacitacion;
-use App\Formatos\FormatoActaTerminacion;
 use App\Formatos\FormatoEstudio;
-use App\Formatos\FormatoPlanTrabajo;
-use App\Utilidades\Mensajes;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Annotation\Route;
 
 class EstudioController extends AbstractController
 {
 
     /**
-     * @Route("/crm/estudio/lista", name="crm_estudio_lista")
+     * @Route("/operacion/estudio/lista", name="operacion_estudio_lista")
      */
     public function lista(Request $request, PaginatorInterface $paginator)
     {
@@ -56,14 +46,14 @@ class EstudioController extends AbstractController
 
         }
         $arEstudios = $paginator->paginate($em->getRepository(Estudio::class)->lista(), $request->query->getInt('page', 1), 500);
-        return $this->render('Crm/Estudio/lista.html.twig', [
+        return $this->render('Operacion/Estudio/lista.html.twig', [
             'arEstudios' => $arEstudios,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/crm/estudio/nuevo/{id}", name="crm_estudio_nuevo")
+     * @Route("/operacion/estudio/nuevo/{id}", name="operacion_estudio_nuevo")
      */
     public function nuevo(Request $request, $id)
     {
@@ -82,14 +72,14 @@ class EstudioController extends AbstractController
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
-        return $this->render('Crm/Estudio/nuevo.html.twig', [
+        return $this->render('Operacion/Estudio/nuevo.html.twig', [
             'arEstudio' => $arEstudio,
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/crm/estudio/detalle/{id}", name="crm_estudio_detalle")
+     * @Route("/operacion/estudio/detalle/{id}", name="operacion_estudio_detalle")
      */
     public function detalle(Request $request,  PaginatorInterface $paginator, $id)
     {
@@ -111,14 +101,14 @@ class EstudioController extends AbstractController
             }
         }
         $arEstudioDetalles = $paginator->paginate($em->getRepository(EstudioDetalle::class)->lista($id), $request->query->getInt('page', 1), 100);
-        return $this->render('Crm/Estudio/detalle.html.twig', [
+        return $this->render('Operacion/Estudio/detalle.html.twig', [
             'arEstudio' => $arEstudio,
             'arEstudioDetalles' => $arEstudioDetalles,
             'form' => $form->createView()]);
     }
 
     /**
-     * @Route("/crm/estudio/detalle/nuevo/{codigoEstudio}/{id}", name="crm_estudio_detalle_nuevo")
+     * @Route("/operacion/estudio/detalle/nuevo/{codigoEstudio}/{id}", name="operacion_estudio_detalle_nuevo")
      */
     public function detalleNuevo(Request $request, $codigoEstudio, $id)
     {
@@ -140,7 +130,7 @@ class EstudioController extends AbstractController
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
-        return $this->render('Crm/Estudio/detalleNuevo.html.twig', [
+        return $this->render('Operacion/Estudio/detalleNuevo.html.twig', [
             'form' => $form->createView()
         ]);
     }

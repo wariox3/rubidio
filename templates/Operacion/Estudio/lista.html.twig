@@ -35,7 +35,7 @@
                         <div class="single-testimonial">
                             <div class="d-flex justify-content-end">
                                 <a class="btnCustom"
-                                   href="javascript:abrirVentana3('{{ path('crm_estudio_nuevo', {'id': '0'}) }}', 'Nuevo', 600, 1200)">
+                                   href="javascript:abrirVentana3('{{ path('operacion_estudio_nuevo', {'id': '0'}) }}', 'Nuevo', 600, 1200)">
                                     Nuevo
                                 </a>
                             </div>
@@ -62,12 +62,12 @@
                                             <td class="text-center">{{ arEstudio.estadoTerminado?'SI':'NO' }}</td>
                                             <td class="text-center">
                                                 <a
-                                                        href="javascript:abrirVentana3('{{ path('crm_estudio_nuevo', {'id': arEstudio.codigoEstudioPk}) }}', 'Nuevo', 600, 1200)">
+                                                        href="javascript:abrirVentana3('{{ path('operacion_estudio_nuevo', {'id': arEstudio.codigoEstudioPk}) }}', 'Nuevo', 600, 1200)">
                                                     <i class="fas fa-pen fa-2x"></i>
                                                 </a>
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ path('crm_estudio_detalle', { 'id': arEstudio.codigoEstudioPk }) }}">
+                                                <a href="{{ path('operacion_estudio_detalle', { 'id': arEstudio.codigoEstudioPk }) }}">
                                                     <i class="fas fa-eye fa-2x"></i>
                                                 </a>
                                             </td>

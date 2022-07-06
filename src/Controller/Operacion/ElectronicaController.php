@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Implementacion;
+namespace App\Controller\Operacion;
 
 use App\Entity\Cliente;
 use App\Utilidades\Mensajes;
@@ -16,7 +16,7 @@ class ElectronicaController extends AbstractController
 {
 
     /**
-     * @Route("/implementacion/electronica/lista", name="implementacion_electronica_lista")
+     * @Route("/operacion/electronica/lista", name="operacion_electronica_lista")
      */
     public function lista(Request $request,  PaginatorInterface $paginator) {
         $session = new Session();
@@ -69,7 +69,7 @@ class ElectronicaController extends AbstractController
         }
         $arrSuscriptores = $this->listaSuscriptores();
         $arClientes = $paginator->paginate($em->getRepository(Cliente::class)->lista(), $request->query->getInt('page', 1), 500);
-        return $this->render('Implementacion/Electronica/lista.html.twig', [
+        return $this->render('Operacion/Electronica/lista.html.twig', [
             'arrSuscriptores' => $arrSuscriptores,
             'arClientes' => $arClientes,
             'form' => $form->createView()
@@ -77,7 +77,7 @@ class ElectronicaController extends AbstractController
     }
 
     /**
-     * @Route("/implementacion/electronica/nuevo/{id}", name="implementacion_electronica_nuevo")
+     * @Route("/operacion/electronica/nuevo/{id}", name="operacion_electronica_nuevo")
      */
     public function nuevo(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -138,13 +138,13 @@ class ElectronicaController extends AbstractController
             }
         }
 
-        return $this->render('Implementacion/Electronica/nuevo.html.twig', [
+        return $this->render('Operacion/Electronica/nuevo.html.twig', [
             'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/implementacion/electronica/editar/{id}", name="implementacion_electronica_editar")
+     * @Route("/operacion/electronica/editar/{id}", name="operacion_electronica_editar")
      */
     public function editar(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
@@ -209,7 +209,7 @@ class ElectronicaController extends AbstractController
             }
         }
 
-        return $this->render('Implementacion/Electronica/editar.html.twig', [
+        return $this->render('Operacion/Electronica/editar.html.twig', [
             'arrResoluciones' => $arrResoluciones,
             'form' => $form->createView()
         ]);
