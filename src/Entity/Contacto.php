@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="contacto")
@@ -32,6 +33,7 @@ class Contacto
 
     /**
      * @ORM\Column(name="correo", type="string", length=200, nullable=true)
+     * @Assert\Email(message = "El correo electrónico no es válido.")
      */
     private $correo;
 

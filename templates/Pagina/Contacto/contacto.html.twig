@@ -70,6 +70,7 @@
                     <div class="contact-form contact-form-3">
                         <p class="form-message"></p>
                         {{ form_start(form, { 'attr': {'class': 'form'} }) }}
+                            {{ form_errors(form) }}
                             <div class="row">
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
@@ -79,6 +80,7 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
                                         {{ form_widget(form.correo, { 'attr': {'placeholder': 'Correo'} }) }}
+                                        {{ form_errors(form.correo) }}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
