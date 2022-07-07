@@ -17,14 +17,19 @@
                                         {{ form_widget(form.clienteRel) }}
                                     </div>
                                     <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Tipo:</label>
+                                        {{ form_widget(form.CasoTipoRel) }}
+                                    </div>
+
+                                    <div class="form-group col-md-2">
                                         <label for="inputPassword4">Atendido:</label>
                                         {{ form_widget(form.estadoAtendido) }}
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label for="inputPassword4">Solucionado:</label>
                                         {{ form_widget(form.estadoSolucionado) }}
                                     </div>
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-2">
                                         <label for="inputPassword4">Desarrollo:</label>
                                         {{ form_widget(form.estadoDesarrollo) }}
                                     </div>
@@ -57,6 +62,7 @@
                                 <thead class="title-bg-color">
                                 <tr>
                                     <th>Id</th>
+                                    <th>Tipo</th>
                                     <th>Fecha</th>
                                     <th title="Fecha de compromiso">Com</th>
                                     <th>Cliente</th>
@@ -82,6 +88,7 @@
                                     <tr>
 
                                         <td>{{ arCaso.codigoCasoPk }}</td>
+                                        <td>{{ arCaso.nombre }}</td>
                                         <td>{{ arCaso.fecha | date('Y-m-d') }}</td>
                                         <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
                                         <td>{{ arCaso.clienteNombreCorto }}</td>

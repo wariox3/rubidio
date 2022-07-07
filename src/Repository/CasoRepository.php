@@ -35,11 +35,17 @@ class CasoRepository extends ServiceEntityRepository
             ->addSelect('c.estadoSolucionado')
             ->addSelect('c.estadoPostergado')
             ->addSelect('cli.nombreCorto as clienteNombreCorto')
+            ->addSelect('ct.nombre')
             ->leftJoin('c.prioridadRel', 'p')
+            ->leftJoin('c.casoTipoRel', 'ct')
             ->leftJoin('c.clienteRel', 'cli');
 
         if ($session->get('filtroCasoCodigoCliente')) {
             $queryBuilder->andWhere('c.codigoClienteFk=' . $session->get('filtroCasoCodigoCliente'));
+        }
+
+        if ($session->get('filtroCasoCodogoTipo')) {
+            $queryBuilder->andWhere("ct.codigoCasoTipoPk = {$session->get('filtroCasoCodogoTipo')} ");
         }
 
         switch ($session->get('filtroCasoEstadoAtendido')) {

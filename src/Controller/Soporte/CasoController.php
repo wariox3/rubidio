@@ -4,6 +4,7 @@ namespace App\Controller\Soporte;
 
 use App\Entity\Archivo;
 use App\Entity\Caso;
+use App\Entity\CasoTipo;
 use App\Entity\Tarea;
 use App\Form\Type\CasoEditarType;
 use App\Form\Type\CasoEscaladoType;
@@ -78,6 +79,16 @@ class CasoController extends AbstractController
 
         $form = $this->createFormBuilder()
             ->add('clienteRel', EntityType::class, $arrayPropiedadesCliente)
+            ->add('CasoTipoRel', EntityType::class, array(
+                'class' => CasoTipo::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+                },
+                'choice_label' => 'nombre',
+                'placeholder' => "TODOS",
+                'required' => true,
+            ))
             ->add('estadoAtendido', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoAtendido'), 'required' => false])
             ->add('estadoDesarrollo', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoDesarrollo'), 'required' => false])
             ->add('estadoEscalado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoEscalado'), 'required' => false])
@@ -98,6 +109,12 @@ class CasoController extends AbstractController
                     $session->set('filtroCasoCodigoCliente', $arCliente->getCodigoClientePk());
                 } else {
                     $session->set('filtroCasoCodigoCliente', null);
+                }
+                $arCasoTipo = $form->get('CasoTipoRel')->getData();
+                if ($arCasoTipo) {
+                    $session->set('filtroCasoCodogoTipo', $arCasoTipo->getCodigoClientePk());
+                } else {
+                    $session->set('filtroCasoCodogoTipo', null);
                 }
             }
             if ($request->request->get('OpAtender')) {
