@@ -87,7 +87,7 @@ class CasoController extends AbstractController
                 },
                 'choice_label' => 'nombre',
                 'placeholder' => "TODOS",
-                'required' => true,
+                'required' => false,
             ))
             ->add('estadoAtendido', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoAtendido'), 'required' => false])
             ->add('estadoDesarrollo', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoDesarrollo'), 'required' => false])
