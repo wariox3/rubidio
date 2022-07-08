@@ -56,4 +56,37 @@ class DocumentacionRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function apiLista($criterio, $modulo)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Documentacion::class, 'd')
+            ->select('d.codigoDocumentacionPk')
+            ->addSelect('d.codigoModuloFk')
+            ->addSelect('d.titulo')
+            ->addSelect('d.fechaActualizacion')
+            ->addSelect('d.ruta')
+            ->addSelect('d.contenido')
+            ->orderBy('d.orden', 'ASC');
+        if ($criterio) {
+            $queryBuilder->andWhere("(d.titulo LIKE '%{$criterio}%' or d.contenido LIKE '%{$criterio}%')");
+        }
+        if ($modulo) {
+            $queryBuilder->andWhere("d.codigoModuloFk = '{$modulo}'");
+
+        }
+        $queryBuilder->setMaxResults(30);
+        return $queryBuilder->getQuery()->getResult();
+
+    }
+
+    public function apiDetalle($id)
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Documentacion::class, 'd')
+            ->select('d.codigoDocumentacionPk')
+            ->addSelect('d.titulo')
+            ->addSelect('d.fechaActualizacion')
+            ->addSelect('d.contenido')
+            ->addSelect('d.ruta')
+            ->Where("d.codigoDocumentacionPk = {$id}");
+        return $queryBuilder->getQuery()->getResult();
+    }
 }
