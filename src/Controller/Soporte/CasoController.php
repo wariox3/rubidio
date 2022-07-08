@@ -112,9 +112,9 @@ class CasoController extends AbstractController
                 }
                 $arCasoTipo = $form->get('CasoTipoRel')->getData();
                 if ($arCasoTipo) {
-                    $session->set('filtroCasoCodogoTipo', $arCasoTipo->getCodigoClientePk());
+                    $session->set('filtroCasoCodigoTipo', $arCasoTipo->getCodigoCasoTipoPk());
                 } else {
-                    $session->set('filtroCasoCodogoTipo', null);
+                    $session->set('filtroCasoCodigoTipo', null);
                 }
             }
             if ($request->request->get('OpAtender')) {

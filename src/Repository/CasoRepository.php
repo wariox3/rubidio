@@ -44,8 +44,8 @@ class CasoRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('c.codigoClienteFk=' . $session->get('filtroCasoCodigoCliente'));
         }
 
-        if ($session->get('filtroCasoCodogoTipo')) {
-            $queryBuilder->andWhere("ct.codigoCasoTipoPk = {$session->get('filtroCasoCodogoTipo')} ");
+        if ($session->get('filtroCasoCodigoTipo')) {
+            $queryBuilder->andWhere("ct.codigoCasoTipoPk = '{$session->get('filtroCasoCodigoTipo')}' ");
         }
 
         switch ($session->get('filtroCasoEstadoAtendido')) {
