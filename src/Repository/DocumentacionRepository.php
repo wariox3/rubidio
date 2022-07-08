@@ -80,7 +80,8 @@ class DocumentacionRepository extends ServiceEntityRepository
 
     public function apiDetalle($id)
     {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Documentacion::class, 'd')
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Documentacion::class, 'd')
             ->select('d.codigoDocumentacionPk')
             ->addSelect('d.titulo')
             ->addSelect('d.fechaActualizacion')
