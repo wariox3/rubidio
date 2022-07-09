@@ -259,6 +259,14 @@ class SoporteController extends AbstractController
     }
 
     /**
+     * @Route("/soporte/descarga", name="soporte_descarga")
+     */
+    public function descarga(Request $request, ManagerRegistry $doctrine): Response
+    {
+        return $this->render('Pagina/Soporte/descarga.html.twig');
+    }
+
+    /**
      * @Route("/soporte/documentacion", name="soporte_documentacion")
      */
     public function documentacion(Request $request, PaginatorInterface $paginator)
