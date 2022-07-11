@@ -12,6 +12,15 @@ class RequisitoRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Requisito::class);
     }
-    
 
+    public function imprimirEstudio($codigoModulo)
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Requisito::class, 'r')
+            ->select('r.codigoRequisitoPk')
+            ->addSelect('r.nombre')
+            ->where("r.codigoModuloFk = '{$codigoModulo}'");
+        $arRequisitos = $queryBuilder->getQuery()->getResult();
+        return $arRequisitos;
+    }
 }

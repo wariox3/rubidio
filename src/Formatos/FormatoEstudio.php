@@ -5,6 +5,7 @@ namespace App\Formatos;
 use App\Entity\Estudio;
 use App\Entity\EstudioDetalle;
 use App\Entity\Funcionalidad;
+use App\Entity\Requisito;
 
 class FormatoEstudio extends \FPDF
 {
@@ -30,6 +31,7 @@ class FormatoEstudio extends \FPDF
 
     public function Body($pdf)
     {
+        $pdf->Image('../public/imagenes/logoSemantica.jpg', 150, 13, 40, 25, 'JPG');
         $arEstudio = self::$em->getRepository(Estudio::class)->imprimir(self::$codigoEstudio);
         $ejeX = 20;
         $ejeY = 30;
@@ -117,6 +119,33 @@ class FormatoEstudio extends \FPDF
                 $pdf->Cell(12, 6, '', 1, 0, 'C', 0);
                 $pdf->Ln();
             }
+            $pdf->Ln(20);
+
+            // Requisitos
+            $pdf->SetFillColor(200, 200, 200);
+            $pdf->SetTextColor(0);
+            $pdf->SetDrawColor(0, 0, 0);
+            $pdf->SetLineWidth(.2);
+            $pdf->SetFont('Arial', 'B', 12);
+            $pdf->SetX(20);
+            $pdf->Cell(150, 6, utf8_decode("REQUISITOS"), 1, 0, 'C', 1);
+            $pdf->Cell(24, 6, utf8_decode("REVISADO"), 1, 0, 'C', 1);
+            $pdf->Ln();
+            $pdf->SetX(20);
+            $pdf->Cell(150, 6, utf8_decode(""), 1, 0, 'C', 1);
+            $pdf->Cell(12, 6, utf8_decode("SI"), 1, 0, 'C', 1);
+            $pdf->Cell(12, 6, utf8_decode("NO"), 1, 0, 'C', 1);
+            $pdf->Ln();
+            $pdf->SetFont('Arial', '', 12);
+            $arFuncionalidades = self::$em->getRepository(Requisito::class)->imprimirEstudio($arEstudioDetalle['codigoModuloFk']);
+            foreach ($arFuncionalidades as $arFuncionalidad) {
+                $pdf->SetX(20);
+                $pdf->Cell(150, 6, utf8_decode($arFuncionalidad['nombre']), 1, 0, 'L', 0);
+                $pdf->Cell(12, 6, '', 1, 0, 'C', 0);
+                $pdf->Cell(12, 6, '', 1, 0, 'C', 0);
+                $pdf->Ln();
+            }
+
             $pdf->Ln(30);
             $pdf->SetFillColor(255, 255, 255);
             $pdf->SetX(20);
