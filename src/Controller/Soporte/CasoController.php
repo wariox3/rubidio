@@ -147,7 +147,7 @@ class CasoController extends AbstractController
             return $this->redirect($this->generateUrl('cliente_caso_detalle', ['id' => $id]));
         }
         $arTareas = $em->getRepository(Tarea::class)->caso($id);
-        $arArchivos = $em->getRepository(Archivo::class)->listaArchivo(2, $id);
+        $arArchivos = $em->getRepository(Archivo::class)->lista(2, $id);
         return $this->render('Soporte/Caso/detalle.html.twig', [
             'arCaso' => $arCaso,
             'arTareas' => $arTareas,

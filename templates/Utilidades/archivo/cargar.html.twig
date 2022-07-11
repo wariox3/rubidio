@@ -1,0 +1,40 @@
+{% extends 'base_sin_menu.html.twig' %}
+{% block content %}
+    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header title-bg-color">
+                        <h5>Archivos</h5>
+                    </div>
+                    <div class="card-body">
+                        {{ form_errors(form) }}
+                        <div class="form-group">
+                            <label class="control-label">Nombre:</label>
+                            {{ form_widget(form.descripcion) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Cargar:</label>
+                            {{ form_widget(form.attachment) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Comentarios:</label>
+                            {{ form_widget(form.comentarios) }}
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-end">
+                            {{ form_widget(form.BtnCargar, { 'attr': {'class': 'btnCustom'} }) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <blockquote>
+            <p>Recuerde: El tamaño maximo por archivo a subir es de 6mb</p>
+            <footer>Tipo <cite title="Source Title">archivos</cite></footer>
+        </blockquote>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

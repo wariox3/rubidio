@@ -138,7 +138,7 @@ class SoporteController extends AbstractController
                 }
             }
         }
-        $arArchivos = $em->getRepository(Archivo::class)->listaArchivo("soporte", $id);
+        $arArchivos = $em->getRepository(Archivo::class)->lista("soporte", $id);
         return $this->render('Soporte/Soporte/detalle.html.twig', [
             'arSoporte' => $arSoporte,
             'arArchivos' => $arArchivos,

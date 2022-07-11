@@ -28,7 +28,7 @@ class   DocumentalController extends AbstractController
     public function listaAction(Request $request, $tipo, $codigo)
     {
         $em = $this->getDoctrine()->getManager();
-        $arArchivos = $em->getRepository(Archivo::class)->listaArchivo($tipo, $codigo);
+        $arArchivos = $em->getRepository(Archivo::class)->lista($tipo, $codigo);
         return $this->render('documental/archivo/lista.html.twig', array(
             'arArchivos' => $arArchivos,
             'tipo' => $tipo,
@@ -144,7 +144,7 @@ class   DocumentalController extends AbstractController
     public function verAction(Request $request, $tipo, $codigo)
     {
         $em = $this->getDoctrine()->getManager();
-        $arArchivos = $em->getRepository(Archivo::class)->listaArchivo($tipo, $codigo);
+        $arArchivos = $em->getRepository(Archivo::class)->lista($tipo, $codigo);
         return $this->render('documental/archivo/ver.html.twig', array(
             'arArchivos' => $arArchivos,
             'tipo' => $tipo,

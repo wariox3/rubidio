@@ -99,7 +99,7 @@ class ClienteController extends AbstractController
             }
 
         }
-        $arArchivos = $em->getRepository(Archivo::class)->listaArchivo("cliente", $id);
+        $arArchivos = $em->getRepository(Archivo::class)->lista("cliente", $id);
         return $this->render('Admin/Cliente/detalle.html.twig', [
             'arCliente' => $arCliente,
             'arArchivos' => $arArchivos,

@@ -25,20 +25,7 @@ class ArchivoRepository extends ServiceEntityRepository
         $this->spaceDO = $spaceDO;
     }
 
-    public function lista()
-    {
-        $session = new Session();
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(DocMasivo::class, 'm')
-            ->select('m.codigoMasivoPk')
-            ->addSelect('m.identificador')
-            ->where('m.codigoMasivoPk <> 0');
-        if ($session->get('filtroDocMasivoIdentificador') != '') {
-            $queryBuilder->andWhere("m.identificador = {$session->get('filtroDocMasivoIdentificador')}");
-        }
-        return $queryBuilder;
-    }
-
-    public function listaArchivo($tipo, $codigo)
+    public function lista($tipo, $codigo)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Archivo::class, 'a')
             ->select('a.codigoArchivoPk')
