@@ -77,7 +77,9 @@ class SoporteRepository extends ServiceEntityRepository
             ->addSelect('s.estadoAtendido')
             ->addSelect('s.estadoSolucionado')
             ->addSelect('c.nombreCorto as clienteNombreCorto')
+            ->addSelect('m.nombre as moduloNombre')
             ->leftJoin('s.clienteRel', 'c')
+            ->leftJoin('s.moduloRel', 'm')
             ->orderBy('s.fecha', 'DESC')
             ->where("c.codigoClientePk = {$codigoCliente}");
 

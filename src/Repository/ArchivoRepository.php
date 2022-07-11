@@ -122,4 +122,28 @@ class ArchivoRepository extends ServiceEntityRepository
         }
 
     }
+
+    public function eliminar($codigoArchivo)
+    {
+        $em = $this->getEntityManager();
+        $arArchivo = $em->getRepository(Archivo::class)->find($codigoArchivo);
+        if($arArchivo) {
+            $respuesta = $this->spaceDO->eliminar($arArchivo->getRuta(), $arArchivo->getCodigoArchivoTipoFk());
+            if($respuesta['error'] == false) {
+                $em->remove($arArchivo);
+                $em->flush();
+                return [
+                    'error' => false
+                ];
+            } else {
+                return $respuesta;
+            }
+        } else {
+            return [
+                'error' => true,
+                'errorMensaje' => 'El fichero no existe'
+            ];
+        }
+
+    }
 }

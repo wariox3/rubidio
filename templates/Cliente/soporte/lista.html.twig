@@ -44,6 +44,7 @@
                                     <th>Fecha</th>
                                     <th>F_ATE</th>
                                     <th>F_SOL</th>
+                                    <th>Modulo</th>
                                     <th>Contacto</th>
                                     <th>Telefono</th>
                                     <th>Descripcion</th>
@@ -58,6 +59,7 @@
                                         <td>{{ arSoporte.fecha | date('Y-m-d H:i') }}</td>
                                         <td>{{ arSoporte.estadoAtendido ? arSoporte.fechaAtendido | date('Y-m-d H:i'): '' }}</td>
                                         <td>{{ arSoporte.estadoSolucionado ? arSoporte.fechaSolucion | date('Y-m-d H:i'): '' }}</td>
+                                        <td>{{ arSoporte.moduloNombre }}</td>
                                         <td>{{ arSoporte.contacto }}</td>
                                         <td>{{ arSoporte.telefono }}</td>
                                         <td>{{ arSoporte.descripcion }}</td>

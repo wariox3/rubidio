@@ -30,9 +30,9 @@ class SpaceDO
         }
     }
 
-    public function eliminar($rutaDestino, $rutaPadre, $codigoModelo) {
+    public function eliminar($rutaDestino, $codigoModelo) {
         try {
-            $rutaDestino = "almacenamiento/{$rutaPadre}/{$codigoModelo}/{$rutaDestino}";
+            $rutaDestino = "rubidio/{$codigoModelo}/{$rutaDestino}";
             $spaces = new Spaces($_ENV['DO_CLAVE_ACCESO'], $_ENV['DO_CLAVE_SECRETA'], $_ENV['DO_REGION']);
             $my_space = $spaces->space("semantica");
             $my_space->file($rutaDestino)->delete();

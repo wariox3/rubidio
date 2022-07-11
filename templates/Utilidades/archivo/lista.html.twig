@@ -1,6 +1,7 @@
 {% extends 'base_sin_menu.html.twig' %}
 {% block content %}
     <div class="container">
+        {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
@@ -32,14 +33,11 @@
                                     <td>{{ arArchivos.descripcion }}</td>
                                     <td>{{ arArchivos.nombre }}</td>
                                     <td>{{ arArchivos.usuario }}</td>
-                                    <td style="text-align: center"><a
-                                                href="{{ path('documental_archivo_descargar', { 'codigoArchivo': arArchivos.codigoArchivoPk }) }}"><i
-                                                    class="fas fa-download"></i></a>
+                                    <td style="text-align: center">
+                                        <button class="fas fa-download" type="submit" name="OpDescargar" value="{{ arArchivos.codigoArchivoPk }}"></button>
                                     </td>
-                                    <td style="text-align: center"><a
-                                                href="{{ path('documental_archivo_eliminar', { 'tipo': tipo, 'codigo': arArchivos.codigoArchivoPk }) }}"
-                                                onclick='return confirm("Esta seguro de eliminar el archivo?")'><i
-                                                    class="fas fa-trash"></i></a>
+                                    <td style="text-align: center">
+                                        <button class="fas fa-trash" type="submit" name="OpEliminar" value="{{ arArchivos.codigoArchivoPk }}"></button>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -48,11 +46,13 @@
                     </div>
                     <div class="modal-footer">
                         <a class="btnCustom"
-                           href="{{ path('documental_archivo_cargar', { 'tipo': tipo,  'codigo': codigo }) }}">Cargar</a>
+                           href="{{ path('utilidad_archivo_cargar', { 'tipo': tipo,  'codigo': codigo }) }}">Cargar</a>
                     </div>
                 </div
                 >
             </div>
         </div>
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
     </div>
 {% endblock %}

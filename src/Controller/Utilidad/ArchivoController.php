@@ -38,23 +38,28 @@ class ArchivoController extends AbstractController
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('btnFiltrar')->isClicked()) {
-                $session->set('filtroSoporteEstadoAtendido', $form->get('estadoAtendido')->getData());
-                $session->set('filtroSoporteEstadoSolucionado', $form->get('estadoSolucionado')->getData());
-                $arCliente = $form->get('clienteRel')->getData();
-                if ($arCliente) {
-                    $session->set('filtroSoporteCodigoCliente', $arCliente->getCodigoClientePk());
-                } else {
-                    $session->set('filtroSoporteCodigoCliente', null);
+            if ($request->request->get('OpDescargar')) {
+                $codigoDescargar = $request->request->get('OpDescargar');
+                $respuesta = $em->getRepository(Archivo::class)->descargar($codigoDescargar);
+                if(!$respuesta['error']) {
+                    $response = new Response();
+                    $response->headers->set('Cache-Control', 'private');
+                    $response->headers->set('Content-type', $respuesta['tipo']);
+                    $response->headers->set('Content-Disposition', 'attachment; filename="' . $respuesta['nombre'] . '";');
+                    $response->headers->set('Content-length', $respuesta['tamano']);
+                    $response->sendHeaders();
+                    $response->setContent($respuesta['contenido']);
+                    return $response;
                 }
             }
-            if ($request->request->get('OpAtender')) {
-                $codigo = $request->request->get('OpAtender');
-                $arSoporte = $em->getRepository(Soporte::class)->find($codigo);
-                $arSoporte->setEstadoAtendido(1);
-                $arSoporte->setFechaAtendido(new \DateTime('now'));
-                $em->persist($arSoporte);
-                $em->flush();
+            if ($request->request->get('OpEliminar')) {
+                $codigoEliminar = $request->request->get('OpEliminar');
+                $respuesta = $em->getRepository(Archivo::class)->eliminar($codigoEliminar);
+                if(!$respuesta['error']) {
+                    return $this->redirect($this->generateUrl('utilidad_archivo_lista', array('tipo' => $tipo, 'codigo' => $codigo)));
+                } else {
+                    Mensajes::error($respuesta['errorMensaje']);
+                }
             }
         }
         $arArchivos = $em->getRepository(Archivo::class)->lista($tipo, $codigo);
@@ -69,14 +74,14 @@ class ArchivoController extends AbstractController
     /**
      * @Route("/utilidad/archivo/cargar/{tipo}/{codigo}", name="utilidad_archivo_cargar")
      */
-    public function cargarAction(Request $request, $tipo, $codigo)
+    public function cargar(Request $request, $tipo, $codigo)
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()
             ->add('attachment', fileType::class)
             ->add('descripcion', textType::class, array('required' => false))
             ->add('comentarios', TextareaType::class, array('required' => false))
-            ->add('BtnCargar', SubmitType::class, array('label' => 'Cargar'))
+            ->add('btnCargar', SubmitType::class, array('label' => 'Cargar'))
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -91,17 +96,9 @@ class ArchivoController extends AbstractController
                         $mimeType = $objArchivo->getClientMimeType();
                         $descripcion = $form->get('descripcion')->getData();
                         $archivoTemporal = $objArchivo->getPathName();
-                        $respuesta = $em->getRepository(DocFichero::class)->carga($codigoModelo, $codigo, $extension, $nombre, $tamano, $mimeType, $descripcion, $archivoTemporal);
+                        $respuesta = $em->getRepository(Archivo::class)->carga($tipo, $codigo, $extension, $nombre, $tamano, $mimeType, $descripcion, $archivoTemporal);
                         if(!$respuesta['error']) {
-                            if ($codigoModelo == 'TteGuia') {
-                                $arGuia = $em->getRepository(TteGuia::class)->find($codigo);
-                                if ($arGuia) {
-                                    $arGuia->setEstadoDigitalizado(1);
-                                    $em->persist($arGuia);
-                                    $em->flush();
-                                }
-                            }
-                            return $this->redirect($this->generateUrl('documental_utilidad_archivo_lista', array('codigoModelo' => $codigoModelo, 'codigo' => $codigo)));
+                            return $this->redirect($this->generateUrl('utilidad_archivo_lista', array('tipo' => $tipo, 'codigo' => $codigo)));
                         } else {
                             Mensajes::error($respuesta['errorMensaje']);
                         }
