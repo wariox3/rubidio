@@ -52,12 +52,14 @@
                                 <thead class="title-bg-color">
                                 <tr>
                                     <th>Id</th>
+                                    <th>Tipo</th>
                                     <th>Fecha</th>
                                     <th title="Fecha de compromiso">Com</th>
+                                    <th>Prioridad</th>
                                     <th>Contacto</th>
                                     <th>Descripcion</th>
                                     <th>Semantica</th>
-                                    <th>Prioridad</th>
+
                                     <th title="Indica si su caso ya gue atendido">Ate</th>
                                     <th title="Indica si su caso fue asignado al equipo de desarrollo">Des</th>
                                     <th title="Si por su complejidad el caso fue asignado a un departamento con mas especializacion en el tema">
@@ -71,13 +73,13 @@
                                 {% for arCaso in arCasos %}
                                     <tr>
                                         <td>{{ arCaso.codigoCasoPk }}</td>
+                                        <td>{{ arCaso.casoTipoNombre }}</td>
                                         <td>{{ arCaso.fecha | date('Y-m-d') }}</td>
                                         <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
+                                        <td>{{ arCaso.prioridadNombre }}</td>
                                         <td>{{ arCaso.contacto }}</td>
                                         <td>
-                                            <p class="text-body text-justify m-0">
-                                                <b>Descripción:</b> {{ arCaso.descripcion }} <br/>
-                                            </p>
+                                            {{ arCaso.descripcion }}
                                             {% if arCaso.estadoPostergado == 1 %}
                                                 <p class="text-danger text-justify">
                                                     <b>Postergado:</b> {{ arCaso.comentarioPostergado }} <br/>
@@ -86,7 +88,6 @@
                                             {% endif %}
                                         </td>
                                         <td>{{ arCaso.solucion }}</td>
-                                        <td>{{ arCaso.prioridadNombre }}</td>
                                         <td class="text-center">
                                             {% if arCaso.estadoAtendido %}
                                                 <i title="El caso ya fue atendido"

@@ -114,7 +114,9 @@ class CasoRepository extends ServiceEntityRepository
             ->addSelect('c.estadoEscalado')
             ->addSelect('c.estadoSolucionado')
             ->addSelect('c.estadoPostergado')
+            ->addSelect('ct.nombre as casoTipoNombre')
             ->leftJoin('c.prioridadRel', 'p')
+            ->leftJoin('c.casoTipoRel', 'ct')
             ->where("c.codigoClienteFk = ${codigoCliente}");
         switch ($session->get('filtroCasoEstadoAtendido')) {
             case '0':
