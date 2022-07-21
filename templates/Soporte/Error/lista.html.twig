@@ -112,7 +112,7 @@
                                                 {% else %}
                                                     <a class="dropdown-item disabled" aria-disabled="true">Atendido</a>
                                                 {% endif %}
-                                                {% if arError.estadoAtendido == 0 and arError.estadoSolucionado == 0 %}
+                                                {% if arError.estadoSolucionado == 0 %}
                                                     <button class="dropdown-item" type="submit" name="OpSolucionar"
                                                             value="{{ arError.codigoErrorPk }}">Solucionar
                                                     </button>
