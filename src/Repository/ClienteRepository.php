@@ -60,7 +60,13 @@ class ClienteRepository extends ServiceEntityRepository
             ->addSelect('c.codigoSetPruebasNominas')
             ->addSelect('c.servicioSoporte')
             ->addSelect('c.fechaSuspension');
+
+        if ($session->get('filtroSoporteClienteCodigoCliente')) {
+            $queryBuilder->andWhere("c.codigoClientePk = '{$session->get('filtroSoporteClienteCodigoCliente')}' ");
+        }
+
         $arClientes = $queryBuilder->getQuery()->getResult();
+
         return $arClientes;
     }
 

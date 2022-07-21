@@ -3,6 +3,7 @@
 namespace App\Form\Type;
 
 
+use App\Entity\Cliente;
 use App\Entity\Prioridad;
 use App\Entity\Proyecto;
 use App\Entity\Usuario;
@@ -22,6 +23,16 @@ class CasoEditarType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
+            ->add('clienteRel', EntityType::class, array(
+                'class' => Cliente::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombreCorto', 'ASC');
+                },
+                'required' => false,
+                'choice_label' => 'nombreCorto',
+                'placeholder' => 'TODOS',
+            ))
             ->add('prioridadRel', EntityType::class, array(
                 'class' => Prioridad::class,
                 'query_builder' => function (EntityRepository $er) {
