@@ -4,7 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Archivo;
 use App\Entity\Cliente;
+use App\Entity\Contacto;
 use App\Form\Type\ClienteType;
+use App\Form\Type\ContactoType;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -74,35 +76,61 @@ class ClienteController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $arCliente = $em->getRepository(Cliente::class)->find($id);
         $form = $this->createFormBuilder()
-//            ->add('btnVerificar', SubmitType::class, $arrBtnVerificar)
+            ->add('btnEliminar', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form->get('btnVerificar')->isClicked()){
-                $arCliente->setEstadoVerificado(1);
-                $em->persist($arCliente);
-                $em->flush();
+            if ($form->get('btnEliminar')->isClicked()) {
+                $arrSeleccionados = $request->request->get('ChkSeleccionar');
+                $em->getRepository(Contacto::class)-> eliminar($arrSeleccionados);
             }
-            if ($request->request->get('OpDescargar')) {
-                $codigoFichero = $request->request->get('OpDescargar');
-                $respuesta = $em->getRepository(Archivo::class)->descargar($codigoFichero);
-                if(!$respuesta['error']) {
-                    $response = new Response();
-                    $response->headers->set('Cache-Control', 'private');
-                    $response->headers->set('Content-type', $respuesta['tipo']);
-                    $response->headers->set('Content-Disposition', 'attachment; filename="' . $respuesta['nombre'] . '";');
-                    $response->headers->set('Content-length', $respuesta['tamano']);
-                    $response->sendHeaders();
-                    $response->setContent($respuesta['contenido']);
-                    return $response;
-                }
-            }
-
+//            if ($request->request->get('OpDescargar')) {
+//                $codigoFichero = $request->request->get('OpDescargar');
+//                $respuesta = $em->getRepository(Archivo::class)->descargar($codigoFichero);
+//                if(!$respuesta['error']) {
+//                    $response = new Response();
+//                    $response->headers->set('Cache-Control', 'private');
+//                    $response->headers->set('Content-type', $respuesta['tipo']);
+//                    $response->headers->set('Content-Disposition', 'attachment; filename="' . $respuesta['nombre'] . '";');
+//                    $response->headers->set('Content-length', $respuesta['tamano']);
+//                    $response->sendHeaders();
+//                    $response->setContent($respuesta['contenido']);
+//                    return $response;
+//                }
+//            }
         }
-        $arContactos = [];
+        $arContactos = $em->getRepository(Contacto::class)->lista($id);
         return $this->render('Admin/Cliente/detalle.html.twig', [
             'arCliente' => $arCliente,
             'arContactos' => $arContactos,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/admin/cliente/contacto/nuevo/{codigoClinete}/{id}", name="admin_cliente_clienta_nuevo")
+     */
+    public function detalleNuevo(Request $request, $codigoClinete, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arContacto = $em->getRepository(Contacto::class)->find($id);
+        $arCliente = $em->getRepository(Cliente::class)->find($codigoClinete);
+        if ($arContacto == null) {
+            $arContacto = new Contacto();
+            $arContacto->setClienteRel($arCliente);
+        }
+        $form = $this->createForm(ContactoType::class, $arContacto);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arContacto = $form->getData();
+                $em->persist($arContacto);
+                $em->flush();
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
+            }
+        }
+        return $this->render('Admin/Cliente/contactoNuevo.html.twig', [
+            'arContacto' => $arContacto,
             'form' => $form->createView()
         ]);
     }

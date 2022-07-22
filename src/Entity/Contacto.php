@@ -26,6 +26,11 @@ class Contacto
     private $codigoContactoTipoFk;
 
     /**
+     * @ORM\Column(name="codigo_cliente_fk", type="integer", nullable=true)
+     */
+    private $codigoClienteFk;
+
+    /**
      * @ORM\Column(name="nombre", type="string", length=200, nullable=true)
      */
     private $nombre;
@@ -50,6 +55,12 @@ class Contacto
      * @ORM\JoinColumn(name="codigo_contacto_tipo_fk", referencedColumnName="codigo_contacto_tipo_pk")
      */
     private $contactoTipoRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cliente", inversedBy="contactosClienteRel")
+     * @ORM\JoinColumn(name="codigo_cliente_fk", referencedColumnName="codigo_cliente_pk")
+     */
+    private $clienteRel;
 
     /**
      * @return mixed
@@ -161,6 +172,38 @@ class Contacto
     public function setContactoTipoRel($contactoTipoRel): void
     {
         $this->contactoTipoRel = $contactoTipoRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoClienteFk()
+    {
+        return $this->codigoClienteFk;
+    }
+
+    /**
+     * @param mixed $codigoClienteFk
+     */
+    public function setCodigoClienteFk($codigoClienteFk): void
+    {
+        $this->codigoClienteFk = $codigoClienteFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getClienteRel()
+    {
+        return $this->clienteRel;
+    }
+
+    /**
+     * @param mixed $clienteRel
+     */
+    public function setClienteRel($clienteRel): void
+    {
+        $this->clienteRel = $clienteRel;
     }
 
 

@@ -71,7 +71,7 @@ class DocumentacionController extends AbstractController
             }
 
         }
-        $arDocumentaciones = $paginator->paginate($em->getRepository(Documentacion::class)->lista(), $request->query->getInt('page', 1), 500);
+        $arDocumentaciones = $paginator->paginate($em->getRepository(Documentacion::class)->lista([]), $request->query->getInt('page', 1), 500);
         return $this->render('Soporte/Documentacion/lista.html.twig', [
             'arDocumentaciones' => $arDocumentaciones,
             'form' => $form->createView()

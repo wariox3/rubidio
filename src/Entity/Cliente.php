@@ -146,6 +146,11 @@ class Cliente
     protected $estudiosClienteRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contacto", mappedBy="clienteRel")
+     */
+    protected $contactosClienteRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoClientePk()

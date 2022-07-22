@@ -26,37 +26,29 @@
                                     <td class="td-in-well">{{ arCliente.codigoClientePk }}</td>
                                     <td class="title-bg-color">NOMBRE:</td>
                                     <td class="td-in-well">{{ arCliente.nombreCorto }}</td>
-                                    <td class="title-bg-color"></td>
-                                    <td></td>
+                                    <td class="title-bg-color">FACTURA ELECTRONICA:</td>
+                                    <td class="td-in-well">{{ arCliente.facturacionElectronica ? "SI" : "NO" }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="title-bg-color">NÚMERO IDENTIFICACIÓN: </td>
+                                    <td class="title-bg-color">NÚMERO IDENTIFICACIÓN:</td>
                                     <td class="td-in-well">{{ arCliente.nit }}</td>
-                                    <td class="title-bg-color">DIGITO VERIFICACIÓN: </td>
+                                    <td class="title-bg-color">DIGITO VERIFICACIÓN:</td>
                                     <td class="td-in-well">{{ arCliente.digitoVerificacion }}</td>
-                                    <td class="title-bg-color"></td>
-                                    <td></td>
+                                    <td class="title-bg-color">NOMINA ELECTRONICA:</td>
+                                    <td class="td-in-well">{{ arCliente.nominaElectronica  ? "SI" : "NO" }}</td>
                                 </tr>
                                 <tr>
                                     <td class="title-bg-color">TELÉFONO:</td>
                                     <td class="td-in-well">{{ arCliente.telefono }}</td>
                                     <td class="title-bg-color">DIRECCIÓN:</td>
                                     <td class="td-in-well">{{ arCliente.direccion }}</td>
-                                    <td class="title-bg-color"></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td class="title-bg-color">FACTURA ELECTRONICA:</td>
-                                    <td class="td-in-well">{{ arCliente.facturacionElectronica ? "SI" : "NO"}}</td>
-                                    <td class="title-bg-color">NOMINA ELECTRONICA: </td>
-                                    <td class="td-in-well">{{ arCliente.nominaElectronica  ? "SI" : "NO" }}</td>
-                                    <td class="title-bg-color">SERVICIO SOPORTE: </td>
+                                    <td class="title-bg-color">SERVICIO SOPORTE:</td>
                                     <td class="td-in-well">{{ arCliente.servicioSoporte  ? "SI" : "NO" }}</td>
                                 </tr>
                                 <tr>
                                     <td class="title-bg-color">SUSCRIPTOR:</td>
-                                    <td class="td-in-well">{{ arCliente.suscriptor}}</td>
-                                    <td class="title-bg-color">EMPLEADOR: </td>
+                                    <td class="td-in-well">{{ arCliente.suscriptor }}</td>
+                                    <td class="title-bg-color">EMPLEADOR:</td>
                                     <td class="td-in-well">{{ arCliente.empleador }}</td>
                                     <td class="title-bg-color"></td>
                                     <td></td>
@@ -68,36 +60,67 @@
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-md-12">
-                    <div class="single-testimonial py-0">
-                        <div class="table-responsive-sm">
-                            <table class="table table-condensed table-bordered tabla-administracion">
-                                <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Fecha</th>
-                                    <th>Nombre</th>
-                                    <th title="Tamaño">MB</th>
-                                    <th>Tipo</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for arContacto in arContactos %}
-                                    <tr>
-                                        <td>{{ arArchivo.codigoArchivoPk }}</td>
-                                        <td>{{ arArchivo.fecha | date('Y-m-d H:i') }}</td>
-                                        <td>{{ arArchivo.nombre }}</td>
-                                        <td>{{ arArchivo.tamano | number_format(2) }}</td>
-                                        <td>{{ arArchivo.tipo }}</td>
-                                        <td>
-                                            <button class="fa fa-download" type="submit" name="OpDescargar"
-                                                    value="{{ arArchivo.codigoArchivoPk }}"></button>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                <div class="col-sm-12">
+                    <div class="single-testimonial">
+                        <nav>
+                            <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
+                                <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-tarea"
+                                   role="tab"
+                                   aria-controls="nav-home" aria-selected="true">Contacto</a>
+                            </div>
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-tarea" role="tabpanel"
+                                 aria-labelledby="nav-home-tab">
+                                <div class="my-2">
+                                    <div class="d-flex justify-content-end">
+                                        {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
+                                        <a class="btnCustom"
+                                           href="javascript:abrirVentana3('{{ path('admin_cliente_clienta_nuevo', { 'codigoClinete': arCliente.codigoClientePk, 'id': 0  }) }}', 'Archivos', 800, 1250)">
+                                            Nuevo
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="my-2">
+                                    <div class="table-responsive-sm">
+                                        <table class="table table-condensed table-bordered tabla-administracion">
+                                            <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Nombre</th>
+                                                <th>Cargo</th>
+                                                <th>Correo</th>
+                                                <th>Teléfono</th>
+                                                <th>Contacto</th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for arContacto in arContactos %}
+                                                <tr>
+                                                    <td>{{ arContacto.codigoContactoPk }}</td>
+                                                    <td>{{ arContacto.nombre }}</td>
+                                                    <td>{{ arContacto.cargo }}</td>
+                                                    <td>{{ arContacto.correo }}</td>
+                                                    <td>{{ arContacto.telefono }}</td>
+                                                    <td>{{ arContacto.contactoTipo }}</td>
+                                                    <td class="text-center">
+                                                        <a href="javascript:abrirVentana3('{{ path('admin_cliente_clienta_nuevo', { 'codigoClinete': arCliente.codigoClientePk, 'id': arContacto.codigoContactoPk  }) }}', 'Archivos', 800, 1250)">
+                                                            <i class="fa fa-edit fa-2x"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox" name="ChkSeleccionar[]"
+                                                               value="{{ arContacto.codigoContactoPk }}"/>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
