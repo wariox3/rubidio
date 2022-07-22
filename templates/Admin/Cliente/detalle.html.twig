@@ -8,11 +8,10 @@
                     <div class="single-testimonial">
                         <div class="d-flex justify-content-start">
                             <a class="btnCustom" href="{{ path('admin_cliente_lista') }}">Volver <span></span></a>
-{#                            {% if arTarea.estadoTerminado == 1 and arTarea.estadoVerificado == 0 %}#}
-{#                                <a class="btnCustom"#}
-{#                                   href="javascript:abrirVentana3('{{ path('admin_tarea_devolucion', {'codigoTarea': arTarea.codigoTareaPk, 'id': 0}) }}', 'TareaDevolucion', 600, 1200)">Devolucion</a>#}
-{#                            {% endif %}#}
-{#                            {{ form_widget(form.btnVerificar, { 'attr': {'class': 'btnCustom'} }) }}#}
+                            <a class="btnCustom"
+                               href="javascript:abrirVentana3('{{ path('utilidad_archivo_lista', { 'tipo': 'cliente',  'codigo': arCliente.codigoClientePk }) }}', 'Archivos', 800, 1250)">
+                                <i class="fas fa-upload"></i> Archivos
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -84,7 +83,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for arArchivo in arArchivos %}
+                                {% for arContacto in arContactos %}
                                     <tr>
                                         <td>{{ arArchivo.codigoArchivoPk }}</td>
                                         <td>{{ arArchivo.fecha | date('Y-m-d H:i') }}</td>

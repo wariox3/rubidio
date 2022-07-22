@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="contacto")
@@ -22,18 +21,22 @@ class Contacto
     private $codigoContactoPk;
 
     /**
-     * @ORM\Column(name="fecha", type="datetime", nullable=true)
+     * @ORM\Column(name="codigo_contacto_tipo_fk", type="string", length=3, nullable=true)
      */
-    private $fecha;
+    private $codigoContactoTipoFk;
 
     /**
      * @ORM\Column(name="nombre", type="string", length=200, nullable=true)
      */
-    private $nombre ;
+    private $nombre;
+
+    /**
+     * @ORM\Column(name="cargo", type="string", length=200, nullable=true)
+     */
+    private $cargo;
 
     /**
      * @ORM\Column(name="correo", type="string", length=200, nullable=true)
-     * @Assert\Email(message = "El correo electrónico no es válido.")
      */
     private $correo;
 
@@ -43,19 +46,10 @@ class Contacto
     private $telefono;
 
     /**
-     * @ORM\Column(name="empresa", type="string", length=200, nullable=true, nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\ContactoTipo", inversedBy="contactosContactoTipoRel")
+     * @ORM\JoinColumn(name="codigo_contacto_tipo_fk", referencedColumnName="codigo_contacto_tipo_pk")
      */
-    private $empresa;
-
-    /**
-     * @ORM\Column(name="descripcion", type="text", nullable=true)
-     */
-    private $descripcion;
-
-    /**
-     * @ORM\Column(name="estado_atendido", type="boolean", nullable=true, options={"default" : false})
-     */
-    private $estadoAtendido = false;
+    private $contactoTipoRel;
 
     /**
      * @return mixed
@@ -76,17 +70,17 @@ class Contacto
     /**
      * @return mixed
      */
-    public function getFecha()
+    public function getCodigoContactoTipoFk()
     {
-        return $this->fecha;
+        return $this->codigoContactoTipoFk;
     }
 
     /**
-     * @param mixed $fecha
+     * @param mixed $codigoContactoTipoFk
      */
-    public function setFecha($fecha): void
+    public function setCodigoContactoTipoFk($codigoContactoTipoFk): void
     {
-        $this->fecha = $fecha;
+        $this->codigoContactoTipoFk = $codigoContactoTipoFk;
     }
 
     /**
@@ -103,6 +97,22 @@ class Contacto
     public function setNombre($nombre): void
     {
         $this->nombre = $nombre;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCargo()
+    {
+        return $this->cargo;
+    }
+
+    /**
+     * @param mixed $cargo
+     */
+    public function setCargo($cargo): void
+    {
+        $this->cargo = $cargo;
     }
 
     /**
@@ -140,49 +150,17 @@ class Contacto
     /**
      * @return mixed
      */
-    public function getEmpresa()
+    public function getContactoTipoRel()
     {
-        return $this->empresa;
+        return $this->contactoTipoRel;
     }
 
     /**
-     * @param mixed $empresa
+     * @param mixed $contactoTipoRel
      */
-    public function setEmpresa($empresa): void
+    public function setContactoTipoRel($contactoTipoRel): void
     {
-        $this->empresa = $empresa;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDescripcion()
-    {
-        return $this->descripcion;
-    }
-
-    /**
-     * @param mixed $descripcion
-     */
-    public function setDescripcion($descripcion): void
-    {
-        $this->descripcion = $descripcion;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isEstadoAtendido(): bool
-    {
-        return $this->estadoAtendido;
-    }
-
-    /**
-     * @param bool $estadoAtendido
-     */
-    public function setEstadoAtendido(bool $estadoAtendido): void
-    {
-        $this->estadoAtendido = $estadoAtendido;
+        $this->contactoTipoRel = $contactoTipoRel;
     }
 
 

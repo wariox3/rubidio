@@ -5,7 +5,7 @@ namespace App\Controller\Pagina;
 use App\Entity\Error;
 use App\Entity\Soporte;
 use App\Entity\Usuario;
-use App\Form\Type\ContactoType;
+use App\Form\Type\ContactoSitioType;
 use App\Form\Type\SoporteExternoType;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;

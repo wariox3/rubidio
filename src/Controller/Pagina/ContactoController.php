@@ -2,11 +2,11 @@
 
 namespace App\Controller\Pagina;
 
-use App\Entity\Contacto;
+use App\Entity\ContactoSitio;
 use App\Entity\Error;
 use App\Entity\Soporte;
 use App\Entity\Usuario;
-use App\Form\Type\ContactoType;
+use App\Form\Type\ContactoSitioType;
 use App\Form\Type\SoporteExternoType;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
@@ -29,9 +29,9 @@ class ContactoController extends AbstractController
      */
     public function contacto(Request $request, ManagerRegistry $doctrine, Dubnio $dubnio): Response {
         $em = $doctrine->getManager();
-        $arContacto = new Contacto();
+        $arContacto = new ContactoSitio();
         $arContacto->setFecha(new \DateTime('now'));
-        $form = $this->createForm(ContactoType::class, $arContacto);
+        $form = $this->createForm(ContactoSitioType::class, $arContacto);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
@@ -40,7 +40,7 @@ class ContactoController extends AbstractController
                 $em->flush();
                 $html = "Un cliente se ha comunicado con nosotros nombre: {$arContacto->getNombre()} empresa: {$arContacto->getEmpresa()}";
                 $dubnio->enviarCorreo("maestradaz3@gmail.com", "Se han contactado con semantica", $html);
-                return $this->redirectToRoute('contacto_informacion', ['id' => $arContacto->getCodigoContactoPk()]);
+                return $this->redirectToRoute('contacto_informacion', ['id' => $arContacto->getCodigoContactoSitioPk()]);
             }
         }
         return $this->render('Pagina/Contacto/contacto.html.twig', [
