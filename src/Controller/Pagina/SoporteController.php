@@ -314,6 +314,20 @@ class SoporteController extends AbstractController
                     $raw['filtros']['modulo'] = $arModulo;
                 }
             }
+            if ($request->request->get('OpDescargarRecurso')) {
+                $codigoDescargar = $request->request->get('OpDescargarRecurso');
+                $respuesta = $em->getRepository(Archivo::class)->descargar($codigoDescargar);
+                if(!$respuesta['error']) {
+                    $response = new Response();
+                    $response->headers->set('Cache-Control', 'private');
+                    $response->headers->set('Content-type', $respuesta['tipo']);
+                    $response->headers->set('Content-Disposition', 'attachment; filename="' . $respuesta['nombre'] . '";');
+                    $response->headers->set('Content-length', $respuesta['tamano']);
+                    $response->sendHeaders();
+                    $response->setContent($respuesta['contenido']);
+                    return $response;
+                }
+            }
         }
         $arDocumentaciones = $paginator->paginate($em->getRepository(Documentacion::class)->lista($raw), $request->query->getInt('page', 1), 100);
         $arRecursos = $em->getRepository(Recurso::class)->lista();
