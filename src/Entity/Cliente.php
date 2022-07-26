@@ -116,6 +116,16 @@ class Cliente
     private $fechaSuspension;
 
     /**
+     * @ORM\Column(name="punto_servicio", type="string", length=200, nullable=true)
+     */
+    private $puntoServicio;
+
+    /**
+     * @ORM\Column(name="punto_servicio_token", type="string", length=200, nullable=true)
+     */
+    private $puntoServicioToken;
+
+    /**
      * @ORM\OneToMany(targetEntity="Caso", mappedBy="clienteRel")
      */
     protected $casosClienteRel;
@@ -564,6 +574,54 @@ class Cliente
     public function setEstudiosClienteRel($estudiosClienteRel): void
     {
         $this->estudiosClienteRel = $estudiosClienteRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPuntoServicio()
+    {
+        return $this->puntoServicio;
+    }
+
+    /**
+     * @param mixed $puntoServicio
+     */
+    public function setPuntoServicio($puntoServicio): void
+    {
+        $this->puntoServicio = $puntoServicio;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPuntoServicioToken()
+    {
+        return $this->puntoServicioToken;
+    }
+
+    /**
+     * @param mixed $puntoServicioToken
+     */
+    public function setPuntoServicioToken($puntoServicioToken): void
+    {
+        $this->puntoServicioToken = $puntoServicioToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContactosClienteRel()
+    {
+        return $this->contactosClienteRel;
+    }
+
+    /**
+     * @param mixed $contactosClienteRel
+     */
+    public function setContactosClienteRel($contactosClienteRel): void
+    {
+        $this->contactosClienteRel = $contactosClienteRel;
     }
 
 

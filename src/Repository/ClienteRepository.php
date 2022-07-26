@@ -129,4 +129,23 @@ class ClienteRepository extends ServiceEntityRepository
             ];
         }
     }
+
+    public function apiConectarServicio($codigoCliente)
+    {
+        $em = $this->getEntityManager();
+        $arCliente = $em->getRepository(Cliente::class)->find($codigoCliente);
+        if ($arCliente) {
+            return [
+                'error' => false,
+                'nombre' => $arCliente->getNombreCorto(),
+                'puntoServicio' => $arCliente->getPuntoServicio(),
+                'puntoServicioToken' => $arCliente->getPuntoServicioToken()
+            ];
+        } else {
+            return [
+                'error' => true,
+                'errorMensaje' => "No existe el operador"
+            ];
+        }
+    }
 }
