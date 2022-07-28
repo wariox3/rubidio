@@ -31,10 +31,32 @@ class FormatoEstudio extends \FPDF
 
     public function Body($pdf)
     {
-        $pdf->Image('../public/imagenes/logoSemantica.jpg', 150, 13, 40, 25, 'JPG');
+
+        $fecha = new \DateTime('now');
+        $pdf->Image('../public/imagenes/logoSemantica.jpg', 20, 13, 40, 25, 'JPG');
+        $pdf->SetXY(110, 13);
+        $pdf->SetFont('Arial', '', 12);
+        $pdf->Cell(80, 4, utf8_decode("OPERACIÓN"), 0, 0, 'R', 0);
+        $pdf->SetXY(110, 18);
+        $pdf->SetFont('Arial', 'B', 14);
+        $pdf->Cell(80, 4, utf8_decode("USUARIO PORTAL AUTOGESTIÓN"), 0, 0, 'R', 0);
+        $pdf->SetXY(110, 22);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(40, 4, utf8_decode("Código: SD-OP-0001"  ), 0, 0, 'C', 0);
+        $pdf->Cell(40, 4, utf8_decode("Versión: 001"  ), 0, 0, 'R', 0);
+        $pdf->SetXY(110, 26);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(40, 4, utf8_decode("Tipo Doc: Formato"  ), 0, 0, 'C', 0);
+        $pdf->Cell(40, 4, utf8_decode("Fecha: {$fecha->format('Y-m-d')}"  ), 0, 0, 'R', 0);
+        $pdf->SetXY(110, 30);
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->Cell(40, 4, utf8_decode("Clasificación: interna"  ), 0, 0, 'C', 0);
+        $pagina = "Página {$pdf->PageNo()}";
+        $pdf->Cell(40, 4, utf8_decode($pagina), 0, 0, 'R', 0);
+
         $arEstudio = self::$em->getRepository(Estudio::class)->imprimir(self::$codigoEstudio);
         $ejeX = 20;
-        $ejeY = 30;
+        $ejeY = 50;
         $pdf->SetFont('Arial', '', 12);
         $pdf->Text($ejeX, $ejeY, utf8_decode("Medellín, Antioquia {$arEstudio['fecha']->format('M j \d\e Y')}"));
         $ejeY += 10;
