@@ -35,22 +35,20 @@ class FormatoEstudio extends \FPDF
         $fecha = new \DateTime('now');
         $pdf->Image('../public/imagenes/logoSemantica.jpg', 20, 13, 40, 25, 'JPG');
         $pdf->SetXY(110, 13);
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(80, 4, utf8_decode("OPERACIÓN"), 0, 0, 'R', 0);
-        $pdf->SetXY(110, 18);
-        $pdf->SetFont('Arial', 'B', 14);
-        $pdf->Cell(80, 4, utf8_decode("USUARIO PORTAL AUTOGESTIÓN"), 0, 0, 'R', 0);
-        $pdf->SetXY(110, 22);
         $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(40, 4, utf8_decode("Código: SD-OP-0001"  ), 0, 0, 'C', 0);
+        $pdf->Cell(80, 4, utf8_decode("COMERCIAL"), 0, 0, 'R', 0);
+        $pdf->SetXY(110, 18);
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(80, 4, utf8_decode("ESTUDIO FUNCIONALIDAD"), 0, 0, 'R', 0);
+        $pdf->SetXY(110, 22);
+        $pdf->SetFont('Arial', '', 8);
+        $pdf->Cell(40, 4, utf8_decode("Código: SD-CM-0002"  ), 0, 0, 'L', 0);
         $pdf->Cell(40, 4, utf8_decode("Versión: 001"  ), 0, 0, 'R', 0);
         $pdf->SetXY(110, 26);
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(40, 4, utf8_decode("Tipo Doc: Formato"  ), 0, 0, 'C', 0);
+        $pdf->Cell(40, 4, utf8_decode("Tipo Doc: Formato"  ), 0, 0, 'L', 0);
         $pdf->Cell(40, 4, utf8_decode("Fecha: {$fecha->format('Y-m-d')}"  ), 0, 0, 'R', 0);
         $pdf->SetXY(110, 30);
-        $pdf->SetFont('Arial', '', 10);
-        $pdf->Cell(40, 4, utf8_decode("Clasificación: interna"  ), 0, 0, 'C', 0);
+        $pdf->Cell(40, 4, utf8_decode("Clasificación: interna"  ), 0, 0, 'L', 0);
         $pagina = "Página {$pdf->PageNo()}";
         $pdf->Cell(40, 4, utf8_decode($pagina), 0, 0, 'R', 0);
 
@@ -86,7 +84,7 @@ class FormatoEstudio extends \FPDF
         $ejeY += 35;
         $pdf->SetXY($ejeX, $ejeY);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(168, 5, utf8_decode("Con la firma de este documento el cliente garantiza que es viable y factible implementar el Software. No olvide revisar los compromisos de las partes ya que serán parte integral del contrato de implementacion. Las caracteristicas tecnicas en detalle las puede encontrar en www.semantica.com.co"), 0, 'J', false);
+        $pdf->MultiCell(168, 5, utf8_decode("Con la firma de este documento el cliente garantiza que es viable y factible implementar nuestros productos. No olvide revisar los compromisos de las partes ya que serán parte integral del contrato de implementacion. Las caracteristicas tecnicas en detalle las puede encontrar en www.semantica.com.co"), 0, 'J', false);
 
         $ejeY += 40;
         $pdf->Text($ejeX, $ejeY, "Atentamente.");
