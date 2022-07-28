@@ -26,10 +26,12 @@ class EstudioType extends AbstractType {
                         ->orderBy('c.nombreCorto', 'ASC');
                 },
                 'choice_label' => 'nombreCorto',
-                'required' => true,
+                'placeholder' => 'TODOS',
+                'required' => false,
             ))
             ->add('fecha', DateType::class, ['widget' => 'single_text'])
             ->add('responsable', TextType::class, array('required' => true))
+            ->add('empresa', TextType::class, array('required' => true))
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));
     }
     public function configureOptions(OptionsResolver $resolver)

@@ -36,6 +36,11 @@ class Estudio
     private $responsable;
 
     /**
+     * @ORM\Column(name="empresa", type="string", length=200)
+     */
+    private $empresa;
+
+    /**
      * @ORM\Column(name="estado_terminado", type="boolean", nullable=true, options={"default" : false})
      */
     private $estadoTerminado = false;
@@ -161,6 +166,22 @@ class Estudio
     public function setResponsable($responsable): void
     {
         $this->responsable = $responsable;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmpresa()
+    {
+        return $this->empresa;
+    }
+
+    /**
+     * @param mixed $empresa
+     */
+    public function setEmpresa($empresa): void
+    {
+        $this->empresa = $empresa;
     }
 
 
