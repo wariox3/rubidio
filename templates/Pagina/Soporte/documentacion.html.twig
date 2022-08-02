@@ -97,7 +97,7 @@
                                     <th>Fecha</th>
                                     <th>Titulo</th>
                                     <th>Autor</th>
-                                    <th></th>
+{#                                    <th></th>#}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -105,12 +105,12 @@
                                     <tr>
                                         <td>{{ arRecurso.codigoRecursoPk }}</td>
                                         <td>{{ arRecurso.moduloNombre }}</td>
-                                        <td>{{ arRecurso.fecha | date('Y-m-d') }}</td>
+{#                                        <td>{{ arRecurso.fecha | date('Y-m-d') }}</td>#}
                                         <td>{{ arRecurso.titulo }}</td>
                                         <td>{{ arRecurso.autor }}</td>
-                                        <td style="text-align: center">
-                                            <a href="{{ arRecurso.url }}">Descargar</a>
-                                        </td>
+{#                                        <td style="text-align: center">#}
+{#                                            <a href="{{ arRecurso.url }}">Descargar</a>#}
+{#                                        </td>#}
                                     </tr>
                                 {% endfor %}
                                 </tbody>
