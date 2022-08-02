@@ -71,6 +71,11 @@ class Soporte
     private $solucion;
 
     /**
+     * @ORM\Column(name="solucion_cliente", type="text", nullable=true)
+     */
+    private $solucionCliente;
+
+    /**
      * @ORM\Column(name="cliente_ingreso", type="string", length=200, nullable=true)
      */
     private $clienteIngreso;
@@ -351,6 +356,22 @@ class Soporte
     public function setModuloRel($moduloRel): void
     {
         $this->moduloRel = $moduloRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSolucionCliente()
+    {
+        return $this->solucionCliente;
+    }
+
+    /**
+     * @param mixed $solucionCliente
+     */
+    public function setSolucionCliente($solucionCliente): void
+    {
+        $this->solucionCliente = $solucionCliente;
     }
 
 

@@ -21,6 +21,7 @@ class SoporteSolucionType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('solucion', TextareaType::class, array('required' => true))
+            ->add('solucionCliente', TextareaType::class, array('required' => true))
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));
     }
 
