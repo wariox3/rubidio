@@ -273,24 +273,7 @@ class SoporteController extends AbstractController
     {
         $raw = [];
         $em = $this->getDoctrine()->getManager();
-//        $arrModulos = [
-//            'Todos' => null,
-//            'Cartera' => 'Cartera',
-//            'Crm' => 'CRM',
-//            'Documental' => 'Documental',
-//            'Financiero' => 'Fiannciero',
-//            'General' => 'General',
-//            'INV' => 'Inventario',
-//            'RecursoHumano' => 'RecursoHumano',
-//            'Seguridad' => 'Seguridad',
-//            'TES' => 'Tesoreria',
-//            'Transporte' => 'Transporte',
-//            'Turno' => 'Turno',
-//            'VEN' => 'Venta',
-//            'COM' => 'Compra'
-//        ];
         $form = $this->createFormBuilder()
-//            ->add('modulo', ChoiceType::class, ['choices' => $arrModulos, 'required' => false, 'data' => $arrModulos ? $arrModulos : null])
             ->add('modulo', EntityType::class, array(
                 'class' => Modulo::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -314,20 +297,20 @@ class SoporteController extends AbstractController
                     $raw['filtros']['modulo'] = $arModulo;
                 }
             }
-//            if ($request->request->get('OpDescargarRecurso')) {
-//                $codigoDescargar = $request->request->get('OpDescargarRecurso');
-//                $respuesta = $em->getRepository(Archivo::class)->descargar($codigoDescargar);
-//                if(!$respuesta['error']) {
-//                    $response = new Response();
-//                    $response->headers->set('Cache-Control', 'private');
-//                    $response->headers->set('Content-type', $respuesta['tipo']);
-//                    $response->headers->set('Content-Disposition', 'attachment; filename="' . $respuesta['nombre'] . '";');
-//                    $response->headers->set('Content-length', $respuesta['tamano']);
-//                    $response->sendHeaders();
-//                    $response->setContent($respuesta['contenido']);
-//                    return $response;
-//                }
-//            }
+            if ($request->request->get('OpDescargarRecurso')) {
+                $codigoDescargar = $request->request->get('OpDescargarRecurso');
+                $respuesta = $em->getRepository(Archivo::class)->descargar($codigoDescargar);
+                if(!$respuesta['error']) {
+                    $response = new Response();
+                    $response->headers->set('Cache-Control', 'private');
+                    $response->headers->set('Content-type', $respuesta['tipo']);
+                    $response->headers->set('Content-Disposition', 'attachment; filename="' . $respuesta['nombre'] . '";');
+                    $response->headers->set('Content-length', $respuesta['tamano']);
+                    $response->sendHeaders();
+                    $response->setContent($respuesta['contenido']);
+                    return $response;
+                }
+            }
         }
         $arDocumentaciones = $paginator->paginate($em->getRepository(Documentacion::class)->lista($raw), $request->query->getInt('page', 1), 100);
         $arRecursos = $em->getRepository(Recurso::class)->lista();
