@@ -103,40 +103,39 @@ class FormatoEstudio extends \FPDF
         $ejeY +=5;
         $pdf->SetXY($ejeX, $ejeY);
         $pdf->Text(20, $ejeY, utf8_decode("investigacion@semantica.com.co"));
-
+        $altoCelda =4;
         $arEstudioDetalles = self::$em->getRepository(EstudioDetalle::class)->imprimirEstudio(self::$codigoEstudio);
         foreach ($arEstudioDetalles as $arEstudioDetalle){
             $pdf->AddPage();
 
-
-            $pdf->SetFont('Arial', 'B', 16);
-            $pdf->SetY(20);
-            $pdf->Cell(184, 4, strtoupper($arEstudioDetalle['moduloNombre']), 0, 0, 'C', 0);
+            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->SetXY(20, 20);
+            $pdf->Cell(184, 4, strtoupper($arEstudioDetalle['moduloNombre']), 0, 0, 'L', 0);
             $pdf->Ln();
 
             $pdf->SetFillColor(200, 200, 200);
             $pdf->SetTextColor(0);
             $pdf->SetDrawColor(0, 0, 0);
             $pdf->SetLineWidth(.2);
-            $pdf->SetFont('Arial', 'B', 12);
+            $pdf->SetFont('Arial', 'B', 10);
             $pdf->SetXY(20,30);
-            $pdf->Cell(150, 6, utf8_decode("FUNCIONALIDAD"), 1, 0, 'C', 1);
-            $pdf->Cell(24, 6, utf8_decode("REVISADO"), 1, 0, 'C', 1);
+            $pdf->Cell(150, $altoCelda, utf8_decode("FUNCIONALIDAD"), 1, 0, 'C', 1);
+            $pdf->Cell(24, $altoCelda, utf8_decode("REVISADO"), 1, 0, 'C', 1);
             $pdf->Ln();
             $pdf->SetX(20);
-            $pdf->Cell(50, 6, utf8_decode("Funcion"), 1, 0, 'C', 1);
-            $pdf->Cell(100, 6, utf8_decode("Caracteristica"), 1, 0, 'C', 1);
-            $pdf->Cell(12, 6, utf8_decode("SI"), 1, 0, 'C', 1);
-            $pdf->Cell(12, 6, utf8_decode("NO"), 1, 0, 'C', 1);
+            $pdf->Cell(50, $altoCelda, utf8_decode("Funcion"), 1, 0, 'C', 1);
+            $pdf->Cell(100, $altoCelda, utf8_decode("Caracteristica"), 1, 0, 'C', 1);
+            $pdf->Cell(12, $altoCelda, utf8_decode("SI"), 1, 0, 'C', 1);
+            $pdf->Cell(12, $altoCelda, utf8_decode("NO"), 1, 0, 'C', 1);
             $pdf->Ln();
-            $pdf->SetFont('Arial', '', 12);
+            $pdf->SetFont('Arial', '', 8);
             $arFuncionalidades = self::$em->getRepository(Funcionalidad::class)->imprimirEstudio($arEstudioDetalle['codigoModuloFk']);
             foreach ($arFuncionalidades as $arFuncionalidad) {
                 $pdf->SetX(20);
-                $pdf->Cell(50, 6, utf8_decode($arFuncionalidad['codigoFuncionFk']), 1, 0, 'L', 0);
-                $pdf->Cell(100, 6, utf8_decode($arFuncionalidad['nombre']), 1, 0, 'L', 0);
-                $pdf->Cell(12, 6, '', 1, 0, 'C', 0);
-                $pdf->Cell(12, 6, '', 1, 0, 'C', 0);
+                $pdf->Cell(50, $altoCelda, utf8_decode($arFuncionalidad['codigoFuncionFk']), 1, 0, 'L', 0);
+                $pdf->Cell(100, $altoCelda, utf8_decode($arFuncionalidad['nombre']), 1, 0, 'L', 0);
+                $pdf->Cell(12, $altoCelda, '', 1, 0, 'C', 0);
+                $pdf->Cell(12, $altoCelda, '', 1, 0, 'C', 0);
                 $pdf->Ln();
             }
             $pdf->Ln(20);
@@ -146,33 +145,35 @@ class FormatoEstudio extends \FPDF
             $pdf->SetTextColor(0);
             $pdf->SetDrawColor(0, 0, 0);
             $pdf->SetLineWidth(.2);
-            $pdf->SetFont('Arial', 'B', 12);
+            $pdf->SetFont('Arial', 'B', 10);
             $pdf->SetX(20);
-            $pdf->Cell(150, 6, utf8_decode("REQUISITOS"), 1, 0, 'C', 1);
-            $pdf->Cell(24, 6, utf8_decode("REVISADO"), 1, 0, 'C', 1);
+            $pdf->Cell(150, $altoCelda, utf8_decode("REQUISITOS"), 1, 0, 'C', 1);
+            $pdf->Cell(24, $altoCelda, utf8_decode("REVISADO"), 1, 0, 'C', 1);
             $pdf->Ln();
             $pdf->SetX(20);
-            $pdf->Cell(150, 6, utf8_decode(""), 1, 0, 'C', 1);
-            $pdf->Cell(12, 6, utf8_decode("SI"), 1, 0, 'C', 1);
-            $pdf->Cell(12, 6, utf8_decode("NO"), 1, 0, 'C', 1);
+            $pdf->Cell(150, $altoCelda, utf8_decode(""), 1, 0, 'C', 1);
+            $pdf->Cell(12, $altoCelda, utf8_decode("SI"), 1, 0, 'C', 1);
+            $pdf->Cell(12, $altoCelda, utf8_decode("NO"), 1, 0, 'C', 1);
             $pdf->Ln();
-            $pdf->SetFont('Arial', '', 12);
+            $pdf->SetFont('Arial', '', 8);
             $arFuncionalidades = self::$em->getRepository(Requisito::class)->imprimirEstudio($arEstudioDetalle['codigoModuloFk']);
             foreach ($arFuncionalidades as $arFuncionalidad) {
                 $pdf->SetX(20);
-                $pdf->Cell(150, 6, utf8_decode($arFuncionalidad['nombre']), 1, 0, 'L', 0);
-                $pdf->Cell(12, 6, '', 1, 0, 'C', 0);
-                $pdf->Cell(12, 6, '', 1, 0, 'C', 0);
+                $pdf->Cell(150, $altoCelda, utf8_decode($arFuncionalidad['nombre']), 1, 0, 'L', 0);
+                $pdf->Cell(12, $altoCelda, '', 1, 0, 'C', 0);
+                $pdf->Cell(12, $altoCelda, '', 1, 0, 'C', 0);
                 $pdf->Ln();
             }
 
             $pdf->Ln(30);
             $pdf->SetFillColor(255, 255, 255);
             $pdf->SetX(20);
-            $pdf->Cell(120, 6, utf8_decode("FIRMA RESPONSABLE VALIDACION"), 'T', 0, 'L', 1);
+            $pdf->SetFont('Arial', '', 10);
+            $pdf->Cell(120, 4, utf8_decode("FIRMA RESPONSABLE VALIDACION"), 'T', 0, 'L', 1);
             $pdf->Ln();
             $pdf->SetX(20);
-            $pdf->Cell(120, 6, utf8_decode($arEstudioDetalle['responsable']), 0, 0, 'L', 1);
+            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->Cell(120, 4, utf8_decode($arEstudioDetalle['responsable']), 0, 0, 'L', 1);
 
 
         }

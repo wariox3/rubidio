@@ -21,6 +21,7 @@ class EstudioRepository extends ServiceEntityRepository
             ->addSelect('e.fecha')
             ->addSelect('e.responsable')
             ->addSelect('e.estadoTerminado')
+            ->addSelect('e.empresa')
             ->addSelect('c.nombreCorto as clienteNombreCorto')
             ->leftJoin('e.clienteRel', 'c')
             ->orderBy('e.codigoEstudioPk', 'DESC');
