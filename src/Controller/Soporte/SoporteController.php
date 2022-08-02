@@ -4,12 +4,14 @@ namespace App\Controller\Soporte;
 
 use App\Entity\Archivo;
 use App\Entity\Cliente;
+use App\Entity\Modulo;
 use App\Entity\Soporte;
 use App\Form\Type\SoporteSolucionType;
 use App\Form\Type\SoporteType;
 use App\Utilidades\Dubnio;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -37,7 +39,7 @@ class SoporteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
                 $arSoporte = $form->getData();
-                if($id == 0) {
+                if ($id == 0) {
                     $arSoporte->setFecha(new \DateTime('now'));
                 }
                 $em->persist($arSoporte);
@@ -56,7 +58,8 @@ class SoporteController extends AbstractController
     /**
      * @Route("/soporte/soporte/lista", name="soporte_soporte_lista")
      */
-    public function lista(Request $request,  PaginatorInterface $paginator) {
+    public function lista(Request $request, PaginatorInterface $paginator)
+    {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $arrayPropiedadesCliente = array(
@@ -80,6 +83,19 @@ class SoporteController extends AbstractController
 
         $form = $this->createFormBuilder()
             ->add('clienteRel', EntityType::class, $arrayPropiedadesCliente)
+            ->add('moduloRel', EntityType::class, array(
+                'class' => Modulo::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+                },
+                'choice_label' => 'nombre',
+                'required' => false,
+                'placeholder' => "TODOS",
+
+            ))
+            ->add('codigo', TextType::class, ['data' => $session->get('filtroSoporteCodigo'), 'required' => false])
+
             ->add('estadoAtendido', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroSoporteEstadoAtendido'), 'required' => false])
             ->add('estadoSolucionado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroSoporteEstadoSolucionado'), 'required' => false])
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
@@ -89,11 +105,20 @@ class SoporteController extends AbstractController
             if ($form->get('btnFiltrar')->isClicked()) {
                 $session->set('filtroSoporteEstadoAtendido', $form->get('estadoAtendido')->getData());
                 $session->set('filtroSoporteEstadoSolucionado', $form->get('estadoSolucionado')->getData());
+                $session->set('filtroSoporteCodigo', $form->get('codigo')->getData());
+
                 $arCliente = $form->get('clienteRel')->getData();
                 if ($arCliente) {
                     $session->set('filtroSoporteCodigoCliente', $arCliente->getCodigoClientePk());
                 } else {
                     $session->set('filtroSoporteCodigoCliente', null);
+                }
+
+                $arModulo = $form->get('moduloRel')->getData();
+                if ($arModulo) {
+                    $session->set('filtroSoporteModulo', $arModulo->getCodigoModuloPk());
+                } else {
+                    $session->set('filtroSoporteModulo', null);
                 }
             }
             if ($request->request->get('OpAtender')) {
@@ -126,7 +151,7 @@ class SoporteController extends AbstractController
             if ($request->request->get('OpDescargar')) {
                 $codigoFichero = $request->request->get('OpDescargar');
                 $respuesta = $em->getRepository(Archivo::class)->descargar($codigoFichero);
-                if(!$respuesta['error']) {
+                if (!$respuesta['error']) {
                     $response = new Response();
                     $response->headers->set('Cache-Control', 'private');
                     $response->headers->set('Content-type', $respuesta['tipo']);
@@ -163,7 +188,7 @@ class SoporteController extends AbstractController
                 $arSoporte->setEstadoSolucionado(1);
                 $em->persist($arSoporte);
                 $em->flush();
-                if($arSoporte->getCorreo()) {
+                if ($arSoporte->getCorreo()) {
                     $respuesta = $correo->enviarCorreo($arSoporte->getCorreo(), 'Atencion a solicitud de soporte' . ' - ' . $arSoporte->getCodigoSoportePk(),
                         $this->renderView(
                             'Soporte/Soporte/correoSolucion.html.twig',

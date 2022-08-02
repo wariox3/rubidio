@@ -41,6 +41,14 @@ class SoporteRepository extends ServiceEntityRepository
             $queryBuilder->andWhere('s.codigoClienteFk=' . $session->get('filtroSoporteCodigoCliente'));
         }
 
+        if ($session->get('filtroSoporteModulo')) {
+            $queryBuilder->andWhere("s.codigoModuloFk = '{$session->get('filtroSoporteModulo')}' ");
+        }
+
+        if ($session->get('filtroSoporteCodigo')) {
+            $queryBuilder->andWhere('s.codigoSoportePk = ' . $session->get('filtroSoporteCodigo'));
+        }
+
         switch ($session->get('filtroSoporteEstadoAtendido')) {
             case '0':
                 $queryBuilder->andWhere("s.estadoAtendido = 0");
