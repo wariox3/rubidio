@@ -19,6 +19,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,8 +72,22 @@ class SoporteController extends AbstractController
         $em = $doctrine->getManager();
         $arSoporte = new Soporte();
         $arSoporte->setFecha(new \DateTime('now'));
+        $arSoporteConsultado = null;
         $form = $this->createForm(SoporteExternoType::class, $arSoporte);
         $form->handleRequest($request);
+        $formBuscar = $this->createFormBuilder()
+            ->add('codigoSoporte', TextType::class, array('required' => false))
+            ->add('buscar', SubmitType::class)
+            ->getForm();
+        $formBuscar->handleRequest($request);
+        if ($formBuscar->isSubmitted() && $formBuscar->isValid()) {
+            if ($formBuscar->get('buscar')->isClicked()) {
+                $codigoSoporte = $formBuscar->get('codigoSoporte')->getData();
+                if($codigoSoporte){
+                    $arSoporteConsultado = $em->getRepository(Soporte::class)->find($codigoSoporte);
+                }
+            }
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
                 $arSoporte = $form->getData();
@@ -95,7 +110,10 @@ class SoporteController extends AbstractController
             }
         }
         return $this->render('Pagina/Soporte/comoSeHace.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'formBuscar' => $formBuscar->createView(),
+            'arSoporte'=> $arSoporte,
+            'arSoporteConsultado' => $arSoporteConsultado
         ]);
     }
 
@@ -321,7 +339,7 @@ class SoporteController extends AbstractController
             if ($request->request->get('OpDescargarRecurso')) {
                 $codigoDescargar = $request->request->get('OpDescargarRecurso');
                 $respuesta = $em->getRepository(Archivo::class)->descargar($codigoDescargar);
-                if(!$respuesta['error']) {
+                if (!$respuesta['error']) {
                     $response = new Response();
                     $response->headers->set('Cache-Control', 'private');
                     $response->headers->set('Content-type', $respuesta['tipo']);
