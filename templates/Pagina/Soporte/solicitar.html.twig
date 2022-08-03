@@ -7,11 +7,11 @@
             <div class="d-table-cell">
                 <div class="container">
                     <div class="page-title-content">
-                        <h2>Soporte personalizado</h2>
+                        <h2>Solicitar productos y servicios</h2>
                         <ul>
-                            <li><a href="{{ path('inicio') }}">Soporte</a>
+                            <li><a href="{{ path('soporte') }}">Soporte</a>
                             </li>
-                            <li>Solicitar soporte personalizado</li>
+                            <li>Solicitud </li>
                         </ul>
                     </div>
                 </div>
@@ -19,6 +19,27 @@
         </div>
     </div>
     <!-- End Page Title Area -->
+
+    <!-- Start Services Details Area -->
+    <section class="services-details-area ptb-100">
+        <div class="container">
+            <div class="services-details-overview">
+                <div class="row align-items-center">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="services-step-wrapper">
+                            <div class="services-step-title">
+                                <h2>Solicitar productos y servicios nuevos y adicionales</h2>
+                            </div>
+                            <div class="services-step-content">
+                                <p>En la dinámica comercial se pueden solicitar productos y servicios, nuevos y existentes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Services Details Area -->
 
     <!-- Start Contact Section -->
     <div class="contact-section section-padding">
@@ -110,7 +131,7 @@
                         </div>
                         <div class="d-flex align-content-center ">
                             {{ form_widget(form.guardar, { 'attr': {'class': 'btnCustom'} }) }}
-                            <a href="{{ path('soporte_comosehace') }}" class="default-btn-one">
+                            <a href="{{ path('soporte') }}" class="default-btn-one">
                                 Regresar
                                 <span></span>
                             </a>

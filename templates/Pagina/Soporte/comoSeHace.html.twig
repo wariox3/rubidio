@@ -20,71 +20,135 @@
     </div>
     <!-- End Page Title Area -->
 
-    <!-- Start Faq Section -->
-    <section class="faq-section section-padding">
+    <!-- Start Services Details Area -->
+    <section class="services-details-area ptb-100">
+        <div class="container">
+            <div class="services-details-overview">
+                <div class="row align-items-center">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="services-step-wrapper">
+                            <div class="services-step-title">
+                                <h2>¿Como se hace?</h2>
+                            </div>
+                            <div class="services-step-content">
+                                <p>En el uso del sistema y sus funcionalidades, los usuarios pueden tener dudas en su proceso de aprendizaje,
+                                    requerir asesorías y acompañamiento para el desempeño de sus funciones. Nuestro equipo de soporte está
+                                    atento para atender cualquier situación de conocimiento sobre nuestro producto...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <a href="{{ path('soporte_asesor_detalle', {'id':0} ) }}" class="default-btn-one">
+                Consultar soporte existente
+                <span></span>
+            </a>
+        </div>
+    </section>
+    <!-- End Services Details Area -->
+
+    <!-- Start Contact Section -->
+    <div class="contact-section section-padding">
         <div class="container">
             <div class="row">
-                <div class="col-lg-10 offset-lg-1">
-                    <div class="faq-accordion">
-                        <ul class="accordion">
-                            <li class="accordion-item">
-                                <a class="accordion-title active" href="javascript:void(0)"> <i class="fa fa-caret-down"></i>
-                                    Como ingresar a Semantica ERP?</a>
-                                <p class="accordion-content show">
-                                    Ingresa la URL en tu navegador preferido, “nombreempresa.semantica.com.co” luego en “Username” registra el nombre o número de usuario,
-                                    según como se haya creado en el sistema, en “Password” digita la contraseña registrada correspondiente al usuario y
-                                    por último dar clic en “inicio seguro”
-                                </p>
-                            </li>
-                            <li class="accordion-item">
-                                <a class="accordion-title" href="javascript:void(0)"> <i class="fa fa-caret-down"></i>
-                                    Como crear una programacion de nomina?</a>
-                                <p class="accordion-content">
-                                    Primero ingresamos al ERP, vamos a la ruta: Recurso humano/movimiento/nómina/programación. Dar clic al botón “nuevo” y diligenciar la información correspondiente (en el boton de ayuda puede encontrar cada campo y un video instructivo).
-                                    Guardamos la informacion principal y la aplicacion nos lleva al detalle, allí se debe dar clic en el botón cargar contratos (Cuando la nómina es grupo administrativo) y se cargan todos los empleados o "Cargar soporte" (cuando la nómina es grupo operativo),
-                                    luego se debe "Autorizar" para que se carguen los valores que se le va a pagar al empleado. Importante: (Si se realiza alguna corrección, se debe "Desautorizar" y "Autorizar" de nuevo para que tome la actualización) luego, cuando ya se haya revisado que todo está correcto, clic en "Aprobar".</p>
-                            </li>
-                            <li class="accordion-item">
-                                <a class="accordion-title" href="javascript:void(0)"> <i class="fa fa-caret-down"></i>
-                                    Como se genera un informe de pagos de nomina?</a>
-                                <p class="accordion-content">La ruta es: Recurso humano/informe/nómina/pago detalle,
-                                    realizar los filtros requeridos y extraer la informacion por los diferentes mecanismos (excel/pdf).</p>
-                            </li>
-                        </ul>
+                <div class="col-lg-4 col-md-12">
+                    <div class="contact-information-box-3">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="single-contact-info-box">
+                                    <div class="contact-info">
+                                        <h6>Direccion:</h6>
+                                        <p>Cll 34 Nro 66 A 33 Ofc 201, Conquistadores</p>
+                                        <p>Medellin, Antioquia - Colombia</p>
+                                    </div>
+                                    <div class="contact-info-bg-icon">
+                                        <i class="pe-7s-map-marker"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="single-contact-info-box">
+                                    <div class="contact-info">
+                                        <h6>Horarios:</h6>
+                                        <p>Lunes - Viernes</p>
+                                        <p>08:00 a 12:00</p>
+                                        <p>13:00 a 17:00</p>
+                                    </div>
+                                    <div class="contact-info-bg-icon">
+                                        <i class="pe-7s-call"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="single-contact-info-box">
+                                    <div class="contact-info">
+                                        <h6>Correo:</h6>
+                                        <p>soporte@semantica.com.co</p>
+                                        <p>implementacion@semantica.com.co</p>
+                                    </div>
+                                    <div class="contact-info-bg-icon">
+                                        <i class="pe-7s-mail"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <div class="contact-form contact-form-3">
+                        <p class="form-message"></p>
+                        {{ form_start(form, { 'attr': {'class': 'form',  'enctype':'multipart/form-data'} }) }}
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.contacto, { 'attr': {'placeholder': 'Su nombre'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.correo, { 'attr': {'placeholder': 'Correo'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.telefono, { 'attr': {'placeholder': 'Telefono'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.clienteIngreso, { 'attr': {'placeholder': 'Cliente'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.moduloRel) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.descripcion, { 'attr': {'placeholder': 'Su pregunta', 'cols':30, 'rows':6} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <input type="file" multiple="multiple" class="multi form-control" name="files[]"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex align-content-center ">
+                            {{ form_widget(form.guardar, { 'attr': {'class': 'btnCustom'} }) }}
+                            <a href="{{ path('soporte') }}" class="default-btn-one">
+                                Regresar
+                                <span></span>
+                            </a>
+                        </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- End Faq Section -->
-
-    <!-- Start Overview Section -->
-    <section class="overview-section section-padding">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="overview-image">
-                        <img src="{{ asset('landingPage/img/choose-2.png') }}" alt="logo">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="overview-content">
-                        <h2>¿Aun no solucionamos su inquietud?</h2>
-                        <p>Tenemos al servicio de nuestros clientes distintos recursos audiovisuales de autogestion, si requiere una
-                            atencion personalizada solicite el soporte a un asesor.</p>
-                        <ul class="features-list">
-                            <li><a href="{{ path('soporte_documentacion') }}"><span class="active">Documentacion & Manuales</span></a></li>
-                            <li><a href="https://www.youtube.com/channel/UCk2FSMxqxz3Y6fkyKT_ef3w" target="_blank"><span>Canal YouTube</span></a></li>
-                            <li><a href="{{ path('inicio') }}"><span>Foro</span></a></li>
-                            <li><a href="{{ path('inicio') }}"><span>Preguntas frecuentes</span></a></li>
-                            <li><a href="{{ path('soporte_asesor') }}"><span>Soporte asesor</span></a></li>
-                            <li><a href="{{ path('soporte_asesor_detalle', {'id':0}) }}"><span>Consultar soporte</span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End Overview Section -->
+    </div>
+    <!-- End Contact Section -->
 
 {% endblock %}
