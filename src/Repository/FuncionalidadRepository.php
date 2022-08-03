@@ -51,4 +51,19 @@ class FuncionalidadRepository extends ServiceEntityRepository
         $arFuncionalidades = $queryBuilder->getQuery()->getResult();
         return $arFuncionalidades;
     }
+
+    public function detalleEstudio($codigoModulo)
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Funcionalidad::class, 'f')
+            ->select('f.codigoFuncionalidadPk')
+            ->addSelect('f.nombre')
+            ->addSelect('f.codigoFuncionFk')
+            ->addSelect('f.urlYouTube')
+            ->where("f.codigoModuloFk = '{$codigoModulo}'")
+            ->andWhere("f.estudio = 1")
+            ->orderBy('f.orden', 'ASC');
+        $arFuncionalidades = $queryBuilder->getQuery()->getResult();
+        return $arFuncionalidades;
+    }
 }

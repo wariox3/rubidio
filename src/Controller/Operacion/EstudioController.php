@@ -5,6 +5,7 @@ namespace App\Controller\Operacion;
 use App\Entity\Cliente;
 use App\Entity\Estudio;
 use App\Entity\EstudioDetalle;
+use App\Entity\Funcionalidad;
 use App\Entity\RecursoHumano\RhuPoligonoDetalle;
 use App\Form\Type\EstudioDetalleType;
 use App\Form\Type\EstudioType;
@@ -104,6 +105,33 @@ class EstudioController extends AbstractController
         return $this->render('Operacion/Estudio/detalle.html.twig', [
             'arEstudio' => $arEstudio,
             'arEstudioDetalles' => $arEstudioDetalles,
+            'form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/operacion/estudio/funcionalidad/{id}", name="operacion_estudio_funcionalidad")
+     */
+    public function funcionalidad(Request $request,  PaginatorInterface $paginator, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arEstudioDetalle = $em->getRepository(EstudioDetalle::class)->find($id);
+        $form = $this->createFormBuilder()
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('btnImprimir')->isClicked()) {
+                $formatoEstudio = new FormatoEstudio();
+                $formatoEstudio->Generar($em, $id );
+            }
+            if ($form->get('btnEliminar')->isClicked()) {
+                $arrDetallesSeleccionados = $request->request->get('ChkSeleccionar');
+                $em->getRepository(EstudioDetalle::class)->eliminar($arrDetallesSeleccionados);
+            }
+        }
+        $arFuncionalidades = $paginator->paginate($em->getRepository(Funcionalidad::class)->detalleEstudio($arEstudioDetalle->getCodigoModuloFk()), $request->query->getInt('page', 1), 100);
+        return $this->render('Operacion/Estudio/funcionalidad.html.twig', [
+            'arEstudioDetalle' => $arEstudioDetalle,
+            'arFuncionalidades' => $arFuncionalidades,
             'form' => $form->createView()]);
     }
 

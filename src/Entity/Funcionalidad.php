@@ -44,6 +44,11 @@ class Funcionalidad
     private $estudio = false;
 
     /**
+     * @ORM\Column(name="url_you_tube", type="string", length=1000, nullable=true)
+     */
+    private $urlYouTube;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Modulo", inversedBy="funcionalidadesModuloRel")
      * @ORM\JoinColumn(name="codigo_modulo_fk", referencedColumnName="codigo_modulo_pk")
      */
@@ -159,6 +164,22 @@ class Funcionalidad
     public function setEstudio(bool $estudio): void
     {
         $this->estudio = $estudio;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUrlYouTube()
+    {
+        return $this->urlYouTube;
+    }
+
+    /**
+     * @param mixed $urlYouTube
+     */
+    public function setUrlYouTube($urlYouTube): void
+    {
+        $this->urlYouTube = $urlYouTube;
     }
 
 

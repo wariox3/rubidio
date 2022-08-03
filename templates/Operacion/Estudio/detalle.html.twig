@@ -59,6 +59,7 @@
                                     <th>FECHA</th>
                                     <th>RESPONSABLE</th>
                                     <th></th>
+                                    <th></th>
                                     <th class="text-center" title="seleccionar todos">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input"
@@ -80,6 +81,11 @@
                                                 <a
                                                         href="javascript:abrirVentana3('{{ path('operacion_estudio_detalle_nuevo', { 'codigoEstudio': arEstudio.codigoEstudioPk, 'id': arEstudioDetalle.codigoEstudioDetallePk }) }}', 'Nuevo', 600, 1200)">
                                                     <i class="fas fa-pen fa-2x"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ path('operacion_estudio_funcionalidad', { 'id': arEstudioDetalle.codigoEstudioDetallePk }) }}">
+                                                    <i class="fas fa-list fa-2x"></i>
                                                 </a>
                                             </td>
                                             <td class="text-center">
