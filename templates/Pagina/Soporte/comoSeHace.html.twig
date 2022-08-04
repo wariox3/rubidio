@@ -34,7 +34,7 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="services-step-wrapper">
                             <div class="services-step-title">
-                                <h2>¿Como se hace?</h2>
+                                <h2>¿Consultar soporte existente?</h2>
                             </div>
                             <div class="services-step-content">
                                 <p>En el uso del sistema y sus funcionalidades, los usuarios pueden tener dudas en su
@@ -47,13 +47,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-            <button class="default-btn-one mb-2"  id="btnConsultarSoporteExistente">
-                Consultar soporte existente
-                <span></span>
-            </button>
-            <aside class="widget-area" id="secondary"  style="display: {{ arSoporteConsultado ? 'block' : 'none' }} ">
+{#            <button class="default-btn-one mb-2" id="btnConsultarSoporteExistente">#}
+{#                Consultar soporte existente#}
+{#                <span></span>#}
+{#            </button>#}
+            <aside class="widget-area mt-2" id="secondary">
                 <section class="widget widget_search">
                     {{ form_start(formBuscar, { 'attr': {'class': 'search-form search-top'} }) }}
                     <label> <span class="screen-reader-text">Search for:</span>
@@ -62,60 +61,33 @@
                     {{ form_widget(formBuscar.buscar) }}
                     {{ form_end(formBuscar) }}
                 </section>
-
                 {% if arSoporteConsultado %}
+                    <div class="row mt-2">
+                        <div class="col-lg-8 col-md-12">
+                            <div class="blog-details-desc">
+                                <div class="article-content">
 
-                <div class="row">
-                    <div class="col-lg-8 col-md-12">
-                        <div class="blog-details-desc">
-                            <div class="article-content">
-                                <div class="entry-meta">
-                                    <ul>
-                                        <li><span>Creado en:</span> <a
-                                                    href="#">{{ arSoporteConsultado.fecha | date('F jS \\a\\t g:ia') }}</a>
-                                        </li>
-                                        <li><span>Publicado por:</span> <a
-                                                    href="#">{{ arSoporteConsultado.contacto }}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <h3>Descripcion soporte # {{ arSoporteConsultado.codigoSoportePk }}</h3>
-                                <p>{{ arSoporteConsultado.descripcion }}</p>
-                            </div>
-                            {% if arSoporteConsultado.estadoSolucionado %}
-                                <div class="comments-area">
-                                    <h3 class="comments-title">Respuesta:</h3>
-                                    <ol class="comment-list">
-                                        <li class="comment">
-                                            <article class="comment-body">
-                                                <footer class="comment-meta">
-                                                    <div class="comment-author vcard">
-                                                        <img src="{{ asset('landingPage/img/client/comment-3.jpg') }}"
-                                                             class="avatar" alt="image">
-                                                        <b class="fn">Asesor Semantica</b>
-                                                        <span class="says">says:</span>
-                                                    </div>
-                                                    <div class="comment-metadata">
-                                                        <a href="#">
-                                                            <span>{{ arSoporteConsultado.fechaSolucion | date('F jS \\a\\t g:ia') }}</span>
-                                                        </a>
-                                                    </div>
-                                                </footer>
-                                                <div class="comment-content">
-                                                    <p>{{ arSoporteConsultado.solucion }}</p>
-                                                </div>
+                                        <div class="comments-area">
+                                            <div class="entry-meta">
+                                                <ul>
+                                                    <li><span>Creado en:</span> <a
+                                                                href="#">{{ arSoporteConsultado.fecha | date('F jS \\a\\t g:ia') }}</a>
+                                                    </li>
+                                                    <li><span>Publicado por:</span> <a
+                                                                href="#">{{ arSoporteConsultado.contacto }}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <h3 class="comments-title">Descripcion soporte # {{ arSoporteConsultado.codigoSoportePk }}</h3>
+                                            <article class="comment-body" style="padding-left: 0">
+                                                <p>{{ arSoporteConsultado.descripcion }}</p>
                                             </article>
-                                        </li>
-                                    </ol>
+                                        </div>
                                 </div>
-                            {% endif %}
+                            </div>
                         </div>
-                    </div>
-                    {% endif %}
-
-                    <div class="col-lg-4 col-md-12">
-                        <aside class="widget-area" id="secondary">
-                            {% if arSoporteConsultado %}
+                        <div class="col-lg-4 col-md-12">
+                            <aside class="widget-area" id="secondary">
                                 <section class="widget widget_categories">
                                     <h3 class="widget-title">Estados</h3>
                                     <ul>
@@ -131,16 +103,53 @@
                                         {% endif %}
                                     </ul>
                                 </section>
-                            {% endif %}
-                        </aside>
+                            </aside>
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="comments-area">
+                                <h3 class="comments-title">Respuesta:</h3>
+                                <ol class="comment-list">
+                                    <li class="comment">
+                                        <article class="comment-body" style="border-bottom: 0">
+                                            <footer class="comment-meta">
+                                                <div class="comment-author vcard">
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="about-image-left">
+                                                                <img src="{{ asset('landingPage/img/client/comment-3.jpg') }}"
+                                                                     alt="image">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8">
+                                                            <b class="fn">Asesor Semantica</b>
+                                                            <span class="says">says:</span>
+                                                            <div class="comment-metadata">
+                                                                <a href="#">
+                                                                    <span>{{ arSoporteConsultado.fechaSolucion | date('F jS \\a\\t g:ia') }}</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="comment-content">
+                                                                <p>{{ arSoporteConsultado.solucion }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                            </footer>
+
+                                        </article>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </aside>
         </div>
     </section>
     <!-- End Services Details Area -->
-
     <!-- Start Contact Section -->
     <div class="contact-section py-5">
         <div class="container">
@@ -246,8 +255,8 @@
 {% endblock %}
 {% block javascriptsPersonales %}
     <script>
-        $("#btnConsultarSoporteExistente").click(function(){
-            $('#secondary').fadeTo(500,1);
+        $("#btnConsultarSoporteExistente").click(function () {
+            $('#secondary').fadeTo(500, 1);
             $('#form_codigoSoporte').focus()
         });
     </script>
