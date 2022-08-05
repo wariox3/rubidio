@@ -50,6 +50,7 @@
     --rojo: #931621;
     --rojo-claro: #df2c3c;
     --bg-color: #F7F7F7;
+    --verde: #248232;
     --linear-gradient-azulClaro-principalAzulSemantica: linear-gradient(-135deg, var(--azul-claro) 0%, var(--principal-azul-semantica) 100%);
     --linear-gradient-rojoClaro-rojo: linear-gradient(-135deg, var(--rojo-claro) 0%, var(--rojo) 100%);
 }
@@ -4179,4 +4180,8 @@ figcaption{
     z-index: -1;
     background: url(../img/dot.svg);
     background-repeat: repeat;
+}
+
+.estado{
+    color: var(--verde);
 }

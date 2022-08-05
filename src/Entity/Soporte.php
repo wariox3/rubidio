@@ -103,6 +103,11 @@ class Soporte
     private $moduloRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SoporteLLamada", mappedBy="soporteRel")
+     */
+    protected $soporteLLamadasSoporteRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoSoportePk()
@@ -372,6 +377,22 @@ class Soporte
     public function setSolucionCliente($solucionCliente): void
     {
         $this->solucionCliente = $solucionCliente;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoporteLLamadasSoporteRel()
+    {
+        return $this->soporteLLamadasSoporteRel;
+    }
+
+    /**
+     * @param mixed $soporteLLamadasSoporteRel
+     */
+    public function setSoporteLLamadasSoporteRel($soporteLLamadasSoporteRel): void
+    {
+        $this->soporteLLamadasSoporteRel = $soporteLLamadasSoporteRel;
     }
 
 

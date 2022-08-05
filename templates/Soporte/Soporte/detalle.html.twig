@@ -6,16 +6,24 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="single-testimonial">
-                        <div class="d-flex justify-content-start">
-                            <a class="btnCustom" href="{{ path('soporte_soporte_lista') }}">Volver</a>
-                            {% if arSoporte.estadoSolucionado == 0 %}
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <a class="btnCustom" href="{{ path('soporte_soporte_lista') }}">Volver</a>
+                                {% if arSoporte.estadoSolucionado == 0 %}
+                                    <a class="btnCustom"
+                                       href="javascript:abrirVentana3('{{ path('soporte_soporte_solucion', {'id': arSoporte.codigoSoportePk}) }}', 'Solucion', 600, 1200)">Solucion</a>
+                                {% endif %}
                                 <a class="btnCustom"
-                                   href="javascript:abrirVentana3('{{ path('soporte_soporte_solucion', {'id': arSoporte.codigoSoportePk}) }}', 'Solucion', 600, 1200)">Solucion</a>
-                            {% endif %}
-                            <a class="btnCustom"
-                               href="javascript:abrirVentana3('{{ path('utilidad_archivo_lista', { 'tipo': 'soporte',  'codigo': arSoporte.codigoSoportePk }) }}', 'Archivos', 800, 1250)">
-                                <i class="fas fa-upload"></i> Archivos
-                            </a>
+                                   href="javascript:abrirVentana3('{{ path('utilidad_archivo_lista', { 'tipo': 'soporte',  'codigo': arSoporte.codigoSoportePk }) }}', 'Archivos', 800, 1250)">
+                                    <i class="fas fa-upload"></i> Archivos
+                                </a>
+                            </div>
+                            <div>
+                                {% if arSoporte.estadoSolucionado == 1 %}
+                                    <span class="estado"><i class="fa fa-check-circle"></i> Solucionado </span>
+
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -61,14 +69,74 @@
             <div class="single-testimonial">
                 <nav>
                     <div class="nav nav-tabs mt-3" id="nav-tab" role="tablist">
-                        <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-tarea" role="tab"
-                           aria-controls="nav-home" aria-selected="true">Tarea</a>
+                        <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-llamadas" role="tab"
+                           aria-controls="nav-home" aria-selected="true">LLamadas</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-tarea" role="tabpanel"
+                    <div class="tab-pane fade show active" id="nav-llamadas" role="tabpanel"
                          aria-labelledby="nav-home-tab">
-
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="single-testimonial">
+                                    <div class="d-flex justify-content-end">
+                                        {% if arSoporte.estadoSolucionado == 0 %}
+                                            <a class="btnCustom"
+                                               href="javascript:abrirVentana3('{{ path('soporte_soporte_llamada', { 'codigoSoporte': arSoporte.codigoSoportePk,  'id': 0 }) }}', 'Archivos', 800, 1250)">
+                                                nuevo
+                                            </a>
+                                        {% endif %}
+                                        {{ form_widget(form.btnEliminarLLamadas, { 'attr': {'class': 'btnCustomDanger'} }) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive-sm mt-2">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                        <thead class="title-bg-color">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Fecha</th>
+                                            <th>Fecha llamada</th>
+                                            <th>Comentarios</th>
+                                            <th></th>
+                                            <th class="text-center" title="seleccionar todos">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input"
+                                                           id="ChkSeleccionar"
+                                                           onclick="ChequearTodosTabla(this, 'ChkSeleccionar[]')"/>
+                                                    <label class="custom-control-label" for="ChkSeleccionar"></label>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for arLlamada in arLlamadas %}
+                                            <tr>
+                                                <td>{{ arLlamada.codigoSoporteLLamadaPk }}</td>
+                                                <td>{{ arLlamada.fecha | date('Y-m-d') }}</td>
+                                                <td>{{ arLlamada.fechaLLamada | date('Y-m-d') }}</td>
+                                                <td>{{ arLlamada.comentarios }}</td>
+                                                <td class="text-center">
+                                                    {% if arSoporte.estadoSolucionado == 0 %}
+                                                        <a href="javascript:abrirVentana3('{{ path('soporte_soporte_llamada', { 'codigoSoporte': arSoporte.codigoSoportePk,  'id': arLlamada.codigoSoporteLLamadaPk }) }}', 'Archivos', 800, 1250)">
+                                                            <i class="fa fa-edit fa-2x"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    <input type="checkbox" name="ChkSeleccionar[]"
+                                                           value="{{ arLlamada.codigoSoporteLLamadaPk }}"/>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

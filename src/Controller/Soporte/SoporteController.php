@@ -6,6 +6,8 @@ use App\Entity\Archivo;
 use App\Entity\Cliente;
 use App\Entity\Modulo;
 use App\Entity\Soporte;
+use App\Entity\SoporteLLamada;
+use App\Form\Type\SoporteLLamadaType;
 use App\Form\Type\SoporteSolucionType;
 use App\Form\Type\SoporteType;
 use App\Utilidades\Dubnio;
@@ -145,6 +147,7 @@ class SoporteController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $arSoporte = $em->getRepository(Soporte::class)->find($id);
         $form = $this->createFormBuilder()
+            ->add('btnEliminarLLamadas', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -162,11 +165,17 @@ class SoporteController extends AbstractController
                     return $response;
                 }
             }
+            if ($form->get('btnEliminarLLamadas')->isClicked()) {
+                $arrDetallesSeleccionados = $request->request->get('ChkSeleccionar');
+                $em->getRepository(SoporteLLamada::class)->eliminar($arrDetallesSeleccionados);
+            }
         }
         $arArchivos = $em->getRepository(Archivo::class)->lista("soporte", $id);
+        $arLlamadas = $em->getRepository(SoporteLLamada::class)->lista($id);
         return $this->render('Soporte/Soporte/detalle.html.twig', [
             'arSoporte' => $arSoporte,
             'arArchivos' => $arArchivos,
+            'arLlamadas' => $arLlamadas,
             'form' => $form->createView()
         ]);
     }
@@ -196,7 +205,7 @@ class SoporteController extends AbstractController
                         ));
                 }
 
-                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
         return $this->render('Soporte/Soporte/solucion.html.twig', [
@@ -204,5 +213,33 @@ class SoporteController extends AbstractController
         ]);
     }
 
-
+    /**
+     * @Route("/soporte/soporte/llamada/{codigoSoporte}/{id}", name="soporte_soporte_llamada")
+     */
+    public function llamada(Request $request, $codigoSoporte, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arSoporte = $em->getRepository(Soporte::class)->find($codigoSoporte);
+        $arSoporteLLamada = new SoporteLLamada();
+        if($id != 0){
+            $arSoporteLLamada = $em->getRepository(SoporteLLamada::class)->find($id);
+        } else {
+            $arSoporteLLamada->setSoporteRel($arSoporte);
+            $arSoporteLLamada->setFecha(new \DateTime('now'));
+        }
+        $form = $this->createForm(SoporteLLamadaType::class, $arSoporteLLamada);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arCaso = $form->getData();
+                $em->persist($arCaso);
+                $em->flush();
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
+            }
+        }
+        return $this->render('Soporte/Soporte/llamada.html.twig', [
+            '$arSoporteLLamada' => $arSoporteLLamada,
+            'form' => $form->createView()
+        ]);
+    }
 }

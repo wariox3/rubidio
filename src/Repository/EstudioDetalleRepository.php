@@ -29,18 +29,18 @@ class EstudioDetalleRepository extends ServiceEntityRepository
     }
     public function imprimirEstudio($id)
     {
-        $em = $this->getEntityManager();
-        $queryBuilder = $em->createQueryBuilder()->from(EstudioDetalle::class, 'ed')
-            ->select('ed.codigoEstudioDetallePk')
-            ->addselect('ed.codigoModuloFk')
-            ->addSelect('ed.fechaValidacion')
-            ->addSelect('ed.responsable')
-            ->addSelect('m.nombre as moduloNombre')
-            ->leftJoin('ed.estudioRel', 'e')
-            ->leftJoin('ed.moduloRel', 'm')
-            ->where("ed.codigoEstudioFk = {$id}");
-        $arEstudioDetalles = $queryBuilder->getQuery()->getResult();
-        return $arEstudioDetalles;
+            $em = $this->getEntityManager();
+            $queryBuilder = $em->createQueryBuilder()->from(EstudioDetalle::class, 'ed')
+                ->select('ed.codigoEstudioDetallePk')
+                ->addselect('ed.codigoModuloFk')
+                ->addSelect('ed.fechaValidacion')
+                ->addSelect('ed.responsable')
+                ->addSelect('m.nombre as moduloNombre')
+                ->leftJoin('ed.estudioRel', 'e')
+                ->leftJoin('ed.moduloRel', 'm')
+                ->where("ed.codigoEstudioFk = {$id}");
+            $arEstudioDetalles = $queryBuilder->getQuery()->getResult();
+            return $arEstudioDetalles;
     }
 
     public function eliminar($arrDetallesSeleccionados)

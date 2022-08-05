@@ -64,6 +64,12 @@
     <!-- End Preloader Area -->
     {% include('base/menuAdmin.html.twig') %}
     <div class=" pt-70 pb-100">
+        <section class="services-section">
+            <div class="container">
+                {{ notificar()|raw }}
+            </div>
+        </section>
+
         {% block content %}
 
         {% endblock %}
