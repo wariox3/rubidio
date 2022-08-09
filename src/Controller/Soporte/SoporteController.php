@@ -11,6 +11,7 @@ use App\Form\Type\SoporteLLamadaType;
 use App\Form\Type\SoporteSolucionType;
 use App\Form\Type\SoporteType;
 use App\Utilidades\Dubnio;
+use App\Utilidades\Mensajes;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -187,7 +188,6 @@ class SoporteController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $arSoporte = $em->getRepository(Soporte::class)->find($id);
-
         $form = $this->createForm(SoporteSolucionType::class, $arSoporte);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -207,6 +207,18 @@ class SoporteController extends AbstractController
 
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
+        }
+        $bloqueado = false;
+        $respuesta = $correo->bloqueo($arSoporte->getCorreo());
+        if($respuesta) {
+            if($respuesta->error == false) {
+                $bloqueado = $respuesta->bloqueado;
+            }
+        }
+        if($bloqueado) {
+            Mensajes::error("El correo {$arSoporte->getCorreo()} electronico esta bloqueado");
+        } else {
+            Mensajes::info("Correo {$arSoporte->getCorreo()} habilitado para envio de la respuesta");
         }
         return $this->render('Soporte/Soporte/solucion.html.twig', [
             'form' => $form->createView()

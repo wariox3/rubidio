@@ -10,6 +10,7 @@ use App\Form\Type\CasoEditarType;
 use App\Form\Type\CasoEscaladoType;
 use App\Form\Type\CasoSolucionType;
 use App\Utilidades\Dubnio;
+use App\Utilidades\Mensajes;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -120,9 +121,15 @@ class CasoController extends AbstractController
             if ($request->request->get('OpAtender')) {
                 $codigo = $request->request->get('OpAtender');
                 $arCaso = $em->getRepository(Caso::class)->find($codigo);
-                $arCaso->setEstadoAtendido(1);
-                $em->persist($arCaso);
-                $em->flush();
+                if($arCaso) {
+                    if($arCaso->getClienteRel()) {
+                        $arCaso->setEstadoAtendido(1);
+                        $em->persist($arCaso);
+                        $em->flush();
+                    } else {
+                        Mensajes::error("Debe asignarle un cliente antes de atender");
+                    }
+                }
             }
         }
         $arCasos = $paginator->paginate($em->getRepository(Caso::class)->lista(), $request->query->getInt('page', 1), 50);
@@ -181,6 +188,18 @@ class CasoController extends AbstractController
                     ));
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
+        }
+        $bloqueado = false;
+        $respuesta = $correo->bloqueo($arCaso->getCorreo());
+        if($respuesta) {
+            if($respuesta->error == false) {
+                $bloqueado = $respuesta->bloqueado;
+            }
+        }
+        if($bloqueado) {
+            Mensajes::error("El correo {$arCaso->getCorreo()} electronico esta bloqueado");
+        } else {
+            Mensajes::info("Correo {$arCaso->getCorreo()} habilitado para envio de la respuesta");
         }
         return $this->render('Soporte/Caso/solucion.html.twig', [
             'form' => $form->createView()
