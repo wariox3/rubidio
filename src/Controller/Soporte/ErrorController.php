@@ -123,16 +123,39 @@ class ErrorController extends AbstractController
     /**
      * @Route("/soporte/error/detalle/{id}", name="soporte_error_detalle")
      */
-    public function detalle(Request $request, $id)
+    public function detalle(Request $request, Dubnio $dubnio, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arError = $em->getRepository(Error::class)->find($id);
-
+        $arrBtnAtender = ['label' => 'Atender', 'disabled' => false, 'attr' => ['class' => 'btnCustom']];
+        $arrBtnSolucion = ['label' => 'Solucionar', 'disabled' => false, 'attr' => ['class' => 'btnCustom']];
+        if ($arError->getEstadoAtendido()) {
+            $arrBtnAtender['disabled'] = true;
+        }
+        if ($arError->getEstadoSolucionado()) {
+            $arrBtnSolucion['disabled'] = true;
+        }
         $form = $this->createFormBuilder()
+            ->add('btnAtender', SubmitType::class, $arrBtnAtender)
+            ->add('btnSolucionar', SubmitType::class, $arrBtnSolucion)
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            return $this->redirect($this->generateUrl('cliente_caso_detalle', ['id' => $id]));
+            if ($form->get('btnAtender')->isClicked()) {
+                $arError->setEstadoAtendido(1);
+                $em->persist($arError);
+                $em->flush();
+            }
+            if ($form->get('btnSolucionar')->isClicked()) {
+                $arError->setEstadoAtendido(1);
+                $arError->setEstadoSolucionado(1);
+                $em->persist($arError);
+                $em->flush();
+                if (filter_var($arError->getEmail(), FILTER_VALIDATE_EMAIL)) {
+                    $html = $this->renderView('Utilidades/correoErrorCliente.html.twig', ['arError' => $arError]);
+                    $dubnio->enviarCorreo($arError->getEmail(), "Hemos solucionado un error", $html);
+                }
+            }
         }
         $trazas = json_decode($arError->getTraza());
         return $this->render('Soporte/Error/detalle.html.twig', [

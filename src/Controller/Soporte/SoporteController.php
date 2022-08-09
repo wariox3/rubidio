@@ -226,6 +226,7 @@ class SoporteController extends AbstractController
         } else {
             $arSoporteLLamada->setSoporteRel($arSoporte);
             $arSoporteLLamada->setFecha(new \DateTime('now'));
+            $arSoporteLLamada->setFechaLLamada(new \DateTime('now'));
         }
         $form = $this->createForm(SoporteLLamadaType::class, $arSoporteLLamada);
         $form->handleRequest($request);

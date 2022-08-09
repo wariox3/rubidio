@@ -116,8 +116,8 @@
                                         {% for arLlamada in arLlamadas %}
                                             <tr>
                                                 <td>{{ arLlamada.codigoSoporteLLamadaPk }}</td>
-                                                <td>{{ arLlamada.fecha | date('Y-m-d') }}</td>
-                                                <td>{{ arLlamada.fechaLLamada | date('Y-m-d') }}</td>
+                                                <td>{{ arLlamada.fecha | date('Y-m-d h:i') }}</td>
+                                                <td>{{ arLlamada.fechaLLamada | date('Y-m-d h:i') }}</td>
                                                 <td>{{ arLlamada.comentarios }}</td>
                                                 <td class="text-center">
                                                     {% if arSoporte.estadoSolucionado == 0 %}
