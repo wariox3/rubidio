@@ -374,6 +374,13 @@ class SoporteController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/soporte/politicasprivacidad", name="soporte_politicas_privacidad")
+     */
+    public function politicasPrivacidad(Request $request): Response{
+        return $this->render('Pagina/Soporte/politicasDePrivacidad.html.twig');
+    }
+
     public function getFiltros($form)
     {
         $session = new Session();
