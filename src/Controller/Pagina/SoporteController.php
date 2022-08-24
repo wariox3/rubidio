@@ -306,7 +306,7 @@ class SoporteController extends AbstractController
     }
 
     /**
-     * @Route("/soporte/documentacion", name="soporte_documentacion")
+     * @Route("/soporte/documentacio/recursos/lista", name="soporte_documentacion_recursos")
      */
     public function documentacion(Request $request, PaginatorInterface $paginator)
     {
@@ -363,7 +363,7 @@ class SoporteController extends AbstractController
     }
 
     /**
-     * @Route("/soporte/documentacion/{id}", name="soporte_documentacion_detalle")
+     * @Route("/soporte/documentacion/detalle/{id}", name="soporte_documentacion_detalle")
      */
     public function documentacionDetalle(Request $request, PaginatorInterface $paginator, $id): Response
     {
