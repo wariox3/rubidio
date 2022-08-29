@@ -55,6 +55,11 @@ class Funcionalidad
     private $moduloRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ImplementacionDetalle", mappedBy="funcionalidadRel")
+     */
+    protected $implementacionesFuncionalidadRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoFuncionalidadPk()
@@ -180,6 +185,22 @@ class Funcionalidad
     public function setUrlYouTube($urlYouTube): void
     {
         $this->urlYouTube = $urlYouTube;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImplementacionesFuncionalidadRel()
+    {
+        return $this->implementacionesFuncionalidadRel;
+    }
+
+    /**
+     * @param mixed $implementacionesFuncionalidadRel
+     */
+    public function setImplementacionesFuncionalidadRel($implementacionesFuncionalidadRel): void
+    {
+        $this->implementacionesFuncionalidadRel = $implementacionesFuncionalidadRel;
     }
 
 

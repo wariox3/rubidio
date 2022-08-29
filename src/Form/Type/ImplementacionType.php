@@ -40,16 +40,6 @@ class ImplementacionType extends AbstractType {
             ->add('liderCliente' , TextType::class, array('required' => true))
             ->add('celularLider' , TextType::class, array('required' => true))
             ->add('correoLider' , TextType::class, array('required' => true))
-            ->add('general', CheckboxType::class, array('required' => false))
-            ->add('recursoHumano', CheckboxType::class, array('required' => false))
-            ->add('turnos', CheckboxType::class, array('required' => false))
-            ->add('inventario', CheckboxType::class, array('required' => false))
-            ->add('tesoreria', CheckboxType::class, array('required' => false))
-            ->add('cartera', CheckboxType::class, array('required' => false))
-            ->add('crm', CheckboxType::class, array('required' => false))
-            ->add('financiero', CheckboxType::class, array('required' => false))
-            ->add('juridico', CheckboxType::class, array('required' => false))
-            ->add('transporte', CheckboxType::class, array('required' => false))
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));
     }
 

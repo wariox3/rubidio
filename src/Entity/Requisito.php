@@ -35,6 +35,11 @@ class Requisito
     private $requisitoRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ImplementacionDetalle", mappedBy="requisitoRel")
+     */
+    protected $implementacionesRequisitoRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoRequisitoPk()
@@ -96,6 +101,22 @@ class Requisito
     public function setRequisitoRel($requisitoRel): void
     {
         $this->requisitoRel = $requisitoRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImplementacionesRequisitoRel()
+    {
+        return $this->implementacionesRequisitoRel;
+    }
+
+    /**
+     * @param mixed $implementacionesRequisitoRel
+     */
+    public function setImplementacionesRequisitoRel($implementacionesRequisitoRel): void
+    {
+        $this->implementacionesRequisitoRel = $implementacionesRequisitoRel;
     }
 
 

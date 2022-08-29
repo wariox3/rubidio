@@ -73,7 +73,11 @@
                 <div class="col-md-12">
                     <div class="single-testimonial">
                         <div class="d-flex justify-content-end">
-                            {{ form_widget(form.btnImprimir, { 'attr': {'class': 'btnCustom'} }) }}
+                            <a class="btnCustom"
+                               href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo_funcionalidad', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo funcionalidad', 600, 1200)">Nueva funcionalidad</a>
+                            <a class="btnCustom"
+                               href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo_requisito', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo requisito', 600, 1200)">Nuevo requisito</a>
+                            {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
                         </div>
                         <div class="table-responsive-sm mt-2">
                             <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
@@ -82,21 +86,12 @@
                                     <th>Id</th>
                                     <th>Modulo</th>
                                     <th>Cod</th>
-                                    <th>Tema</th>
-                                    <th>Descripcion</th>
-                                    <th>Compromiso</th>
+                                    <th>Requisito</th>
+                                    <th>Cod</th>
+                                    <th>Funcionalidad</th>
                                     <th>Comentario</th>
-                                    <th>Comentario implementador</th>
-                                    <th>Accion</th>
-                                    <th>Responsable</th>
-                                    <th>Fecha</th>
-                                    <th title="Tiempo en minutos para capacitar cada tema">Tiempo</th>
-                                    <th title="Estado inicio">Ini</th>
-                                    <th title="Estado capacitado">Cap</th>
-                                    <th title="Estado terminado">Ter</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>Com_Implementador</th>
+                                    <th>ET</th>
                                     <th class="text-center" title="seleccionar todos"><input type="checkbox"
                                                                                              name="ChkSeleccionarTodos"
                                                                                              onclick="ChequearTodosTabla(this, 'ChkSeleccionar[]')">
@@ -107,44 +102,18 @@
                                 {% for arImplementacionDetalle in arImplementacionDetalles %}
                                     <tr>
                                         <td>{{ arImplementacionDetalle.codigoImplementacionDetallePk }}</td>
-                                        <td>{{ arImplementacionDetalle.moduloNombre }}</td>
-                                        <td>{{ arImplementacionDetalle.codigoTemaFk }}</td>
-                                        <td>{{ arImplementacionDetalle.temaNombre }}</td>
-                                        <td>{{ arImplementacionDetalle.temaDescripcion }}</td>
-                                        <td>{{ arImplementacionDetalle.fechaCompromiso?arImplementacionDetalle.fechaCompromiso | date('Y-m-d H:i'):'' }}</td>
+                                        <td>{{ arImplementacionDetalle.codigoModuloFk }}</td>
+                                        <td>{{ arImplementacionDetalle.codigoRequisitoFk }}</td>
+                                        <td>{{ arImplementacionDetalle.requisitoNombre }}</td>
+                                        <td>{{ arImplementacionDetalle.codigoFuncionalidadFk }}</td>
+                                        <td>{{ arImplementacionDetalle.funcionalidadNombre }}</td>
                                         <td>{{ arImplementacionDetalle.comentario }}</td>
                                         <td>{{ arImplementacionDetalle.comentarioImplementador }}</td>
-                                        <td>{{ arImplementacionDetalle.accionNombre }}</td>
-                                        <td>{{ arImplementacionDetalle.responsableNombre }}</td>
-                                        <td>{{ arImplementacionDetalle.estadoCapacitado?arImplementacionDetalle.fecha | date('Y-m-d H:i'):'' }}</td>
-                                        <td>{{ arImplementacionDetalle.tiempo }}</td>
-                                        <td class="text-center">{{ arImplementacionDetalle.estadoInicio?'SI':'NO' }}</td>
-                                        <td class="text-center">{{ arImplementacionDetalle.estadoCapacitado?'SI':'NO' }}</td>
-                                        <td class="text-center">{{ arImplementacionDetalle.estadoTerminado?'SI':'NO' }}</td>
+                                        <td>{{ arImplementacionDetalle.estadoTerminado?'SI':'NO' }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo', {'id': arImplementacionDetalle.codigoImplementacionDetallePk}) }}', 'Escalar', 600, 1200)">
-                                                <i class="fas fa-pen fa-2x"></i>
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="javascript:abrirVentana3('{{ path('documental_archivo_lista', {'tipo': '1',  'codigo': arImplementacionDetalle.codigoImplementacionDetallePk}) }}', 'Archivo', 600, 1200)">
-                                                <i class="fas fa-upload fa-2x"></i>
-                                            </a>
-                                        </td>
-                                        <td class="text-center">
-                                            {% if arImplementacionDetalle.codigoDocumentacionFk %}
-                                                <a href="http://semantica.com.co/semanticaweb/public/index.php/documetacion/detalle/{{ arImplementacionDetalle.codigoDocumentacionFk }}"
-                                                   target="_blank">
-                                                    <i class="fas fas fa-file-alt fa-2x"></i>
-                                                </a>
-                                            {% endif %}
-                                        </td>
-                                        <td class="text-center">
-                                            {% if arImplementacionDetalle.codigoAccionPk  == "CAP"  and arImplementacionDetalle.estadoCapacitado == false %}
-                                                <input type="checkbox" name="ChkSeleccionar[]"
-                                                       value="{{ arImplementacionDetalle.codigoImplementacionDetallePk }}"
-                                                       title="seleccionar tema"/>
-                                            {% endif %}
+                                            <input type="checkbox" name="ChkSeleccionar[]"
+                                                   value="{{ arImplementacionDetalle.codigoImplementacionDetallePk }}"
+                                                   title="seleccionar"/>
                                         </td>
                                     </tr>
                                 {% endfor %}

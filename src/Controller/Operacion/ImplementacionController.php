@@ -2,8 +2,10 @@
 
 namespace App\Controller\Operacion;
 
+use App\Entity\Funcionalidad;
 use App\Entity\Implementacion;
 use App\Entity\ImplementacionDetalle;
+use App\Entity\Requisito;
 use App\Form\Type\ImplementacionDetalleImplementadorType;
 use App\Form\Type\ImplementacionType;
 use App\Formatos\FormatoActaCapacitacion;
@@ -26,48 +28,13 @@ class ImplementacionController extends AbstractController
      */
     public function lista(Request $request,  PaginatorInterface $paginator)
     {
-        $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($request->request->get('OpActualizar')) {
-                $codigo = $request->request->get('OpActualizar');
-                $arImplementacion = $em->getRepository(Implementacion::class)->find($codigo);
-                if ($arImplementacion->getGeneral()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'GEN');
-                }
-                if ($arImplementacion->getRecursoHumano()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'RHU');
-                }
-                if ($arImplementacion->getTurnos()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'TUR');
-                }
-                if ($arImplementacion->getCartera()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'CAR');
-                }
-                if ($arImplementacion->getTesoreria()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'TES');
-                }
-                if ($arImplementacion->getCrm()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'CRM');
-                }
-                if ($arImplementacion->getFinanciero()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'FIN');
-                }
-                if ($arImplementacion->getInventario()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'INV');
-                }
-                if ($arImplementacion->getJuridico()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'JUR');
-                }
-                if ($arImplementacion->getTransporte()) {
-                    $em->getRepository(Implementacion::class)->actualizar($codigo, 'TTE');
-                }
-                $em->getRepository(Implementacion::class)->resumen($codigo);
-            }
+
         }
         $arImplementaciones = $paginator->paginate($em->getRepository(Implementacion::class)->lista(), $request->query->getInt('page', 1), 500);
         return $this->render('Operacion/Implementacion/lista.html.twig', [
@@ -124,9 +91,9 @@ class ImplementacionController extends AbstractController
             ->add('estadoCapacitado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoCapacitado'), 'required' => false])
             ->add('estadoTerminado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoTerminado'), 'required' => false])
             ->add('btnFiltrar', SubmitType::class, array('label' => 'Filtrar'))
-            ->add('btnImprimir', SubmitType::class, array('label' => 'Imprimir acta capacitación', 'attr' => ['class' => 'btn btn-primary btn-sm']))
             ->add('btnImprimirActaTerminacion', SubmitType::class, array('label' => 'Imprimir acta terminacion', 'attr' => ['class' => 'btn btn-default btn-sm']))
             ->add('btnImprimirPlanTrabajo', SubmitType::class, array('label' => 'Imprimir plan de trabajo', 'attr' => ['class' => 'btn btn-default btn-sm']))
+            ->add('btnEliminar', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-danger']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -134,19 +101,6 @@ class ImplementacionController extends AbstractController
                 $session->set('filtroImplementacionEstadoCapacitado', $form->get('estadoCapacitado')->getData());
                 $session->set('filtroImplementacionModulo', $form->get('modulo')->getData());
                 $session->set('filtroImplementacionDetalleEstadoTerminado', $form->get('estadoTerminado')->getData());
-            }
-            if ($form->get('btnImprimir')->isClicked()) {
-                $arrSeleccionados = $request->request->get('ChkSeleccionar');
-                if (!is_null($arrSeleccionados)) {
-                    if (count($arrSeleccionados) >= 1 && count($arrSeleccionados) <= 7) {
-                        $formatoCapacitacion = new FormatoActaCapacitacion();
-                        $formatoCapacitacion->Generar($em, $id, $arrSeleccionados);
-                    } else {
-                        Mensajes::info("La cantidad de temas es mayor a 7, seleccionar menos");
-                    }
-                } else {
-                    Mensajes::error("No hay registros seleccionados");
-                }
             }
             if ($form->get('btnImprimirActaTerminacion')->isClicked()) {
                 $validarTemasFinalizados = $em->getRepository(ImplementacionDetalle::class)->temasCapacitados($id);
@@ -161,10 +115,22 @@ class ImplementacionController extends AbstractController
                 $formatoPlanTrabajo = new FormatoPlanTrabajo();
                 $formatoPlanTrabajo->Generar($em, $id);
             }
+            if ($form->get('btnEliminar')->isClicked()) {
+                $arrSeleccionados = $request->request->get('ChkSeleccionar');
+                if ($arrSeleccionados) {
+                    foreach ($arrSeleccionados as $codigo) {
+                        $arError = $em->getRepository(ImplementacionDetalle::class)->find($codigo);
+                        if ($arError) {
+                            $em->remove($arError);
+                        }
+                    }
+                    $em->flush();
+                }
+            }
         }
-        $arImplementacionDetalles = $em->getRepository(ImplementacionDetalle::class)->lista($id);
+        $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->listaDetalle($id);
         return $this->render('Operacion/Implementacion/detalle.html.twig', ['arImplementacion' => $arImplementacion,
-            'arImplementacionDetalles' => $arImplementacionDetalles,
+            'arImplementacionDetalles' => $arImplementacionDetalle,
             'form' => $form->createView()]);
     }
 
@@ -191,4 +157,69 @@ class ImplementacionController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/operacion/implementacion/detalle/nuevo/requisito/{id}", name="operacion_implementacion_detalle_nuevo_requisito")
+     */
+    public function detalleNuevoRequisito(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arImplementacion = $em->getRepository(Implementacion::class)->find($id);
+        $form = $this->createFormBuilder()
+            ->add('btnGuardar', SubmitType::class, array('label' => 'Guardar'))
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('btnGuardar')->isClicked()) {
+                $arrSeleccionados = $request->request->get('ChkSeleccionar');
+                foreach ($arrSeleccionados as $codigo) {
+                    $arRequisito = $em->getRepository(Requisito::class)->find($codigo);
+                    $arImplementacionDetalle = new ImplementacionDetalle();
+                    $arImplementacionDetalle->setImplementacionRel($arImplementacion);
+                    $arImplementacionDetalle->setRequisitoRel($arRequisito);
+                    $arImplementacionDetalle->setCodigoModuloFk($arRequisito->getCodigoModuloFk());
+                    $em->persist($arImplementacionDetalle);
+                }
+                $em->flush();
+            }
+            echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
+        }
+        $arRequisitos = $em->getRepository(Requisito::class)->lista();
+        return $this->render('Operacion/Implementacion/detalleNuevoRequisito.html.twig', [
+            'arRequisitos' => $arRequisitos,
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/operacion/implementacion/detalle/nuevo/funcionalidad/{id}", name="operacion_implementacion_detalle_nuevo_funcionalidad")
+     */
+    public function detalleNuevoFuncionalidad(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arImplementacion = $em->getRepository(Implementacion::class)->find($id);
+        $form = $this->createFormBuilder()
+            ->add('btnGuardar', SubmitType::class, array('label' => 'Guardar'))
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('btnGuardar')->isClicked()) {
+                $arrSeleccionados = $request->request->get('ChkSeleccionar');
+                foreach ($arrSeleccionados as $codigo) {
+                    $arFuncionalidad = $em->getRepository(Funcionalidad::class)->find($codigo);
+                    $arImplementacionDetalle = new ImplementacionDetalle();
+                    $arImplementacionDetalle->setImplementacionRel($arImplementacion);
+                    $arImplementacionDetalle->setFuncionalidadRel($arFuncionalidad);
+                    $arImplementacionDetalle->setCodigoModuloFk($arFuncionalidad->getCodigoModuloFk());
+                    $em->persist($arImplementacionDetalle);
+                }
+                $em->flush();
+            }
+            echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
+        }
+        $arFuncionalidades = $em->getRepository(Funcionalidad::class)->lista(null);
+        return $this->render('Operacion/Implementacion/detalleNuevoFuncionalidad.html.twig', [
+            'arFuncionalidades' => $arFuncionalidades,
+            'form' => $form->createView()
+        ]);
+    }
 }

@@ -26,6 +26,21 @@ class ImplementacionDetalle
     private $codigoImplementacionFk;
 
     /**
+     * @ORM\Column(name="codigo_modulo_fk", type="string", length=20, nullable=true)
+     */
+    private $codigoModuloFk;
+
+    /**
+     * @ORM\Column(name="codigo_requisito_fk", type="integer", nullable=true)
+     */
+    private $codigoRequisitoFk;
+
+    /**
+     * @ORM\Column(name="codigo_funcionalidad_fk", type="integer", nullable=true)
+     */
+    private $codigoFuncionalidadFk;
+
+    /**
      * @ORM\Column(name="fecha", type="datetime", nullable=true)
      */
     private $fecha;
@@ -34,22 +49,6 @@ class ImplementacionDetalle
      * @ORM\Column(name="fecha_compromiso", type="datetime", nullable=true)
      */
     private $fechaCompromiso;
-
-    /**
-     * @ORM\Column(name="codigo_tema_fk", type="integer", nullable=true)
-     */
-    private $codigoTemaFk;
-
-
-    /**
-     * @ORM\Column(name="codigo_responsable_fk", type="string", length=20, nullable=true)
-     */
-    private $codigoResponsableFk;
-
-    /**
-     * @ORM\Column(name="codigo_accion_fk", type="string", length=20, nullable=true)
-     */
-    private $codigoAccionFk;
 
     /**
      * @ORM\Column(name="orden", type="integer", nullable=true)
@@ -88,22 +87,16 @@ class ImplementacionDetalle
     private $implementacionRel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Tema", inversedBy="implementacionesDetallesTemaRel")
-     * @ORM\JoinColumn(name="codigo_tema_fk", referencedColumnName="codigo_tema_pk")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Requisito", inversedBy="implementacionesRequisitoRel")
+     * @ORM\JoinColumn(name="codigo_requisito_fk", referencedColumnName="codigo_requisito_pk")
      */
-    private $temaRel;
+    private $requisitoRel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Responsable", inversedBy="implementacionesDetallesResponsableRel")
-     * @ORM\JoinColumn(name="codigo_responsable_fk", referencedColumnName="codigo_responsable_pk")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Funcionalidad", inversedBy="implementacionesFuncionalidadRel")
+     * @ORM\JoinColumn(name="codigo_funcionalidad_fk", referencedColumnName="codigo_funcionalidad_pk")
      */
-    private $responsableRel;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Accion", inversedBy="implementacionesDetallesAccionRel")
-     * @ORM\JoinColumn(name="codigo_accion_fk", referencedColumnName="codigo_accion_pk")
-     */
-    private $accionRel;
+    private $funcionalidadRel;
 
     /**
      * @return mixed
@@ -377,7 +370,85 @@ class ImplementacionDetalle
         $this->fechaCompromiso = $fechaCompromiso;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCodigoRequisitoFk()
+    {
+        return $this->codigoRequisitoFk;
+    }
 
+    /**
+     * @param mixed $codigoRequisitoFk
+     */
+    public function setCodigoRequisitoFk($codigoRequisitoFk): void
+    {
+        $this->codigoRequisitoFk = $codigoRequisitoFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRequisitoRel()
+    {
+        return $this->requisitoRel;
+    }
+
+    /**
+     * @param mixed $requisitoRel
+     */
+    public function setRequisitoRel($requisitoRel): void
+    {
+        $this->requisitoRel = $requisitoRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoFuncionalidadFk()
+    {
+        return $this->codigoFuncionalidadFk;
+    }
+
+    /**
+     * @param mixed $codigoFuncionalidadFk
+     */
+    public function setCodigoFuncionalidadFk($codigoFuncionalidadFk): void
+    {
+        $this->codigoFuncionalidadFk = $codigoFuncionalidadFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFuncionalidadRel()
+    {
+        return $this->funcionalidadRel;
+    }
+
+    /**
+     * @param mixed $funcionalidadRel
+     */
+    public function setFuncionalidadRel($funcionalidadRel): void
+    {
+        $this->funcionalidadRel = $funcionalidadRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoModuloFk()
+    {
+        return $this->codigoModuloFk;
+    }
+
+    /**
+     * @param mixed $codigoModuloFk
+     */
+    public function setCodigoModuloFk($codigoModuloFk): void
+    {
+        $this->codigoModuloFk = $codigoModuloFk;
+    }
 
 
 }

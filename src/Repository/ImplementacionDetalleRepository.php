@@ -76,6 +76,48 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+    public function listaDetalle($codigoImplementacion)
+    {
+        $session = new Session();
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(ImplementacionDetalle::class, 'id')
+            ->select('id.codigoImplementacionDetallePk')
+            ->addSelect('id.codigoRequisitoFk')
+            ->addSelect('id.codigoModuloFk')
+            ->addSelect('id.codigoRequisitoFk')
+            ->addSelect('id.codigoFuncionalidadFk')
+            ->addSelect('id.comentario')
+            ->addSelect('id.comentarioImplementador')
+            ->addSelect('id.estadoTerminado')
+            ->addSelect('re.nombre as requisitoNombre')
+            ->addSelect('fu.nombre as funcionalidadNombre')
+            ->leftJoin('id.requisitoRel', 're')
+            ->leftJoin('id.funcionalidadRel', 'fu')
+            ->where("id.codigoImplementacionFk = {$codigoImplementacion}");
+        switch ($session->get('filtroImplementacionDetalleEstadoTerminado')) {
+            case '0':
+                $queryBuilder->andWhere("id.estadoTerminado = 0");
+                break;
+            case '1':
+                $queryBuilder->andWhere("id.estadoTerminado = 1");
+                break;
+        }
+
+        switch ($session->get('filtroImplementacionEstadoCapacitado')) {
+            case '0':
+                $queryBuilder->andWhere("id.estadoCapacitado = 0");
+                break;
+            case '1':
+                $queryBuilder->andWhere("id.estadoCapacitado = 1");
+                break;
+        }
+
+        if ($session->get('filtroImplementacionModulo')) {
+            $queryBuilder->andWhere("t.codigoModuloFk = '" . $session->get('filtroImplementacionModulo') . "'");
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function temasCapacitados($codigoImplementacion)
     {
         $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(ImplementacionDetalle::class, 'id')
