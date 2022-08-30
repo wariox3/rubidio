@@ -2,9 +2,11 @@
 
 namespace App\Controller\Operacion;
 
+use App\Entity\Cliente;
 use App\Entity\Funcionalidad;
 use App\Entity\Implementacion;
 use App\Entity\ImplementacionDetalle;
+use App\Entity\Modulo;
 use App\Entity\Requisito;
 use App\Form\Type\ImplementacionDetalleImplementadorType;
 use App\Form\Type\ImplementacionType;
@@ -12,7 +14,9 @@ use App\Formatos\FormatoActaCapacitacion;
 use App\Formatos\FormatoActaTerminacion;
 use App\Formatos\FormatoPlanTrabajo;
 use App\Utilidades\Mensajes;
+use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -30,6 +34,16 @@ class ImplementacionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()
+            ->add('clienteRel', EntityType::class, array(
+                'class' => Cliente::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombreCorto', 'ASC');
+                },
+                'required' => false,
+                'choice_label' => 'nombreCorto',
+                'placeholder' => 'TODOS',
+            ))
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
@@ -50,6 +64,9 @@ class ImplementacionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $arImplementacion = new Implementacion();
+        if ($id != 0) {
+            $arImplementacion = $em->getRepository(Implementacion::class)->find($id);
+        }
         $form = $this->createForm(ImplementacionType::class, $arImplementacion);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -57,7 +74,7 @@ class ImplementacionController extends AbstractController
                 $arImplementacion = $form->getData();
                 $em->persist($arImplementacion);
                 $em->flush();
-                return $this->redirect($this->generateUrl('operacion_implementacion_lista'));
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
         return $this->render('Operacion/Implementacion/nuevo.html.twig', [
@@ -165,10 +182,26 @@ class ImplementacionController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $arImplementacion = $em->getRepository(Implementacion::class)->find($id);
         $form = $this->createFormBuilder()
+            ->add('moduloRel', EntityType::class, array(
+                'class' => Modulo::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+                },
+                'choice_label' => 'nombre',
+                'required' => false,
+                'placeholder' => "TODOS",
+
+            ))
+            ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->add('btnGuardar', SubmitType::class, array('label' => 'Guardar'))
             ->getForm();
+        $raw = [];
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('btnFiltrar')->isClicked()) {
+                $raw['filtros'] = $this->filtros($form);
+            }
             if ($form->get('btnGuardar')->isClicked()) {
                 $arrSeleccionados = $request->request->get('ChkSeleccionar');
                 foreach ($arrSeleccionados as $codigo) {
@@ -180,10 +213,11 @@ class ImplementacionController extends AbstractController
                     $em->persist($arImplementacionDetalle);
                 }
                 $em->flush();
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
-            echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
+
         }
-        $arRequisitos = $em->getRepository(Requisito::class)->lista();
+        $arRequisitos = $em->getRepository(Requisito::class)->lista($raw);
         return $this->render('Operacion/Implementacion/detalleNuevoRequisito.html.twig', [
             'arRequisitos' => $arRequisitos,
             'form' => $form->createView()
@@ -198,10 +232,26 @@ class ImplementacionController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $arImplementacion = $em->getRepository(Implementacion::class)->find($id);
         $form = $this->createFormBuilder()
+            ->add('moduloRel', EntityType::class, array(
+                'class' => Modulo::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+                },
+                'choice_label' => 'nombre',
+                'required' => false,
+                'placeholder' => "TODOS",
+
+            ))
+            ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->add('btnGuardar', SubmitType::class, array('label' => 'Guardar'))
             ->getForm();
+        $raw = [];
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('btnFiltrar')->isClicked()) {
+                $raw['filtros'] = $this->filtros($form);
+            }
             if ($form->get('btnGuardar')->isClicked()) {
                 $arrSeleccionados = $request->request->get('ChkSeleccionar');
                 foreach ($arrSeleccionados as $codigo) {
@@ -213,13 +263,27 @@ class ImplementacionController extends AbstractController
                     $em->persist($arImplementacionDetalle);
                 }
                 $em->flush();
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
-            echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
         }
-        $arFuncionalidades = $em->getRepository(Funcionalidad::class)->lista(null);
+        $arFuncionalidades = $em->getRepository(Funcionalidad::class)->lista($raw);
         return $this->render('Operacion/Implementacion/detalleNuevoFuncionalidad.html.twig', [
             'arFuncionalidades' => $arFuncionalidades,
             'form' => $form->createView()
         ]);
+    }
+
+    public function filtros($form) {
+        $filtro = [
+        ];
+        $arModulo = $form->get('moduloRel')->getData();
+
+        if ($arModulo) {
+            $filtro['codigoModulo'] = $arModulo->getCodigoModuloPk();
+        } else {
+            $filtro['codigoModulo'] = null;
+        }
+        return $filtro;
+
     }
 }

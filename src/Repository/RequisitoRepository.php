@@ -13,14 +13,22 @@ class RequisitoRepository extends ServiceEntityRepository
         parent::__construct($registry, Requisito::class);
     }
 
-    public function lista()
+    public function lista($raw)
     {
         $em = $this->getEntityManager();
+        $filtros = $raw['filtros'] ?? null;
+        $codigoModulo = null;
+        if ($filtros) {
+            $codigoModulo = $filtros['codigoModulo'] ?? null;
+        }
         $queryBuilder = $em->createQueryBuilder()->from(Requisito::class, 'r')
             ->select('r.codigoRequisitoPk')
             ->addSelect('r.nombre')
             ->addSelect('r.codigoModuloFk')
             ->orderBy('r.codigoModuloFk');
+        if($codigoModulo) {
+            $queryBuilder->andWhere("r.codigoModuloFk = '{$codigoModulo}'");
+        }
         $arRequisitos = $queryBuilder->getQuery()->getResult();
         return $arRequisitos;
     }

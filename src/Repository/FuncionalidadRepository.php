@@ -17,9 +17,9 @@ class FuncionalidadRepository extends ServiceEntityRepository
     {
         $em = $this->getEntityManager();
         $filtros = $raw['filtros'] ?? null;
-        $modulo = null;
+        $codigoModulo = null;
         if ($filtros) {
-            $modulo = $filtros['modulo'] ?? null;
+            $codigoModulo = $filtros['codigoModulo'] ?? null;
         }
         $queryBuilder = $em->createQueryBuilder()->from(Funcionalidad::class, 'f')
             ->select('f.codigoFuncionalidadPk')
@@ -30,8 +30,8 @@ class FuncionalidadRepository extends ServiceEntityRepository
             ->leftJoin('f.moduloRel', 'm')
             ->orderBy('f.codigoModuloFk', 'ASC')
             ->addOrderBy('f.orden', 'ASC');
-        if ($modulo) {
-            $queryBuilder->andWhere("f.codigoModuloFk = '{$modulo}'");
+        if ($codigoModulo) {
+            $queryBuilder->andWhere("f.codigoModuloFk = '{$codigoModulo}'");
         }
         $arFuncionalidades = $queryBuilder->getQuery()->getResult();
         return $arFuncionalidades;

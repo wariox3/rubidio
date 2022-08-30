@@ -4,6 +4,31 @@
         <div class="container">
             {{ form_start(form) }}
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="single-testimonial">
+                        <div class="card">
+                            {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+                            <div class="card-header title-bg-color">
+                                <h5>Filtros</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Cliente:</label>
+                                        {{ form_widget(form.clienteRel) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-end">
+                                    {{ form_widget(form.btnFiltrar, { 'attr': {'class': 'btnCustom'} }) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-12">
                     <div class="single-testimonial">
                         <div class="d-flex justify-content-end">
@@ -23,7 +48,8 @@
                                     <th>Celular</th>
                                     <th>Correo</th>
                                     <th title="Estado terminado">TER</th>
-                                    <th>DETALLES</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -36,6 +62,12 @@
                                         <td>{{ arImplementacion.celularLider }}</td>
                                         <td>{{ arImplementacion.correoLider }}</td>
                                         <td  class="text-center">{{ arImplementacion.estadoTerminado?'SI':'NO' }}</td>
+                                        <td class="text-center">
+                                            <a
+                                                    href="javascript:abrirVentana3('{{ path('operacion_implementacion_nuevo', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo', 600, 1200)">
+                                                <i class="fas fa-pen fa-2x"></i>
+                                            </a>
+                                        </td>
                                         <td class="text-center">
                                             <a href="{{ path('operacion_implementacion_detalle', { 'id': arImplementacion.codigoImplementacionPk }) }}">
                                                 <i class="fas fa-eye fa-2x"></i>
