@@ -8,9 +8,8 @@ use App\Entity\Implementacion;
 use App\Entity\ImplementacionDetalle;
 use App\Entity\Modulo;
 use App\Entity\Requisito;
-use App\Form\Type\ImplementacionDetalleImplementadorType;
+use App\Form\Type\ImplementacionDetalleType;
 use App\Form\Type\ImplementacionType;
-use App\Formatos\FormatoActaCapacitacion;
 use App\Formatos\FormatoActaTerminacion;
 use App\Formatos\FormatoPlanTrabajo;
 use App\Utilidades\Mensajes;
@@ -45,10 +44,28 @@ class ImplementacionController extends AbstractController
                 'placeholder' => 'TODOS',
             ))
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
+            ->add('btnEliminar', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-danger']])
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
+            if ($form->get('btnEliminar')->isClicked()) {
+                $arrSeleccionados = $request->request->get('ChkSeleccionar');
+                if ($arrSeleccionados) {
+                    foreach ($arrSeleccionados as $codigo) {
+                        $arImplementacionDetalles = $em->getRepository(ImplementacionDetalle::class)->findBy(['codigoImplementacionFk' => $codigo]);
+                        if(!$arImplementacionDetalles) {
+                            $arImplementacion = $em->getRepository(Implementacion::class)->find($codigo);
+                            if ($arImplementacion) {
+                                $em->remove($arImplementacion);
+                            }
+                        } else {
+                            Mensajes::error("La implementacion {$codigo} tiene detalles, debe eliminarlos primero");
+                            break;
+                        }
+                    }
+                    $em->flush();
+                }
+            }
         }
         $arImplementaciones = $paginator->paginate($em->getRepository(Implementacion::class)->lista(), $request->query->getInt('page', 1), 500);
         return $this->render('Operacion/Implementacion/lista.html.twig', [
@@ -91,20 +108,18 @@ class ImplementacionController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $arImplementacion = $em->getRepository(Implementacion::class)->find($id);
         $session = new Session();
-        $arrModulo = [
-            'TODOS' => '',
-            'Cartera' => 'CAR',
-            'CRM' => 'CRM',
-            'Financiero' => 'FIN',
-            'General' => 'GEN',
-            'Inventario' => 'INV',
-            'Juridico' => 'JUR',
-            'RHumano' => 'RHU',
-            'Tesoreria' => 'TES',
-            'Transporte' => 'TTE',
-            'Turnos' => 'TUR'];
         $form = $this->createFormBuilder()
-            ->add('modulo', ChoiceType::class, ['choices' => $arrModulo, 'data' => $session->get('filtroImplementacionModulo'), 'required' => false])
+            ->add('moduloRel', EntityType::class, array(
+                'class' => Modulo::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+                },
+                'choice_label' => 'nombre',
+                'required' => false,
+                'placeholder' => "TODOS",
+
+            ))
             ->add('estadoCapacitado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoCapacitado'), 'required' => false])
             ->add('estadoTerminado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoTerminado'), 'required' => false])
             ->add('btnFiltrar', SubmitType::class, array('label' => 'Filtrar'))
@@ -112,12 +127,11 @@ class ImplementacionController extends AbstractController
             ->add('btnImprimirPlanTrabajo', SubmitType::class, array('label' => 'Imprimir plan de trabajo', 'attr' => ['class' => 'btn btn-default btn-sm']))
             ->add('btnEliminar', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-danger']])
             ->getForm();
+        $raw = [];
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('btnFiltrar')->isClicked()) {
-                $session->set('filtroImplementacionEstadoCapacitado', $form->get('estadoCapacitado')->getData());
-                $session->set('filtroImplementacionModulo', $form->get('modulo')->getData());
-                $session->set('filtroImplementacionDetalleEstadoTerminado', $form->get('estadoTerminado')->getData());
+                $raw['filtros'] = $this->filtrosDetalle($form);
             }
             if ($form->get('btnImprimirActaTerminacion')->isClicked()) {
                 $validarTemasFinalizados = $em->getRepository(ImplementacionDetalle::class)->temasCapacitados($id);
@@ -145,7 +159,7 @@ class ImplementacionController extends AbstractController
                 }
             }
         }
-        $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->listaDetalle($id);
+        $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->listaDetalle($id, $raw);
         return $this->render('Operacion/Implementacion/detalle.html.twig', ['arImplementacion' => $arImplementacion,
             'arImplementacionDetalles' => $arImplementacionDetalle,
             'form' => $form->createView()]);
@@ -158,7 +172,7 @@ class ImplementacionController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->find($id);
-        $form = $this->createForm(ImplementacionDetalleImplementadorType::class, $arImplementacionDetalle);
+        $form = $this->createForm(ImplementacionDetalleType::class, $arImplementacionDetalle);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
@@ -275,6 +289,22 @@ class ImplementacionController extends AbstractController
 
     public function filtros($form) {
         $filtro = [
+        ];
+        $arModulo = $form->get('moduloRel')->getData();
+
+        if ($arModulo) {
+            $filtro['codigoModulo'] = $arModulo->getCodigoModuloPk();
+        } else {
+            $filtro['codigoModulo'] = null;
+        }
+        return $filtro;
+
+    }
+
+    public function filtrosDetalle($form) {
+        $filtro = [
+            'estadoCapacitado' => $form->get('estadoCapacitado')->getData(),
+            'estadoTerminado' => $form->get('estadoTerminado')->getData()
         ];
         $arModulo = $form->get('moduloRel')->getData();
 

@@ -76,11 +76,21 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function listaDetalle($codigoImplementacion)
+    public function listaDetalle($codigoImplementacion, $raw)
     {
-        $session = new Session();
+        $em = $this->getEntityManager();
+        $filtros = $raw['filtros'] ?? null;
+        $codigoModulo = null;
+        $estadoCapacitado = null;
+        $estadoTerminado = null;
+        if ($filtros) {
+            $codigoModulo = $filtros['codigoModulo'] ?? null;
+            $estadoCapacitado = $filtros['estadoCapacitado'] ?? null;
+            $estadoTerminado = $filtros['estadoTerminado'] ?? null;
+        }
         $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(ImplementacionDetalle::class, 'id')
             ->select('id.codigoImplementacionDetallePk')
+            ->addSelect('id.fechaCompromiso')
             ->addSelect('id.codigoRequisitoFk')
             ->addSelect('id.codigoModuloFk')
             ->addSelect('id.codigoRequisitoFk')
@@ -88,21 +98,13 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
             ->addSelect('id.comentario')
             ->addSelect('id.comentarioImplementador')
             ->addSelect('id.estadoTerminado')
+            ->addSelect('id.estadoCapacitado')
             ->addSelect('re.nombre as requisitoNombre')
             ->addSelect('fu.nombre as funcionalidadNombre')
             ->leftJoin('id.requisitoRel', 're')
             ->leftJoin('id.funcionalidadRel', 'fu')
             ->where("id.codigoImplementacionFk = {$codigoImplementacion}");
-        switch ($session->get('filtroImplementacionDetalleEstadoTerminado')) {
-            case '0':
-                $queryBuilder->andWhere("id.estadoTerminado = 0");
-                break;
-            case '1':
-                $queryBuilder->andWhere("id.estadoTerminado = 1");
-                break;
-        }
-
-        switch ($session->get('filtroImplementacionEstadoCapacitado')) {
+        switch ($estadoCapacitado) {
             case '0':
                 $queryBuilder->andWhere("id.estadoCapacitado = 0");
                 break;
@@ -110,9 +112,16 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
                 $queryBuilder->andWhere("id.estadoCapacitado = 1");
                 break;
         }
-
-        if ($session->get('filtroImplementacionModulo')) {
-            $queryBuilder->andWhere("t.codigoModuloFk = '" . $session->get('filtroImplementacionModulo') . "'");
+        switch ($estadoTerminado) {
+            case '0':
+                $queryBuilder->andWhere("id.estadoTerminado = 0");
+                break;
+            case '1':
+                $queryBuilder->andWhere("id.estadoTerminado = 1");
+                break;
+        }
+        if ($codigoModulo) {
+            $queryBuilder->andWhere("id.codigoModuloFk = '{$codigoModulo}'");
         }
 
         return $queryBuilder->getQuery()->getResult();

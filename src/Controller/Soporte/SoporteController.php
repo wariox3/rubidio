@@ -184,7 +184,7 @@ class SoporteController extends AbstractController
     /**
      * @Route("/soporte/soporte/solucion/{id}", name="soporte_soporte_solucion")
      */
-    public function solucion(Request $request, Dubnio $correo, $id)
+    public function solucion(Request $request, Dubnio $dubnio, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arSoporte = $em->getRepository(Soporte::class)->find($id);
@@ -198,18 +198,27 @@ class SoporteController extends AbstractController
                 $em->persist($arSoporte);
                 $em->flush();
                 if ($arSoporte->getCorreo()) {
-                    $respuesta = $correo->enviarCorreo($arSoporte->getCorreo(), 'Atencion a solicitud de soporte' . ' - ' . $arSoporte->getCodigoSoportePk(),
+                    $respuesta = $dubnio->enviarCorreo($arSoporte->getCorreo(), 'Atencion a solicitud de soporte' . ' - ' . $arSoporte->getCodigoSoportePk(),
                         $this->renderView(
                             'Soporte/Soporte/correoSolucion.html.twig',
                             array('arSoporte' => $arSoporte)
                         ));
                 }
-
+                if (strlen($arSoporte->getTelefono()) == 10) {
+                    $arrMensajes[] = [
+                        "numero" => $arSoporte->getTelefono(),
+                        "soporte" => $arSoporte->getCodigoSoportePk(),
+                        "mensaje" => "Soporte técnico Semántica Digital, hemos dado respuesta al soporte {$arSoporte->getCodigoSoportePk()} puedes ver la respuesta aqui http://semantica.com.co/rubidio/public/index.php/soporte/comosehace/{$arSoporte->getCodigoSoportePk()}",
+                        "modelo" => "Soporte",
+                        "codigoDocumento" => $arSoporte->getCodigoSoportePk()
+                    ];
+                    $dubnio->sms($arrMensajes);
+                }
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
         $bloqueado = false;
-        $respuesta = $correo->bloqueo($arSoporte->getCorreo());
+        $respuesta = $dubnio->bloqueo($arSoporte->getCorreo());
         if($respuesta) {
             if($respuesta->error == false) {
                 $bloqueado = $respuesta->bloqueado;

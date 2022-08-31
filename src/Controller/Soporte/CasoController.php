@@ -166,11 +166,10 @@ class CasoController extends AbstractController
     /**
      * @Route("/soporte/caso/solucion/{id}", name="soporte_caso_solucion")
      */
-    public function solucion(Request $request, Dubnio $correo, $id)
+    public function solucion(Request $request, Dubnio $dubnio, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arCaso = $em->getRepository(Caso::class)->find($id);
-
         $form = $this->createForm(CasoSolucionType::class, $arCaso);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -181,16 +180,26 @@ class CasoController extends AbstractController
                 $arCaso->setEstadoSolucionado(1);
                 $em->persist($arCaso);
                 $em->flush();
-                $respuesta = $correo->enviarCorreo($arCaso->getCorreo(), 'Solución de caso' . ' - ' . $arCaso->getCodigoCasoPk(),
+                $respuesta = $dubnio->enviarCorreo($arCaso->getCorreo(), 'Solución de caso' . ' - ' . $arCaso->getCodigoCasoPk(),
                     $this->renderView(
                         'Soporte/Caso/correoSolucion.html.twig',
                         array('arCaso' => $arCaso)
                     ));
+                if (strlen($arCaso->getTelefono()) == 10) {
+                    $arrMensajes[] = [
+                        "numero" => $arCaso->getTelefono(),
+                        "soporte" => $arCaso->getCodigoCasoPk(),
+                        "mensaje" => "Soporte técnico Semántica Digital, hemos dado respuesta al caso {$arCaso->getCodigoCasoPk()}, consulte la mesa de ayuda para verificar la respuesta",
+                        "modelo" => "Soporte",
+                        "codigoDocumento" => $arCaso->getCodigoCasoPk()
+                    ];
+                    $dubnio->sms($arrMensajes);
+                }
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
         $bloqueado = false;
-        $respuesta = $correo->bloqueo($arCaso->getCorreo());
+        $respuesta = $dubnio->bloqueo($arCaso->getCorreo());
         if($respuesta) {
             if($respuesta->error == false) {
                 $bloqueado = $respuesta->bloqueado;

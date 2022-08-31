@@ -65,9 +65,9 @@ class SoporteController extends AbstractController
     }
 
     /**
-     * @Route("/soporte/comosehace", name="soporte_comosehace")
+     * @Route("/soporte/comosehace/{codigo}", name="soporte_comosehace")
      */
-    public function comoSeHace(Request $request, ManagerRegistry $doctrine): Response
+    public function comoSeHace(Request $request, ManagerRegistry $doctrine, $codigo = null): Response
     {
         $em = $doctrine->getManager();
         $arSoporte = new Soporte();
@@ -76,7 +76,7 @@ class SoporteController extends AbstractController
         $form = $this->createForm(SoporteExternoType::class, $arSoporte);
         $form->handleRequest($request);
         $formBuscar = $this->createFormBuilder()
-            ->add('codigoSoporte', TextType::class, array('required' => false))
+            ->add('codigoSoporte', TextType::class, array('data' => $codigo, 'required' => false))
             ->add('buscar', SubmitType::class)
             ->getForm();
         $formBuscar->handleRequest($request);

@@ -36,6 +36,7 @@
                                href="javascript:abrirVentana3('{{ path('operacion_implementacion_nuevo', {'id': '0'}) }}', 'Nuevo', 600, 1200)">
                                 Nuevo
                             </a>
+                            {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
                         </div>
                         <div class="table-responsive-sm mt-2">
                             <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
@@ -50,6 +51,15 @@
                                     <th title="Estado terminado">TER</th>
                                     <th></th>
                                     <th></th>
+                                    <th class="text-center" title="seleccionar todos">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" name="ChkSeleccionar[]"
+                                                   class="custom-control-input"
+                                                   id="todosInput"
+                                                   onclick="ChequearTodosTabla(this, 'ChkSeleccionar[]')"/>
+                                            <label class="custom-control-label" for="todosInput"></label>
+                                        </div>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -72,6 +82,10 @@
                                             <a href="{{ path('operacion_implementacion_detalle', { 'id': arImplementacion.codigoImplementacionPk }) }}">
                                                 <i class="fas fa-eye fa-2x"></i>
                                             </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="ChkSeleccionar[]"
+                                                   value="{{ arImplementacion.codigoImplementacionPk }}"/>
                                         </td>
                                     </tr>
                                 {% endfor %}

@@ -38,7 +38,7 @@ class ContactoController extends AbstractController
                 $arContacto = $form->getData();
                 $em->persist($arContacto);
                 $em->flush();
-                $html = "Un cliente se ha comunicado con nosotros nombre: {$arContacto->getNombre()} empresa: {$arContacto->getEmpresa()}";
+                $html = "Un cliente se ha comunicado con nosotros nombre: {$arContacto->getNombre()} empresa: {$arContacto->getEmpresa()} mensaje: {$arContacto->getDescripcion()}";
                 $dubnio->enviarCorreo("maestradaz3@gmail.com", "Se han contactado con semantica", $html);
                 return $this->redirectToRoute('contacto_informacion', ['id' => $arContacto->getCodigoContactoSitioPk()]);
             }
