@@ -30,7 +30,7 @@ class CasoRespuesta
     private $fecha;
 
     /**
-     * @ORM\Column(name="comentario", type="string", length=1000, nullable=true)
+     * @ORM\Column(name="comentario", type="text", nullable=true)
      */
     private $comentario;
 
@@ -107,22 +107,6 @@ class CasoRespuesta
     /**
      * @return mixed
      */
-    public function getComentario()
-    {
-        return $this->comentario;
-    }
-
-    /**
-     * @param mixed $comentario
-     */
-    public function setComentario($comentario): void
-    {
-        $this->comentario = $comentario;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCasoRel()
     {
         return $this->casoRel;
@@ -182,6 +166,22 @@ class CasoRespuesta
     public function setCliente(bool $cliente): void
     {
         $this->cliente = $cliente;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComentario()
+    {
+        return $this->comentario;
+    }
+
+    /**
+     * @param mixed $comentario
+     */
+    public function setComentario($comentario): void
+    {
+        $this->comentario = $comentario;
     }
 
 
