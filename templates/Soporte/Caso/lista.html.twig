@@ -12,36 +12,31 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-row">
-                                    <div class="form-group col-md-3">
+                                    <div class="form-group col-md-6">
                                         <label for="inputEmail4">Cliente:</label>
                                         {{ form_widget(form.clienteRel) }}
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="inputEmail4">Tipo:</label>
-                                        {{ form_widget(form.CasoTipoRel) }}
+                                        <label for="inputPassword4">Respuesta:</label>
+                                        {{ form_widget(form.estadoRespuesta) }}
                                     </div>
-
-                                    <div class="form-group col-md-2">
-                                        <label for="inputPassword4">Atendido:</label>
-                                        {{ form_widget(form.estadoAtendido) }}
-                                    </div>
-                                    <div class="form-group col-md-2">
-                                        <label for="inputPassword4">Solucionado:</label>
-                                        {{ form_widget(form.estadoSolucionado) }}
-                                    </div>
-                                    <div class="form-group col-md-2">
+                                    <div class="form-group col-md-3">
                                         <label for="inputPassword4">Desarrollo:</label>
                                         {{ form_widget(form.estadoDesarrollo) }}
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-3">
-                                        <label for="inputEmail4">Postergado:</label>
-                                        {{ form_widget(form.estadoPostergado) }}
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Tipo:</label>
+                                        {{ form_widget(form.CasoTipoRel) }}
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputEmail4">Escalado:</label>
                                         {{ form_widget(form.estadoEscalado) }}
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Cerrado:</label>
+                                        {{ form_widget(form.estadoCerrado) }}
                                     </div>
                                 </div>
                             </div>
@@ -64,19 +59,11 @@
                                     <th>Id</th>
                                     <th>Tipo</th>
                                     <th>Fecha</th>
-                                    <th title="Fecha de compromiso">Com</th>
                                     <th>Cliente</th>
+                                    <th>Cli_Ingreso</th>
                                     <th>Contacto</th>
                                     <th>Descripción</th>
-                                    <th>Solución</th>
-                                    <th title="Comentario postergado">C_P</th>
-                                    <th title="Respuesta postergado">R_P</th>
                                     <th>Prioridad</th>
-                                    <th title="Atendido">Ate</th>
-                                    <th title="Desarrollo">Des</th>
-                                    <th title="Escalado">Esc</th>
-                                    <th title="Solucionado">Sol</th>
-                                    <th title="Postergado">Pos</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -84,31 +71,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for arCaso in arCasos %}
+                                {% for arCaso in arCasosAtender %}
                                     <tr>
 
                                         <td>{{ arCaso.codigoCasoPk }}</td>
                                         <td>{{ arCaso.nombre }}</td>
                                         <td>{{ arCaso.fecha | date('Y-m-d H:i') }}</td>
-                                        <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
                                         <td>{{ arCaso.clienteNombreCorto }}</td>
+                                        <td>{{ arCaso.clienteIngreso }}</td>
                                         <td>{{ arCaso.contacto }}</td>
                                         <td>{{ arCaso.descripcion }}</td>
-                                        <td>{{ arCaso.solucion }}</td>
-                                        <td>{{ arCaso.comentarioPostergado }}</td>
-                                        <td>{{ arCaso.respuestaPostergado }}</td>
                                         <td>{{ arCaso.prioridadNombre }}</td>
-                                        <td class="text-center">
-                                            {% if arCaso.estadoAtendido == 1 %}
-                                                SI
-                                            {% else %}
-                                                NO
-                                            {% endif %}
-                                        </td>
-                                        <td class="text-center">{{ arCaso.estadoDesarrollo ? 'SI':'NO' }}</td>
-                                        <td class="text-center">{{ arCaso.estadoEscalado ? 'SI':'NO' }}</td>
-                                        <td class="text-center">{{ arCaso.estadoSolucionado ? 'SI':'NO' }}</td>
-                                        <td class="text-center">{{ arCaso.estadoPostergado ? 'SI':'NO' }}</td>
                                         <td class="text-center">
                                             <div class="dropdown d-flex justify-content-center align-content-start">
                                                 <a class=" dropdown-toggle" type="button" id="dropdownMenu2"
@@ -125,6 +98,83 @@
                                                     {% else %}
                                                         <a class="dropdown-item disabled" aria-disabled="true">Atendido</a>
                                                     {% endif %}
+                                                </div>
+                                            </div>
+                                        </td>
+
+
+                                        <td class="text-center">
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a href="{{ path('soporte_caso_atender', { 'id': arCaso.codigoCasoPk }) }}">
+                                                    <i class="fas fa-pen fa-2x"></i>
+                                                </a>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('soporte_caso_detalle', { 'id': arCaso.codigoCasoPk }) }}">
+                                                <i class="fas fa-eye fa-2x"></i>
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="ChkSeleccionar[]"
+                                                   value="{{ arCaso.codigoCasoPk }}"/>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-testimonial">
+                        <div class="table-responsive-sm mt-2">
+                            <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                <thead class="title-bg-color">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Tipo</th>
+                                    <th>Fecha</th>
+                                    <th title="Fecha de compromiso">Com</th>
+                                    <th>Cliente</th>
+                                    <th>Contacto</th>
+                                    <th>Descripción</th>
+                                    <th>Prioridad</th>
+                                    <th title="Respuesta">Res</th>
+                                    <th title="Desarrollo">Des</th>
+                                    <th title="Escalado">Esc</th>
+                                    <th title="Cerrado">Cer</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for arCaso in arCasos %}
+                                    <tr>
+                                        <td>{{ arCaso.codigoCasoPk }}</td>
+                                        <td>{{ arCaso.nombre }}</td>
+                                        <td>{{ arCaso.fecha | date('Y-m-d H:i') }}</td>
+                                        <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
+                                        <td>{{ arCaso.clienteNombreCorto }}</td>
+                                        <td>{{ arCaso.contacto }}</td>
+                                        <td>{{ arCaso.descripcion }}</td>
+                                        <td>{{ arCaso.prioridadNombre }}</td>
+                                        <td class="text-center">{{ arCaso.estadoRespuesta ? 'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arCaso.estadoDesarrollo ? 'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arCaso.estadoEscalado ? 'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arCaso.estadoCerrado ? 'SI':'NO' }}</td>
+                                        <td class="text-center">
+                                            <div class="dropdown d-flex justify-content-center align-content-start">
+                                                <a class=" dropdown-toggle" type="button" id="dropdownMenu2"
+                                                   data-toggle="dropdown" aria-haspopup="true"
+                                                   aria-expanded="false">
+                                                    Opciones
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                                     {% if is_granted('ROLE_ADMIN') %}
                                                         {% if arCaso.estadoDesarrollo == 0 %}
                                                             <a class="dropdown-item"

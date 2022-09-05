@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Articulo;
+use App\Entity\Caso;
 use App\Entity\Error;
-use App\Entity\Soporte;
 use App\Entity\Usuario;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
@@ -37,23 +37,14 @@ class InicioController extends AbstractController
     {
         $em = $this->getDoctrine();
         $roles = $this->getUser()->getRoles();
-        $soporteSinAtender = 0;
-        $soporteSinSolucionar = 0;
-        $soporteDia = 0;
-        $soporteMes = 0;
+        $casoSinAtender = 0;
         $arErrores = [];
         if (in_array('ROLE_SOPORTE', $roles) || in_array('ROLE_ADMIN', $roles)) {
-            $soporteSinAtender = $em->getRepository(Soporte::class)->cantidadSoportesSinAtender();
-            $soporteSinSolucionar = $em->getRepository(Soporte::class)->cantidadSoportesSinSolucion();
-            $soporteDia = $em->getRepository(Soporte::class)->cantidadSoportesDia();
-            $soporteMes = $em->getRepository(Soporte::class)->cantidadSoportesMes();
+            $casoSinAtender = 0;
             $arErrores = $em->getRepository(Error::class)->resumenErrores();
         }
         return $this->render('Inicio/admin.html.twig', [
-            'soporteSinAtender' => $soporteSinAtender,
-            'soporteSinSolucionar' => $soporteSinSolucionar,
-            'soporteDia' => $soporteDia,
-            'soporteMes' => $soporteMes,
+            'casoSinAtender' => $casoSinAtender,
             'arErrores' => $arErrores
         ]);
     }

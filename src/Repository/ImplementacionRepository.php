@@ -4,17 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Accion;
 use App\Entity\ImplementacionDetalle;
-use App\Entity\Norma;
-
 use App\Entity\Implementacion;
 use App\Entity\Responsable;
-use App\Entity\Soporte;
-use App\Entity\Tarea;
 use App\Entity\Tema;
-use App\Utilidades\AyudaEliminar;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\ORMException;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Persistence\ManagerRegistry;
 

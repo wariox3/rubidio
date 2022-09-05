@@ -11,12 +11,8 @@
                     <div class="card-body">
                         {{ form_errors(form) }}
                         <div class="form-group">
-                            <label class="control-label">Solución cliente:</label>
-                            {{ form_widget(form.solucionCliente, { 'attr': {'style':'height: 325px;'} }) }}
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Solución interna:</label>
-                            {{ form_widget(form.solucion) }}
+                            <label class="control-label">Respuesta:</label>
+                            {{ form_widget(form.comentario, { 'attr': {'style':'height: 325px;'} }) }}
                         </div>
 
                     </div>

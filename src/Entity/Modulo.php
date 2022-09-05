@@ -29,11 +29,6 @@ class Modulo
     protected $temasModuloRel;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Soporte", mappedBy="moduloRel")
-     */
-    protected $soportesModuloRel;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Recurso", mappedBy="moduloRel")
      */
     protected $recursosModuloRel;
@@ -52,6 +47,11 @@ class Modulo
      * @ORM\OneToMany(targetEntity="App\Entity\EstudioDetalle", mappedBy="moduloRel")
      */
     protected $estudiosDetallesModuloRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Caso", mappedBy="moduloRel")
+     */
+    protected $casosModuloRel;
 
     /**
      * @return mixed
@@ -99,22 +99,6 @@ class Modulo
     public function setTemasModuloRel($temasModuloRel): void
     {
         $this->temasModuloRel = $temasModuloRel;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSoportesModuloRel()
-    {
-        return $this->soportesModuloRel;
-    }
-
-    /**
-     * @param mixed $soportesModuloRel
-     */
-    public function setSoportesModuloRel($soportesModuloRel): void
-    {
-        $this->soportesModuloRel = $soportesModuloRel;
     }
 
     /**
@@ -179,6 +163,22 @@ class Modulo
     public function setEstudiosDetallesModuloRel($estudiosDetallesModuloRel): void
     {
         $this->estudiosDetallesModuloRel = $estudiosDetallesModuloRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCasosModuloRel()
+    {
+        return $this->casosModuloRel;
+    }
+
+    /**
+     * @param mixed $casosModuloRel
+     */
+    public function setCasosModuloRel($casosModuloRel): void
+    {
+        $this->casosModuloRel = $casosModuloRel;
     }
 
 

@@ -12,7 +12,7 @@
                                  <i class="pe-7s-tools"></i>
                              </div>
                              <h3>Sin atender</h3>
-                             <p>{{ soporteSinAtender }}</p>
+                             <p>0</p>
                              <div class="services-btn-link">
                                  <a href="#0" class="services-link">Actual</a>
                              </div>
@@ -25,7 +25,7 @@
                              </div>
 
                              <h3>Sin solución</h3>
-                             <p>{{ soporteSinSolucionar }}</p>
+                             <p>0</p>
                              <div class="services-btn-link">
                                  <a href="#" class="services-link">Actual</a>
                              </div>
@@ -37,7 +37,7 @@
                                  <i class="pe-7s-sun"></i>
                              </div>
                              <h3>Por día</h3>
-                             <p>{{ soporteDia }}</p>
+                             <p>0</p>
                              <div class="services-btn-link">
                                  <a href="#0" class="services-link">Actual</a>
                              </div>
@@ -49,7 +49,7 @@
                                  <i class="pe-7s-date"></i>
                              </div>
                              <h3>Por mes</h3>
-                             <p>{{ soporteMes }}</p>
+                             <p>0</p>
                              <div class="services-btn-link">
                                  <a href="#" class="services-link">Actual</a>
                              </div>
@@ -82,24 +82,6 @@
                                  </table>
                              </div>
                          </div>
-                     </div>
-                 </div>
-             </div>
-         </section>
-     {% endif %}
-     {% if is_granted('ROLE_CLIENTE') %}
-         <section class="services-section">
-             <div class="container">
-                 <div class="d-flex justify-content-center align-content-center">
-                     <div class="single-services-item">
-                         <div class="services-icon">
-                             <i class="pe-7s-info"></i>
-                         </div>
-                         <h3>Información</h3>
-                         <p>{{ app.user.codigoUsuarioPk }}</p>
-                         <p>{{ app.user.correo | default("Sin correo electronico registrado en mesa de ayuda") }}</p>
-                         <p>{{ app.user.nombres ~ ' ' ~ app.user.apellidos | default("Sin nombres registrado en mesa de ayuda") }}</p>
-                         <p>{{ app.user.telefono | default("Sin teléfono registrado en mesa de ayuda") }}</p>
                      </div>
                  </div>
              </div>

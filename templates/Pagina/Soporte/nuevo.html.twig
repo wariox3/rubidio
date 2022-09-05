@@ -1,17 +1,23 @@
 {% extends 'baseOscura.html.twig' %}
+{% block stylesheets %}
+    <style>
+        .widget-area .widget_search form button {
+            width: 80px
+        }
+    </style>
+{% endblock %}
 {% block content %}
-
     <!-- Start Page Title Area -->
-    <div class="page-title-area">
+    <div class="page-title-area item-bg2">
         <div class="d-table">
             <div class="d-table-cell">
                 <div class="container">
                     <div class="page-title-content">
-                        <h2>Desarrollo y mejoras</h2>
+                        <h2>Nuevo soporte</h2>
                         <ul>
-                            <li><a href="{{ path('soporte') }}">Soporte</a>
+                            <li><a href="{{ path('inicio') }}">Inicio</a>
                             </li>
-                            <li>Que la mejora continua se convierta en lema </li>
+                            <li>Soporte</li>
                         </ul>
                     </div>
                 </div>
@@ -28,21 +34,14 @@
                     <div class="col-lg-12 col-md-12">
                         <div class="services-step-wrapper">
                             <div class="services-step-title">
-                                <h2>Desarrollos de mejora</h2>
+                                <h2>Nuevo soporte</h2>
                             </div>
                             <div class="services-step-content">
-                                <p>Estamos comprometidos en tener una herramienta en constante proceso de mejora y renovacion, tanto a nivel
-                                tecnico como de los procesos que desarrollamos. Los clientes son la fuente de conocimiento para la investigacion, arquitectura
-                                    y desarrollos nuevos.
+                                <p>
+                                    Nuestro equipo de soporte está atento a sus necesidades, si tiene dudas sobre como usar
+                                    nuestros productos o servicios, solicitar ayuda si está fallando alguno de nuestros componentes o
+                                    simplemente requiere alguno de nuestros servicios complementarios.
                                 </p>
-                                <div class="features-text">
-                                    <p>
-                                        Cambiamos el modelo de negocio de la fabrica de software, queremos escuchar los usuarios finales, sus ideas y
-                                        sugerencias, ese es el punto de partida de grandes herramientas. Solicite mejoras tecnicas a los procesos actuales
-                                        o herramientas nuevas que puedan hacer su experiencia de usuario +simple +efectiva +eficaz. No importa
-                                        lo irrelevante que parezca, podría tener en su mente la proxima funcionalidad del sistema.
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -53,7 +52,7 @@
     <!-- End Services Details Area -->
 
     <!-- Start Contact Section -->
-    <div class="contact-section section-padding">
+    <div class="contact-section py-5">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12">
@@ -124,6 +123,11 @@
                                     {{ form_widget(form.clienteIngreso, { 'attr': {'placeholder': 'Cliente'} }) }}
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.moduloRel) }}
+                                </div>
+                            </div>
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
                                     {{ form_widget(form.descripcion, { 'attr': {'placeholder': 'Su pregunta', 'cols':30, 'rows':6} }) }}
@@ -149,5 +153,4 @@
         </div>
     </div>
     <!-- End Contact Section -->
-
 {% endblock %}

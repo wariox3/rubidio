@@ -10,16 +10,13 @@ use App\Entity\Funcionalidad;
 use App\Entity\Modulo;
 use App\Entity\Prioridad;
 use App\Entity\Recurso;
-use App\Entity\Soporte;
 use App\Form\Type\CasoSoporteType;
-use App\Form\Type\SoporteExternoType;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,172 +29,38 @@ class SoporteController extends AbstractController
     /**
      * @Route("/soporte", name="soporte")
      */
-    public function soporte(): Response
+    public function soporte(Request $request, ManagerRegistry $em): Response
     {
-        return $this->render('Pagina/Soporte/soporte.html.twig');
-    }
 
-    /**
-     * @Route("/soporte/asesor/detalle/{id}", name="soporte_asesor_detalle")
-     */
-    public function soporteAsesorDetalle(Request $request, ManagerRegistry $doctrine, $id): Response
-    {
-        $em = $doctrine->getManager();
-        $arSoporte = [];
-        if ($id) {
-            $arSoporte = $em->getRepository(Soporte::class)->find($id);
-        }
+        $arCasoConsultado = null;
         $formBuscar = $this->createFormBuilder()
-            ->add('codigoSoporte', TextType::class)
+            ->add('codigoCaso', TextType::class, array('data' => '', 'required' => false))
             ->add('buscar', SubmitType::class)
             ->getForm();
         $formBuscar->handleRequest($request);
         if ($formBuscar->isSubmitted() && $formBuscar->isValid()) {
             if ($formBuscar->get('buscar')->isClicked()) {
-                $codigoSoporte = $formBuscar->get('codigoSoporte')->getData();
-                $arSoporte = $em->getRepository(Soporte::class)->find($codigoSoporte);
-            }
-        }
-        return $this->render('Pagina/Soporte/soporteAsesorDetalle.html.twig', [
-            'arSoporte' => $arSoporte,
-            'formBuscar' => $formBuscar->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/soporte/comosehace/{codigo}", name="soporte_comosehace")
-     */
-    public function comoSeHace(Request $request, ManagerRegistry $doctrine, $codigo = null): Response
-    {
-        $em = $doctrine->getManager();
-        $arSoporte = new Soporte();
-        $arSoporte->setFecha(new \DateTime('now'));
-        $arSoporteConsultado = null;
-        $form = $this->createForm(SoporteExternoType::class, $arSoporte);
-        $form->handleRequest($request);
-        $formBuscar = $this->createFormBuilder()
-            ->add('codigoSoporte', TextType::class, array('data' => $codigo, 'required' => false))
-            ->add('buscar', SubmitType::class)
-            ->getForm();
-        $formBuscar->handleRequest($request);
-        if ($formBuscar->isSubmitted() && $formBuscar->isValid()) {
-            if ($formBuscar->get('buscar')->isClicked()) {
-                $codigoSoporte = $formBuscar->get('codigoSoporte')->getData();
-                if($codigoSoporte){
-                    $arSoporteConsultado = $em->getRepository(Soporte::class)->find($codigoSoporte);
+                $codigoCaso = $formBuscar->get('codigoCaso')->getData();
+                if($codigoCaso){
+                    $arCasoConsultado = $em->getRepository(Caso::class)->find($codigoCaso);
                 }
             }
         }
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arSoporte = $form->getData();
-                $em->persist($arSoporte);
-                $em->flush();
-                $parametros = $request->files;
-                foreach ($parametros as $archivos) {
-                    foreach ($archivos as $archivo) {
-                        $extension = $archivo->getClientOriginalExtension();
-                        $nombre = $archivo->getClientOriginalName();
-                        $tamano = $archivo->getSize();
-                        $mimeType = $archivo->getClientMimeType();
-                        $archivoTemporal = $archivo->getPathName();
-                        $em->getRepository(Archivo::class)->carga("soporte", $arSoporte->getCodigoSoportePk(), $extension, $nombre, $tamano, $mimeType, null, $archivoTemporal);
-                    }
-                }
-                return $this->render('Pagina/Soporte/soporteAsesorInformacion.html.twig', [
-                    'codigoSoporte' => $arSoporte->getCodigoSoportePk()
-                ]);
-            }
-        }
-        return $this->render('Pagina/Soporte/comoSeHace.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('Pagina/Soporte/soporte.html.twig', [
+            'arCasoConsultado' => $arCasoConsultado,
             'formBuscar' => $formBuscar->createView(),
-            'arSoporte'=> $arSoporte,
-            'arSoporteConsultado' => $arSoporteConsultado
         ]);
     }
 
     /**
-     * @Route("/soporte/falla", name="soporte_falla")
+     * @Route("/soporte/nuevo/{tipo}", name="soporte_nuevo")
      */
-    public function falla(Request $request, ManagerRegistry $doctrine): Response
+    public function nuevo(Request $request, ManagerRegistry $doctrine, $tipo): Response
     {
         $em = $doctrine->getManager();
         $arCaso = new Caso();
         $arCaso->setFecha(new \DateTime('now'));
-        $arCaso->setCasoTipoRel($em->getReference(CasoTipo::class, 'ERR'));
-        $arCaso->setPrioridadRel($em->getReference(Prioridad::class, 'CRI'));
-        $form = $this->createForm(CasoSoporteType::class, $arCaso);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arCaso = $form->getData();
-                $em->persist($arCaso);
-                $em->flush();
-                $parametros = $request->files;
-                foreach ($parametros as $archivos) {
-                    foreach ($archivos as $archivo) {
-                        $extension = $archivo->getClientOriginalExtension();
-                        $nombre = $archivo->getClientOriginalName();
-                        $tamano = $archivo->getSize();
-                        $mimeType = $archivo->getClientMimeType();
-                        $archivoTemporal = $archivo->getPathName();
-                        $em->getRepository(Archivo::class)->carga("caso", $arCaso->getCodigoCasoPk(), $extension, $nombre, $tamano, $mimeType, null, $archivoTemporal);
-                    }
-                }
-                return $this->render('Pagina/Soporte/casoInformacion.html.twig', ['codigoCaso' => $arCaso->getCodigoCasoPk()]);
-            }
-        }
-        return $this->render('Pagina/Soporte/falla.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/soporte/consultoria", name="soporte_consultoria")
-     */
-    public function consultoria(Request $request, ManagerRegistry $doctrine): Response
-    {
-        $em = $doctrine->getManager();
-        $arSoporte = new Soporte();
-        $arSoporte->setFecha(new \DateTime('now'));
-        $form = $this->createForm(SoporteExternoType::class, $arSoporte);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arSoporte = $form->getData();
-                $em->persist($arSoporte);
-                $em->flush();
-                $parametros = $request->files;
-                foreach ($parametros as $archivos) {
-                    foreach ($archivos as $archivo) {
-                        $extension = $archivo->getClientOriginalExtension();
-                        $nombre = $archivo->getClientOriginalName();
-                        $tamano = $archivo->getSize();
-                        $mimeType = $archivo->getClientMimeType();
-                        $archivoTemporal = $archivo->getPathName();
-                        $em->getRepository(Archivo::class)->carga("soporte", $arSoporte->getCodigoSoportePk(), $extension, $nombre, $tamano, $mimeType, null, $archivoTemporal);
-                    }
-                }
-                return $this->render('Pagina/Soporte/soporteAsesorInformacion.html.twig', [
-                    'codigoSoporte' => $arSoporte->getCodigoSoportePk()
-                ]);
-            }
-        }
-        return $this->render('Pagina/Soporte/consultoria.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/soporte/desarrollo", name="soporte_desarrollo")
-     */
-    public function desarrollo(Request $request, ManagerRegistry $doctrine): Response
-    {
-        $em = $doctrine->getManager();
-        $arCaso = new Caso();
-        $arCaso->setFecha(new \DateTime('now'));
-        $arCaso->setCasoTipoRel($em->getReference(CasoTipo::class, 'DES'));
+        $arCaso->setCasoTipoRel($em->getReference(CasoTipo::class, $tipo));
         $arCaso->setPrioridadRel($em->getReference(Prioridad::class, 'NOR'));
         $form = $this->createForm(CasoSoporteType::class, $arCaso);
         $form->handleRequest($request);
@@ -217,83 +80,14 @@ class SoporteController extends AbstractController
                         $em->getRepository(Archivo::class)->carga("caso", $arCaso->getCodigoCasoPk(), $extension, $nombre, $tamano, $mimeType, null, $archivoTemporal);
                     }
                 }
-                return $this->render('Pagina/Soporte/casoInformacion.html.twig', ['codigoCaso' => $arCaso->getCodigoCasoPk()]);
-            }
-        }
-        return $this->render('Pagina/Soporte/desarrollo.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/soporte/solicitud", name="soporte_solicitud")
-     */
-    public function solicitud(Request $request, ManagerRegistry $doctrine): Response
-    {
-        $em = $doctrine->getManager();
-        $arCaso = new Caso();
-        $arCaso->setFecha(new \DateTime('now'));
-        $arCaso->setCasoTipoRel($em->getReference(CasoTipo::class, 'SOL'));
-        $arCaso->setPrioridadRel($em->getReference(Prioridad::class, 'NOR'));
-        $form = $this->createForm(CasoSoporteType::class, $arCaso);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arCaso = $form->getData();
-                $em->persist($arCaso);
-                $em->flush();
-                $parametros = $request->files;
-                foreach ($parametros as $archivos) {
-                    foreach ($archivos as $archivo) {
-                        $extension = $archivo->getClientOriginalExtension();
-                        $nombre = $archivo->getClientOriginalName();
-                        $tamano = $archivo->getSize();
-                        $mimeType = $archivo->getClientMimeType();
-                        $archivoTemporal = $archivo->getPathName();
-                        $em->getRepository(Archivo::class)->carga("caso", $arCaso->getCodigoCasoPk(), $extension, $nombre, $tamano, $mimeType, null, $archivoTemporal);
-                    }
-                }
-                return $this->render('Pagina/Soporte/casoInformacion.html.twig', ['codigoCaso' => $arCaso->getCodigoCasoPk()]);
-            }
-        }
-        return $this->render('Pagina/Soporte/solicitud.html.twig', [
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/soporte/solicitar", name="soporte_solicitar")
-     */
-    public function solicitar(Request $request, ManagerRegistry $doctrine): Response
-    {
-        $em = $doctrine->getManager();
-        $arSoporte = new Soporte();
-        $arSoporte->setFecha(new \DateTime('now'));
-        $form = $this->createForm(SoporteExternoType::class, $arSoporte);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arSoporte = $form->getData();
-                $em->persist($arSoporte);
-                $em->flush();
-                $parametros = $request->files;
-                foreach ($parametros as $archivos) {
-                    foreach ($archivos as $archivo) {
-                        $extension = $archivo->getClientOriginalExtension();
-                        $nombre = $archivo->getClientOriginalName();
-                        $tamano = $archivo->getSize();
-                        $mimeType = $archivo->getClientMimeType();
-                        $archivoTemporal = $archivo->getPathName();
-                        $em->getRepository(Archivo::class)->carga("soporte", $arSoporte->getCodigoSoportePk(), $extension, $nombre, $tamano, $mimeType, null, $archivoTemporal);
-                    }
-                }
-                return $this->render('Pagina/Soporte/soporteAsesorInformacion.html.twig', [
-                    'codigoSoporte' => $arSoporte->getCodigoSoportePk()
+                return $this->render('Pagina/Soporte/casoInformacion.html.twig', [
+                    'codigoCaso' => $arCaso->getCodigoCasoPk()
                 ]);
             }
         }
-        return $this->render('Pagina/Soporte/solicitar.html.twig', [
-            'form' => $form->createView()
+        return $this->render('Pagina/Soporte/nuevo.html.twig', [
+            'form' => $form->createView(),
+            'arCaso'=> $arCaso,
         ]);
     }
 

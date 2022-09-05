@@ -25,20 +25,20 @@ class CasoRepository extends ServiceEntityRepository
             ->addSelect('c.compromiso')
             ->addSelect('c.contacto')
             ->addSelect('c.descripcion')
-            ->addSelect('c.solucion')
-            ->addSelect('c.comentarioPostergado')
-            ->addSelect('c.respuestaPostergado')
-            ->addSelect('p.nombre as prioridadNombre')
             ->addSelect('c.estadoAtendido')
             ->addSelect('c.estadoDesarrollo')
             ->addSelect('c.estadoEscalado')
-            ->addSelect('c.estadoSolucionado')
-            ->addSelect('c.estadoPostergado')
+            ->addSelect('c.estadoCerrado')
+            ->addSelect('c.estadoRespuesta')
+            ->addSelect('c.clienteIngreso')
             ->addSelect('cli.nombreCorto as clienteNombreCorto')
             ->addSelect('ct.nombre')
+            ->addSelect('p.nombre as prioridadNombre')
             ->leftJoin('c.prioridadRel', 'p')
             ->leftJoin('c.casoTipoRel', 'ct')
-            ->leftJoin('c.clienteRel', 'cli');
+            ->leftJoin('c.clienteRel', 'cli')
+            ->where('c.estadoAtendido = 1')
+            ->orderBy('c.codigoCasoPk', 'DESC');
 
         if ($session->get('filtroCasoCodigoCliente')) {
             $queryBuilder->andWhere('c.codigoClienteFk=' . $session->get('filtroCasoCodigoCliente'));
@@ -46,15 +46,6 @@ class CasoRepository extends ServiceEntityRepository
 
         if ($session->get('filtroCasoCodigoTipo')) {
             $queryBuilder->andWhere("ct.codigoCasoTipoPk = '{$session->get('filtroCasoCodigoTipo')}' ");
-        }
-
-        switch ($session->get('filtroCasoEstadoAtendido')) {
-            case '0':
-                $queryBuilder->andWhere("c.estadoAtendido = 0");
-                break;
-            case '1':
-                $queryBuilder->andWhere("c.estadoAtendido = 1");
-                break;
         }
 
         switch ($session->get('filtroCasoEstadoDesarrollo')) {
@@ -75,25 +66,48 @@ class CasoRepository extends ServiceEntityRepository
                 break;
         }
 
-        switch ($session->get('filtroCasoEstadoSolucionado')) {
+        switch ($session->get('filtroCasoEstadoCerrado')) {
             case '0':
-                $queryBuilder->andWhere("c.estadoSolucionado = 0");
+                $queryBuilder->andWhere("c.estadoCerrado = 0");
                 break;
             case '1':
-                $queryBuilder->andWhere("c.estadoSolucionado = 1");
+                $queryBuilder->andWhere("c.estadoCerrado = 1");
                 break;
         }
-
-        switch ($session->get('filtroCasoEstadoPostergado')) {
+        switch ($session->get('filtroCasoEstadoRespuesta')) {
             case '0':
-                $queryBuilder->andWhere("c.estadoPostergado = 0");
+                $queryBuilder->andWhere("c.estadoRespuesta = 0");
                 break;
             case '1':
-                $queryBuilder->andWhere("c.estadoPostergado = 1");
+                $queryBuilder->andWhere("c.estadoRespuesta = 1");
                 break;
         }
+        $arCasos = $queryBuilder->getQuery()->getResult();
+        return $arCasos;
+    }
 
-        return $queryBuilder;
+    public function listaAtender()
+    {
+        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(Caso::class, 'c')
+            ->select('c.codigoCasoPk')
+            ->addSelect('c.fecha')
+            ->addSelect('c.compromiso')
+            ->addSelect('c.contacto')
+            ->addSelect('c.descripcion')
+            ->addSelect('c.estadoAtendido')
+            ->addSelect('c.estadoDesarrollo')
+            ->addSelect('c.estadoEscalado')
+            ->addSelect('c.estadoCerrado')
+            ->addSelect('c.clienteIngreso')
+            ->addSelect('cli.nombreCorto as clienteNombreCorto')
+            ->addSelect('ct.nombre')
+            ->addSelect('p.nombre as prioridadNombre')
+            ->leftJoin('c.prioridadRel', 'p')
+            ->leftJoin('c.casoTipoRel', 'ct')
+            ->leftJoin('c.clienteRel', 'cli')
+            ->where('c.estadoAtendido = 0');
+        $arCasos = $queryBuilder->getQuery()->getResult();
+        return $arCasos;
     }
 
     public function listaCliente($codigoCliente)
@@ -105,19 +119,17 @@ class CasoRepository extends ServiceEntityRepository
             ->addSelect('c.compromiso')
             ->addSelect('c.contacto')
             ->addSelect('c.descripcion')
-            ->addSelect('c.solucion')
-            ->addSelect('c.comentarioPostergado')
-            ->addSelect('c.respuestaPostergado')
-            ->addSelect('p.nombre as prioridadNombre')
             ->addSelect('c.estadoAtendido')
             ->addSelect('c.estadoDesarrollo')
             ->addSelect('c.estadoEscalado')
-            ->addSelect('c.estadoSolucionado')
-            ->addSelect('c.estadoPostergado')
+            ->addSelect('c.estadoRespuesta')
+            ->addSelect('c.estadoCerrado')
             ->addSelect('ct.nombre as casoTipoNombre')
+            ->addSelect('p.nombre as prioridadNombre')
             ->leftJoin('c.prioridadRel', 'p')
             ->leftJoin('c.casoTipoRel', 'ct')
-            ->where("c.codigoClienteFk = ${codigoCliente}");
+            ->where("c.codigoClienteFk = {$codigoCliente}")
+            ->orderBy('c.codigoCasoPk', 'DESC');
         switch ($session->get('filtroCasoEstadoAtendido')) {
             case '0':
                 $queryBuilder->andWhere("c.estadoAtendido = 0");
@@ -145,12 +157,12 @@ class CasoRepository extends ServiceEntityRepository
                 break;
         }
 
-        switch ($session->get('filtroCasoEstadoSolucionado')) {
+        switch ($session->get('filtroCasoEstadoCerrado')) {
             case '0':
-                $queryBuilder->andWhere("c.estadoSolucionado = 0");
+                $queryBuilder->andWhere("c.estadoCerrado = 0");
                 break;
             case '1':
-                $queryBuilder->andWhere("c.estadoSolucionado = 1");
+                $queryBuilder->andWhere("c.estadoCerrado = 1");
                 break;
         }
 

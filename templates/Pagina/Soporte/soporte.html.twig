@@ -31,7 +31,7 @@
                         <h3>¿Como se hace?</h3>
                         <p>Sobre el uso del ERP: Inquietudes, apoyos, recursos, manuales, procesos</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_comosehace') }}" class="services-link">Solicitar</a>
+                            <a href="{{ path('soporte_nuevo', {'tipo':'SOP'}) }}" class="services-link">Solicitar</a>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                         <h3>Reporte fallas</h3>
                         <p>Error 500, fallas técnicas en el funcionamiento de la plataforma</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_falla') }}" class="services-link">Reportar</a>
+                            <a href="{{ path('soporte_nuevo', {'tipo':'ERR'}) }}" class="services-link">Reportar</a>
                         </div>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                         <h3>Consultoría especializada</h3>
                         <p>Temas avanzados: costo inventario, distribución nómina, información financiera</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_consultoria') }}" class="services-link">Solicitar</a>
+                            <a href="{{ path('soporte_nuevo', {'tipo':'CES'}) }}" class="services-link">Solicitar</a>
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         <h3>Solicitud desarrollo</h3>
                         <p>Funcionalidades de uso general, nuevas o mejorar las existentes, mejorar la experiencia de uso</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_desarrollo') }}" class="services-link">Solicitar</a>
+                            <a href="{{ path('soporte_nuevo', {'tipo':'DES'}) }}" class="services-link">Solicitar</a>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         <h3>Solicitud especial</h3>
                         <p>Solicitudes de tipo general como respaldos de bases de datos, especificaciones técnicas de nuestros productos</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_solicitud') }}" class="services-link">Solicitar</a>
+                            <a href="{{ path('soporte_nuevo', {'tipo':'SOL'}) }}" class="services-link">Solicitar</a>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
                         <h3>Productos y servicios</h3>
                         <p>Solicitar capacitaciones, implementaciones, consultoría, desarrollo a la medida, infraestructura, formatos personalizados.</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_solicitar') }}" class="services-link">Ingresar</a>
+                            <a href="{{ path('soporte_nuevo', {'tipo':'SER'}) }}" class="services-link">Ingresar</a>
                         </div>
                     </div>
                 </div>
@@ -99,6 +99,110 @@
         </div>
     </section>
     <!-- End Services Section -->
+
+    <!-- Start Services Details Area -->
+    <section class="services-details-area section-padding">
+        <div class="container">
+            <aside class="widget-area mt-2" id="secondary">
+                <section class="widget widget_search">
+                    {{ form_start(formBuscar, { 'attr': {'class': 'search-form search-top'} }) }}
+                    <label> <span class="screen-reader-text">Search for:</span>
+                        {{ form_widget(formBuscar.codigoCaso, { 'attr': {'class':'search-field', 'placeholder': 'Buscar soporte'} }) }}
+                    </label>
+                    {{ form_widget(formBuscar.buscar) }}
+                    {{ form_end(formBuscar) }}
+                </section>
+                {% if arCasoConsultado %}
+                    <div class="row mt-2">
+                        <div class="col-lg-8 col-md-12">
+                            <div class="blog-details-desc">
+                                <div class="article-content">
+
+                                    <div class="comments-area">
+                                        <div class="entry-meta">
+                                            <ul>
+                                                <li><span>Creado en:</span> <a
+                                                            href="#">{{ arCasoConsultado.fecha | date('F jS \\a\\t g:ia') }}</a>
+                                                </li>
+                                                <li><span>Publicado por:</span> <a
+                                                            href="#">{{ arCasoConsultado.contacto }}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <h3 class="comments-title">Descripcion soporte # {{ arCasoConsultado.codigoCasoPk }}</h3>
+                                        <article class="comment-body" style="padding-left: 0">
+                                            <p>{{ arCasoConsultado.descripcion }}</p>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <aside class="widget-area" id="secondary">
+                                <section class="widget widget_categories">
+                                    <h3 class="widget-title">Estados</h3>
+                                    <ul>
+                                        {% if arCasoConsultado.estadoAtendido %}
+                                            <li><a href="#">Atendido <span
+                                                            class="categories-link-count"> {{ arCasoConsultado.fechaAtendido | date('Y-m-d H:i') }}</span></a>
+                                            </li>
+                                        {% endif %}
+                                        {% if arCasoConsultado.estadoCerrado %}
+                                            <li><a href="#">Cerrado <span
+                                                            class="categories-link-count"> {{ arCasoConsultado.fechaCerrado | date('Y-m-d H:i') }}</span></a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </section>
+                            </aside>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="comments-area">
+                                <h3 class="comments-title">Respuesta:</h3>
+                                <ol class="comment-list">
+                                    {% for arRespuesta in arCasoConsultado.casosRespuestasCasoRel %}
+                                    <li class="comment">
+                                        <article class="comment-body" style="border-bottom: 0">
+                                            <footer class="comment-meta">
+                                                <div class="comment-author vcard">
+                                                    <div class="row">
+                                                        <div class="col-lg-4">
+                                                            <div class="about-image-left">
+                                                                <img src="{{ asset('landingPage/img/client/comment-3.jpg') }}"
+                                                                     alt="image">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-8">
+                                                            <b class="fn">@{{ arRespuesta.usuarioRel.nombres | default('') }}{{ arRespuesta.usuarioRel.apellidos | default('') }}</b>
+                                                            <span class="says">says:</span>
+                                                            <div class="comment-metadata">
+                                                                <a href="#">
+                                                                    <span>{{ arRespuesta.fecha | date('F jS \\a\\t g:ia') }}</span>
+                                                                </a>
+                                                            </div>
+                                                            <div class="comment-content">
+                                                                <p>{{ arRespuesta.comentario }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </footer>
+
+                                        </article>
+                                    </li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </aside>
+        </div>
+    </section>
+    <!-- End Services Details Area -->
 
     <!-- Start Overview Section -->
     <section class="overview-section bg-grey section-padding">
@@ -165,5 +269,12 @@
     </section>
     <!-- End Faq Section -->
 
-
+{% endblock %}
+{% block javascriptsPersonales %}
+    <script>
+        $("#btnConsultarSoporteExistente").click(function () {
+            $('#secondary').fadeTo(500, 1);
+            $('#form_codigoSoporte').focus()
+        });
+    </script>
 {% endblock %}

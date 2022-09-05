@@ -25,8 +25,8 @@
                                         {{ form_widget(form.estadoEscalado) }}
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="inputPassword4">Solucionado:</label>
-                                        {{ form_widget(form.estadoSolucionado) }}
+                                        <label for="inputPassword4">Cerrado:</label>
+                                        {{ form_widget(form.estadoCerrado) }}
                                     </div>
                                 </div>
                             </div>
@@ -58,14 +58,11 @@
                                     <th>Prioridad</th>
                                     <th>Contacto</th>
                                     <th>Descripcion</th>
-                                    <th>Semantica</th>
-
-                                    <th title="Indica si su caso ya gue atendido">Ate</th>
-                                    <th title="Indica si su caso fue asignado al equipo de desarrollo">Des</th>
-                                    <th title="Si por su complejidad el caso fue asignado a un departamento con mas especializacion en el tema">
-                                        Esc
-                                    </th>
-                                    <th title="Si el caso fue solucionado">Sol</th>
+                                    <th title="Atendido">Ate</th>
+                                    <th title="Asignado al equipo de desarrollo">Des</th>
+                                    <th title="Escalado a un departamento especializado">Esc</th>
+                                    <th title="Cerrado">Cer</th>
+                                    <th title="Nueva respuesta">Res</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -78,16 +75,7 @@
                                         <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d h:i') : '' }}</td>
                                         <td>{{ arCaso.prioridadNombre }}</td>
                                         <td>{{ arCaso.contacto }}</td>
-                                        <td>
-                                            {{ arCaso.descripcion }}
-                                            {% if arCaso.estadoPostergado == 1 %}
-                                                <p class="text-danger text-justify">
-                                                    <b>Postergado:</b> {{ arCaso.comentarioPostergado }} <br/>
-                                                    <b>Respuesta:</b> {{ arCaso.respuestaPostergado }}
-                                                </p>
-                                            {% endif %}
-                                        </td>
-                                        <td>{{ arCaso.solucion }}</td>
+                                        <td>{{ arCaso.descripcion }}</td>
                                         <td class="text-center">
                                             {% if arCaso.estadoAtendido %}
                                                 <i title="El caso ya fue atendido"
@@ -108,17 +96,17 @@
                                                 <i title="Fue necesario utilizar un equipo especializado"
                                                    class="fas fa-share-alt fa-2x"></i>
                                             {% endif %}
-
                                         </td>
                                         <td class="text-center">
-                                            {% if arCaso.estadoSolucionado %}
+                                            {% if arCaso.estadoCerrado %}
                                                 <i title="Caso solucionado"
                                                    class="fas fa-check fa-2x text-success"></i>
                                             {% endif %}
-                                            {% if arCaso.estadoPostergado == 1 %}
-                                                <a href="javascript:abrirVentana3('{{ path('cliente_caso_postergado', { 'id': arCaso.codigoCasoPk }) }}', 'postergado', 600, 1300)">
-                                                    <img src="{{ asset('imagenes/cargando.gif') }}" height="25"
-                                                         width="25" alt="Cargando"> </a>
+                                        </td>
+                                        <td class="text-center">
+                                            {% if arCaso.estadoRespuesta %}
+                                                <i title="Respuesta nueva"
+                                                   class="fas fa-envelope fa-2x"></i>
                                             {% endif %}
                                         </td>
                                         <td class="text-center">

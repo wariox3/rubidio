@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,9 +34,14 @@ class Caso
     private $compromiso;
 
     /**
-     * @ORM\Column(name="fecha_solucion", type="datetime", nullable=true)
+     * @ORM\Column(name="fecha_cerrado", type="datetime", nullable=true)
      */
-    private $fechaSolucion;
+    private $fechaCerrado;
+
+    /**
+     * @ORM\Column(name="fecha_atendido", type="datetime", nullable=true)
+     */
+    private $fechaAtendido;
 
     /**
      * @ORM\Column(name="codigo_cliente_fk", type="integer", nullable=true)
@@ -66,21 +69,6 @@ class Caso
     private $descripcion;
 
     /**
-     * @ORM\Column(name="solucion", type="text", nullable=true)
-     */
-    private $solucion;
-
-    /**
-     * @ORM\Column(name="comentario_postergado", type="text", nullable=true)
-     */
-    private $comentarioPostergado;
-
-    /**
-     * @ORM\Column(name="respuesta_postergado", type="text", nullable=true)
-     */
-    private $respuestaPostergado;
-
-    /**
      * @ORM\Column(name="escalado", type="text", nullable=true)
      */
     private $escalado;
@@ -101,11 +89,6 @@ class Caso
     private $estadoAtendido = false;
 
     /**
-     * @ORM\Column(name="estado_solucionado", type="boolean", nullable=true, options={"default" : false})
-     */
-    private $estadoSolucionado = false;
-
-    /**
      * @ORM\Column(name="estado_escalado", type="boolean", nullable=true, options={"default" : false})
      */
     private $estadoEscalado = false;
@@ -116,9 +99,19 @@ class Caso
     private $estadoDesarrollo = false;
 
     /**
-     * @ORM\Column(name="estado_postergado", type="boolean", nullable=true, options={"default" : false})
+     * @ORM\Column(name="estado_cerrado", type="boolean", nullable=true, options={"default" : false})
      */
-    private $estadoPostergado = false;
+    private $estadoCerrado = false;
+
+    /**
+     * @ORM\Column(name="estado_respuesta", type="boolean", nullable=true, options={"default" : false})
+     */
+    private $estadoRespuesta = false;
+
+    /**
+     * @ORM\Column(name="codigo_modulo_fk", type="string", length=20, nullable=true)
+     */
+    private $codigoModuloFk;
 
     /**
      * @ORM\ManyToOne(targetEntity="Cliente", inversedBy="casosClienteRel")
@@ -139,9 +132,25 @@ class Caso
     private $casoTipoRel;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modulo", inversedBy="casosModuloRel")
+     * @ORM\JoinColumn(name="codigo_modulo_fk", referencedColumnName="codigo_modulo_pk")
+     */
+    private $moduloRel;
+
+    /**
      * @ORM\OneToMany(targetEntity="Tarea", mappedBy="casoRel")
      */
     protected $tareasCasoRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CasoGestion", mappedBy="casoRel")
+     */
+    protected $casosGestionesCasoRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CasoRespuesta", mappedBy="casoRel")
+     */
+    protected $casosRespuestasCasoRel;
 
     /**
      * @return mixed
@@ -178,6 +187,22 @@ class Caso
     /**
      * @return mixed
      */
+    public function getCodigoCasoTipoFk()
+    {
+        return $this->codigoCasoTipoFk;
+    }
+
+    /**
+     * @param mixed $codigoCasoTipoFk
+     */
+    public function setCodigoCasoTipoFk($codigoCasoTipoFk): void
+    {
+        $this->codigoCasoTipoFk = $codigoCasoTipoFk;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getCompromiso()
     {
         return $this->compromiso;
@@ -194,17 +219,17 @@ class Caso
     /**
      * @return mixed
      */
-    public function getFechaSolucion()
+    public function getFechaCerrado()
     {
-        return $this->fechaSolucion;
+        return $this->fechaCerrado;
     }
 
     /**
-     * @param mixed $fechaSolucion
+     * @param mixed $fechaCerrado
      */
-    public function setFechaSolucion($fechaSolucion): void
+    public function setFechaCerrado($fechaCerrado): void
     {
-        $this->fechaSolucion = $fechaSolucion;
+        $this->fechaCerrado = $fechaCerrado;
     }
 
     /**
@@ -290,22 +315,6 @@ class Caso
     /**
      * @return mixed
      */
-    public function getSolucion()
-    {
-        return $this->solucion;
-    }
-
-    /**
-     * @param mixed $solucion
-     */
-    public function setSolucion($solucion): void
-    {
-        $this->solucion = $solucion;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getEscalado()
     {
         return $this->escalado;
@@ -338,65 +347,97 @@ class Caso
     /**
      * @return mixed
      */
-    public function getEstadoAtendido()
+    public function getClienteIngreso()
+    {
+        return $this->clienteIngreso;
+    }
+
+    /**
+     * @param mixed $clienteIngreso
+     */
+    public function setClienteIngreso($clienteIngreso): void
+    {
+        $this->clienteIngreso = $clienteIngreso;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEstadoAtendido(): bool
     {
         return $this->estadoAtendido;
     }
 
     /**
-     * @param mixed $estadoAtendido
+     * @param bool $estadoAtendido
      */
-    public function setEstadoAtendido($estadoAtendido): void
+    public function setEstadoAtendido(bool $estadoAtendido): void
     {
         $this->estadoAtendido = $estadoAtendido;
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getEstadoSolucionado()
-    {
-        return $this->estadoSolucionado;
-    }
-
-    /**
-     * @param mixed $estadoSolucionado
-     */
-    public function setEstadoSolucionado($estadoSolucionado): void
-    {
-        $this->estadoSolucionado = $estadoSolucionado;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEstadoEscalado()
+    public function isEstadoEscalado(): bool
     {
         return $this->estadoEscalado;
     }
 
     /**
-     * @param mixed $estadoEscalado
+     * @param bool $estadoEscalado
      */
-    public function setEstadoEscalado($estadoEscalado): void
+    public function setEstadoEscalado(bool $estadoEscalado): void
     {
         $this->estadoEscalado = $estadoEscalado;
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getEstadoDesarrollo()
+    public function isEstadoDesarrollo(): bool
     {
         return $this->estadoDesarrollo;
     }
 
     /**
-     * @param mixed $estadoDesarrollo
+     * @param bool $estadoDesarrollo
      */
-    public function setEstadoDesarrollo($estadoDesarrollo): void
+    public function setEstadoDesarrollo(bool $estadoDesarrollo): void
     {
         $this->estadoDesarrollo = $estadoDesarrollo;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEstadoCerrado(): bool
+    {
+        return $this->estadoCerrado;
+    }
+
+    /**
+     * @param bool $estadoCerrado
+     */
+    public function setEstadoCerrado(bool $estadoCerrado): void
+    {
+        $this->estadoCerrado = $estadoCerrado;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoModuloFk()
+    {
+        return $this->codigoModuloFk;
+    }
+
+    /**
+     * @param mixed $codigoModuloFk
+     */
+    public function setCodigoModuloFk($codigoModuloFk): void
+    {
+        $this->codigoModuloFk = $codigoModuloFk;
     }
 
     /**
@@ -434,86 +475,6 @@ class Caso
     /**
      * @return mixed
      */
-    public function getTareasCasoRel()
-    {
-        return $this->tareasCasoRel;
-    }
-
-    /**
-     * @param mixed $tareasCasoRel
-     */
-    public function setTareasCasoRel($tareasCasoRel): void
-    {
-        $this->tareasCasoRel = $tareasCasoRel;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getComentarioPostergado()
-    {
-        return $this->comentarioPostergado;
-    }
-
-    /**
-     * @param mixed $comentarioPostergado
-     */
-    public function setComentarioPostergado($comentarioPostergado): void
-    {
-        $this->comentarioPostergado = $comentarioPostergado;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEstadoPostergado()
-    {
-        return $this->estadoPostergado;
-    }
-
-    /**
-     * @param mixed $estadoPostergado
-     */
-    public function setEstadoPostergado($estadoPostergado): void
-    {
-        $this->estadoPostergado = $estadoPostergado;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRespuestaPostergado()
-    {
-        return $this->respuestaPostergado;
-    }
-
-    /**
-     * @param mixed $respuestaPostergado
-     */
-    public function setRespuestaPostergado($respuestaPostergado): void
-    {
-        $this->respuestaPostergado = $respuestaPostergado;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCodigoCasoTipoFk()
-    {
-        return $this->codigoCasoTipoFk;
-    }
-
-    /**
-     * @param mixed $codigoCasoTipoFk
-     */
-    public function setCodigoCasoTipoFk($codigoCasoTipoFk): void
-    {
-        $this->codigoCasoTipoFk = $codigoCasoTipoFk;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCasoTipoRel()
     {
         return $this->casoTipoRel;
@@ -530,19 +491,98 @@ class Caso
     /**
      * @return mixed
      */
-    public function getClienteIngreso()
+    public function getModuloRel()
     {
-        return $this->clienteIngreso;
+        return $this->moduloRel;
     }
 
     /**
-     * @param mixed $clienteIngreso
+     * @param mixed $moduloRel
      */
-    public function setClienteIngreso($clienteIngreso): void
+    public function setModuloRel($moduloRel): void
     {
-        $this->clienteIngreso = $clienteIngreso;
+        $this->moduloRel = $moduloRel;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTareasCasoRel()
+    {
+        return $this->tareasCasoRel;
+    }
+
+    /**
+     * @param mixed $tareasCasoRel
+     */
+    public function setTareasCasoRel($tareasCasoRel): void
+    {
+        $this->tareasCasoRel = $tareasCasoRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCasosGestionesCasoRel()
+    {
+        return $this->casosGestionesCasoRel;
+    }
+
+    /**
+     * @param mixed $casosGestionesCasoRel
+     */
+    public function setCasosGestionesCasoRel($casosGestionesCasoRel): void
+    {
+        $this->casosGestionesCasoRel = $casosGestionesCasoRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCasosRespuestasCasoRel()
+    {
+        return $this->casosRespuestasCasoRel;
+    }
+
+    /**
+     * @param mixed $casosRespuestasCasoRel
+     */
+    public function setCasosRespuestasCasoRel($casosRespuestasCasoRel): void
+    {
+        $this->casosRespuestasCasoRel = $casosRespuestasCasoRel;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEstadoRespuesta(): bool
+    {
+        return $this->estadoRespuesta;
+    }
+
+    /**
+     * @param bool $estadoRespuesta
+     */
+    public function setEstadoRespuesta(bool $estadoRespuesta): void
+    {
+        $this->estadoRespuesta = $estadoRespuesta;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaAtendido()
+    {
+        return $this->fechaAtendido;
+    }
+
+    /**
+     * @param mixed $fechaAtendido
+     */
+    public function setFechaAtendido($fechaAtendido): void
+    {
+        $this->fechaAtendido = $fechaAtendido;
+    }
 
 
 

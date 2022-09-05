@@ -3,27 +3,16 @@
 namespace App\Controller\Utilidad;
 
 use App\Entity\Archivo;
-use App\Entity\ArchivoTipo;
-use App\Entity\Cliente;
-use App\Entity\Directorio;
-use App\Entity\Soporte;
-use App\Form\Type\SoporteSolucionType;
-use App\Form\Type\SoporteType;
-use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Doctrine\ORM\EntityRepository;
 
 class ArchivoController extends AbstractController
 {

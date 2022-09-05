@@ -141,11 +141,6 @@ class Cliente
     protected $erroresClienteRel;
 
     /**
-     * @ORM\OneToMany(targetEntity="Soporte", mappedBy="clienteRel")
-     */
-    protected $soportesClienteRel;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Implementacion", mappedBy="clienteRel")
      */
     protected $implementacionesClienteRel;
@@ -334,22 +329,6 @@ class Cliente
     public function setErroresClienteRel($erroresClienteRel): void
     {
         $this->erroresClienteRel = $erroresClienteRel;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSoportesClienteRel()
-    {
-        return $this->soportesClienteRel;
-    }
-
-    /**
-     * @param mixed $soportesClienteRel
-     */
-    public function setSoportesClienteRel($soportesClienteRel): void
-    {
-        $this->soportesClienteRel = $soportesClienteRel;
     }
 
     /**

@@ -4,8 +4,14 @@ namespace App\Controller\Cliente;
 
 use App\Entity\Archivo;
 use App\Entity\Caso;
+use App\Entity\CasoGestion;
+use App\Entity\CasoRespuesta;
+use App\Entity\Usuario;
 use App\Form\Type\CasoPostergadoType;
+use App\Form\Type\CasoRespuestaType;
 use App\Form\Type\CasoType;
+use App\Utilidades\Dubnio;
+use App\Utilidades\Mensajes;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,7 +70,7 @@ class CasoController extends AbstractController
             ->add('estadoAtendido', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoAtendido'), 'required' => false])
             ->add('estadoDesarrollo', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoDesarrollo'), 'required' => false])
             ->add('estadoEscalado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoEscalado'), 'required' => false])
-            ->add('estadoSolucionado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => 0, 'required' => false])
+            ->add('estadoCerrado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => 0, 'required' => false])
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
@@ -73,10 +79,10 @@ class CasoController extends AbstractController
                 $session->set('filtroCasoEstadoAtendido', $form->get('estadoAtendido')->getData());
                 $session->set('filtroCasoEstadoDesarrollo', $form->get('estadoDesarrollo')->getData());
                 $session->set('filtroCasoEstadoEscalado', $form->get('estadoEscalado')->getData());
-                $session->set('filtroCasoEstadoSolucionado', $form->get('estadoSolucionado')->getData());
+                $session->set('filtroCasoEstadoCerrado', $form->get('estadoCerrado')->getData());
             }
         }
-        $session->set('filtroCasoEstadoSolucionado', $form->get('estadoSolucionado')->getData());
+        $session->set('filtroCasoEstadoCerrado', $form->get('estadoCerrado')->getData());
         $arCasos = $paginator->paginate($em->getRepository(Caso::class)->listaCliente($this->getUser()->getCodigoClienteFk()), $request->query->getInt('page', 1), 500);
         return $this->render('Cliente/Caso/lista.html.twig', [
             'arCasos' => $arCasos,
@@ -87,7 +93,7 @@ class CasoController extends AbstractController
     /**
      * @Route("/cliente/caso/detalle/{id}", name="cliente_caso_detalle")
      */
-    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
+    public function detalle(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arCaso = $em->getRepository(Caso::class)->find($id);
@@ -99,35 +105,47 @@ class CasoController extends AbstractController
             return $this->redirect($this->generateUrl('cliente_caso_detalle', ['id' => $id]));
         }
         $arArchivos = $em->getRepository(Archivo::class)->lista(2, $id);
+        $arRespuestas = $em->getRepository(CasoRespuesta::class)->lista($id);
+        $arGestiones = $em->getRepository(CasoGestion::class)->lista($id);
         return $this->render('Cliente/Caso/detalle.html.twig', [
             'arCaso' => $arCaso,
+            'arArchivos' => $arArchivos,
+            'arGestiones' => $arGestiones,
+            'arRespuestas' => $arRespuestas,
             'form' => $form->createView(),
-            'arArchivos' => $arArchivos
         ]);
     }
 
     /**
-     * @Route("/cliente/caso/postergado/{id}", name="cliente_caso_postergado")
+     * @Route("/cliente/caso/respuesta/{codigoCaso}/{id}", name="cliente_caso_respuesta")
      */
-    public function postergado(Request $request, $id)
+    public function respuesta(Request $request, Dubnio $dubnio, $codigoCaso, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $arCaso = new Caso();
-        if ($id != 0) {
-            $arCaso = $em->getRepository(Caso::class)->find($id);
+        $arCaso = $em->getRepository(Caso::class)->find($codigoCaso);
+        $arCasoRespuesta = new CasoRespuesta();
+        if($id != 0){
+            $arCasoRespuesta = $em->getRepository(CasoRespuesta::class)->find($id);
+        } else {
+            $arCasoRespuesta->setUsuarioRel($em->getReference(Usuario::class, $this->getUser()->getUsername()));
+            $arCasoRespuesta->setCasoRel($arCaso);
+            $arCasoRespuesta->setFecha(new \DateTime('now'));
+            $arCasoRespuesta->setCliente(1);
         }
-        $form = $this->createForm(CasoPostergadoType::class, $arCaso);
+        $form = $this->createForm(CasoRespuestaType::class, $arCasoRespuesta);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
-                $arCaso = $form->getData();
-                $em->persist($arCaso);
+                $arCasoRespuesta = $form->getData();
+                $em->persist($arCasoRespuesta);
+                if($id == 0 || $id == "0"){
+                    $arCaso->setEstadoRespuesta(0);
+                }
                 $em->flush();
-                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
-        return $this->render('Cliente/Caso/postergado.html.twig', [
-            'arCaso' => $arCaso,
+        return $this->render('Soporte/Caso/respuesta.html.twig', [
             'form' => $form->createView()
         ]);
     }

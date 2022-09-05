@@ -87,9 +87,14 @@ class Usuario implements UserInterface, \Serializable
     private $clienteRel;
 
     /**
-     * @ORM\OneToMany(targetEntity="Tarea", mappedBy="usuarioRel")
+     * @ORM\OneToMany(targetEntity="App\Entity\Tarea", mappedBy="usuarioRel")
      */
     protected $tareasUsuarioRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Usuario", mappedBy="usuarioRel")
+     */
+    protected $casosRespuestasUsuarioRel;
 
     /**
      * Se implementan métodos de la clase User del core de Symfony además de los metodos de la entidad própia.
@@ -377,4 +382,22 @@ class Usuario implements UserInterface, \Serializable
     {
         $this->estadoInactivo = $estadoInactivo;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCasosRespuestasUsuarioRel()
+    {
+        return $this->casosRespuestasUsuarioRel;
+    }
+
+    /**
+     * @param mixed $casosRespuestasUsuarioRel
+     */
+    public function setCasosRespuestasUsuarioRel($casosRespuestasUsuarioRel): void
+    {
+        $this->casosRespuestasUsuarioRel = $casosRespuestasUsuarioRel;
+    }
+
+
 }
