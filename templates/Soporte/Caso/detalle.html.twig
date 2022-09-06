@@ -12,6 +12,7 @@
 {#                                <a class="btnCustom"#}
 {#                                   href="javascript:abrirVentana3('{{ path('soporte_caso_solucion', {'id': arCaso.codigoCasoPk }) }}', 'Solucion', 600, 1200)">Solucion</a>#}
 {#                            {% endif %}#}
+                            {{ form_widget(form.btnCerrar, { 'attr': {'class': 'btnCustom'} }) }}
                             <a class="btnCustom"
                                href="javascript:abrirVentana3('{{ path('utilidad_archivo_lista', { 'tipo': 'caso',  'codigo': arCaso.codigoCasoPk }) }}', 'Archivos', 800, 1250)">
                                 <i class="fas fa-upload"></i> Archivos

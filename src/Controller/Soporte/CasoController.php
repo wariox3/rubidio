@@ -168,15 +168,29 @@ class CasoController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $arCaso = $em->getRepository(Caso::class)->find($id);
-
+        $arrBtnCerrar = ['label' => 'Cerrar', 'disabled' => false];
+        if ($arCaso->isEstadoCerrado()) {
+            $arrBtnCerrar['disabled'] = true;
+        }
         $form = $this->createFormBuilder()
             ->add('btnEliminarGestion', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-default']])
+            ->add('btnCerrar', SubmitType::class, $arrBtnCerrar)
             ->getForm();
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('btnEliminarGestion')->isClicked()) {
                 $arrDetallesSeleccionados = $request->request->get('ChkSeleccionar');
                 $em->getRepository(CasoGestion::class)->eliminar($arrDetallesSeleccionados);
+            }
+            if ($form->get('btnCerrar')->isClicked()) {
+                if($arCaso->isEstadoAtendido()) {
+                    $arCaso->setEstadoCerrado(1);
+                    $arCaso->setFechaCerrado(new \DateTime('now'));
+                    $em->persist($arCaso);
+                    $em->flush();
+                } else {
+                    Mensajes::error('El caso no esta atendido');
+                }
             }
             return $this->redirect($this->generateUrl('soporte_caso_detalle', ['id' => $id]));
         }
