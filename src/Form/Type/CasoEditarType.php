@@ -10,6 +10,7 @@ use App\Entity\Usuario;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -61,6 +62,7 @@ class CasoEditarType extends AbstractType {
                 },
                 'attr' => ['class' => 'to-select-2'],
             ])
+            ->add('estadoDesarrollo', CheckboxType::class, array('required' => false))
             ->add('correo', TextType::class, array('required' => true))
             ->add('compromiso', DateType::class, array('required' => false, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd', 'attr' => array('class' => 'date',)))
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));

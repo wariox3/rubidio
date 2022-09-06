@@ -79,7 +79,7 @@
                                         <td>{{ arCaso.codigoCasoPk }}</td>
                                         <td>{{ arCaso.nombre }}</td>
                                         <td>{{ arCaso.fecha | date('Y-m-d H:i') }}</td>
-                                        <td>{{ arCaso.clienteNombreCorto }}</td>
+                                        <td {% if arCaso.servicioSoporte == "0"%} class="alert-danger" {% endif %}>{{ arCaso.clienteNombreCorto }}</td>
                                         <td>{{ arCaso.clienteIngreso }}</td>
                                         <td>{{ arCaso.contacto }}</td>
                                         <td>{{ arCaso.descripcion }}</td>
@@ -113,6 +113,7 @@
                                             </a>
                                         </td>
                                         <td class="text-center">
+
                                             <a href="{{ path('soporte_caso_detalle', { 'id': arCaso.codigoCasoPk }) }}">
                                                 <i class="fas fa-eye fa-2x"></i>
                                             </a>
@@ -162,7 +163,7 @@
                                         <td>{{ arCaso.nombre }}</td>
                                         <td>{{ arCaso.fecha | date('Y-m-d H:i') }}</td>
                                         <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d') : '' }}</td>
-                                        <td>{{ arCaso.clienteNombreCorto }}</td>
+                                        <td {% if arCaso.servicioSoporte == 0 %} class="alert-danger" {% endif %}>{{ arCaso.clienteNombreCorto }}</td>
                                         <td>{{ arCaso.contacto }}</td>
                                         <td>{{ arCaso.descripcion }}</td>
                                         <td>{{ arCaso.prioridadNombre }}</td>
@@ -191,14 +192,18 @@
 
 
                                         <td class="text-center">
+                                            {% if arCaso.estadoCerrado == 0 %}
                                             <a href="{{ path('soporte_caso_nuevo', { 'id': arCaso.codigoCasoPk }) }}">
                                                 <i class="fas fa-pen fa-2x"></i>
                                             </a>
+                                            {% endif %}
                                         </td>
                                         <td class="text-center">
+
                                             <a href="{{ path('soporte_caso_detalle', { 'id': arCaso.codigoCasoPk }) }}">
                                                 <i class="fas fa-eye fa-2x"></i>
                                             </a>
+
                                         </td>
                                         <td class="text-center">
                                             <input type="checkbox" name="ChkSeleccionar[]"
