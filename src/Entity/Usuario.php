@@ -76,6 +76,11 @@ class Usuario implements UserInterface, \Serializable
     private $control;
 
     /**
+     * @ORM\Column(name="soporte", type="boolean", options={"default" : false})
+     */
+    private $soporte;
+
+    /**
      * @ORM\Column(name="codigo_cliente_fk", type="integer", nullable=true)
      */
     private $codigoClienteFk;
@@ -95,6 +100,21 @@ class Usuario implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="App\Entity\Usuario", mappedBy="usuarioRel")
      */
     protected $casosRespuestasUsuarioRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Caso", mappedBy="usuarioRel")
+     */
+    protected $casosUsuarioRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CasoEscalado", mappedBy="usuarioRel")
+     */
+    protected $casosEscaladosUsuarioRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CasoEscalado", mappedBy="usuarioDestinoRel")
+     */
+    protected $casosEscaladosUsuarioDestinoRel;
 
     /**
      * Se implementan métodos de la clase User del core de Symfony además de los metodos de la entidad própia.
@@ -397,6 +417,70 @@ class Usuario implements UserInterface, \Serializable
     public function setCasosRespuestasUsuarioRel($casosRespuestasUsuarioRel): void
     {
         $this->casosRespuestasUsuarioRel = $casosRespuestasUsuarioRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCasosUsuarioRel()
+    {
+        return $this->casosUsuarioRel;
+    }
+
+    /**
+     * @param mixed $casosUsuarioRel
+     */
+    public function setCasosUsuarioRel($casosUsuarioRel): void
+    {
+        $this->casosUsuarioRel = $casosUsuarioRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSoporte()
+    {
+        return $this->soporte;
+    }
+
+    /**
+     * @param mixed $soporte
+     */
+    public function setSoporte($soporte): void
+    {
+        $this->soporte = $soporte;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCasosEscaladosUsuarioRel()
+    {
+        return $this->casosEscaladosUsuarioRel;
+    }
+
+    /**
+     * @param mixed $casosEscaladosUsuarioRel
+     */
+    public function setCasosEscaladosUsuarioRel($casosEscaladosUsuarioRel): void
+    {
+        $this->casosEscaladosUsuarioRel = $casosEscaladosUsuarioRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCasosEscaladosUsuarioDestinoRel()
+    {
+        return $this->casosEscaladosUsuarioDestinoRel;
+    }
+
+    /**
+     * @param mixed $casosEscaladosUsuarioDestinoRel
+     */
+    public function setCasosEscaladosUsuarioDestinoRel($casosEscaladosUsuarioDestinoRel): void
+    {
+        $this->casosEscaladosUsuarioDestinoRel = $casosEscaladosUsuarioDestinoRel;
     }
 
 

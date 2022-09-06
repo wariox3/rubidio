@@ -64,6 +64,8 @@
                                     <th>Contacto</th>
                                     <th>Descripción</th>
                                     <th>Prioridad</th>
+                                    <th>Usuario</th>
+                                    <th title="Escalado">Esc</th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -82,6 +84,8 @@
                                         <td>{{ arCaso.contacto }}</td>
                                         <td>{{ arCaso.descripcion }}</td>
                                         <td>{{ arCaso.prioridadNombre }}</td>
+                                        <td>{{ arCaso.codigoUsuarioFk }}</td>
+                                        <td class="text-center">{{ arCaso.estadoEscalado ? 'SI':'NO' }}</td>
                                         <td class="text-center">
                                             <div class="dropdown d-flex justify-content-center align-content-start">
                                                 <a class=" dropdown-toggle" type="button" id="dropdownMenu2"
@@ -142,6 +146,7 @@
                                     <th>Contacto</th>
                                     <th>Descripción</th>
                                     <th>Prioridad</th>
+                                    <th>Usuario</th>
                                     <th title="Respuesta">Res</th>
                                     <th title="Desarrollo">Des</th>
                                     <th title="Escalado">Esc</th>
@@ -163,6 +168,7 @@
                                         <td>{{ arCaso.contacto }}</td>
                                         <td>{{ arCaso.descripcion }}</td>
                                         <td>{{ arCaso.prioridadNombre }}</td>
+                                        <td>{{ arCaso.codigoUsuarioFk }}</td>
                                         <td class="text-center">{{ arCaso.estadoRespuesta ? 'SI':'NO' }}</td>
                                         <td class="text-center">{{ arCaso.estadoDesarrollo ? 'SI':'NO' }}</td>
                                         <td class="text-center">{{ arCaso.estadoEscalado ? 'SI':'NO' }}</td>
@@ -180,14 +186,6 @@
                                                             <a class="dropdown-item"
                                                                href="{{ path('admin_tarea_nuevo', { 'id': 0, 'codigoCaso': arCaso.codigoCasoPk }) }}">
                                                                 Nueva tarea
-                                                            </a>
-                                                        {% endif %}
-                                                    {% endif %}
-                                                    {% if is_granted('ROLE_ADMIN') %}
-                                                        {% if arCaso.estadoEscalado == 0 %}
-                                                            <a class="dropdown-item"
-                                                               href="javascript:abrirVentana3('{{ path('soporte_caso_escalar', {'id': arCaso.codigoCasoPk}) }}', 'Escalar', 600, 1200)">
-                                                                Escalar caso
                                                             </a>
                                                         {% endif %}
                                                     {% endif %}

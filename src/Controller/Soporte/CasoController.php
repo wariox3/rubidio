@@ -2,6 +2,7 @@
 
 namespace App\Controller\Soporte;
 use App\Entity\Caso;
+use App\Entity\CasoEscalado;
 use App\Entity\CasoGestion;
 use App\Entity\CasoRespuesta;
 use App\Entity\CasoTipo;
@@ -13,7 +14,7 @@ use App\Form\Type\CasoEditarType;
 use App\Form\Type\CasoEscaladoType;
 use App\Form\Type\CasoGestionType;
 use App\Form\Type\CasoRespuestaType;
-use App\Form\Type\CasoSolucionType;
+use App\Form\Type\CasoTareaType;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
 use Doctrine\ORM\EntityRepository;
@@ -126,6 +127,9 @@ class CasoController extends AbstractController
                     if($arCaso->getClienteRel()) {
                         $arCaso->setEstadoAtendido(1);
                         $arCaso->setFechaAtendido(new \DateTime('now'));
+                        if(!$arCaso->getUsuarioRel()) {
+                            $arCaso->setUsuarioRel($em->getReference(Usuario::class, $this->getUser()->getUsername()));
+                        }
                         $em->persist($arCaso);
                         $em->flush();
                         if (strlen($arCaso->getTelefono()) == 10) {
@@ -144,7 +148,7 @@ class CasoController extends AbstractController
                 }
             }
         }
-        $arCasosAtender =$em->getRepository(Caso::class)->listaAtender();
+        $arCasosAtender = $em->getRepository(Caso::class)->listaAtender();
         $arCasos = $paginator->paginate($em->getRepository(Caso::class)->lista(), $request->query->getInt('page', 1), 50);
         return $this->render('Soporte/Caso/lista.html.twig', [
             'arCasos' => $arCasos,
@@ -175,11 +179,13 @@ class CasoController extends AbstractController
         $arTareas = $em->getRepository(Tarea::class)->caso($id);
         $arGestiones = $em->getRepository(CasoGestion::class)->lista($id);
         $arRespuestas = $em->getRepository(CasoRespuesta::class)->lista($id);
+        $arEscalados = $em->getRepository(CasoEscalado::class)->lista($id);
         return $this->render('Soporte/Caso/detalle.html.twig', [
             'arCaso' => $arCaso,
             'arTareas' => $arTareas,
             'arGestiones' => $arGestiones,
             'arRespuestas' => $arRespuestas,
+            'arEscalados' => $arEscalados,
             'form' => $form->createView()
         ]);
     }
@@ -206,37 +212,6 @@ class CasoController extends AbstractController
         }
         return $this->render('Soporte/Caso/atender.html.twig', [
             'arCaso' => $arCaso,
-            'form' => $form->createView()
-        ]);
-    }
-
-    /**
-     * @Route("/soporte/caso/escalar/{id}", name="soporte_caso_escalar")
-     */
-    public function escalar(Request $request, $id, Dubnio $correo)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $arCaso = $em->getRepository(Caso::class)->find($id);
-
-        $form = $this->createForm(CasoEscaladoType::class, $arCaso);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('guardar')->isClicked()) {
-                $arCaso = $form->getData();
-                //$arCaso->setFechaSolucion(new \DateTime('now'));
-                $arCaso->setEstadoAtendido(1);
-                $arCaso->setEstadoEscalado(1);
-                $em->persist($arCaso);
-                $em->flush();
-                /*$correo->enviarCorreo($arCaso->getCorreo(), 'Caso escalado'.' - '.$arCaso->getCodigoCasoPk(),
-                    $this->renderView(
-                        'Soporte/Caso/correoSolucion.html.twig',
-                        array('arCaso' => $arCaso)
-                    ));*/
-                echo "<script languaje='javascript' type='text/javascript'>window.close();window.opener.location.reload();</script>";
-            }
-        }
-        return $this->render('Soporte/Caso/escalar.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -329,6 +304,69 @@ class CasoController extends AbstractController
             Mensajes::info("Correo {$arCaso->getCorreo()} habilitado para envio de la respuesta");
         }
         return $this->render('Soporte/Caso/respuesta.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/soporte/caso/escalado/{codigoCaso}/{id}", name="soporte_caso_escalado")
+     */
+    public function escalado(Request $request, Dubnio $dubnio, $codigoCaso, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arCaso = $em->getRepository(Caso::class)->find($codigoCaso);
+        $arCasoEscalado = new CasoEscalado();
+        if($id != 0){
+            $arCasoEscalado = $em->getRepository(CasoEscalado::class)->find($id);
+        } else {
+            $arCasoEscalado->setUsuarioRel($em->getReference(Usuario::class, $this->getUser()->getUsername()));
+            $arCasoEscalado->setCasoRel($arCaso);
+            $arCasoEscalado->setFecha(new \DateTime('now'));
+        }
+        $form = $this->createForm(CasoEscaladoType::class, $arCasoEscalado);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arCasoEscalado = $form->getData();
+                $em->persist($arCasoEscalado);
+                if(!$arCaso->getUsuarioRel()){
+                    $arCaso->setUsuarioRel($arCasoEscalado->getUsuarioDestinoRel());
+                }
+                $arCaso->setEstadoEscalado(1);
+                $em->flush();
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
+            }
+        }
+        return $this->render('Soporte/Caso/escalado.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/soporte/caso/tarea/{codigoCaso}/{id}", name="soporte_caso_tarea")
+     */
+    public function tarea(Request $request, Dubnio $dubnio, $codigoCaso, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arCaso = $em->getRepository(Caso::class)->find($codigoCaso);
+        $arCasoTarea = new Tarea();
+        if($id != 0){
+            $arCasoTarea = $em->getRepository(Tarea::class)->find($id);
+        } else {
+            $arCasoTarea->setCasoRel($arCaso);
+            $arCasoTarea->setFecha(new \DateTime('now'));
+        }
+        $form = $this->createForm(CasoTareaType::class, $arCasoTarea);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arCasoTarea = $form->getData();
+                $em->persist($arCasoTarea);
+                $em->flush();
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
+            }
+        }
+        return $this->render('Soporte/Caso/tarea.html.twig', [
             'form' => $form->createView()
         ]);
     }

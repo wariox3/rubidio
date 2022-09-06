@@ -1,18 +1,26 @@
 {% extends 'base_sin_menu.html.twig' %}
 {% block content %}
-    {{ form_start(form, { 'attr': {'class': 'form-horizontal'} }) }}
+    {{ form_start(form) }}
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header title-bg-color">
-                        <h5>Nuevo</h5>
+                        <h5>Información</h5>
                     </div>
                     <div class="card-body">
                         {{ form_errors(form) }}
                         <div class="form-group">
-                            <label class="control-label">Escalar:</label>
-                            {{ form_widget(form.escalado, { 'attr': {'style':'height: 325px;'} }) }}
+                            <label class="control-label">Usuario:</label>
+                            {{ form_widget(form.usuarioRel)}}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Prioridad:</label>
+                            {{ form_widget(form.prioridadRel)}}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Descripcion:</label>
+                            {{ form_widget(form.descripcion, { 'attr': {'style':'height: 325px;'} }) }}
                         </div>
 
                     </div>

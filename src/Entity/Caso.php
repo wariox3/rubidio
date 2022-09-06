@@ -69,11 +69,6 @@ class Caso
     private $descripcion;
 
     /**
-     * @ORM\Column(name="escalado", type="text", nullable=true)
-     */
-    private $escalado;
-
-    /**
      * @ORM\Column(name="codigo_prioridad_fk", type="string", length=20, nullable=true)
      */
     private $codigoPrioridadFk;
@@ -114,6 +109,17 @@ class Caso
     private $codigoModuloFk;
 
     /**
+     * @ORM\Column(name="codigo_usuario_fk", type="string", nullable=true)
+     */
+    private $codigoUsuarioFk;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Usuario", inversedBy="casosUsuarioRel")
+     * @ORM\JoinColumn(name="codigo_usuario_fk", referencedColumnName="codigo_usuario_pk")
+     */
+    private $usuarioRel;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Cliente", inversedBy="casosClienteRel")
      * @ORM\JoinColumn(name="codigo_cliente_fk", referencedColumnName="codigo_cliente_pk")
      */
@@ -151,6 +157,11 @@ class Caso
      * @ORM\OneToMany(targetEntity="App\Entity\CasoRespuesta", mappedBy="casoRel")
      */
     protected $casosRespuestasCasoRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CasoEscalado", mappedBy="casoRel")
+     */
+    protected $casosEscaladosCasoRel;
 
     /**
      * @return mixed
@@ -235,6 +246,22 @@ class Caso
     /**
      * @return mixed
      */
+    public function getFechaAtendido()
+    {
+        return $this->fechaAtendido;
+    }
+
+    /**
+     * @param mixed $fechaAtendido
+     */
+    public function setFechaAtendido($fechaAtendido): void
+    {
+        $this->fechaAtendido = $fechaAtendido;
+    }
+
+    /**
+     * @return mixed
+     */
     public function getCodigoClienteFk()
     {
         return $this->codigoClienteFk;
@@ -310,22 +337,6 @@ class Caso
     public function setDescripcion($descripcion): void
     {
         $this->descripcion = $descripcion;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEscalado()
-    {
-        return $this->escalado;
-    }
-
-    /**
-     * @param mixed $escalado
-     */
-    public function setEscalado($escalado): void
-    {
-        $this->escalado = $escalado;
     }
 
     /**
@@ -425,6 +436,22 @@ class Caso
     }
 
     /**
+     * @return bool
+     */
+    public function isEstadoRespuesta(): bool
+    {
+        return $this->estadoRespuesta;
+    }
+
+    /**
+     * @param bool $estadoRespuesta
+     */
+    public function setEstadoRespuesta(bool $estadoRespuesta): void
+    {
+        $this->estadoRespuesta = $estadoRespuesta;
+    }
+
+    /**
      * @return mixed
      */
     public function getCodigoModuloFk()
@@ -438,6 +465,38 @@ class Caso
     public function setCodigoModuloFk($codigoModuloFk): void
     {
         $this->codigoModuloFk = $codigoModuloFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoUsuarioFk()
+    {
+        return $this->codigoUsuarioFk;
+    }
+
+    /**
+     * @param mixed $codigoUsuarioFk
+     */
+    public function setCodigoUsuarioFk($codigoUsuarioFk): void
+    {
+        $this->codigoUsuarioFk = $codigoUsuarioFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsuarioRel()
+    {
+        return $this->usuarioRel;
+    }
+
+    /**
+     * @param mixed $usuarioRel
+     */
+    public function setUsuarioRel($usuarioRel): void
+    {
+        $this->usuarioRel = $usuarioRel;
     }
 
     /**
@@ -553,37 +612,20 @@ class Caso
     }
 
     /**
-     * @return bool
-     */
-    public function isEstadoRespuesta(): bool
-    {
-        return $this->estadoRespuesta;
-    }
-
-    /**
-     * @param bool $estadoRespuesta
-     */
-    public function setEstadoRespuesta(bool $estadoRespuesta): void
-    {
-        $this->estadoRespuesta = $estadoRespuesta;
-    }
-
-    /**
      * @return mixed
      */
-    public function getFechaAtendido()
+    public function getCasosEscaladosCasoRel()
     {
-        return $this->fechaAtendido;
+        return $this->casosEscaladosCasoRel;
     }
 
     /**
-     * @param mixed $fechaAtendido
+     * @param mixed $casosEscaladosCasoRel
      */
-    public function setFechaAtendido($fechaAtendido): void
+    public function setCasosEscaladosCasoRel($casosEscaladosCasoRel): void
     {
-        $this->fechaAtendido = $fechaAtendido;
+        $this->casosEscaladosCasoRel = $casosEscaladosCasoRel;
     }
-
 
 
 }

@@ -32,8 +32,8 @@
                                             <td class="td-in-well">{{ arCaso.codigoCasoPk }}</td>
                                             <td class="title-bg-color">FECHA:</td>
                                             <td class="td-in-well">{{ arCaso.fecha | date('Y-m-d') }}</td>
-                                            <td class="title-bg-color"></td>
-                                            <td class="td-in-well"></td>
+                                            <td class="title-bg-color">CLIENTE:</td>
+                                            <td class="td-in-well">{{ arCaso.clienteRel.nombreCorto | default('') }}</td>
                                         </tr>
                                         <tr>
                                             <td class="title-bg-color">CONTACTO:</td>
@@ -48,16 +48,12 @@
                                             <td class="td-in-well" colspan="5">{{ arCaso.descripcion }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="title-bg-color">ESCALADO:</td>
-                                            <td class="td-in-well" colspan="5">{{ arCaso.escalado }}</td>
-                                        </tr>
-                                        <tr>
                                             <td class="title-bg-color">FECHA CERRADO:</td>
                                             <td class="td-in-well">{{ arCaso.fechaCerrado ? arCaso.fechaCerrado | date('Y-m-d H:i') }}</td>
-                                            <td class="title-bg-color"></td>
-                                            <td class="td-in-well"></td>
-                                            <td class="title-bg-color"></td>
-                                            <td class="td-in-well"></td>
+                                            <td class="title-bg-color">FECHA ATENDIDO:</td>
+                                            <td class="td-in-well">{{ arCaso.fechaAtendido ? arCaso.fechaAtendido | date('Y-m-d H:i') }}</td>
+                                            <td class="title-bg-color">USUARIO:</td>
+                                            <td class="td-in-well">{{ arCaso.codigoUsuarioFk }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -72,6 +68,7 @@
                         <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-respuesta" role="tab" aria-controls="nav-home" aria-selected="true">Respuesta</a>
                         <a class="nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-gestion" role="tab" aria-controls="nav-home" aria-selected="true">Gestion</a>
                         <a class="nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-tarea" role="tab" aria-controls="nav-home" aria-selected="true">Tarea</a>
+                        <a class="nav-link" id="nav-home-tab" data-toggle="tab" href="#nav-escalado" role="tab" aria-controls="nav-home" aria-selected="true">Escalados</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -200,8 +197,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade show" id="nav-tarea" role="tabpanel"
-                         aria-labelledby="nav-home-tab">
+                    <div class="tab-pane fade show" id="nav-tarea" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="single-testimonial">
+                                    <div class="d-flex justify-content-end">
+                                        {% if arCaso.estadoCerrado == 0 %}
+                                            <a class="btnCustom"
+                                               href="javascript:abrirVentana3('{{ path('soporte_caso_tarea', { 'codigoCaso': arCaso.codigoCasoPk,  'id': 0 }) }}', 'Archivos', 800, 1250)">
+                                                Nuevo
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="table-responsive-sm mt-2">
@@ -235,6 +245,50 @@
                                                 <td>{{ arTarea.estadoTerminado ? 'SI':'NO' }}</td>
                                                 <td>{{ arTarea.estadoVerificado ? 'I':'NO' }}</td>
                                                 <td {% if arTarea.estadoDevolucion %}class="danger" {% endif %}>{{ arTarea.estadoDevolucion ? 'SI':'NO' }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade show" id="nav-escalado" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="single-testimonial">
+                                    <div class="d-flex justify-content-end">
+                                        {% if arCaso.estadoCerrado == 0 %}
+                                            <a class="btnCustom"
+                                               href="javascript:abrirVentana3('{{ path('soporte_caso_escalado', { 'codigoCaso': arCaso.codigoCasoPk,  'id': 0 }) }}', 'Archivos', 800, 1250)">
+                                                nuevo
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="table-responsive-sm mt-2">
+                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                        <thead class="title-bg-color">
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Fecha</th>
+                                            <th>Comentario</th>
+                                            <th>Usuario</th>
+                                            <th>U_Destino</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for arEscalado in arEscalados %}
+                                            <tr>
+                                                <td>{{ arEscalado.codigoCasoEscaladoPk }}</td>
+                                                <td>{{ arEscalado.fecha | date('Y-m-d h:i') }}</td>
+                                                <td>{{ arEscalado.comentario }}</td>
+                                                <td>{{ arEscalado.codigoUsuarioFk }}</td>
+                                                <td>{{ arEscalado.codigoUsuarioDestinoFk }}</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
