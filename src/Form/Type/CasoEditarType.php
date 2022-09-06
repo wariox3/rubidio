@@ -6,6 +6,7 @@ namespace App\Form\Type;
 use App\Entity\CasoTipo;
 use App\Entity\Cliente;
 use App\Entity\Prioridad;
+use App\Entity\Usuario;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -45,6 +46,20 @@ class CasoEditarType extends AbstractType {
                 'choice_label' => 'nombre',
                 'required' => true,
             ))
+            ->add('usuarioRel', EntityType::class, [
+                'required' => false,
+                'class' => Usuario::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.soporte = 1')
+                        ->orderBy('u.nombres', 'ASC');
+                },
+                'choice_label' => function ($er) {
+                    $campo = $er->getNombres() . ' ' . $er->getApellidos();
+                    return $campo;
+                },
+                'attr' => ['class' => 'to-select-2'],
+            ])
             ->add('compromiso', DateType::class, array('required' => false, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd', 'attr' => array('class' => 'date',)))
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));
     }

@@ -82,6 +82,10 @@ class CasoController extends AbstractController
         if ($session->get('filtroCasoEstadoCerrado') == null) {
             $session->set('filtroCasoEstadoCerrado', 0);
         }
+        if ($session->get('filtroCasoEstadoDesarrollo') == null) {
+            $session->set('filtroCasoEstadoDesarrollo', 0);
+        }
+
         $form = $this->createFormBuilder()
             ->add('clienteRel', EntityType::class, $arrayPropiedadesCliente)
             ->add('CasoTipoRel', EntityType::class, array(
@@ -329,9 +333,7 @@ class CasoController extends AbstractController
             if ($form->get('guardar')->isClicked()) {
                 $arCasoEscalado = $form->getData();
                 $em->persist($arCasoEscalado);
-                if(!$arCaso->getUsuarioRel()){
-                    $arCaso->setUsuarioRel($arCasoEscalado->getUsuarioDestinoRel());
-                }
+                $arCaso->setUsuarioRel($arCasoEscalado->getUsuarioDestinoRel());
                 $arCaso->setEstadoEscalado(1);
                 $em->flush();
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";

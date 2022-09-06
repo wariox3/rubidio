@@ -108,11 +108,9 @@
 
 
                                         <td class="text-center">
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                                <a href="{{ path('soporte_caso_atender', { 'id': arCaso.codigoCasoPk }) }}">
-                                                    <i class="fas fa-pen fa-2x"></i>
-                                                </a>
-                                            {% endif %}
+                                            <a href="{{ path('soporte_caso_atender', { 'id': arCaso.codigoCasoPk }) }}">
+                                                <i class="fas fa-pen fa-2x"></i>
+                                            </a>
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ path('soporte_caso_detalle', { 'id': arCaso.codigoCasoPk }) }}">
@@ -181,13 +179,11 @@
                                                     Opciones
                                                 </a>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                                    {% if is_granted('ROLE_ADMIN') %}
-                                                        {% if arCaso.estadoDesarrollo == 0 %}
-                                                            <a class="dropdown-item"
-                                                               href="{{ path('admin_tarea_nuevo', { 'id': 0, 'codigoCaso': arCaso.codigoCasoPk }) }}">
-                                                                Nueva tarea
-                                                            </a>
-                                                        {% endif %}
+                                                    {% if arCaso.estadoDesarrollo == 0 %}
+                                                        <a class="dropdown-item"
+                                                           href="{{ path('admin_tarea_nuevo', { 'id': 0, 'codigoCaso': arCaso.codigoCasoPk }) }}">
+                                                            Nueva tarea
+                                                        </a>
                                                     {% endif %}
                                                 </div>
                                             </div>
@@ -195,11 +191,9 @@
 
 
                                         <td class="text-center">
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                                <a href="{{ path('soporte_caso_nuevo', { 'id': arCaso.codigoCasoPk }) }}">
-                                                    <i class="fas fa-pen fa-2x"></i>
-                                                </a>
-                                            {% endif %}
+                                            <a href="{{ path('soporte_caso_nuevo', { 'id': arCaso.codigoCasoPk }) }}">
+                                                <i class="fas fa-pen fa-2x"></i>
+                                            </a>
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ path('soporte_caso_detalle', { 'id': arCaso.codigoCasoPk }) }}">
