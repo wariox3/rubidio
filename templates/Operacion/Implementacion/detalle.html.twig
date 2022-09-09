@@ -8,9 +8,7 @@
                     <div class="single-testimonial">
                         <div class="d-flex justify-content-start">
                             <a class="btnCustom" href="{{ path('operacion_implementacion_lista') }}">Volver</a>
-                            {{ form_widget(form.btnImprimirActaTerminacion, { 'attr': {'class': 'btnCustom'} }) }}
-                            {{ form_widget(form.btnImprimirPlanTrabajo, { 'attr': {'class': 'btnCustom'} }) }}
-
+                            {{ form_widget(form.btnTerminar, { 'attr': {'class': 'btnCustom'} }) }}
                         </div>
                     </div>
                 </div>
@@ -73,10 +71,12 @@
                 <div class="col-md-12">
                     <div class="single-testimonial">
                         <div class="d-flex justify-content-end">
+                            {% if arImplementacion.estadoTerminado == 0 %}
                             <a class="btnCustom"
                                href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo_funcionalidad', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo funcionalidad', 600, 1200)">Nueva funcionalidad</a>
                             <a class="btnCustom"
                                href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo_requisito', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo requisito', 600, 1200)">Nuevo requisito</a>
+                            {% endif %}
                             {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
                         </div>
                         <div class="table-responsive-sm mt-2">

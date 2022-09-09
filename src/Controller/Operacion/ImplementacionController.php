@@ -32,6 +32,10 @@ class ImplementacionController extends AbstractController
     public function lista(Request $request,  PaginatorInterface $paginator)
     {
         $em = $this->getDoctrine()->getManager();
+        $session = new Session();
+        if ($session->get('filtroImplementacionEstadoTerminado') == null) {
+            $session->set('filtroImplementacionEstadoTerminado', 0);
+        }
         $form = $this->createFormBuilder()
             ->add('clienteRel', EntityType::class, array(
                 'class' => Cliente::class,
@@ -43,6 +47,7 @@ class ImplementacionController extends AbstractController
                 'choice_label' => 'nombreCorto',
                 'placeholder' => 'TODOS',
             ))
+            ->add('estadoTerminado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoTerminado'), 'required' => false])
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->add('btnEliminar', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-danger']])
             ->getForm();
@@ -64,6 +69,15 @@ class ImplementacionController extends AbstractController
                         }
                     }
                     $em->flush();
+                }
+            }
+            if ($form->get('btnFiltrar')->isClicked()) {
+                $session->set('filtroImplementacionEstadoTerminado', $form->get('estadoTerminado')->getData());
+                $arCliente = $form->get('clienteRel')->getData();
+                if ($arCliente) {
+                    $session->set('filtroImplementacionCodigoCliente', $arCliente->getCodigoClientePk());
+                } else {
+                    $session->set('filtroImplementacionCodigoCliente', null);
                 }
             }
         }
@@ -108,6 +122,12 @@ class ImplementacionController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $arImplementacion = $em->getRepository(Implementacion::class)->find($id);
         $session = new Session();
+        $arrBtnTerminar = ['label' => 'Terminar', 'disabled' => false];
+        $arrBtnEliminar = ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-danger']];
+        if ($arImplementacion->isEstadoTerminado()) {
+            $arrBtnTerminar['disabled'] = true;
+            $arrBtnEliminar['disabled'] = true;
+        }
         $form = $this->createFormBuilder()
             ->add('moduloRel', EntityType::class, array(
                 'class' => Modulo::class,
@@ -120,12 +140,11 @@ class ImplementacionController extends AbstractController
                 'placeholder' => "TODOS",
 
             ))
+            ->add('btnTerminar', SubmitType::class, $arrBtnTerminar)
             ->add('estadoCapacitado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoCapacitado'), 'required' => false])
             ->add('estadoTerminado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoTerminado'), 'required' => false])
             ->add('btnFiltrar', SubmitType::class, array('label' => 'Filtrar'))
-            ->add('btnImprimirActaTerminacion', SubmitType::class, array('label' => 'Imprimir acta terminacion', 'attr' => ['class' => 'btn btn-default btn-sm']))
-            ->add('btnImprimirPlanTrabajo', SubmitType::class, array('label' => 'Imprimir plan de trabajo', 'attr' => ['class' => 'btn btn-default btn-sm']))
-            ->add('btnEliminar', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-danger']])
+            ->add('btnEliminar', SubmitType::class, $arrBtnEliminar)
             ->getForm();
         $raw = [];
         $form->handleRequest($request);
@@ -133,18 +152,9 @@ class ImplementacionController extends AbstractController
             if ($form->get('btnFiltrar')->isClicked()) {
                 $raw['filtros'] = $this->filtrosDetalle($form);
             }
-            if ($form->get('btnImprimirActaTerminacion')->isClicked()) {
-                $validarTemasFinalizados = $em->getRepository(ImplementacionDetalle::class)->temasCapacitados($id);
-                if ($validarTemasFinalizados == true) {
-                    $formatoCapacitacion = new FormatoActaTerminacion();
-                    $formatoCapacitacion->Generar($em, $id, $arImplementacion->getCodigoClienteFk());
-                } else {
-                    Mensajes::error("No se puede imprimir el acta de finalizacion ya que hay temas pendientes por capacitar");
-                }
-            }
-            if ($form->get('btnImprimirPlanTrabajo')->isClicked()) {
-                $formatoPlanTrabajo = new FormatoPlanTrabajo();
-                $formatoPlanTrabajo->Generar($em, $id);
+            if ($form->get('btnTerminar')->isClicked()) {
+                $em->getRepository(Implementacion::class)->terminar($arImplementacion);
+                return $this->redirect($this->generateUrl('operacion_implementacion_detalle', ['id' => $id]));
             }
             if ($form->get('btnEliminar')->isClicked()) {
                 $arrSeleccionados = $request->request->get('ChkSeleccionar');

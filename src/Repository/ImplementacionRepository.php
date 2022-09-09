@@ -7,6 +7,7 @@ use App\Entity\ImplementacionDetalle;
 use App\Entity\Implementacion;
 use App\Entity\Responsable;
 use App\Entity\Tema;
+use App\Utilidades\Mensajes;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Persistence\ManagerRegistry;
@@ -70,6 +71,7 @@ class ImplementacionRepository extends ServiceEntityRepository
 
     public function lista()
     {
+        $session = new Session();
         $em = $this->getEntityManager();
         $queryBuilder = $em->createQueryBuilder()->from(Implementacion::class, 'i')
             ->select('i.codigoImplementacionPk')
@@ -87,6 +89,17 @@ class ImplementacionRepository extends ServiceEntityRepository
             ->addSelect('c.nombreCorto as clienteNombreCorto')
             ->leftJoin('i.clienteRel', 'c')
             ->orderBy('i.codigoImplementacionPk', 'DESC');
+        if ($session->get('filtroImplementacionCodigoCliente')) {
+            $queryBuilder->andWhere('i.codigoClienteFk = ' . $session->get('filtroImplementacionCodigoCliente'));
+        }
+        switch ($session->get('filtroImplementacionEstadoTerminado')) {
+            case '0':
+                $queryBuilder->andWhere("i.estadoTerminado = 0");
+                break;
+            case '1':
+                $queryBuilder->andWhere("i.estadoTerminado = 1");
+                break;
+        }
         $arImplementaciones = $queryBuilder->getQuery()->getResult();
         return $arImplementaciones;
     }
@@ -153,5 +166,22 @@ class ImplementacionRepository extends ServiceEntityRepository
         $arImplementacion->setPorcentajeTiempo($porcentajeTiempo);
         $em->persist($arImplementacion);
         $em->flush();
+    }
+
+    public function terminar($arImplementacion)
+    {
+        $em = $this->getEntityManager();
+        if($arImplementacion->isEstadoTerminado() == 0) {
+            $arImplementacionDetalles = $em->getRepository(ImplementacionDetalle::class)->findBy(['codigoImplementacionFk' => $arImplementacion->getCodigoImplementacionPk(), 'estadoTerminado' => 0]);
+            if(!$arImplementacionDetalles) {
+                $arImplementacion->setEstadoTerminado(1);
+                $em->persist($arImplementacion);
+                $em->flush();
+            } else {
+                Mensajes::error('Se deben cerrar todos los detalles antes de terminar la implementacion');
+            }
+        } else {
+            Mensajes::error('La implementacion ya esta terminada');
+        }
     }
 }
