@@ -117,7 +117,7 @@ class ImplementacionController extends AbstractController
     /**
          * @Route("/operacion/implementacion/detalle/{id}", name="operacion_implementacion_detalle")
      */
-    public function detalle(Request $request,  PaginatorInterface $paginator, $id)
+    public function detalle(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arImplementacion = $em->getRepository(Implementacion::class)->find($id);
@@ -233,7 +233,7 @@ class ImplementacionController extends AbstractController
                     $arImplementacionDetalle = new ImplementacionDetalle();
                     $arImplementacionDetalle->setImplementacionRel($arImplementacion);
                     $arImplementacionDetalle->setRequisitoRel($arRequisito);
-                    $arImplementacionDetalle->setCodigoModuloFk($arRequisito->getCodigoModuloFk());
+                    $arImplementacionDetalle->setModuloRel($em->getReference(Modulo::class, $arRequisito->getCodigoModuloFk()));
                     $em->persist($arImplementacionDetalle);
                 }
                 $em->flush();
@@ -283,7 +283,7 @@ class ImplementacionController extends AbstractController
                     $arImplementacionDetalle = new ImplementacionDetalle();
                     $arImplementacionDetalle->setImplementacionRel($arImplementacion);
                     $arImplementacionDetalle->setFuncionalidadRel($arFuncionalidad);
-                    $arImplementacionDetalle->setCodigoModuloFk($arFuncionalidad->getCodigoModuloFk());
+                    $arImplementacionDetalle->setModuloRel($em->getReference(Modulo::class, $arFuncionalidad->getCodigoModuloFk()));
                     $em->persist($arImplementacionDetalle);
                 }
                 $em->flush();

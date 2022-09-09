@@ -99,6 +99,7 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
             ->addSelect('id.comentarioImplementador')
             ->addSelect('id.estadoTerminado')
             ->addSelect('id.estadoCapacitado')
+            ->addSelect('id.responsable')
             ->addSelect('re.nombre as requisitoNombre')
             ->addSelect('fu.nombre as funcionalidadNombre')
             ->leftJoin('id.requisitoRel', 're')
@@ -127,40 +128,57 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function temasCapacitados($codigoImplementacion)
-    {
-        $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(ImplementacionDetalle::class, 'id')
-            ->select('id.codigoImplementacionDetallePk')
-            ->addSelect('id.estadoCapacitado')
-            ->where("id.codigoImplementacionFk = {$codigoImplementacion}")
-            ->andWhere("id.estadoCapacitado = false");
-
-        $arResultados = $queryBuilder->getQuery()->getResult();
-
-        if(count($arResultados)> 0){
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public function formatoPlanTrabajo($codigoImplementacion)
+    public function listaCliente($codigoImplementacion)
     {
         $em = $this->getEntityManager();
+        $filtros = $raw['filtros'] ?? null;
+        $codigoModulo = null;
+        $estadoCapacitado = null;
+        $estadoTerminado = null;
+        if ($filtros) {
+            $codigoModulo = $filtros['codigoModulo'] ?? null;
+            $estadoCapacitado = $filtros['estadoCapacitado'] ?? null;
+            $estadoTerminado = $filtros['estadoTerminado'] ?? null;
+        }
         $queryBuilder = $em->createQueryBuilder()->from(ImplementacionDetalle::class, 'id')
             ->select('id.codigoImplementacionDetallePk')
             ->addSelect('id.fechaCompromiso')
+            ->addSelect('id.codigoRequisitoFk')
+            ->addSelect('id.codigoModuloFk')
+            ->addSelect('id.codigoRequisitoFk')
+            ->addSelect('id.codigoFuncionalidadFk')
+            ->addSelect('id.comentario')
+            ->addSelect('id.comentarioImplementador')
             ->addSelect('id.estadoTerminado')
+            ->addSelect('id.estadoCapacitado')
+            ->addSelect('id.responsable')
+            ->addSelect('re.nombre as requisitoNombre')
+            ->addSelect('fu.nombre as funcionalidadNombre')
             ->addSelect('m.nombre as moduloNombre')
-            ->addSelect('t.nombre as temaNombre')
-            ->addSelect('t.descripcion as temaDescripcion')
-            ->leftJoin('id.temaRel', 't')
-            ->leftJoin('t.moduloRel', 'm')
-            ->where("id.codigoImplementacionFk = {$codigoImplementacion}")
-            ->orderBy('t.codigoModuloFk', 'ASC')
-            ->addOrderBy('t.orden', 'ASC');
-        $arImplementacionDetalles = $queryBuilder->getQuery()->getResult();
-        return $arImplementacionDetalles;
+            ->leftJoin('id.requisitoRel', 're')
+            ->leftJoin('id.funcionalidadRel', 'fu')
+            ->leftJoin('id.moduloRel', 'm')
+            ->where("id.codigoImplementacionFk = {$codigoImplementacion}");
+        switch ($estadoCapacitado) {
+            case '0':
+                $queryBuilder->andWhere("id.estadoCapacitado = 0");
+                break;
+            case '1':
+                $queryBuilder->andWhere("id.estadoCapacitado = 1");
+                break;
+        }
+        switch ($estadoTerminado) {
+            case '0':
+                $queryBuilder->andWhere("id.estadoTerminado = 0");
+                break;
+            case '1':
+                $queryBuilder->andWhere("id.estadoTerminado = 1");
+                break;
+        }
+        if ($codigoModulo) {
+            $queryBuilder->andWhere("id.codigoModuloFk = '{$codigoModulo}'");
+        }
+        $arImplementacionesDetalles = $queryBuilder->getQuery()->getResult();
+        return $arImplementacionesDetalles;
     }
-
 }

@@ -71,14 +71,19 @@ class ImplementacionDetalle
     private $estadoTerminado = false;
 
     /**
-     * @ORM\Column(name="comentario", type="string", length=5000, nullable=true)
+     * @ORM\Column(name="comentario", type="text", nullable=true)
      */
     private $comentario;
 
     /**
-     * @ORM\Column(name="comentario_implementador", type="string", length=5000, nullable=true)
+     * @ORM\Column(name="comentario_implementador", type="text", nullable=true)
      */
     private $comentarioImplementador;
+
+    /**
+     * @ORM\Column(name="responsable", type="string", length=200, nullable=true)
+     */
+    private $responsable;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Implementacion", inversedBy="implementacionesDetallesImplementacionRel")
@@ -97,6 +102,12 @@ class ImplementacionDetalle
      * @ORM\JoinColumn(name="codigo_funcionalidad_fk", referencedColumnName="codigo_funcionalidad_pk")
      */
     private $funcionalidadRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modulo", inversedBy="implementacionesModuloRel")
+     * @ORM\JoinColumn(name="codigo_modulo_fk", referencedColumnName="codigo_modulo_pk")
+     */
+    private $moduloRel;
 
     /**
      * @return mixed
@@ -448,6 +459,38 @@ class ImplementacionDetalle
     public function setCodigoModuloFk($codigoModuloFk): void
     {
         $this->codigoModuloFk = $codigoModuloFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModuloRel()
+    {
+        return $this->moduloRel;
+    }
+
+    /**
+     * @param mixed $moduloRel
+     */
+    public function setModuloRel($moduloRel): void
+    {
+        $this->moduloRel = $moduloRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResponsable()
+    {
+        return $this->responsable;
+    }
+
+    /**
+     * @param mixed $responsable
+     */
+    public function setResponsable($responsable): void
+    {
+        $this->responsable = $responsable;
     }
 
 

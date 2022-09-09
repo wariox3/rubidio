@@ -14,7 +14,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
                                         <label for="inputEmail4">Modulo:</label>
-                                        {{ form_widget(form.modulo) }}
+                                        {{ form_widget(form.moduloRel) }}
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="inputEmail4">Capacitado:</label>
@@ -40,109 +40,81 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="single-testimonial">
-                        <section class="card">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
-                                        <thead>
-                                        <tr>
-                                            <th>CÓD</th>
-                                            <th>NOMBRE</th>
-                                            <th>CLIENTE</th>
-                                            <th>IMPLEMENTADOR</th>
-                                            <th>TELEFONO</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>{{ arImplementacion.codigoImplementacionPk }}</td>
-                                            <td>{{ arImplementacion.nombre }}</td>
-                                            <td>{{ arImplementacion.clienteRel.nombreCorto }}</td>
-                                            <td>{{ arImplementacion.implementadorRel.nombre |default('') }}</td>
-                                            <td>{{ arImplementacion.implementadorRel.telefono |default('') }}</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </section>
+                        <div class="table-responsive-sm">
+                            <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                <thead class="title-bg-color">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Lider</th>
+                                    <th>Celular</th>
+                                    <th>Correo</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for arImplementacion in arImplementaciones %}
+                                    <tr>
+                                        <td>{{ arImplementacion.codigoImplementacionPk }}</td>
+                                        <td>{{ arImplementacion.nombre }}</td>
+                                        <td>{{ arImplementacion.liderCliente }}</td>
+                                        <td>{{ arImplementacion.celularLider }}</td>
+                                        <td>{{ arImplementacion.correoLider }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="single-testimonial">
                         <div class="table-responsive-sm">
                             <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
                                 <thead class="title-bg-color">
-                                <tr>
                                     <th>Id</th>
                                     <th>Modulo</th>
+                                    <th>Compromiso</th>
                                     <th>Cod</th>
-                                    <th>Tema</th>
-                                    <th>Descripcion</th>
-                                    <th>Comentario</th>
-                                    <th>Implementador</th>
-                                    <th>Accion</th>
+                                    <th>Requisito</th>
+                                    <th>Cod</th>
+                                    <th>Funcionalidad</th>
                                     <th>Responsable</th>
-                                    <th>Fecha</th>
-                                    <th title="Estado inicio">Ini</th>
-                                    <th title="Estado capacitado">Cap</th>
-                                    <th title="Estado terminado">Ter</th>
+                                    <th>Comentario</th>
+                                    <th title="Capacitado">CAP</th>
+                                    <th title="Terminado">TER</th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
-                                </tr>
                                 </thead>
                                 <tbody>
                                 {% for arImplementacionDetalle in arImplementacionDetalles %}
                                     <tr>
                                         <td>{{ arImplementacionDetalle.codigoImplementacionDetallePk }}</td>
                                         <td>{{ arImplementacionDetalle.moduloNombre }}</td>
-                                        <td>{{ arImplementacionDetalle.codigoTemaFk }}</td>
-                                        <td>{{ arImplementacionDetalle.temaNombre }}</td>
-                                        <td>{{ arImplementacionDetalle.temaDescripcion }}</td>
+                                        <td>{{ arImplementacionDetalle.fechaCompromiso?arImplementacionDetalle.fechaCompromiso | date('Y-m-d H:i'):'' }}</td>
+                                        <td>{{ arImplementacionDetalle.codigoRequisitoFk }}</td>
+                                        <td>{{ arImplementacionDetalle.requisitoNombre }}</td>
+                                        <td>{{ arImplementacionDetalle.codigoFuncionalidadFk }}</td>
+                                        <td>{{ arImplementacionDetalle.funcionalidadNombre }}</td>
+                                        <td>{{ arImplementacionDetalle.responsable }}</td>
                                         <td>{{ arImplementacionDetalle.comentario }}</td>
-                                        <td>{{ arImplementacionDetalle.comentarioImplementador }}</td>
-                                        <td>{{ arImplementacionDetalle.accionNombre }}</td>
-                                        <td>{{ arImplementacionDetalle.responsableNombre }}</td>
-                                        <td>{{ arImplementacionDetalle.estadoCapacitado?arImplementacionDetalle.fecha | date('Y-m-d H:i'):'' }}</td>
-                                        <td class="text-center">{{ arImplementacionDetalle.estadoInicio?'SI':'NO' }}</td>
-                                        <td class="text-center">{{ arImplementacionDetalle.estadoCapacitado?'SI':'NO' }}</td>
-                                        <td class="text-center">{{ arImplementacionDetalle.estadoTerminado?'SI':'NO' }}</td>
+                                        <td  class="text-center">{{ arImplementacionDetalle.estadoCapacitado?'SI':'NO' }}</td>
+                                        <td>{{ arImplementacionDetalle.estadoTerminado?'SI':'NO' }}</td>
                                         <td class="text-center">
-                                            {% if arImplementacionDetalle.estadoInicio == 0 %}
-                                                <a href="javascript:abrirVentana3('{{ path('cliente_implementacion_nuevo', {'id': arImplementacionDetalle.codigoImplementacionDetallePk}) }}', 'Escalar', 600, 1200)">
-                                                    <i class="fa fa-edit fa-2x"></i>
-                                                </a>
-                                            {% endif %}
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="javascript:abrirVentana3('{{ path('documental_archivo_ver', {'tipo': '1',  'codigo': arImplementacionDetalle.codigoImplementacionDetallePk}) }}', 'Archivo', 600, 1200)">
-                                                <i class="fa fa-download fa-2x"></i>
+                                            <a href="javascript:abrirVentana3('{{ path('cliente_implementacion_detalle_nuevo', { 'id': arImplementacionDetalle.codigoImplementacionDetallePk }) }}', 'Nuevo', 600, 1200)">
+                                                <i class="fas fa-pen fa-2x"></i>
                                             </a>
                                         </td>
                                         <td class="text-center">
-                                            {% if arImplementacionDetalle.codigoDocumentacionFk %}
-                                                <a href="http://semantica.com.co/semanticaweb/public/index.php/documetacion/detalle/{{ arImplementacionDetalle.codigoDocumentacionFk }}"
-                                                   target="_blank">
-                                                    <i class="far fa-file-alt fa-2x"></i>
-                                                </a>
-                                            {% endif %}
+                                            <a href="javascript:abrirVentana3('{{ path('utilidad_archivo_lista', { 'tipo': 'implementacion_detalle',  'codigo': arImplementacionDetalle.codigoImplementacionDetallePk }) }}', 'Archivos', 800, 1250)">
+                                                <i class="fas fa-file-upload fa-2x"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="d-flex justify-content-between mt-2">
-                            <div class="btn btn-default btn-sm">Registros
-                                <span>{{ arImplementacionDetalles.getTotalItemCount }}</span>
-                            </div>
-                            <div class="btn-group btn-xs">
-                                {{ knp_pagination_render(arImplementacionDetalles) }}
-                            </div>
                         </div>
                     </div>
                 </div>

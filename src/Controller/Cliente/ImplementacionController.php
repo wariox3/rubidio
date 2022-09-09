@@ -4,8 +4,12 @@ namespace App\Controller\Cliente;
 
 use App\Entity\ImplementacionDetalle;
 use App\Entity\Implementacion;
+use App\Entity\Modulo;
 use App\Form\Type\ImplementacionDetalleClienteType;
+use App\Form\Type\ImplementacionDetalleType;
+use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -39,26 +43,25 @@ class ImplementacionController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/cliente/implementacion/lista", name="cliente_implementacion_lista")
      */
-    public function lista(Request $request,  PaginatorInterface $paginator) {
+    public function lista(Request $request) {
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
-        $arrModulo = [
-            'TODOS' => '',
-            'Cartera' => 'CAR',
-            'CRM' => 'CRM',
-            'Financiero' => 'FIN',
-            'General'=>'GEN',
-            'Inventario'=>'INV',
-            'Juridico'=>'JUR',
-            'RHumano'=>'RHU',
-            'Tesoreria'=>'TES',
-            'Turnos'=>'TUR'];
+
         $form = $this->createFormBuilder()
-            ->add('modulo', ChoiceType::class, ['choices' => $arrModulo, 'data' => $session->get('filtroImplementacionModulo'), 'required' => false])
+            ->add('moduloRel', EntityType::class, array(
+                'class' => Modulo::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+                },
+                'choice_label' => 'nombre',
+                'required' => false,
+                'placeholder' => "TODOS",
+
+            ))
             ->add('estadoCapacitado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoCapacitado'), 'required' => false])
             ->add('estadoTerminado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoTerminado'), 'required' => false])
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
@@ -71,14 +74,36 @@ class ImplementacionController extends AbstractController
                 $session->set('filtroImplementacionModulo', $form->get('modulo')->getData());
             }
         }
-        $arImplementacion = $em->getRepository(Implementacion::class)->findOneBy(['codigoClienteFk' => $this->getUser()->getCodigoClienteFk()]);
-        $arImplementaciones = $paginator->paginate($em->getRepository(Implementacion::class)->listaCliente($this->getUser()->getCodigoClienteFk()), $request->query->getInt('page', 1), 500);
+        $arImplementaciones = $em->getRepository(Implementacion::class)->listaCliente($this->getUser()->getCodigoClienteFk());
+        $arImplementacionesDetalles = $em->getRepository(ImplementacionDetalle::class)->listaCliente($this->getUser()->getCodigoClienteFk());
         return $this->render('Cliente/Implementacion/lista.html.twig', [
-            'arImplementacion' => $arImplementacion,
-            'arImplementacionDetalles' => $arImplementaciones,
+            'arImplementaciones' => $arImplementaciones,
+            'arImplementacionDetalles' => $arImplementacionesDetalles,
             'form' => $form->createView()
         ]);
     }
 
+    /**
+     * @Route("/cliente/implementacion/detalle/nuevo/{id}", name="cliente_implementacion_detalle_nuevo")
+     */
+    public function detalleNuevo(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->find($id);
+        $form = $this->createForm(ImplementacionDetalleClienteType::class, $arImplementacionDetalle);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arImplementacionDetalle = $form->getData();
+                $em->persist($arImplementacionDetalle);
+                $em->flush();
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
+            }
+        }
+        return $this->render('Cliente/Implementacion/detalleNuevo.html.twig', [
+            'arImplementacionDetalle' => $arImplementacionDetalle,
+            'form' => $form->createView()
+        ]);
+    }
 
 }

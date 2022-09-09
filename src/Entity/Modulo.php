@@ -54,6 +54,11 @@ class Modulo
     protected $casosModuloRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ImplementacionDetalle", mappedBy="moduloRel")
+     */
+    protected $implementacionesDetallesModuloRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoModuloPk()
@@ -181,6 +186,20 @@ class Modulo
         $this->casosModuloRel = $casosModuloRel;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getImplementacionesDetallesModuloRel()
+    {
+        return $this->implementacionesDetallesModuloRel;
+    }
 
+    /**
+     * @param mixed $implementacionesDetallesModuloRel
+     */
+    public function setImplementacionesDetallesModuloRel($implementacionesDetallesModuloRel): void
+    {
+        $this->implementacionesDetallesModuloRel = $implementacionesDetallesModuloRel;
+    }
 
 }
