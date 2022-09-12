@@ -128,7 +128,7 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function listaCliente($codigoImplementacion)
+    public function listaCliente($codigoCliente)
     {
         $em = $this->getEntityManager();
         $filtros = $raw['filtros'] ?? null;
@@ -158,7 +158,8 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
             ->leftJoin('id.requisitoRel', 're')
             ->leftJoin('id.funcionalidadRel', 'fu')
             ->leftJoin('id.moduloRel', 'm')
-            ->where("id.codigoImplementacionFk = {$codigoImplementacion}");
+            ->leftJoin('id.implementacionRel', 'i')
+            ->where("i.codigoClienteFk = {$codigoCliente}");
         switch ($estadoCapacitado) {
             case '0':
                 $queryBuilder->andWhere("id.estadoCapacitado = 0");
