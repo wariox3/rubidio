@@ -130,16 +130,8 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
 
     public function listaCliente($codigoCliente)
     {
+        $session = new Session();
         $em = $this->getEntityManager();
-        $filtros = $raw['filtros'] ?? null;
-        $codigoModulo = null;
-        $estadoCapacitado = null;
-        $estadoTerminado = null;
-        if ($filtros) {
-            $codigoModulo = $filtros['codigoModulo'] ?? null;
-            $estadoCapacitado = $filtros['estadoCapacitado'] ?? null;
-            $estadoTerminado = $filtros['estadoTerminado'] ?? null;
-        }
         $queryBuilder = $em->createQueryBuilder()->from(ImplementacionDetalle::class, 'id')
             ->select('id.codigoImplementacionDetallePk')
             ->addSelect('id.fechaCompromiso')
@@ -160,7 +152,7 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
             ->leftJoin('id.moduloRel', 'm')
             ->leftJoin('id.implementacionRel', 'i')
             ->where("i.codigoClienteFk = {$codigoCliente}");
-        switch ($estadoCapacitado) {
+        switch ($session->get('filtroImplementacionEstadoCapacitado')) {
             case '0':
                 $queryBuilder->andWhere("id.estadoCapacitado = 0");
                 break;
@@ -168,7 +160,7 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
                 $queryBuilder->andWhere("id.estadoCapacitado = 1");
                 break;
         }
-        switch ($estadoTerminado) {
+        switch ($session->get('filtroImplementacionEstadoTerminado')) {
             case '0':
                 $queryBuilder->andWhere("id.estadoTerminado = 0");
                 break;
@@ -176,8 +168,8 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
                 $queryBuilder->andWhere("id.estadoTerminado = 1");
                 break;
         }
-        if ($codigoModulo) {
-            $queryBuilder->andWhere("id.codigoModuloFk = '{$codigoModulo}'");
+        if ($session->get('filtroImplementacionCodigoModulo')) {
+            $queryBuilder->andWhere("id.codigoModuloFk = '{$session->get('filtroImplementacionCodigoModulo')}' ");
         }
         $arImplementacionesDetalles = $queryBuilder->getQuery()->getResult();
         return $arImplementacionesDetalles;

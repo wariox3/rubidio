@@ -71,7 +71,12 @@ class ImplementacionController extends AbstractController
             if ($form->get('btnFiltrar')->isClicked()) {
                 $session->set('filtroImplementacionEstadoCapacitado', $form->get('estadoCapacitado')->getData());
                 $session->set('filtroImplementacionEstadoTerminado', $form->get('estadoTerminado')->getData());
-                $session->set('filtroImplementacionModulo', $form->get('modulo')->getData());
+                $arModulo = $form->get('moduloRel')->getData();
+                if ($arModulo) {
+                    $session->set('filtroImplementacionCodigoModulo', $arModulo->getCodigoModuloPk());
+                } else {
+                    $session->set('filtroImplementacionCodigoModulo', null);
+                }
             }
         }
         $arImplementaciones = $em->getRepository(Implementacion::class)->listaCliente($this->getUser()->getCodigoClienteFk());
