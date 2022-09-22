@@ -16,18 +16,6 @@
                                         <label for="inputEmail4">Nombre:</label>
                                         {{ form_widget(form.nombre) }}
                                     </div>
-{#                                    <div class="form-group col-md-3">#}
-{#                                        <label for="inputPassword4">Desarrollo:</label>#}
-{#                                        {{ form_widget(form.estadoDesarrollo) }}#}
-{#                                    </div>#}
-{#                                    <div class="form-group col-md-3">#}
-{#                                        <label for="inputPassword4">Escalado:</label>#}
-{#                                        {{ form_widget(form.estadoEscalado) }}#}
-{#                                    </div>#}
-{#                                    <div class="form-group col-md-3">#}
-{#                                        <label for="inputPassword4">Solucionado:</label>#}
-{#                                        {{ form_widget(form.estadoSolucionado) }}#}
-{#                                    </div>#}
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -47,7 +35,7 @@
                         <div class="d-flex justify-content-end">
                             <a class="btnCustom" href="{{ path('admin_cliente_nuevo', {'id': 0}) }}">Nuevo</a>
                         </div>
-                        <div class="table-responsive-sm mt-2">
+                        <div class="table-responsive mt-2">
                             <table class="table table-condensed table-bordered tabla-administracion table-hover mb-none ">
                                 <thead class="title-bg-color">
                                 <tr>
