@@ -156,6 +156,11 @@ class Cliente
     protected $contactosClienteRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contrato", mappedBy="clienteRel")
+     */
+    protected $contratosClienteRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoClientePk()
@@ -601,6 +606,22 @@ class Cliente
     public function setContactosClienteRel($contactosClienteRel): void
     {
         $this->contactosClienteRel = $contactosClienteRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContratosClienteRel()
+    {
+        return $this->contratosClienteRel;
+    }
+
+    /**
+     * @param mixed $contratosClienteRel
+     */
+    public function setContratosClienteRel($contratosClienteRel): void
+    {
+        $this->contratosClienteRel = $contratosClienteRel;
     }
 
 

@@ -5,8 +5,11 @@ namespace App\Controller\Admin;
 use App\Entity\Archivo;
 use App\Entity\Cliente;
 use App\Entity\Contacto;
+use App\Entity\Contrato;
 use App\Form\Type\ClienteType;
 use App\Form\Type\ContactoType;
+use App\Form\Type\ContratoType;
+use App\Formatos\FormatoContrato;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -84,25 +87,18 @@ class ClienteController extends AbstractController
                 $arrSeleccionados = $request->request->get('ChkSeleccionar');
                 $em->getRepository(Contacto::class)-> eliminar($arrSeleccionados);
             }
-//            if ($request->request->get('OpDescargar')) {
-//                $codigoFichero = $request->request->get('OpDescargar');
-//                $respuesta = $em->getRepository(Archivo::class)->descargar($codigoFichero);
-//                if(!$respuesta['error']) {
-//                    $response = new Response();
-//                    $response->headers->set('Cache-Control', 'private');
-//                    $response->headers->set('Content-type', $respuesta['tipo']);
-//                    $response->headers->set('Content-Disposition', 'attachment; filename="' . $respuesta['nombre'] . '";');
-//                    $response->headers->set('Content-length', $respuesta['tamano']);
-//                    $response->sendHeaders();
-//                    $response->setContent($respuesta['contenido']);
-//                    return $response;
-//                }
-//            }
+            if ($request->request->get('OpImprimir')) {
+                $codigo = $request->request->get('OpImprimir');
+                $formato = new FormatoContrato();
+                $formato->Generar($em, $codigo);
+            }
         }
         $arContactos = $em->getRepository(Contacto::class)->lista($id);
+        $arContratos= $em->getRepository(Contrato::class)->lista($id);
         return $this->render('Admin/Cliente/detalle.html.twig', [
             'arCliente' => $arCliente,
             'arContactos' => $arContactos,
+            'arContratos' => $arContratos,
             'form' => $form->createView()
         ]);
     }
@@ -135,5 +131,32 @@ class ClienteController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/admin/cliente/contrato/nuevo/{codigoClinete}/{id}", name="admin_cliente_contrato_nuevo")
+     */
+    public function contratoNuevo(Request $request, $codigoClinete, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $arContrato = $em->getRepository(Contrato::class)->find($id);
+        $arCliente = $em->getRepository(Cliente::class)->find($codigoClinete);
+        if ($arContrato == null) {
+            $arContrato = new Contrato();
+            $arContrato->setClienteRel($arCliente);
+        }
+        $form = $this->createForm(ContratoType::class, $arContrato);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('guardar')->isClicked()) {
+                $arContrato = $form->getData();
+                $em->persist($arContrato);
+                $em->flush();
+                echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
+            }
+        }
+        return $this->render('Admin/Cliente/contratoNuevo.html.twig', [
+            'arContrato' => $arContrato,
+            'form' => $form->createView()
+        ]);
+    }
 
 }
