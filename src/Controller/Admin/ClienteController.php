@@ -2,24 +2,20 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Archivo;
+use App\Formatos\FormatoContrato2;
 use App\Entity\Cliente;
 use App\Entity\Contacto;
 use App\Entity\Contrato;
 use App\Form\Type\ClienteType;
 use App\Form\Type\ContactoType;
 use App\Form\Type\ContratoType;
-use App\Formatos\FormatoContrato;
-use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 class ClienteController extends AbstractController
 {
@@ -89,8 +85,11 @@ class ClienteController extends AbstractController
             }
             if ($request->request->get('OpImprimir')) {
                 $codigo = $request->request->get('OpImprimir');
-                $formato = new FormatoContrato();
+//                $formato = new FormatoContrato();
+//                $formato->Generar($em, $codigo);
+                $formato = new FormatoContrato2();
                 $formato->Generar($em, $codigo);
+
             }
         }
         $arContactos = $em->getRepository(Contacto::class)->lista($id);
