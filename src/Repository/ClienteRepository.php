@@ -92,7 +92,8 @@ class ClienteRepository extends ServiceEntityRepository
             ->addSelect('c.codigoSetPruebas')
             ->addSelect('c.codigoSetPruebasNominas')
             ->addSelect('c.servicioSoporte')
-            ->addSelect('c.fechaSuspension');
+            ->addSelect('c.fechaSuspension')
+        ->orderBy('c.codigoClientePk', 'DESC');
 
         if ($session->get('filtroClienteNombre')) {
             $queryBuilder->andWhere("c.nombreCorto = '{$session->get('filtroClienteNombre')}' ");

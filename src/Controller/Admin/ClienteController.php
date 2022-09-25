@@ -9,6 +9,7 @@ use App\Entity\Contrato;
 use App\Form\Type\ClienteType;
 use App\Form\Type\ContactoType;
 use App\Form\Type\ContratoType;
+use App\Utilidades\DomPdf;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -67,7 +68,6 @@ class ClienteController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/admin/cliente/detalle/{id}", name="admin_cliente_detalle")
      */
@@ -85,11 +85,12 @@ class ClienteController extends AbstractController
             }
             if ($request->request->get('OpImprimir')) {
                 $codigo = $request->request->get('OpImprimir');
-//                $formato = new FormatoContrato();
-//                $formato->Generar($em, $codigo);
-                $formato = new FormatoContrato2();
-                $formato->Generar($em, $codigo);
-
+                $arContratoImprimir = $em->getRepository(Contrato::class)->imprimir($codigo);
+                if($arContratoImprimir) {
+                    $html = $this->renderView('Admin/Cliente/formatoContrato.html.twig', ['arContrato' => $arContratoImprimir]);
+                    $domPdf = new DomPdf();
+                    $domPdf->generarPdf($html, "contrato");
+                }
             }
         }
         $arContactos = $em->getRepository(Contacto::class)->lista($id);
@@ -103,9 +104,9 @@ class ClienteController extends AbstractController
     }
 
     /**
-     * @Route("/admin/cliente/contacto/nuevo/{codigoClinete}/{id}", name="admin_cliente_clienta_nuevo")
+     * @Route("/admin/cliente/contacto/nuevo/{codigoClinete}/{id}", name="admin_cliente_contacto_nuevo")
      */
-    public function detalleNuevo(Request $request, $codigoClinete, $id)
+    public function contactoNuevo(Request $request, $codigoClinete, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arContacto = $em->getRepository(Contacto::class)->find($id);

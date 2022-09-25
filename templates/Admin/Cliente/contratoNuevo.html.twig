@@ -11,12 +11,36 @@
                     <div class="card-body">
                         {{ form_errors(form) }}
                         <div class="form-group">
+                            <label class="control-label">Fecha inicio:</label>
+                            {{ form_widget(form.fechaInicio) }}
+                        </div>
+                        <div class="form-group">
                             <label class="control-label">Numero:</label>
                             {{ form_widget(form.numero) }}
                         </div>
                         <div class="form-group">
                             <label class="control-label">Numero oferta:</label>
                             {{ form_widget(form.numeroOferta) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Representante:</label>
+                            {{ form_widget(form.contactoRepresentanteRel) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Valor arrendamiento:</label>
+                            {{ form_widget(form.vrArrendamiento) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Max usuarios:</label>
+                            {{ form_widget(form.numeroUsuarios) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Max empleados:</label>
+                            {{ form_widget(form.numeroEmpleados) }}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Max guias:</label>
+                            {{ form_widget(form.numeroGuias) }}
                         </div>
                     </div>
                     <div class="card-footer">

@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,6 +29,21 @@ class Contacto
     private $codigoClienteFk;
 
     /**
+     * @ORM\Column(name="codigo_identificacion_fk", type="string", length=3, nullable=true)
+     */
+    private $codigoIdentificacionFk;
+
+    /**
+     * @ORM\Column(name="numero_identificacion", type="string", length=20, nullable=true)
+     */
+    private $numeroIdentificacion;
+
+    /**
+     * @ORM\Column(name="codigo_ciudad_identificacion_fk", type="integer", nullable=true)
+     */
+    private $codigoCiudadIdentificacionFk;
+
+    /**
      * @ORM\Column(name="nombre", type="string", length=200, nullable=true)
      */
     private $nombre;
@@ -51,6 +64,16 @@ class Contacto
     private $telefono;
 
     /**
+     * @ORM\Column(name="direccion", type="string", length=200, nullable=true)
+     */
+    private $direccion;
+
+    /**
+     * @ORM\Column(name="codigo_ciudad_fk", type="integer", nullable=true)
+     */
+    private $codigoCiudadFk;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\ContactoTipo", inversedBy="contactosContactoTipoRel")
      * @ORM\JoinColumn(name="codigo_contacto_tipo_fk", referencedColumnName="codigo_contacto_tipo_pk")
      */
@@ -61,6 +84,29 @@ class Contacto
      * @ORM\JoinColumn(name="codigo_cliente_fk", referencedColumnName="codigo_cliente_pk")
      */
     private $clienteRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Identificacion", inversedBy="contactosIdentificacionRel")
+     * @ORM\JoinColumn(name="codigo_identificacion_fk", referencedColumnName="codigo_identificacion_pk")
+     */
+    private $identificacionRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ciudad", inversedBy="contactosCiudadRel")
+     * @ORM\JoinColumn(name="codigo_ciudad_fk", referencedColumnName="codigo_ciudad_pk")
+     */
+    private $ciudadRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ciudad", inversedBy="contactosCiudadIdentificacionRel")
+     * @ORM\JoinColumn(name="codigo_ciudad_identificacion_fk", referencedColumnName="codigo_ciudad_pk")
+     */
+    private $ciudadIdentificacionRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contrato", mappedBy="contactoRepresentanteRel")
+     */
+    protected $contratosContactoRepresentanteRel;
 
     /**
      * @return mixed
@@ -204,6 +250,150 @@ class Contacto
     public function setClienteRel($clienteRel): void
     {
         $this->clienteRel = $clienteRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoIdentificacionFk()
+    {
+        return $this->codigoIdentificacionFk;
+    }
+
+    /**
+     * @param mixed $codigoIdentificacionFk
+     */
+    public function setCodigoIdentificacionFk($codigoIdentificacionFk): void
+    {
+        $this->codigoIdentificacionFk = $codigoIdentificacionFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumeroIdentificacion()
+    {
+        return $this->numeroIdentificacion;
+    }
+
+    /**
+     * @param mixed $numeroIdentificacion
+     */
+    public function setNumeroIdentificacion($numeroIdentificacion): void
+    {
+        $this->numeroIdentificacion = $numeroIdentificacion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    /**
+     * @param mixed $direccion
+     */
+    public function setDireccion($direccion): void
+    {
+        $this->direccion = $direccion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoCiudadFk()
+    {
+        return $this->codigoCiudadFk;
+    }
+
+    /**
+     * @param mixed $codigoCiudadFk
+     */
+    public function setCodigoCiudadFk($codigoCiudadFk): void
+    {
+        $this->codigoCiudadFk = $codigoCiudadFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdentificacionRel()
+    {
+        return $this->identificacionRel;
+    }
+
+    /**
+     * @param mixed $identificacionRel
+     */
+    public function setIdentificacionRel($identificacionRel): void
+    {
+        $this->identificacionRel = $identificacionRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCiudadRel()
+    {
+        return $this->ciudadRel;
+    }
+
+    /**
+     * @param mixed $ciudadRel
+     */
+    public function setCiudadRel($ciudadRel): void
+    {
+        $this->ciudadRel = $ciudadRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContratosContactoRepresentanteRel()
+    {
+        return $this->contratosContactoRepresentanteRel;
+    }
+
+    /**
+     * @param mixed $contratosContactoRepresentanteRel
+     */
+    public function setContratosContactoRepresentanteRel($contratosContactoRepresentanteRel): void
+    {
+        $this->contratosContactoRepresentanteRel = $contratosContactoRepresentanteRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoCiudadIdentificacionFk()
+    {
+        return $this->codigoCiudadIdentificacionFk;
+    }
+
+    /**
+     * @param mixed $codigoCiudadIdentificacionFk
+     */
+    public function setCodigoCiudadIdentificacionFk($codigoCiudadIdentificacionFk): void
+    {
+        $this->codigoCiudadIdentificacionFk = $codigoCiudadIdentificacionFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCiudadIdentificacionRel()
+    {
+        return $this->ciudadIdentificacionRel;
+    }
+
+    /**
+     * @param mixed $ciudadIdentificacionRel
+     */
+    public function setCiudadIdentificacionRel($ciudadIdentificacionRel): void
+    {
+        $this->ciudadIdentificacionRel = $ciudadIdentificacionRel;
     }
 
 

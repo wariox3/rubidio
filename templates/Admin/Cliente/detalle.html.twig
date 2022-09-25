@@ -86,8 +86,14 @@
                                             <thead>
                                             <tr>
                                                 <th>Id</th>
+                                                <th>F_Inicio</th>
                                                 <th>Numero</th>
                                                 <th>N_Oferta</th>
+                                                <th>Representante</th>
+                                                <th>Valor</th>
+                                                <th>USU</th>
+                                                <th>EMP</th>
+                                                <th>GUI</th>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
@@ -97,10 +103,16 @@
                                             {% for arContrato in arContratos %}
                                                 <tr>
                                                     <td>{{ arContrato.codigoContratoPk }}</td>
+                                                    <td>{{ arContrato.fechaInicio | date('Y-m-d') }}</td>
                                                     <td>{{ arContrato.numero }}</td>
                                                     <td>{{ arContrato.numeroOferta }}</td>
+                                                    <td>{{ arContrato.contactoRepresentanteNombre }}</td>
+                                                    <td>{{ arContrato.vrArrendamiento | number_format}}</td>
+                                                    <td>{{ arContrato.numeroUsuarios | number_format}}</td>
+                                                    <td>{{ arContrato.numeroEmpleados | number_format}}</td>
+                                                    <td>{{ arContrato.numeroGuias | number_format}}</td>
                                                     <td>
-                                                        <button class="btn btn-default btn-xs" type="submit" name="OpImprimir" value="{{ arContrato.codigoContratoPk }}">Imprimir</button>
+                                                        <button type="submit" name="OpImprimir" value="{{ arContrato.codigoContratoPk }}">Imprimir</button>
                                                     </td>
                                                     <td class="text-center">
                                                         <a href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoClinete': arCliente.codigoClientePk, 'id': arContrato.codigoContratoPk  }) }}', 'Archivos', 800, 1250)">
@@ -124,7 +136,7 @@
                                     <div class="d-flex justify-content-end">
                                         {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
                                         <a class="btnCustom"
-                                           href="javascript:abrirVentana3('{{ path('admin_cliente_clienta_nuevo', { 'codigoClinete': arCliente.codigoClientePk, 'id': 0  }) }}', 'Archivos', 800, 1250)">
+                                           href="javascript:abrirVentana3('{{ path('admin_cliente_contacto_nuevo', { 'codigoClinete': arCliente.codigoClientePk, 'id': 0  }) }}', 'Archivos', 800, 1250)">
                                             Nuevo
                                         </a>
                                     </div>
@@ -154,7 +166,7 @@
                                                     <td>{{ arContacto.telefono }}</td>
                                                     <td>{{ arContacto.contactoTipo }}</td>
                                                     <td class="text-center">
-                                                        <a href="javascript:abrirVentana3('{{ path('admin_cliente_clienta_nuevo', { 'codigoClinete': arCliente.codigoClientePk, 'id': arContacto.codigoContactoPk  }) }}', 'Archivos', 800, 1250)">
+                                                        <a href="javascript:abrirVentana3('{{ path('admin_cliente_contacto_nuevo', { 'codigoClinete': arCliente.codigoClientePk, 'id': arContacto.codigoContactoPk  }) }}', 'Archivos', 800, 1250)">
                                                             <i class="fa fa-edit fa-2x"></i>
                                                         </a>
                                                     </td>
