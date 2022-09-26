@@ -90,7 +90,7 @@ class ClienteController extends AbstractController
                 if($arContratoImprimir) {
                     $html = $this->renderView('Admin/Cliente/formatoContrato.html.twig', ['arContrato' => $arContratoImprimir]);
                     $domPdf = new DomPdf();
-                    $domPdf->generarPdf($html, "contrato");
+                    $domPdf->generarPdf($html, "contrato{$codigo}");
                 }
             }
         }
