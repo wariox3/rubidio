@@ -54,7 +54,7 @@
     </style>
 </head>
 <header>
-    <img src="{{ absolute_url(asset('imagenes/logoSemantica.jpg')) }}" alt="Semantica"/>
+    <img src="{{ absolute_url(asset('imagenes/logoSemantica2.jpg')) }}" width="500" height="100"/>
 </header>
 <main>
 
@@ -77,11 +77,11 @@
         siguientes cláusulas: </p>
 
     <p><b>CLÁUSULA PRIMERA: OBJETO.</b> EL LICENCIANTE se compromete a conceder al LICENCIATARIO la
-        licencia de uso no exclusiva, del soporte lógico o software denominado "Semántica ERP".</p>
+        licencia de uso no exclusiva, del soporte lógico o software denominado "Semántica ERP" a través de
+        una aplicación WEB que se accede por navegador.</p>
 
     <p><b>CLÁUSULA SEGUNDA: CARACTERÍSTICAS DEL SOFTWARE.</b> El programa que se entrega al LICENCIATARIO a título de
-        licencia, comprende las
-        siguientes características generales: </p>
+        licencia, comprende las siguientes características generales: </p>
     <ul>
         <li>Financiero y contabilidad.</li>
         <li>Inventario.</li>
@@ -236,19 +236,21 @@
     <p><b>CLÁUSULA DÉCIMA TERCERA: PRECIO Y FACTURACIÓN.</b> El LICENCIATARIO pagará al LICENCIANTE
         mensualmente {{ arContrato.valorLetras }}
         (${{ arContrato.vrArrendamiento | number_format }}) más impuestos de ley por el objeto del contrato. Los cuales
-        se empiezan a facturar con la firma del contrato.</p>
+        se empiezan a facturar en la fecha de inicio.</p>
     <ul>
         <li><b>PARÁGRAFO PRIMERO:</b> La facturación se realizará mes anticipado y será presentada a El LICENCIATARIO
             dentro de los primeros 15 días de cada mes.
         </li>
-        <li><b>PARÁGRAFO SEGUNDO:</b> El pago de la factura se hará mediante transferencia bancaria a la cuenta de
+        <li><b>PARÁGRAFO SEGUNDO:</b> El plazo de pago serán 30 dias calendario desde la fecha de facturación.
+        </li>
+        <li><b>PARÁGRAFO TERCERO:</b> El pago de la factura se hará mediante transferencia bancaria a la cuenta de
             ahorros N 551-956141-04 de Bancolombia a nombre de SEMANTICA DIGITAL S.A.S.
         </li>
-        <li><b>PARÁGRAFO TERCERO:</b> En el momento que EL LICENCIATARIO incumpla las obligaciones generadas en la
-            cláusula novena, faculta al LICENCIANTE a suspender el servicio entre
-            tanto no haga el pago pendiente más el interés causado.
+        <li><b>PARÁGRAFO CUARTO:</b> En el momento que EL LICENCIATARIO incumpla las obligaciones generadas en la
+            cláusula décima tercera, faculta al LICENCIANTE a suspender el servicio entre tanto no haga el pago pendiente
+            más el interés causado.
         </li>
-        <li><b>PARÁGRAFO CUARTO:</b> Las tarifas serán incrementadas el primer dia del año en el porcentaje del
+        <li><b>PARÁGRAFO QUINTO:</b> Las tarifas serán incrementadas el primer dia del año en el porcentaje del
             incremento del índice de precios al consumo IPC
         </li>
         <li><b>PARÁGRAFO QUINTO:</b> La oferta comercial {{ arContrato.numeroOferta }} hace parte integral del contrato
@@ -271,7 +273,7 @@
 
     <p><b>En señal de conformidad se firma el presente documento en dos ejemplares, el
             día {{ arContrato.fechaInicio | date('Y-m-d') }}.</b></p>
-<br/><br/><br/><br/>
+<br/><br/><br/>
     <table>
         <tr>
             <td><b>MARIO ANDRÉS ESTRADA ZULUAGA</b></td>
