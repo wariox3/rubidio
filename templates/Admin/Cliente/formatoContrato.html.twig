@@ -3,8 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <style>
-        body {
-            margin: 18pt 18pt 24pt 18pt;
+        @page {
+            margin: 100px 25px;
         }
 
         * {
@@ -21,34 +21,58 @@
             text-align: justify;
             font-size: 12px;
         }
+
         table {
             font-size: 12px;
         }
+
         h4 {
             text-align: justify;
         }
+
+        header {
+            position: fixed;
+            top: -60px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+        }
+
+        img {
+            width: 150px;
+            height: 50px;
+        }
     </style>
 </head>
-<body>
+<header>
+    <img src="{{ absolute_url(asset('imagenes/logoSemantica.jpg')) }}" alt="Semantica"/>
+</header>
+<main>
 
-<h4>CONTRATO DE ARRENDAMIENTO SOFTWARE DENOMINADO SEMANTICA ERP NRO. {{ arContrato.numero }}</h4>
-<p>Entre los suscritos a saber: SEMÁNTICA DIGITAL S.A.S, sociedad comercial legalmente constituida,
-    identificada con Nit. 901.192.048-4, constituida por documento privado del 21 de junio de 2018,
-    registrada en la Cámara de Comercio de Medellín con matrícula mercantil No. 21-619976-12 en el libro 9,
-    bajo el número 289, representada legalmente en este acto por MARIO ANDRÉS ESTRADA ZULUAGA,
-    mayor de edad, vecino y domiciliado en calle 34 N 66A-33 Oficina 201 Medellin (Antioquia-Colombia), identificado con la cédula de ciudadanía 70,143,086
-    quien en adelante se denominará EL LICENCIANTE, de una parte, y de la otra {{ arContrato.clienteNombreExtendido }} con Nit. {{ arContrato.clienteNit }}
-    representada legalmente en este acto por {{ arContrato.representanteNombre }},
-    identificado con la cédula de ciudadanía Nro. {{ arContrato.representanteNumeroIdentificacion | number_format }} de {{ arContrato.representanteCiudadIdentificacion }},
-    domiciliado en {{ arContrato.representanteDireccion }} {{ arContrato.representanteCiudad }},
-    quien para efectos del presente contrato se denominará el LICENCIATARIO, se ha celebrado el siguiente contrato de
-    licencia de uso del soporte lógico (software), indicado en líneas anteriores, el cual se regirá por las siguientes cláusulas: </p>
+    <h4>CONTRATO DE ARRENDAMIENTO SOFTWARE DENOMINADO SEMANTICA ERP NRO. {{ arContrato.numero }}</h4>
+    <p>Entre los suscritos a saber: SEMÁNTICA DIGITAL S.A.S, sociedad comercial legalmente constituida,
+        identificada con Nit. 901.192.048-4, constituida por documento privado del 21 de junio de 2018,
+        registrada en la Cámara de Comercio de Medellín con matrícula mercantil No. 21-619976-12 en el libro 9,
+        bajo el número 289, representada legalmente en este acto por MARIO ANDRÉS ESTRADA ZULUAGA,
+        mayor de edad, vecino y domiciliado en calle 34 N 66A-33 Oficina 201 Medellin (Antioquia-Colombia), identificado
+        con la cédula de ciudadanía 70,143,086
+        quien en adelante se denominará EL LICENCIANTE, de una parte, y de la
+        otra {{ arContrato.clienteNombreExtendido }} con Nit. {{ arContrato.clienteNit }}
+        representada legalmente en este acto por {{ arContrato.representanteNombre }},
+        identificado con la cédula de ciudadanía Nro. {{ arContrato.representanteNumeroIdentificacion | number_format }}
+        de {{ arContrato.representanteCiudadIdentificacion }},
+        domiciliado en {{ arContrato.representanteDireccion }} {{ arContrato.representanteCiudad }},
+        quien para efectos del presente contrato se denominará el LICENCIATARIO, se ha celebrado el siguiente contrato
+        de
+        licencia de uso del soporte lógico (software), indicado en líneas anteriores, el cual se regirá por las
+        siguientes cláusulas: </p>
 
-<p><b>CLAUSULA PRIMERA: OBJETO.</b> EL LICENCIANTE se compromete a conceder al LICENCIATARIO la
-    licencia de uso no exclusiva, del soporte lógico o software denominado "Semántica ERP".</p>
+    <p><b>CLAUSULA PRIMERA: OBJETO.</b> EL LICENCIANTE se compromete a conceder al LICENCIATARIO la
+        licencia de uso no exclusiva, del soporte lógico o software denominado "Semántica ERP".</p>
 
-<p><b>CLAUSULA SEGUNDA: CARACTERÍSTICAS DEL SOFTWARE.</b> El programa que se entrega al LICENCIATARIO a título de licencia, comprende las
-    siguientes características generales: </p>
+    <p><b>CLAUSULA SEGUNDA: CARACTERÍSTICAS DEL SOFTWARE.</b> El programa que se entrega al LICENCIATARIO a título de
+        licencia, comprende las
+        siguientes características generales: </p>
     <ul>
         <li>Financiero y contabilidad.</li>
         <li>Inventario.</li>
@@ -58,161 +82,239 @@
         <li>CRM</li>
         <li>Cartera y tesorería</li>
     </ul>
-<p>El LICENCIATARIO declara conocer y aceptar los contenidos y funciones del software descrito.</p>
+    <p>El LICENCIATARIO declara conocer y aceptar los contenidos y funciones del software descrito.</p>
 
-<p><b>CLAUSULA TERCERA: CONDICIONES GENERALES DEL SERVICIO.</b> Los servicios se prestarán en los siguientes términos y condiciones generales:</p>
-<ul>
-    <li>EL LICENCIANTE responderá por la calidad del trabajo desarrollado con la diligencia exigible a una empresa experta en la
-        realización de los trabajos objeto del contrato.</li>
-    <li>Ambas partes responderán de las infracciones en que pudiera incurrir en el caso que destinen los datos personales a otra finalidad,
-        los comuniquen a un tercero, o en general, los utilicen de forma irregular.</li>
-    <li>EL LICENCIANTE deberá adoptar las medidas de índole técnicas y organizativas necesarias que garanticen la seguridad de los datos de
-        carácter personal y eviten su alteración, pérdida, tratamiento o acceso no autorizado, habida cuenta del estado de la tecnología,
-        la naturaleza de los datos almacenados o del medio físico o natural. A estos efectos EL LICENCIANTE deberá aplicar los niveles de
-        seguridad de acuerdo a la naturaleza de los datos que trate.</li>
-</ul>
+    <p><b>CLAUSULA TERCERA: CONDICIONES GENERALES DEL SERVICIO.</b> Los servicios se prestarán en los siguientes
+        términos y condiciones generales:</p>
+    <ul>
+        <li>EL LICENCIANTE responderá por la calidad del trabajo desarrollado con la diligencia exigible a una empresa
+            experta en la
+            realización de los trabajos objeto del contrato.
+        </li>
+        <li>Ambas partes responderán de las infracciones en que pudiera incurrir en el caso que destinen los datos
+            personales a otra finalidad,
+            los comuniquen a un tercero, o en general, los utilicen de forma irregular.
+        </li>
+        <li>EL LICENCIANTE deberá adoptar las medidas de índole técnicas y organizativas necesarias que garanticen la
+            seguridad de los datos de
+            carácter personal y eviten su alteración, pérdida, tratamiento o acceso no autorizado, habida cuenta del
+            estado de la tecnología,
+            la naturaleza de los datos almacenados o del medio físico o natural. A estos efectos EL LICENCIANTE deberá
+            aplicar los niveles de
+            seguridad de acuerdo a la naturaleza de los datos que trate.
+        </li>
+    </ul>
 
-<p><b>CLAUSULA CUARTA: CONDICIONES ESPECÍFICAS DE LA PRESTACIÓN DEL SERVICIO.</b> EL LICENCIANTE prestará los servicios en los siguientes
-    términos y condiciones específicos:</p>
-<ul>
-    <li>EL LICENCIANTE dispondrá de una dirección de acceso para que EL LICENCIATARIO use el software</li>
-    <li>Mantenimiento a las bases de datos del software llamado “SEMÁNTICA ERP”.</li>
-    <li>Actualización al producto “SEMÁNTICA ERP” en relación con la normatividad colombiana.</li>
-    <li>Adecuación de nuevos cambios y métodos que permitan tener un mejor proceso en el desempeño del producto “SEMÁNTICA ERP”.</li>
-    <li>Disponer infraestructura informatica adecuada para el uso ágil del software.</li>
-    <li>Realizar copias de seguridad regularmente para proteger los datos ante cualquier contingencia.</li>
-    <li>Proteger de accesos NO AUTORIZADOS o eventos de hacking el software.</li>
-</ul>
+    <p><b>CLAUSULA CUARTA: CONDICIONES ESPECÍFICAS DE LA PRESTACIÓN DEL SERVICIO.</b> EL LICENCIANTE prestará los
+        servicios en los siguientes
+        términos y condiciones específicos:</p>
+    <ul>
+        <li>EL LICENCIANTE dispondrá de una dirección de acceso para que EL LICENCIATARIO use el software</li>
+        <li>Mantenimiento a las bases de datos del software llamado “SEMÁNTICA ERP”.</li>
+        <li>Actualización al producto “SEMÁNTICA ERP” en relación con la normatividad colombiana.</li>
+        <li>Adecuación de nuevos cambios y métodos que permitan tener un mejor proceso en el desempeño del producto
+            “SEMÁNTICA ERP”.
+        </li>
+        <li>Disponer infraestructura informatica adecuada para el uso ágil del software.</li>
+        <li>Realizar copias de seguridad regularmente para proteger los datos ante cualquier contingencia.</li>
+        <li>Proteger de accesos NO AUTORIZADOS o eventos de hacking el software.</li>
+    </ul>
 
-<p><b>CLAUSULA QUINTA: LIMITACIONES DEL SERVICIO.</b> EL LICENCIATARIO declara conocer y aceptar
-    las siguientes limitaciones del servicio:</p>
-<ul>
-    <li>Numero máximo de usuarios: {{ arContrato.numeroUsuarios }}</li>
-    <li>Numero máximo de empleados activos en el módulo de recurso humano y nómina: {{ arContrato.numeroEmpleados }}</li>
-    <li>Numero máximo de guías generadas al mes: {{ arContrato.numeroGuias }}</li>
-    <li>El espacio estándar de almacenamiento es de 5GB para archivos, adjuntos y documentos en el software</li>
-</ul>
+    <p><b>CLAUSULA QUINTA: LIMITACIONES DEL SERVICIO.</b> EL LICENCIATARIO declara conocer y aceptar
+        las siguientes limitaciones del servicio:</p>
+    <ul>
+        <li>Numero máximo de usuarios: {{ arContrato.numeroUsuarios }}</li>
+        <li>Numero máximo de empleados activos en el módulo de recurso humano y
+            nómina: {{ arContrato.numeroEmpleados }}</li>
+        <li>Numero máximo de guías generadas al mes: {{ arContrato.numeroGuias }}</li>
+        <li>El espacio estándar de almacenamiento es de 5GB para archivos, adjuntos y documentos en el software</li>
+    </ul>
 
-<p><b>CLAUSULA SEXTA: PROPIEDAD INTELECTUAL.</b> EL LICENCIANTE es el titular de los Derechos de Autor sobre
-    el software "Semantica ERP" registrado en la Dirección Nacional de Derecho de Autor con número. 13-80-47.
-    Por lo tanto se reserva las facultades de reproducción, comunicación pública,
-    distribución, importación, traducción y cualquier transformación de dicho programa, por cualquier medio
-    conocido o por conocerse.
-    En virtud del presente contrato el LICENCIATARIO solamente adquiere la facultad de usar el software,
-    de acuerdo con las condiciones de uso establecidas en la cláusula siguiente.</p>
+    <p><b>CLAUSULA SEXTA: PROPIEDAD INTELECTUAL.</b> EL LICENCIANTE es el titular de los Derechos de Autor sobre
+        el software "Semantica ERP" registrado en la Dirección Nacional de Derecho de Autor con número. 13-80-47.
+        Por lo tanto se reserva las facultades de reproducción, comunicación pública,
+        distribución, importación, traducción y cualquier transformación de dicho programa, por cualquier medio
+        conocido o por conocerse.
+        En virtud del presente contrato el LICENCIATARIO solamente adquiere la facultad de usar el software,
+        de acuerdo con las condiciones de uso establecidas en la cláusula siguiente.</p>
 
-<p><b>CLAUSULA SÉPTIMA: CONDICIONES DE USO.</b> EL LICENCIATARIO se compromete a:</p>
-<ul>
-    <li>No explotar comercialmente el software.</li>
-    <li>No permitir el manejo técnico inverso, el desmontaje o descompilado del programa por parte de ninguno
-        de sus empleados o contratistas</li>
-    <li>A realizar únicamente las copias permitidas y a usarlas solamente para los usos autorizados</li>
-    <li>Utilizar el software exclusivamente en los computadores de su propiedad</li>
-    <li>No realizar modificaciones al software</li>
-    <li>No realizar nuevos trabajos construidos con base en el software objeto de licencia (obras derivadas)</li>
-    <li>Adquirir el hardware necesario, y acondicionar el sitio de uso del software con las conexiones eléctricas y
-        de datos suficientes para el correcto funcionamiento del mismo.</li>
-    <li>No sub licenciar el uso del software objeto del presente contrato.</li>
-</ul>
+    <p><b>CLAUSULA SÉPTIMA: CONDICIONES DE USO.</b> EL LICENCIATARIO se compromete a:</p>
+    <ul>
+        <li>No explotar comercialmente el software.</li>
+        <li>No permitir el manejo técnico inverso, el desmontaje o descompilado del programa por parte de ninguno
+            de sus empleados o contratistas
+        </li>
+        <li>A realizar únicamente las copias permitidas y a usarlas solamente para los usos autorizados</li>
+        <li>Utilizar el software exclusivamente en los computadores de su propiedad</li>
+        <li>No realizar modificaciones al software</li>
+        <li>No realizar nuevos trabajos construidos con base en el software objeto de licencia (obras derivadas)</li>
+        <li>Adquirir el hardware necesario, y acondicionar el sitio de uso del software con las conexiones eléctricas y
+            de datos suficientes para el correcto funcionamiento del mismo.
+        </li>
+        <li>No sub licenciar el uso del software objeto del presente contrato.</li>
+    </ul>
 
-<p><b>CLAUSULA OCTAVA: OBLIGACIONES DEL LICENCIATARIO.</b></p>
-<ul>
-    <li>Cancelar el valor total del precio en la fecha y en las condiciones acordadas</li>
-    <li>Utilizar el software de acuerdo con las condiciones de uso establecidas en las Cláusulas 7 y 8</li>
-    <li>Tomar medidas preventivas usuales en la actividad de computación, con el fin de evitar que se produzcan
-        fallas que le causen cualquier tipo de daño o perjuicio, ya sea al LICENCIANTE o a terceros</li>
-    <li>Exonerar en cualquier caso, AL LICENCIANTE de toda responsabilidad derivada de los daños o perjuicios
-        que pueda sufrir el LICENCIATARIO como consecuencia directa o indirecta del uso inadecuado que se haga del software</li>
-</ul>
+    <p><b>CLAUSULA OCTAVA: OBLIGACIONES DEL LICENCIATARIO.</b></p>
+    <ul>
+        <li>Cancelar el valor total del precio en la fecha y en las condiciones acordadas</li>
+        <li>Utilizar el software de acuerdo con las condiciones de uso establecidas en las Cláusulas 7 y 8</li>
+        <li>Tomar medidas preventivas usuales en la actividad de computación, con el fin de evitar que se produzcan
+            fallas que le causen cualquier tipo de daño o perjuicio, ya sea al LICENCIANTE o a terceros
+        </li>
+        <li>Exonerar en cualquier caso, AL LICENCIANTE de toda responsabilidad derivada de los daños o perjuicios
+            que pueda sufrir el LICENCIATARIO como consecuencia directa o indirecta del uso inadecuado que se haga del
+            software
+        </li>
+    </ul>
 
-<p><b>CLAUSULA NOVENA: CESIÓN.</b> Dado que el presente contrato lo celebra el LICENCIATARIO en consideración a las calidades profesionales del LICENCIANTE,
-    teniendo, por lo tanto, el carácter de “Intuito Persona”, El LICENCIANTE no podrá ceder en todo o en parte el presente contrato
-    sin la previa autorización escrita del LICENCIATARIO.</p>
+    <p><b>CLAUSULA NOVENA: CESIÓN.</b> Dado que el presente contrato lo celebra el LICENCIATARIO en consideración a las
+        calidades profesionales del LICENCIANTE,
+        teniendo, por lo tanto, el carácter de “Intuito Persona”, El LICENCIANTE no podrá ceder en todo o en parte el
+        presente contrato
+        sin la previa autorización escrita del LICENCIATARIO.</p>
 
-<p><b>CLAUSULA DÉCIMA: CLAUSULA DE CONFIDENCIALIDAD.</b> EL LICENCIANTE se obliga a no divulgar, entregar y/o hacer uso en beneficio propio o de
-    alguna otra persona natural o jurídica, de la información adquirida acerca de EL LICENCIATARIO, incluyendo conocimiento sobre las actividades,
-    planes, programas, productos y documentos a que hubiere tenido acceso y a mantener el más alto grado de confidencialidad en relación con esta información.
-    Esta información no podrá ser revelada a terceros bajo ninguna circunstancia, sin que medie autorización escrita de EL LICENCIATARIO,
-    a menos que dicha información sea de público conocimiento en el momento de ser revelada o que la parte receptora la hubiera conocido por un
-    tercero de buena fe, con derecho de disposición sobre esa información. En caso de que EL LICENCIANTE sea requerido a dar esa información
-    por orden de autoridad competente, éste notificará inmediatamente a EL LICENCIATARIO de tal situación.
-    La información confidencial incluye, pero no se limita a: 1) Información técnica, jurídica y financiera de EL LICENCIATARIO.
-    2.) Políticas y estrategias empresariales. 3.) Metodologías y procesos, 4.) Planes de productos y servicios, 5.) Información de precios,
-    6.) Información de mercadeo, análisis y proyecciones. 7.) Secretos empresariales, 8.) Knowhow. 9.) Frecuencias utilizadas por LICENCIATARIO.
-    10.) Nombres y datos de EL LICENCIATARIO.
-</p>
-<p>EL LICENCIANTE se compromete y obliga a que durante toda la vigencia del contrato y hasta un tiempo de cinco (5) años
-    posteriores a su terminación, no comunicará a terceros ni usará en su provecho o en el de terceros las informaciones
-    que por razón de su encargo haya podido conocer, las cuales son estrictamente de naturaleza reservada y cuya divulgación
-    puede ocasionar perjuicios a EL LICENCIATARIO.</p>
+    <p><b>CLAUSULA DÉCIMA: CLAUSULA DE CONFIDENCIALIDAD.</b> EL LICENCIANTE se obliga a no divulgar, entregar y/o hacer
+        uso en beneficio propio o de
+        alguna otra persona natural o jurídica, de la información adquirida acerca de EL LICENCIATARIO, incluyendo
+        conocimiento sobre las actividades,
+        planes, programas, productos y documentos a que hubiere tenido acceso y a mantener el más alto grado de
+        confidencialidad en relación con esta información.
+        Esta información no podrá ser revelada a terceros bajo ninguna circunstancia, sin que medie autorización escrita
+        de EL LICENCIATARIO,
+        a menos que dicha información sea de público conocimiento en el momento de ser revelada o que la parte receptora
+        la hubiera conocido por un
+        tercero de buena fe, con derecho de disposición sobre esa información. En caso de que EL LICENCIANTE sea
+        requerido a dar esa información
+        por orden de autoridad competente, éste notificará inmediatamente a EL LICENCIATARIO de tal situación.
+        La información confidencial incluye, pero no se limita a: 1) Información técnica, jurídica y financiera de EL
+        LICENCIATARIO.
+        2.) Políticas y estrategias empresariales. 3.) Metodologías y procesos, 4.) Planes de productos y servicios, 5.)
+        Información de precios,
+        6.) Información de mercadeo, análisis y proyecciones. 7.) Secretos empresariales, 8.) Knowhow. 9.) Frecuencias
+        utilizadas por LICENCIATARIO.
+        10.) Nombres y datos de EL LICENCIATARIO.
+    </p>
+    <p>EL LICENCIANTE se compromete y obliga a que durante toda la vigencia del contrato y hasta un tiempo de cinco (5)
+        años
+        posteriores a su terminación, no comunicará a terceros ni usará en su provecho o en el de terceros las
+        informaciones
+        que por razón de su encargo haya podido conocer, las cuales son estrictamente de naturaleza reservada y cuya
+        divulgación
+        puede ocasionar perjuicios a EL LICENCIATARIO.</p>
 
-<p><b>CLAUSULA DÉCIMA PRIMERA: ACUERDO DE NIVEL DE SERVICIO.</b> El Servicio prestado por el LICENCIANTE se realizará por personal especializado en cada materia.
-    El personal del LICENCIANTE acudirá provisto de todo el material necesario, adecuado y actualizado,
-    para prestar el servicio. Los tiempos de respuesta se fijan a continuación:</p>
-<ul>
-    <li>Crítica o error técnico: 8 horas hábiles. Se entiende por incidencia crítica en el marco de la prestación
-        de los servicios, aquellas que afectan significativamente a EL LICENCIATARIO y lo imposibilite para el uso del software.</li>
-    <li>Grave: 12 horas hábiles. Se entiende por incidencia grave en el marco de la prestación de los servicios,
-        aquellos que dificultan moderadamente las actividades informáticas de EL LICENCIATARIO, en opinión de ambas partes.</li>
-    <li>Leve: 2 días hábiles. Se entiende por incidencia leve cuando se limitan a entorpecer el trabajo o anomalías
-        que se muestran de manera aleatoria, en opinión de ambas partes.</li>
-</ul>
+    <p><b>CLAUSULA DÉCIMA PRIMERA: ACUERDO DE NIVEL DE SERVICIO.</b> El Servicio prestado por el LICENCIANTE se
+        realizará por personal especializado en cada materia.
+        El personal del LICENCIANTE acudirá provisto de todo el material necesario, adecuado y actualizado,
+        para prestar el servicio. Los tiempos de respuesta se fijan a continuación:</p>
+    <ul>
+        <li>Crítica o error técnico: 8 horas hábiles. Se entiende por incidencia crítica en el marco de la prestación
+            de los servicios, aquellas que afectan significativamente a EL LICENCIATARIO y lo imposibilite para el uso
+            del software.
+        </li>
+        <li>Grave: 12 horas hábiles. Se entiende por incidencia grave en el marco de la prestación de los servicios,
+            aquellos que dificultan moderadamente las actividades informáticas de EL LICENCIATARIO, en opinión de ambas
+            partes.
+        </li>
+        <li>Leve: 2 días hábiles. Se entiende por incidencia leve cuando se limitan a entorpecer el trabajo o anomalías
+            que se muestran de manera aleatoria, en opinión de ambas partes.
+        </li>
+    </ul>
 
-<p><b>CLAUSULA DÉCIMA SEGUNDA: VIGENCIA Y DURACION.</b> La validez de este contrato está regulada por la legislación vigente
-    y su término de duración es de un (1) año contado a partir del {{ arContrato.fechaInicio | date('Y-m-d') }}</p>
+    <p><b>CLAUSULA DÉCIMA SEGUNDA: VIGENCIA Y DURACION.</b> La validez de este contrato está regulada por la legislación
+        vigente
+        y su término de duración es de un (1) año contado a partir del {{ arContrato.fechaInicio | date('Y-m-d') }}</p>
 
-<p><b>CLAUSULA DÉCIMA TERCERA: PRECIO Y FACTURACIÓN.</b> El LICENCIATARIO pagará al LICENCIANTE mensualmente {{ arContrato.valorLetras }}
-    (${{ arContrato.vrArrendamiento | number_format }}) más impuestos de ley por el objeto del contrato. Los cuales se empiezan a facturar con la entrega
-    del proceso de implementación.</p>
-<ul>
-    <li><b>PARÁGRAFO PRIMERO:</b> La facturación se realizará mes anticipado y será presentada a El LICENCIATARIO dentro de los primeros 15 días de cada mes.</li>
-    <li><b>PARÁGRAFO SEGUNDO:</b> El pago de la factura se hará mediante transferencia bancaria a la cuenta de ahorros N 551-956141-04 de Bancolombia a nombre de SEMANTICA DIGITAL S.A.S.</li>
-    <li><b>PARÁGRAFO TERCERO:</b> En el momento que EL LICENCIATARIO incumpla las obligaciones generadas en la cláusula novena, faculta al LICENCIANTE a suspender el servicio entre
-        tanto no haga el pago pendiente más el interés causado.</li>
-    <li><b>PARÁGRAFO CUARTO:</b> Las tarifas serán incrementadas el primer dia del año en el porcentaje del incremento del índice de precios al consumo IPC</li>
-    <li><b>PARÁGRAFO QUINTO:</b> La oferta comercial {{ arContrato.numeroOferta }} hace parte integral del contrato</li>
-</ul>
+    <p><b>CLAUSULA DÉCIMA TERCERA: PRECIO Y FACTURACIÓN.</b> El LICENCIATARIO pagará al LICENCIANTE
+        mensualmente {{ arContrato.valorLetras }}
+        (${{ arContrato.vrArrendamiento | number_format }}) más impuestos de ley por el objeto del contrato. Los cuales
+        se empiezan a facturar con la entrega
+        del proceso de implementación.</p>
+    <ul>
+        <li><b>PARÁGRAFO PRIMERO:</b> La facturación se realizará mes anticipado y será presentada a El LICENCIATARIO
+            dentro de los primeros 15 días de cada mes.
+        </li>
+        <li><b>PARÁGRAFO SEGUNDO:</b> El pago de la factura se hará mediante transferencia bancaria a la cuenta de
+            ahorros N 551-956141-04 de Bancolombia a nombre de SEMANTICA DIGITAL S.A.S.
+        </li>
+        <li><b>PARÁGRAFO TERCERO:</b> En el momento que EL LICENCIATARIO incumpla las obligaciones generadas en la
+            cláusula novena, faculta al LICENCIANTE a suspender el servicio entre
+            tanto no haga el pago pendiente más el interés causado.
+        </li>
+        <li><b>PARÁGRAFO CUARTO:</b> Las tarifas serán incrementadas el primer dia del año en el porcentaje del
+            incremento del índice de precios al consumo IPC
+        </li>
+        <li><b>PARÁGRAFO QUINTO:</b> La oferta comercial {{ arContrato.numeroOferta }} hace parte integral del contrato
+        </li>
+    </ul>
 
-<p><b>CLAUSULA DÉCIMA CUARTA: MODIFICACIÓN.</b> Las Partes podrán modificar el contrato de mutuo acuerdo y por escrito.</p>
+    <p><b>CLAUSULA DÉCIMA CUARTA: MODIFICACIÓN.</b> Las Partes podrán modificar el contrato de mutuo acuerdo y por
+        escrito.</p>
 
-<p><b>CLAUSULA DÉCIMA QUINTA: RESOLUCIÓN.</b> Las Partes podrán resolver el Contrato, con derecho a la indemnización
-    de daños y perjuicios causados, en caso de incumplimiento de las obligaciones establecidas en el mismo.</p>
+    <p><b>CLAUSULA DÉCIMA QUINTA: RESOLUCIÓN.</b> Las Partes podrán resolver el Contrato, con derecho a la indemnización
+        de daños y perjuicios causados, en caso de incumplimiento de las obligaciones establecidas en el mismo.</p>
 
-<p><b>CLAUSULA DÉCIMA SEXTA: REGIMEN JURÍDICO.</b> El presente contrato tiene carácter mercantil, no existiendo
-    en ningún caso vínculo laboral alguno entre el LICENCIATARIO y el personal del LICENCIANTE que preste
-    concretamente los servicios.</p>
+    <p><b>CLAUSULA DÉCIMA SEXTA: REGIMEN JURÍDICO.</b> El presente contrato tiene carácter mercantil, no existiendo
+        en ningún caso vínculo laboral alguno entre el LICENCIATARIO y el personal del LICENCIANTE que preste
+        concretamente los servicios.</p>
 
-<p><b>CLAUSULA DÉCIMA SEPTIMA:</b> Las partes manifiestan que aceptan libremente todas y cada una las cláusulas
-    contenidas en el presente CONTRATO DE ARRENDAMIENTO SOFTWARE DENOMINADO SEMÁNTICA ERP, y que este contrato
-    deje sin efectos los que se hayan suscrito previamente las partes y por el mismo objeto. </p>
+    <p><b>CLAUSULA DÉCIMA SEPTIMA:</b> Las partes manifiestan que aceptan libremente todas y cada una las cláusulas
+        contenidas en el presente CONTRATO DE ARRENDAMIENTO SOFTWARE DENOMINADO SEMÁNTICA ERP, y que este contrato
+        deje sin efectos los que se hayan suscrito previamente las partes y por el mismo objeto. </p>
 
-<p><b>En señal de conformidad se firma el presente documento en dos ejemplares, el día {{ arContrato.fechaInicio | date('Y-m-d') }}.</b></p>
+    <p><b>En señal de conformidad se firma el presente documento en dos ejemplares, el
+            día {{ arContrato.fechaInicio | date('Y-m-d') }}.</b></p>
 
-<table>
-    <tr>
-        <td><b>MARIO ANDRÉS ESTRADA ZULUAGA</b></td>
-        <td><b>{{ arContrato.representanteNombre }}</b></td>
-    </tr>
-    <tr>
-        <td>C.C. 70,143,086</td>
-        <td>C.C {{ arContrato.representanteNumeroIdentificacion }}</td>
-    </tr>
-    <tr>
-        <td>Representante Legal</td>
-        <td>Representante Legal</td>
-    </tr>
-    <tr>
-        <td><b>SEMANTICA DIGITAL S.A.S</b></td>
-        <td><b>{{ arContrato.clienteNombreExtendido }}</b></td>
-    </tr>
-    <tr>
-        <td>Nit. 901192048-4</td>
-        <td>Nit. {{ arContrato.clienteNit }}-{{ arContrato.clienteDigitoVerificacion }}</td>
-    </tr>
-    <tr>
-        <td>EL LICENCIANTE</td>
-        <td>EL LICENCIATARIO</td>
-    </tr>
-</table>
+    <table>
+        <tr>
+            <td><b>MARIO ANDRÉS ESTRADA ZULUAGA</b></td>
+            <td><b>{{ arContrato.representanteNombre }}</b></td>
+        </tr>
+        <tr>
+            <td>C.C. 70,143,086</td>
+            <td>C.C {{ arContrato.representanteNumeroIdentificacion }}</td>
+        </tr>
+        <tr>
+            <td>Representante Legal</td>
+            <td>Representante Legal</td>
+        </tr>
+        <tr>
+            <td><b>SEMANTICA DIGITAL S.A.S</b></td>
+            <td><b>{{ arContrato.clienteNombreExtendido }}</b></td>
+        </tr>
+        <tr>
+            <td>Nit. 901192048-4</td>
+            <td>Nit. {{ arContrato.clienteNit }}-{{ arContrato.clienteDigitoVerificacion }}</td>
+        </tr>
+        <tr>
+            <td>EL LICENCIANTE</td>
+            <td>EL LICENCIATARIO</td>
+        </tr>
+    </table>
+
+</main>
+<br>
+<script type="text/php">
+    if (isset($pdf)) {
+        $pdf->page_script('
+            $text = sprintf(_("Página %d/%d"),  $PAGE_NUM, $PAGE_COUNT);
+            $font = null;
+            $size = 9;
+            $color = array(0,0,0);
+            $word_space = 0.0;  //  default
+            $char_space = 0.0;  //  default
+            $angle = 0.0;   //  default
+
+            // Compute text width to center correctly
+            $textWidth = $fontMetrics->getTextWidth($text, $font, $size);
+
+            $x = ($pdf->get_width() - $textWidth) / 2;
+            $y = $pdf->get_height() - 35;
+
+            $pdf->text($x, $y, $text, $font, $size, $color, $word_space, $char_space, $angle);
+        '); // End of page_script
+    }
+
+
+</script>
 </body>
 </html>

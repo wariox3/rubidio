@@ -86,6 +86,7 @@ class ClienteController extends AbstractController
             if ($request->request->get('OpImprimir')) {
                 $codigo = $request->request->get('OpImprimir');
                 $arContratoImprimir = $em->getRepository(Contrato::class)->imprimir($codigo);
+
                 if($arContratoImprimir) {
                     $html = $this->renderView('Admin/Cliente/formatoContrato.html.twig', ['arContrato' => $arContratoImprimir]);
                     $domPdf = new DomPdf();
