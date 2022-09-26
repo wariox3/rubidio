@@ -62,7 +62,7 @@ class ContratoRepository extends ServiceEntityRepository
         $arContratos = $queryBuilder->getQuery()->getResult();
         if($arContratos) {
             $arContrato = $arContratos[0];
-            $arContrato['valorLetras'] = Funciones::devolverNumeroLetras($arContrato['vrArrendamiento']);
+            $arContrato['valorLetras'] = $arContrato['vrArrendamiento']?Funciones::devolverNumeroLetras($arContrato['vrArrendamiento']):'CERO';
         }
         return $arContrato;
     }
