@@ -72,10 +72,10 @@
                     <div class="single-testimonial">
                         <div class="d-flex justify-content-end">
                             {% if arImplementacion.estadoTerminado == 0 %}
-                            <a class="btnCustom"
-                               href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo_funcionalidad', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo funcionalidad', 600, 1200)">Nueva funcionalidad</a>
-                            <a class="btnCustom"
-                               href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo_requisito', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo requisito', 600, 1200)">Nuevo requisito</a>
+                                <a class="btnCustom"
+                                   href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo_requisito', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo requisito', 600, 1200)">Nuevo requisito</a>
+                                <a class="btnCustom"
+                                   href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo_funcionalidad', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo funcionalidad', 600, 1200)">Nueva funcionalidad</a>
                             {% endif %}
                             {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
                         </div>

@@ -128,6 +128,7 @@ class ImplementacionController extends AbstractController
             $arrBtnTerminar['disabled'] = true;
             $arrBtnEliminar['disabled'] = true;
         }
+
         $form = $this->createFormBuilder()
             ->add('moduloRel', EntityType::class, array(
                 'class' => Modulo::class,
@@ -147,6 +148,9 @@ class ImplementacionController extends AbstractController
             ->add('btnEliminar', SubmitType::class, $arrBtnEliminar)
             ->getForm();
         $raw = [];
+        if(!$raw) {
+            $raw['filtros']['estadoTerminado'] = 0;
+        }
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('btnFiltrar')->isClicked()) {
