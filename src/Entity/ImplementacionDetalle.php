@@ -71,6 +71,11 @@ class ImplementacionDetalle
     private $estadoTerminado = false;
 
     /**
+     * @ORM\Column(name="requisito", type="boolean", options={"default" : false})
+     */
+    private $requisito = false;
+
+    /**
      * @ORM\Column(name="comentario", type="text", nullable=true)
      */
     private $comentario;
@@ -491,6 +496,22 @@ class ImplementacionDetalle
     public function setResponsable($responsable): void
     {
         $this->responsable = $responsable;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequisito(): bool
+    {
+        return $this->requisito;
+    }
+
+    /**
+     * @param bool $requisito
+     */
+    public function setRequisito(bool $requisito): void
+    {
+        $this->requisito = $requisito;
     }
 
 

@@ -24,6 +24,11 @@ class Modulo
     private $nombre;
 
     /**
+     * @ORM\Column(name="orden", type="integer", options={"default" : 0})
+     */
+    private $orden = 0;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Tema", mappedBy="moduloRel")
      */
     protected $temasModuloRel;
@@ -201,5 +206,22 @@ class Modulo
     {
         $this->implementacionesDetallesModuloRel = $implementacionesDetallesModuloRel;
     }
+
+    /**
+     * @return int
+     */
+    public function getOrden(): int
+    {
+        return $this->orden;
+    }
+
+    /**
+     * @param int $orden
+     */
+    public function setOrden(int $orden): void
+    {
+        $this->orden = $orden;
+    }
+
 
 }

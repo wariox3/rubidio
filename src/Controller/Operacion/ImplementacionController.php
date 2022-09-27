@@ -234,6 +234,7 @@ class ImplementacionController extends AbstractController
                     $arImplementacionDetalle->setImplementacionRel($arImplementacion);
                     $arImplementacionDetalle->setRequisitoRel($arRequisito);
                     $arImplementacionDetalle->setModuloRel($em->getReference(Modulo::class, $arRequisito->getCodigoModuloFk()));
+                    $arImplementacionDetalle->setRequisito(1);
                     $em->persist($arImplementacionDetalle);
                 }
                 $em->flush();

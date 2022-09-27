@@ -29,6 +29,11 @@ class Requisito
     private $nombre;
 
     /**
+     * @ORM\Column(name="orden", type="integer", options={"default" : 0})
+     */
+    private $orden = 0;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Modulo", inversedBy="requisitosModuloRel")
      * @ORM\JoinColumn(name="codigo_modulo_fk", referencedColumnName="codigo_modulo_pk")
      */
@@ -117,6 +122,22 @@ class Requisito
     public function setImplementacionesRequisitoRel($implementacionesRequisitoRel): void
     {
         $this->implementacionesRequisitoRel = $implementacionesRequisitoRel;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrden(): int
+    {
+        return $this->orden;
+    }
+
+    /**
+     * @param int $orden
+     */
+    public function setOrden(int $orden): void
+    {
+        $this->orden = $orden;
     }
 
 
