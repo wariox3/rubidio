@@ -40,10 +40,21 @@ class CasoGestion
     private $comentario;
 
     /**
+     * @ORM\Column(name="codigo_usuario_fk", type="string", nullable=true)
+     */
+    private $codigoUsuarioFk;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Caso", inversedBy="casosGestionesCasoRel")
      * @ORM\JoinColumn(name="codigo_caso_fk", referencedColumnName="codigo_caso_pk")
      */
     private $casoRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Usuario", inversedBy="casosGestionadosUsuarioRel")
+     * @ORM\JoinColumn(name="codigo_usuario_fk", referencedColumnName="codigo_usuario_pk")
+     */
+    private $usuarioRel;
 
     /**
      * @return mixed
@@ -141,6 +152,36 @@ class CasoGestion
         $this->casoRel = $casoRel;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCodigoUsuarioFk()
+    {
+        return $this->codigoUsuarioFk;
+    }
 
+    /**
+     * @param mixed $codigoUsuarioFk
+     */
+    public function setCodigoUsuarioFk($codigoUsuarioFk): void
+    {
+        $this->codigoUsuarioFk = $codigoUsuarioFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUsuarioRel()
+    {
+        return $this->usuarioRel;
+    }
+
+    /**
+     * @param mixed $usuarioRel
+     */
+    public function setUsuarioRel($usuarioRel): void
+    {
+        $this->usuarioRel = $usuarioRel;
+    }
 
 }

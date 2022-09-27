@@ -116,6 +116,11 @@ class Usuario implements UserInterface, \Serializable
      */
     protected $casosEscaladosUsuarioDestinoRel;
 
+//    /**
+//     * @ORM\OneToMany(targetEntity="App\Entity\CasoGestion", mappedBy="usuarioRel")
+//     */
+//    private $casosGestionadosUsuarioRel;
+
     /**
      * Se implementan métodos de la clase User del core de Symfony además de los metodos de la entidad própia.
      *
@@ -481,6 +486,22 @@ class Usuario implements UserInterface, \Serializable
     public function setCasosEscaladosUsuarioDestinoRel($casosEscaladosUsuarioDestinoRel): void
     {
         $this->casosEscaladosUsuarioDestinoRel = $casosEscaladosUsuarioDestinoRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCasosGestionadosUsuarioRel()
+    {
+        return $this->casosGestionadosUsuarioRel;
+    }
+
+    /**
+     * @param mixed $casosGestionadosUsuarioRel
+     */
+    public function setCasosGestionadosUsuarioRel($casosGestionadosUsuarioRel): void
+    {
+        $this->casosGestionadosUsuarioRel = $casosGestionadosUsuarioRel;
     }
 
 

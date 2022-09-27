@@ -21,6 +21,7 @@ class CasoGestionRepository extends ServiceEntityRepository
             ->addselect('cg.fecha')
             ->addSelect('cg.fechaGestion')
             ->addSelect('cg.comentario')
+            ->addSelect('cg.codigoUsuarioFk')
             ->where("cg.codigoCasoFk = {$codigoCaso}");
         $arCasoGestiones = $queryBuilder->getQuery()->getResult();
         return $arCasoGestiones;

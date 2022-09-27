@@ -159,7 +159,8 @@
                                         <tr>
                                             <th>Id</th>
                                             <th>Fecha</th>
-                                            <th>F_Gestion</th>
+                                            <th title="Fecha Gestion">F_Gestion</th>
+                                            <th>Usuario</th>
                                             <th>Comentario</th>
                                             <th></th>
                                             <th class="text-center" title="seleccionar todos">
@@ -178,6 +179,7 @@
                                                 <td>{{ arGestion.codigoCasoGestionPk }}</td>
                                                 <td>{{ arGestion.fecha | date('Y-m-d h:i') }}</td>
                                                 <td>{{ arGestion.fechaGestion | date('Y-m-d h:i') }}</td>
+                                                <td>{{ arGestion.codigoUsuarioFk }}</td>
                                                 <td>{{ arGestion.comentario }}</td>
                                                 <td class="text-center">
                                                     {% if arCaso.estadoCerrado == 0 %}

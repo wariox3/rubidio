@@ -253,8 +253,9 @@ class CasoController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
-                $arCaso = $form->getData();
-                $em->persist($arCaso);
+                $arCasoGestion = $form->getData();
+                $arCasoGestion->setUsuarioRel($em->getReference(Usuario::class, $this->getUser()->getUsername()));
+                $em->persist($arCasoGestion);
                 $em->flush();
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
