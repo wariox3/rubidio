@@ -4,7 +4,7 @@
 <head>
     <style>
         @page {
-            margin: 100px 60px;
+            margin: 100px 80px;
         }
 
         * {
@@ -118,15 +118,20 @@
         servicios en los siguientes
         términos y condiciones específicos:</p>
     <ul>
-        <li>EL LICENCIANTE dispondrá de una dirección de acceso para que EL LICENCIATARIO use el software</li>
+        <li>EL LICENCIANTE dispondrá de una dirección de acceso compatible con los navegadores Google Chrome,
+            Mozilla Firefox, Safari (macOS), Microsoft Edge para que EL LICENCIATARIO use el software</li>
         <li>Mantenimiento a las bases de datos del software llamado “SEMÁNTICA ERP”.</li>
         <li>Actualización al producto “SEMÁNTICA ERP” en relación con la normatividad colombiana.</li>
         <li>Adecuación de nuevos cambios y métodos que permitan tener un mejor proceso en el desempeño del producto
             “SEMÁNTICA ERP”.
         </li>
         <li>Disponer infraestructura informatica adecuada para el uso ágil del software.</li>
-        <li>Realizar copias de seguridad regularmente para proteger los datos ante cualquier contingencia.</li>
+        <li>Realizar copias de seguridad "completas" cada 24 horas para proteger los datos ante cualquier contingencia,
+            las cuales quedaran en los servidores de EL LICENCIANTE y no afectaran la cuota de espacio de almacenamiento.
+            Estas copias tendrán una vigencia de almacenamiento de 12 meses</li>
         <li>Proteger de accesos NO AUTORIZADOS o eventos de hacking el software.</li>
+        <li>EL LICENCIANTE dispondrá de mecanismos desde el mismo software para extraer la información de las bases de
+        datos</li>
     </ul>
 
     <p><b>CLÁUSULA QUINTA: LIMITACIONES DEL SERVICIO.</b> EL LICENCIATARIO declara conocer y aceptar
@@ -135,8 +140,9 @@
         <li>Numero máximo de usuarios: {{ arContrato.numeroUsuarios }}</li>
         <li>Numero máximo de empleados activos en el módulo de recurso humano y
             nómina: {{ arContrato.numeroEmpleados }}</li>
-        <li>Numero máximo de guías generadas al mes: {{ arContrato.numeroGuias }}</li>
-        <li>El espacio estándar de almacenamiento es de 5GB para archivos, adjuntos y documentos en el software</li>
+        <li>Numero máximo de guías generadas al mes para procesos de transporte y logística: {{ arContrato.numeroGuias }}</li>
+        <li>El espacio base de almacenamiento total es de 5GB para archivos del gestor documental del software.
+            Este espacio puede ser aumentado como un servicio adicional según la oferta comercial de EL LICENCIANTE</li>
     </ul>
 
     <p><b>CLÁUSULA SEXTA: PROPIEDAD INTELECTUAL.</b> EL LICENCIANTE es el titular de los Derechos de Autor sobre
@@ -153,7 +159,8 @@
         <li>No permitir el manejo técnico inverso, el desmontaje o descompilado del programa por parte de ninguno
             de sus empleados o contratistas
         </li>
-        <li>A realizar únicamente las copias permitidas y a usarlas solamente para los usos autorizados</li>
+        <li>A realizar únicamente las copias permitidas para instalaciones OnPremise (en sitio) y a usarlas solamente
+            para los usos autorizados</li>
         <li>Utilizar el software exclusivamente en los computadores de su propiedad</li>
         <li>No realizar modificaciones al software</li>
         <li>No realizar nuevos trabajos construidos con base en el software objeto de licencia (obras derivadas)</li>
@@ -216,22 +223,30 @@
         El personal del LICENCIANTE acudirá provisto de todo el material necesario, adecuado y actualizado,
         para prestar el servicio. Los tiempos de respuesta se fijan a continuación:</p>
     <ul>
-        <li>Crítica o error técnico: 8 horas hábiles. Se entiende por incidencia crítica en el marco de la prestación
+        <li>Crítica o error técnico: 8 horas a partir del reporte del error. Se entiende por incidencia crítica en el marco de la prestación
             de los servicios, aquellas que afectan significativamente a EL LICENCIATARIO y lo imposibilite para el uso
             del software.
         </li>
-        <li>Grave: 12 horas hábiles. Se entiende por incidencia grave en el marco de la prestación de los servicios,
+        <li>Grave: 12 horas a partir del reporte del error. Se entiende por incidencia grave en el marco de la prestación de los servicios,
             aquellos que dificultan moderadamente las actividades informáticas de EL LICENCIATARIO, en opinión de ambas
             partes.
         </li>
-        <li>Leve: 2 días hábiles. Se entiende por incidencia leve cuando se limitan a entorpecer el trabajo o anomalías
+        <li>Leve: 2 días a partir del reporte del error. Se entiende por incidencia leve cuando se limitan a entorpecer el trabajo o anomalías
             que se muestran de manera aleatoria, en opinión de ambas partes.
         </li>
     </ul>
 
     <p><b>CLÁUSULA DÉCIMA SEGUNDA: VIGENCIA Y DURACION.</b> La validez de este contrato está regulada por la legislación
-        vigente
-        y su término de duración es de un (1) año contado a partir del {{ arContrato.fechaInicio | date('Y-m-d') }}</p>
+        vigente y su término de duración es de un (1) año contado a partir del {{ arContrato.fechaInicio | date('Y-m-d') }}
+    prorrogables automáticamente por sucesivos periodos de igual duración salvo que cualquiera de las partes de forma
+    expresa hiciere constar lo contrario con un aviso de 2 meses de anticipación. Con la terminación del contrato
+    las partes se comprometen a:</p>
+    <ul>
+        <li>EL LICENCIATARIO entregará a EL LICENCIANTE la información de las bases de datos en archivos planos
+        sujeto al cumplimiento de las obligaciones económicas del contrato y solicitado de forma expresa.</li>
+        <li>EL LICENCIATARIO está obligado a borrar toda la información de las bases de datos de EL LICENCIANTE cuando
+        se termine el contrato.</li>
+    </ul>
 
     <p><b>CLÁUSULA DÉCIMA TERCERA: PRECIO Y FACTURACIÓN.</b> El LICENCIATARIO pagará al LICENCIANTE
         mensualmente {{ arContrato.valorLetras }}
@@ -281,7 +296,7 @@
         </tr>
         <tr>
             <td>C.C. 70,143,086</td>
-            <td>C.C {{ arContrato.representanteNumeroIdentificacion | number_format }}</td>
+            <td>C.C. {{ arContrato.representanteNumeroIdentificacion | number_format }}</td>
         </tr>
         <tr>
             <td>Representante Legal</td>

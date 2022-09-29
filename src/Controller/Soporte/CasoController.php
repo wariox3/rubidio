@@ -351,6 +351,17 @@ class CasoController extends AbstractController
                 $arCaso->setUsuarioRel($arCasoEscalado->getUsuarioDestinoRel());
                 $arCaso->setEstadoEscalado(1);
                 $em->flush();
+                if($arCasoEscalado->getUsuarioDestinoRel()->getCorreo()) {
+                    $respuesta = $dubnio->enviarCorreo($arCaso->getCorreo(), 'Caso escalado ' . ' - ' . $arCaso->getCodigoCasoPk(),
+                        $this->renderView(
+                            'Soporte/Caso/correoEscalado.html.twig', [
+                        'arCaso' => $arCaso,
+                        'usuario' => $arCasoEscalado->getUsuarioDestinoRel()->getCodigoUsuarioPk(),
+                        'usuarioEmisor' => $arCasoEscalado->getUsuarioRel()->getCodigoUsuarioPk(),
+                        'usuarioNombre' => $arCasoEscalado->getUsuarioDestinoRel()->getNombres() . $arCasoEscalado->getUsuarioDestinoRel()->getApellidos(),
+                        'comentario' => $arCasoEscalado->getComentario()
+                        ]));
+                }
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
