@@ -250,8 +250,13 @@
 
     <p><b>CLÁUSULA DÉCIMA TERCERA: PRECIO Y FACTURACIÓN.</b> El LICENCIATARIO pagará al LICENCIANTE
         mensualmente {{ arContrato.valorLetras }}
-        (${{ arContrato.vrArrendamiento | number_format }}) más impuestos de ley por el objeto del contrato. Los cuales
-        se empiezan a facturar en la fecha de inicio.</p>
+        (${{ arContrato.vrArrendamiento | number_format }}) más impuestos de ley por el objeto del contrato,
+        {% if arContrato.vrElectronico > 0 %}
+            mensualmente {{ arContrato.valorLetrasElectronico }}
+            (${{ arContrato.vrElectronico | number_format }}) más impuestos de ley por el paquete de
+            {{ arContrato.numeroElectronicos }} documentos electrónicos,
+        {% endif %}
+        los cuales se empiezan a facturar en la fecha de inicio del contrato.</p>
     <ul>
         <li><b>PARÁGRAFO PRIMERO:</b> La facturación se realizará mes anticipado y será presentada a El LICENCIATARIO
             dentro de los primeros 15 días de cada mes.

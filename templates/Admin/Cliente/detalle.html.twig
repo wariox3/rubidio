@@ -91,6 +91,8 @@
                                                 <th>N_Oferta</th>
                                                 <th>Representante</th>
                                                 <th>Valor</th>
+                                                <th>Vr_Electronicos</th>
+                                                <th>ELE</th>
                                                 <th>USU</th>
                                                 <th>EMP</th>
                                                 <th>GUI</th>
@@ -107,10 +109,12 @@
                                                     <td>{{ arContrato.numero }}</td>
                                                     <td>{{ arContrato.numeroOferta }}</td>
                                                     <td>{{ arContrato.contactoRepresentanteNombre }}</td>
-                                                    <td>{{ arContrato.vrArrendamiento | number_format}}</td>
-                                                    <td>{{ arContrato.numeroUsuarios | number_format}}</td>
-                                                    <td>{{ arContrato.numeroEmpleados | number_format}}</td>
-                                                    <td>{{ arContrato.numeroGuias | number_format}}</td>
+                                                    <td>{{ arContrato.vrArrendamiento | number_format }}</td>
+                                                    <td>{{ arContrato.vrElectronico | number_format }}</td>
+                                                    <td>{{ arContrato.numeroElectronicos | number_format }}</td>
+                                                    <td>{{ arContrato.numeroUsuarios | number_format }}</td>
+                                                    <td>{{ arContrato.numeroEmpleados | number_format }}</td>
+                                                    <td>{{ arContrato.numeroGuias | number_format }}</td>
                                                     <td>
                                                         <button type="submit" name="OpImprimir" value="{{ arContrato.codigoContratoPk }}">Imprimir</button>
                                                     </td>

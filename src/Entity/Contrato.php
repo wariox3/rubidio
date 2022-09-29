@@ -51,6 +51,16 @@ class Contrato
     private $vrArrendamiento = 0.0;
 
     /**
+     * @ORM\Column(name="vr_electronico", type="float", options={"default":0})
+     */
+    private $vrElectronico = 0.0;
+
+    /**
+     * @ORM\Column(name="numero_electronicos", type="integer", options={"default":0})
+     */
+    private $numeroElectronicos = 0;
+
+    /**
      * @ORM\Column(name="numero_empleados", type="integer", options={"default":0})
      */
     private $numeroEmpleados = 0;
@@ -267,6 +277,38 @@ class Contrato
     public function setFechaInicio($fechaInicio): void
     {
         $this->fechaInicio = $fechaInicio;
+    }
+
+    /**
+     * @return float
+     */
+    public function getVrElectronico(): float
+    {
+        return $this->vrElectronico;
+    }
+
+    /**
+     * @param float $vrElectronico
+     */
+    public function setVrElectronico(float $vrElectronico): void
+    {
+        $this->vrElectronico = $vrElectronico;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumeroElectronicos(): int
+    {
+        return $this->numeroElectronicos;
+    }
+
+    /**
+     * @param int $numeroElectronicos
+     */
+    public function setNumeroElectronicos(int $numeroElectronicos): void
+    {
+        $this->numeroElectronicos = $numeroElectronicos;
     }
 
 
