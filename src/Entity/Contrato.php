@@ -56,6 +56,11 @@ class Contrato
     private $vrElectronico = 0.0;
 
     /**
+     * @ORM\Column(name="vr_electronico_unidad", type="float", options={"default":0})
+     */
+    private $vrElectronicoUnidad = 0.0;
+
+    /**
      * @ORM\Column(name="numero_electronicos", type="integer", options={"default":0})
      */
     private $numeroElectronicos = 0;
@@ -309,6 +314,22 @@ class Contrato
     public function setNumeroElectronicos(int $numeroElectronicos): void
     {
         $this->numeroElectronicos = $numeroElectronicos;
+    }
+
+    /**
+     * @return float
+     */
+    public function getVrElectronicoUnidad(): float
+    {
+        return $this->vrElectronicoUnidad;
+    }
+
+    /**
+     * @param float $vrElectronicoUnidad
+     */
+    public function setVrElectronicoUnidad(float $vrElectronicoUnidad): void
+    {
+        $this->vrElectronicoUnidad = $vrElectronicoUnidad;
     }
 
 

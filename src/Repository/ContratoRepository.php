@@ -23,6 +23,7 @@ class ContratoRepository extends ServiceEntityRepository
             ->addSelect('c.numeroOferta')
             ->addSelect('c.vrArrendamiento')
             ->addSelect('c.vrElectronico')
+            ->addSelect('c.vrElectronicoUnidad')
             ->addSelect('c.numeroUsuarios')
             ->addSelect('c.numeroGuias')
             ->addSelect('c.numeroEmpleados')
@@ -44,6 +45,7 @@ class ContratoRepository extends ServiceEntityRepository
             ->addSelect('c.numeroOferta')
             ->addSelect('c.vrArrendamiento')
             ->addSelect('c.vrElectronico')
+            ->addSelect('c.vrElectronicoUnidad')
             ->addSelect('c.numeroElectronicos')
             ->addSelect('c.numeroUsuarios')
             ->addSelect('c.numeroGuias')
@@ -68,6 +70,7 @@ class ContratoRepository extends ServiceEntityRepository
             $arContrato = $arContratos[0];
             $arContrato['valorLetras'] = $arContrato['vrArrendamiento']?Funciones::devolverNumeroLetras($arContrato['vrArrendamiento']):'CERO';
             $arContrato['valorLetrasElectronico'] = $arContrato['vrElectronico']?Funciones::devolverNumeroLetras($arContrato['vrElectronico']):'CERO';
+            $arContrato['valorLetrasElectronicoUnidad'] = $arContrato['vrElectronicoUnidad']?Funciones::devolverNumeroLetras($arContrato['vrElectronicoUnidad']):'CERO';
         }
         return $arContrato;
     }

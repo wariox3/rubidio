@@ -36,6 +36,7 @@ class ContratoType extends AbstractType{
             ->add('numeroOferta', TextType::class, array('required' => false))
             ->add('vrArrendamiento', NumberType::class, array('required' => true))
             ->add('vrElectronico', NumberType::class, array('required' => true))
+            ->add('vrElectronicoUnidad', NumberType::class, array('required' => true))
             ->add('numeroElectronicos', NumberType::class, array('required' => true))
             ->add('numeroUsuarios', NumberType::class, array('required' => true))
             ->add('numeroEmpleados', NumberType::class, array('required' => true))

@@ -256,6 +256,11 @@
             (${{ arContrato.vrElectronico | number_format }}) más impuestos de ley por el paquete de
             {{ arContrato.numeroElectronicos }} documentos electrónicos,
         {% endif %}
+        {% if arContrato.vrElectronicoUnidad > 0 %}
+            mensualmente {{ arContrato.valorLetrasElectronicoUnidad }}
+            (${{ arContrato.vrElectronicoUnidad | number_format }}) más impuestos de ley por cada documento electrónico
+            transmitido a la DIAN (Factura Electronica, Nómina Electronica, Documento Soporte, Evento Acuse Recibo),
+        {% endif %}
         los cuales se empiezan a facturar en la fecha de inicio del contrato.</p>
     <ul>
         <li><b>PARÁGRAFO PRIMERO:</b> La facturación se realizará mes anticipado y será presentada a El LICENCIATARIO
@@ -275,6 +280,8 @@
         </li>
         <li><b>PARÁGRAFO SEXTO:</b> La oferta comercial {{ arContrato.numeroOferta }} hace parte integral del contrato
         </li>
+        <li><b>PARÁGRAFO SÉPTIMO:</b> Para los documentos electrónicos la facturación se realiza mes vencido según el
+            consumo y el paquete contratado</li>
     </ul>
 
     <p><b>CLÁUSULA DÉCIMA CUARTA: MODIFICACIÓN.</b> Las Partes podrán modificar el contrato de mutuo acuerdo y por
