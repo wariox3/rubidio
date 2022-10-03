@@ -46,6 +46,11 @@ class Contrato
     private $numeroOferta;
 
     /**
+     * @ORM\Column(name="vr_implementacion", type="float", options={"default":0})
+     */
+    private $vrImplementacion = 0.0;
+
+    /**
      * @ORM\Column(name="vr_arrendamiento", type="float", options={"default":0})
      */
     private $vrArrendamiento = 0.0;
@@ -79,6 +84,11 @@ class Contrato
      * @ORM\Column(name="numero_guias", type="integer", options={"default":0})
      */
     private $numeroGuias = 0;
+
+    /**
+     * @ORM\Column(name="objeto_implementacion", type="string", length=500, nullable=true)
+     */
+    private $objetoImplementacion;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Cliente", inversedBy="contratosClienteRel")
@@ -330,6 +340,38 @@ class Contrato
     public function setVrElectronicoUnidad(float $vrElectronicoUnidad): void
     {
         $this->vrElectronicoUnidad = $vrElectronicoUnidad;
+    }
+
+    /**
+     * @return float
+     */
+    public function getVrImplementacion(): float
+    {
+        return $this->vrImplementacion;
+    }
+
+    /**
+     * @param float $vrImplementacion
+     */
+    public function setVrImplementacion(float $vrImplementacion): void
+    {
+        $this->vrImplementacion = $vrImplementacion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObjetoImplementacion()
+    {
+        return $this->objetoImplementacion;
+    }
+
+    /**
+     * @param mixed $objetoImplementacion
+     */
+    public function setObjetoImplementacion($objetoImplementacion): void
+    {
+        $this->objetoImplementacion = $objetoImplementacion;
     }
 
 

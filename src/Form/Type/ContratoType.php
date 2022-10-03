@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,9 +35,11 @@ class ContratoType extends AbstractType{
             ->add('fechaInicio', DateType::class, ['widget' => 'single_text', 'required' => false])
             ->add('numero', TextType::class, array('required' => true))
             ->add('numeroOferta', TextType::class, array('required' => false))
+            ->add('vrImplementacion', NumberType::class, array('required' => true))
             ->add('vrArrendamiento', NumberType::class, array('required' => true))
             ->add('vrElectronico', NumberType::class, array('required' => true))
             ->add('vrElectronicoUnidad', NumberType::class, array('required' => true))
+            ->add('objetoImplementacion', TextareaType::class, array('required' => true))
             ->add('numeroElectronicos', NumberType::class, array('required' => true))
             ->add('numeroUsuarios', NumberType::class, array('required' => true))
             ->add('numeroEmpleados', NumberType::class, array('required' => true))

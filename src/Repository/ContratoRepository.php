@@ -24,11 +24,13 @@ class ContratoRepository extends ServiceEntityRepository
             ->addSelect('c.vrArrendamiento')
             ->addSelect('c.vrElectronico')
             ->addSelect('c.vrElectronicoUnidad')
+            ->addSelect('c.vrImplementacion')
             ->addSelect('c.numeroUsuarios')
             ->addSelect('c.numeroGuias')
             ->addSelect('c.numeroEmpleados')
             ->addSelect('c.numeroElectronicos')
             ->addSelect('c.fechaInicio')
+            ->addSelect('c.objetoImplementacion')
             ->addSelect('cr.nombre as contactoRepresentanteNombre')
             ->leftJoin('c.contactoRepresentanteRel', 'cr')
             ->where("c.codigoClienteFk = {$codigoCliente}");
@@ -46,11 +48,13 @@ class ContratoRepository extends ServiceEntityRepository
             ->addSelect('c.vrArrendamiento')
             ->addSelect('c.vrElectronico')
             ->addSelect('c.vrElectronicoUnidad')
+            ->addSelect('c.vrImplementacion')
             ->addSelect('c.numeroElectronicos')
             ->addSelect('c.numeroUsuarios')
             ->addSelect('c.numeroGuias')
             ->addSelect('c.numeroEmpleados')
             ->addSelect('c.fechaInicio')
+            ->addSelect('c.objetoImplementacion')
             ->addSelect('cr.nombre as representanteNombre')
             ->addSelect('cr.codigoIdentificacionFk as representanteCodigoIdentificacionFk')
             ->addSelect('cr.numeroIdentificacion as representanteNumeroIdentificacion')
@@ -71,6 +75,7 @@ class ContratoRepository extends ServiceEntityRepository
             $arContrato['valorLetras'] = $arContrato['vrArrendamiento']?Funciones::devolverNumeroLetras($arContrato['vrArrendamiento']):'CERO';
             $arContrato['valorLetrasElectronico'] = $arContrato['vrElectronico']?Funciones::devolverNumeroLetras($arContrato['vrElectronico']):'CERO';
             $arContrato['valorLetrasElectronicoUnidad'] = $arContrato['vrElectronicoUnidad']?Funciones::devolverNumeroLetras($arContrato['vrElectronicoUnidad']):'CERO';
+            $arContrato['valorLetrasImplementacion'] = $arContrato['vrImplementacion']?Funciones::devolverNumeroLetras($arContrato['vrImplementacion']):'CERO';
         }
         return $arContrato;
     }

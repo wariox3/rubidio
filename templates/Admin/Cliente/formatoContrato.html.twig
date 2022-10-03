@@ -92,31 +92,29 @@
         <li>Cartera y tesorería</li>
     </ul>
     <p>El LICENCIATARIO declara conocer y aceptar los contenidos y funciones del software descrito.</p>
-
+    {% if arContrato.vrImplementacion > 0 %}
+    <p>El LICENCIATARIO declara conocer y estar en la capacidad de diligenciar los requisitos de información
+        para el proceso de implementación.</p>
+    {% endif %}
     <p><b>CLÁUSULA TERCERA: CONDICIONES GENERALES DEL SERVICIO.</b> Los servicios se prestarán en los siguientes
         términos y condiciones generales:</p>
     <ul>
         <li>EL LICENCIANTE responderá por la calidad del trabajo desarrollado con la diligencia exigible a una empresa
-            experta en la
-            realización de los trabajos objeto del contrato.
+            experta en la realización de los trabajos objeto del contrato.
         </li>
         <li>Ambas partes responderán de las infracciones en que pudiera incurrir en el caso que destinen los datos
-            personales a otra finalidad,
-            los comuniquen a un tercero, o en general, los utilicen de forma irregular.
+            personales a otra finalidad, los comuniquen a un tercero, o en general, los utilicen de forma irregular.
         </li>
         <li>EL LICENCIANTE deberá adoptar las medidas de índole técnicas y organizativas necesarias que garanticen la
-            seguridad de los datos de
-            carácter personal y eviten su alteración, pérdida, tratamiento o acceso no autorizado, habida cuenta del
-            estado de la tecnología,
-            la naturaleza de los datos almacenados o del medio físico o natural. A estos efectos EL LICENCIANTE deberá
-            aplicar los niveles de
+            seguridad de los datos de carácter personal y eviten su alteración, pérdida, tratamiento o acceso }
+            no autorizado, habida cuenta del estado de la tecnología, la naturaleza de los datos almacenados
+            o del medio físico o natural. A estos efectos EL LICENCIANTE deberá aplicar los niveles de
             seguridad de acuerdo a la naturaleza de los datos que trate.
         </li>
     </ul>
 
     <p><b>CLÁUSULA CUARTA: CONDICIONES ESPECÍFICAS DE LA PRESTACIÓN DEL SERVICIO.</b> EL LICENCIANTE prestará los
-        servicios en los siguientes
-        términos y condiciones específicos:</p>
+        servicios en los siguientes términos y condiciones específicos:</p>
     <ul>
         <li>EL LICENCIANTE dispondrá de una dirección de acceso compatible con los navegadores Google Chrome,
             Mozilla Firefox, Safari (macOS), Microsoft Edge para que EL LICENCIATARIO use el software</li>
@@ -132,6 +130,12 @@
         <li>Proteger de accesos NO AUTORIZADOS o eventos de hacking el software.</li>
         <li>EL LICENCIANTE dispondrá de mecanismos desde el mismo software para extraer la información de las bases de
         datos</li>
+        {% if arContrato.vrImplementacion > 0 %}
+            <li>EL LICENCIANTE asignará personal encargado de implementar {{ arContrato.objetoImplementacion }}. Proceso
+                que incluye capacitación certificada por acuse de recibo y aprobación del cliente, asesoría,
+                consultoría y orientación; la cual puede ser virtual o presencial según la necesidad,
+                hasta que la funcionalidad inicie la fase de producción.</li>
+        {% endif %}
     </ul>
 
     <p><b>CLÁUSULA QUINTA: LIMITACIONES DEL SERVICIO.</b> EL LICENCIATARIO declara conocer y aceptar
@@ -147,7 +151,7 @@
 
     <p><b>CLÁUSULA SEXTA: PROPIEDAD INTELECTUAL.</b> EL LICENCIANTE es el titular de los Derechos de Autor sobre
         el software "Semantica ERP" registrado en la Dirección Nacional de Derecho de Autor con número. 13-80-47.
-        Por lo tanto se reserva las facultades de reproducción, comunicación pública,
+        Por lo tanto, se reserva las facultades de reproducción, comunicación pública,
         distribución, importación, traducción y cualquier transformación de dicho programa, por cualquier medio
         conocido o por conocerse.
         En virtud del presente contrato el LICENCIATARIO solamente adquiere la facultad de usar el software,
@@ -175,12 +179,18 @@
         <li>Cancelar el valor total del precio en la fecha y en las condiciones acordadas</li>
         <li>Utilizar el software de acuerdo con las condiciones de uso establecidas en las Cláusulas 7 y 8</li>
         <li>Tomar medidas preventivas usuales en la actividad de computación, con el fin de evitar que se produzcan
-            fallas que le causen cualquier tipo de daño o perjuicio, ya sea al LICENCIANTE o a terceros
+            fallas que le causen cualquier tipo de daño o perjuicio, ya sea al LICENCIANTE o a terceros.
         </li>
         <li>Exonerar en cualquier caso, AL LICENCIANTE de toda responsabilidad derivada de los daños o perjuicios
             que pueda sufrir el LICENCIATARIO como consecuencia directa o indirecta del uso inadecuado que se haga del
-            software
+            software.
         </li>
+        {% if arContrato.vrImplementacion > 0 %}
+            <li>Disponer del personal idóneo y calificado para recibir las capacitaciones, asesorías y consultorías
+                para el proceso de implementación.
+            </li>
+            <li>Tener los medios de información para cumplir con los requisitos de implementación</li>
+        {% endif %}
     </ul>
 
     <p><b>CLÁUSULA NOVENA: CESIÓN.</b> Dado que el presente contrato lo celebra el LICENCIATARIO en consideración a las
@@ -261,7 +271,12 @@
             (${{ arContrato.vrElectronicoUnidad | number_format }}) más impuestos de ley por cada documento electrónico
             transmitido a la DIAN (Factura Electronica, Nómina Electronica, Documento Soporte, Evento Acuse Recibo),
         {% endif %}
+        {% if arContrato.vrImplementacion > 0 %}
+            un solo pago de {{ arContrato.valorLetrasImplementacion }}
+            (${{ arContrato.vrImplementacion | number_format }}) más impuestos de ley por concepto de implementación,
+        {% endif %}
         los cuales se empiezan a facturar en la fecha de inicio del contrato.</p>
+
     <ul>
         <li><b>PARÁGRAFO PRIMERO:</b> La facturación se realizará mes anticipado y será presentada a El LICENCIATARIO
             dentro de los primeros 15 días de cada mes.
