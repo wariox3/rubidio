@@ -42,6 +42,10 @@ class CasoRepository extends ServiceEntityRepository
             ->where('c.estadoAtendido = 1')
             ->orderBy('c.codigoCasoPk', 'DESC');
 
+        if ($session->get('filtroCasoUsuario')) {
+            $queryBuilder->andWhere("c.codigoUsuarioFk = '{$session->get('filtroCasoUsuario')}'");
+        }
+
         if ($session->get('filtroCasoCodigoCliente')) {
             $queryBuilder->andWhere('c.codigoClienteFk=' . $session->get('filtroCasoCodigoCliente'));
         }

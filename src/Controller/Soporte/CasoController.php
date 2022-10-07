@@ -98,6 +98,21 @@ class CasoController extends AbstractController
                 'placeholder' => "TODOS",
                 'required' => false,
             ))
+            ->add('usuarioDestino', EntityType::class, [
+                'class' => Usuario::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.soporte = 1')
+                        ->orderBy('u.nombres', 'ASC');
+                },
+                'choice_label' => function ($er) {
+                    $campo = $er->getNombres() . ' ' . $er->getApellidos();
+                    return $campo;
+                },
+                'placeholder' => 'TODOS',
+                'required' => false,
+                'attr' => ['class' => 'to-select-2'],
+            ])
             ->add('estadoDesarrollo', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoDesarrollo'), 'required' => false])
             ->add('estadoEscalado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoEscalado'), 'required' => false])
             ->add('estadoRespuesta', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoRespuesta'), 'required' => false])
@@ -111,6 +126,12 @@ class CasoController extends AbstractController
                 $session->set('filtroCasoEstadoDesarrollo', $form->get('estadoDesarrollo')->getData());
                 $session->set('filtroCasoEstadoEscalado', $form->get('estadoEscalado')->getData());
                 $session->set('filtroCasoEstadoCerrado', $form->get('estadoCerrado')->getData());
+                $arUsuario = $form->get('usuarioDestino')->getData();
+                if ($arUsuario) {
+                    $session->set('filtroCasoUsuario', $arUsuario->getCodigoUsuarioPk());
+                } else {
+                    $session->set('filtroCasoUsuario', null);
+                }
                 $arCliente = $form->get('clienteRel')->getData();
                 if ($arCliente) {
                     $session->set('filtroCasoCodigoCliente', $arCliente->getCodigoClientePk());

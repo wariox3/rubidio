@@ -26,7 +26,11 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group col-md-3">
+                                        <label for="inputEmail4">Usuario:</label>
+                                        {{ form_widget(form.usuarioDestino) }}
+                                    </div>
+                                    <div class="form-group col-md-3">
                                         <label for="inputEmail4">Tipo:</label>
                                         {{ form_widget(form.CasoTipoRel) }}
                                     </div>
