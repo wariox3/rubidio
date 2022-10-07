@@ -155,7 +155,10 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
             ->leftJoin('id.funcionalidadRel', 'fu')
             ->leftJoin('id.moduloRel', 'm')
             ->leftJoin('id.implementacionRel', 'i')
-            ->where("i.codigoClienteFk = {$codigoCliente}");
+            ->where("i.codigoClienteFk = {$codigoCliente}")
+            ->orderBy('id.requisito', 'DESC')
+            ->addOrderBy('m.orden', 'ASC')
+            ->addOrderBy('re.orden', 'ASC');
         switch ($session->get('filtroImplementacionEstadoCapacitado')) {
             case '0':
                 $queryBuilder->andWhere("id.estadoCapacitado = 0");
