@@ -140,7 +140,9 @@ class ClienteRepository extends ServiceEntityRepository
                 'error' => false,
                 'nombre' => $arCliente->getNombreCorto(),
                 'puntoServicio' => $arCliente->getPuntoServicio(),
-                'puntoServicioToken' => $arCliente->getPuntoServicioToken()
+                'puntoServicioToken' => $arCliente->getPuntoServicioToken(),
+                'puntoServicioUsuario' => $arCliente->getPuntoServicioUsuario(),
+                'puntoServicioClave' => $arCliente->getPuntoServicioClave()
             ];
         } else {
             return [
