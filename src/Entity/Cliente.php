@@ -126,6 +126,16 @@ class Cliente
     private $puntoServicioToken;
 
     /**
+     * @ORM\Column(name="punto_servicio_usuario", type="string", length=50, nullable=true)
+     */
+    private $puntoServicioUsuario;
+
+    /**
+     * @ORM\Column(name="punto_servicio_clave", type="string", length=50, nullable=true)
+     */
+    private $puntoServicioClave;
+
+    /**
      * @ORM\OneToMany(targetEntity="Caso", mappedBy="clienteRel")
      */
     protected $casosClienteRel;
@@ -622,6 +632,38 @@ class Cliente
     public function setContratosClienteRel($contratosClienteRel): void
     {
         $this->contratosClienteRel = $contratosClienteRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPuntoServicioUsuario()
+    {
+        return $this->puntoServicioUsuario;
+    }
+
+    /**
+     * @param mixed $puntoServicioUsuario
+     */
+    public function setPuntoServicioUsuario($puntoServicioUsuario): void
+    {
+        $this->puntoServicioUsuario = $puntoServicioUsuario;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPuntoServicioClave()
+    {
+        return $this->puntoServicioClave;
+    }
+
+    /**
+     * @param mixed $puntoServicioClave
+     */
+    public function setPuntoServicioClave($puntoServicioClave): void
+    {
+        $this->puntoServicioClave = $puntoServicioClave;
     }
 
 
