@@ -80,14 +80,22 @@ class SoporteController extends AbstractController
                         $em->getRepository(Archivo::class)->carga("caso", $arCaso->getCodigoCasoPk(), $extension, $nombre, $tamano, $mimeType, null, $archivoTemporal);
                     }
                 }
-                return $this->render('Pagina/Soporte/casoInformacion.html.twig', [
-                    'codigoCaso' => $arCaso->getCodigoCasoPk()
-                ]);
+                return $this->redirect($this->generateUrl('soporte_casoinformacion', ['codigoCaso' => $arCaso->getCodigoCasoPk()]));
             }
         }
         return $this->render('Pagina/Soporte/nuevo.html.twig', [
             'form' => $form->createView(),
             'arCaso'=> $arCaso,
+        ]);
+    }
+
+    /**
+     * @Route("/soporte/casoinformacion/{codigoCaso}", name="soporte_casoinformacion")
+     */
+    public function casoExitoso (Request $request, $codigoCaso): Response
+    {
+        return $this->render('Pagina/Soporte/casoInformacion.html.twig', [
+            'codigoCaso' => $codigoCaso
         ]);
     }
 
@@ -184,5 +192,7 @@ class SoporteController extends AbstractController
         $session->set('filtroDocumentacion', $filtro);
         return $filtro;
     }
+
+
 
 }
