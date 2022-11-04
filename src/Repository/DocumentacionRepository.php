@@ -17,14 +17,10 @@ class DocumentacionRepository extends ServiceEntityRepository
         parent::__construct($registry, Documentacion::class);
     }
 
-    public function lista($raw)
+    public function lista()
     {
         $em = $this->getEntityManager();
-        $filtros = $raw['filtros'] ?? null;
-        $modulo = null;
-        if ($filtros) {
-            $modulo = $filtros['modulo'] ?? null;
-        }
+        $session = new Session();
         $queryBuilder = $em->createQueryBuilder()->from(Documentacion::class, 'd')
             ->select('d.codigoDocumentacionPk')
             ->addSelect('d.codigoModeloFk')
@@ -37,8 +33,17 @@ class DocumentacionRepository extends ServiceEntityRepository
             ->addSelect('d.fechaActualizacion')
             ->orderBy('d.codigoModuloFk', 'ASC')
             ->addOrderBy('d.codigoFuncionFk', 'ASC');
-        if ($modulo) {
-            $queryBuilder->andWhere("d.codigoModuloFk = '{$modulo}'");
+        if ($session->get('filtroDocumentacionModulo')) {
+            $queryBuilder->andWhere("d.codigoModuloFk = '{$session->get('filtroDocumentacionModulo')}' ");
+        }
+        if ($session->get('filtroDocumentacionModelo')) {
+            $queryBuilder->andWhere("d.codigoModeloFk = '{$session->get('filtroDocumentacionModelo')}' ");
+        }
+        if ($session->get('filtroDocumentacionGrupo')) {
+            $queryBuilder->andWhere("d.codigoGrupoFk = '{$session->get('filtroDocumentacionGrupo')}' ");
+        }
+        if ($session->get('filtroDocumentacionTitulo')) {
+            $queryBuilder->andWhere("d.titulo = '{$session->get('filtroDocumentacionTitulo')}' ");
         }
         $arDocumentaciones = $queryBuilder->getQuery()->getResult();
         return $arDocumentaciones;
