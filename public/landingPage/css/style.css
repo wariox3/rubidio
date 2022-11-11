@@ -3972,7 +3972,7 @@ blockquote::after, .blockquote::after {
 .pagination .page-item.active .page-link {
     background-color: var(--principal-azul-semantica);
     border-color: var(--principal-azul-semantica);
-    color:  var(--principal-azul-semantica);
+    color: #FFFFFF;
 }
 
 .btnCustom {
