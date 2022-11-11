@@ -76,9 +76,6 @@ class CasoController extends AbstractController
         if ($session->get('filtroCasoCodigoCliente')) {
             $arrayPropiedadesCliente['data'] = $em->getReference(Cliente::class, $session->get('filtroCasoCodigoCliente'));
         }
-        if ($session->get('filtroCasoEstadoRespuesta') == null) {
-            $session->set('filtroCasoEstadoRespuesta', 0);
-        }
         if ($session->get('filtroCasoEstadoCerrado') == null) {
             $session->set('filtroCasoEstadoCerrado', 0);
         }
