@@ -259,6 +259,7 @@ class ElectronicaController extends AbstractController
                 'Content-Type: application/json',
                 'Content-Length: ' .strlen($data_string))
         );
+        //Si falla muy probablemente es por el codigo postal de la ciudad
         $resp = json_decode(curl_exec($ch), true);
         curl_close($ch);
 
