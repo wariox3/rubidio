@@ -19,6 +19,19 @@
     </div>
     <!-- End Page Title Area -->
 
+    <!-- temporal -->
+    <section class="services-details-area py-4">
+        <div class="container">
+            <aside class="widget-area mt-2" id="secondary">
+                <section class="widget widget_search">
+                    <div>
+                            <p style="font-size: 1.1rem" align="center">A todos nuestros clientes les informamos que por motivos de cierre de año no se atenderán más casos para desarrollos de mejoras ni utilidades adicionales, nuestra línea de soporte técnico estará habilitada para resolver cualquier tipo de incidencias que se puedan presentar durante este periodo, agradecemos su comprensión.</p>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </section>
+
     <!-- Start Services Section -->
     <section class="services-section pt-70 pb-100">
         <div class="container">
@@ -55,7 +68,7 @@
                         <h3>Consultoría especializada</h3>
                         <p>Temas avanzados: costo inventario, distribución nómina, información financiera</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_nuevo', {'tipo':'CES'}) }}" class="services-link">Solicitar</a>
+{#                            <a href="{{ path('soporte_nuevo', {'tipo':'CES'}) }}" class="services-link">Solicitar</a>#}
                         </div>
                     </div>
                 </div>
@@ -65,9 +78,10 @@
                             <i class="pe-7s-graph1"></i>
                         </div>
                         <h3>Solicitud desarrollo</h3>
-                        <p>Funcionalidades de uso general, nuevas o mejorar las existentes, mejorar la experiencia de uso</p>
+                        <p>Funcionalidades de uso general, nuevas o mejorar las existentes, mejorar la experiencia de
+                            uso</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_nuevo', {'tipo':'DES'}) }}" class="services-link">Solicitar</a>
+{#                            <a href="{{ path('soporte_nuevo', {'tipo':'DES'}) }}" class="services-link">Solicitar</a>#}
                         </div>
                     </div>
                 </div>
@@ -77,9 +91,10 @@
                             <i class="pe-7s-config"></i>
                         </div>
                         <h3>Solicitud especial</h3>
-                        <p>Solicitudes de tipo general como respaldos de bases de datos, especificaciones técnicas de nuestros productos</p>
+                        <p>Solicitudes de tipo general como respaldos de bases de datos, especificaciones técnicas de
+                            nuestros productos</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_nuevo', {'tipo':'SOL'}) }}" class="services-link">Solicitar</a>
+{#                            <a href="{{ path('soporte_nuevo', {'tipo':'SOL'}) }}" class="services-link">Solicitar</a>#}
                         </div>
                     </div>
                 </div>
@@ -89,9 +104,10 @@
                             <i class="pe-7s-server"></i>
                         </div>
                         <h3>Productos y servicios</h3>
-                        <p>Solicitar capacitaciones, implementaciones, consultoría, desarrollo a la medida, infraestructura, formatos personalizados.</p>
+                        <p>Solicitar capacitaciones, implementaciones, consultoría, desarrollo a la medida,
+                            infraestructura, formatos personalizados.</p>
                         <div class="services-btn-link">
-                            <a href="{{ path('soporte_nuevo', {'tipo':'SER'}) }}" class="services-link">Ingresar</a>
+{#                            <a href="{{ path('soporte_nuevo', {'tipo':'SER'}) }}" class="services-link">Ingresar</a>#}
                         </div>
                     </div>
                 </div>
@@ -129,7 +145,8 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <h3 class="comments-title">Descripcion soporte # {{ arCasoConsultado.codigoCasoPk }}</h3>
+                                        <h3 class="comments-title">Descripcion soporte
+                                            # {{ arCasoConsultado.codigoCasoPk }}</h3>
                                         <article class="comment-body" style="padding-left: 0">
                                             <p>{{ arCasoConsultado.descripcion }}</p>
                                         </article>
@@ -163,36 +180,36 @@
                                 <h3 class="comments-title">Respuesta:</h3>
                                 <ol class="comment-list">
                                     {% for arRespuesta in arCasoConsultado.casosRespuestasCasoRel %}
-                                    <li class="comment">
-                                        <article class="comment-body" style="border-bottom: 0">
-                                            <footer class="comment-meta">
-                                                <div class="comment-author vcard">
-                                                    <div class="row">
-                                                        <div class="col-lg-4">
-                                                            <div class="about-image-left">
-                                                                <img src="{{ asset('landingPage/img/client/comment-3.jpg') }}"
-                                                                     alt="image">
+                                        <li class="comment">
+                                            <article class="comment-body" style="border-bottom: 0">
+                                                <footer class="comment-meta">
+                                                    <div class="comment-author vcard">
+                                                        <div class="row">
+                                                            <div class="col-lg-4">
+                                                                <div class="about-image-left">
+                                                                    <img src="{{ asset('landingPage/img/client/comment-3.jpg') }}"
+                                                                         alt="image">
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-lg-8">
-                                                            <b class="fn">@{{ arRespuesta.usuarioRel.nombres | default('') }}{{ arRespuesta.usuarioRel.apellidos | default('') }}</b>
-                                                            <span class="says">says:</span>
-                                                            <div class="comment-metadata">
-                                                                <a href="#">
-                                                                    <span>{{ arRespuesta.fecha | date('F jS \\a\\t g:ia') }}</span>
-                                                                </a>
-                                                            </div>
-                                                            <div class="comment-content">
-                                                                <p>{{ arRespuesta.comentario }}</p>
+                                                            <div class="col-lg-8">
+                                                                <b class="fn">@{{ arRespuesta.usuarioRel.nombres | default('') }}{{ arRespuesta.usuarioRel.apellidos | default('') }}</b>
+                                                                <span class="says">says:</span>
+                                                                <div class="comment-metadata">
+                                                                    <a href="#">
+                                                                        <span>{{ arRespuesta.fecha | date('F jS \\a\\t g:ia') }}</span>
+                                                                    </a>
+                                                                </div>
+                                                                <div class="comment-content">
+                                                                    <p>{{ arRespuesta.comentario }}</p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                            </footer>
+                                                </footer>
 
-                                        </article>
-                                    </li>
+                                            </article>
+                                        </li>
                                     {% endfor %}
                                 </ol>
                             </div>
@@ -216,11 +233,14 @@
                 <div class="col-lg-6">
                     <div class="overview-content">
                         <h2>Otros recursos de auto ayuda</h2>
-                        <p>Tenemos al servicio de nuestros clientes distintos recursos audiovisuales de autogestion, si requiere una
+                        <p>Tenemos al servicio de nuestros clientes distintos recursos audiovisuales de autogestion, si
+                            requiere una
                             atencion personalizada solicite el soporte a un asesor.</p>
                         <ul class="features-list">
-                            <li><a href="{{ path('soporte_documentacion_recursos') }}"><span class="active">Documentacion & Manuales</span></a></li>
-                            <li><a href="https://www.youtube.com/channel/UCk2FSMxqxz3Y6fkyKT_ef3w" target="_blank"><span>Canal YouTube</span></a></li>
+                            <li><a href="{{ path('soporte_documentacion_recursos') }}"><span class="active">Documentacion & Manuales</span></a>
+                            </li>
+                            <li><a href="https://www.youtube.com/channel/UCk2FSMxqxz3Y6fkyKT_ef3w"
+                                   target="_blank"><span>Canal YouTube</span></a></li>
                             <li><a href="{{ path('soporte_descarga') }}"><span>Descargas</span></a></li>
                             <li><a href="{{ path('inicio') }}"><span>Preguntas frecuentes</span></a></li>
                         </ul>
@@ -239,11 +259,14 @@
                     <div class="faq-accordion">
                         <ul class="accordion">
                             <li class="accordion-item">
-                                <a class="accordion-title active" href="javascript:void(0)"> <i class="fa fa-caret-down"></i>
+                                <a class="accordion-title active" href="javascript:void(0)"> <i
+                                            class="fa fa-caret-down"></i>
                                     Como ingresar a Semantica ERP?</a>
                                 <p class="accordion-content show">
-                                    Ingresa la URL en tu navegador preferido, “nombreempresa.semantica.com.co” luego en “Username” registra el nombre o número de usuario,
-                                    según como se haya creado en el sistema, en “Password” digita la contraseña registrada correspondiente al usuario y
+                                    Ingresa la URL en tu navegador preferido, “nombreempresa.semantica.com.co” luego en
+                                    “Username” registra el nombre o número de usuario,
+                                    según como se haya creado en el sistema, en “Password” digita la contraseña
+                                    registrada correspondiente al usuario y
                                     por último dar clic en “inicio seguro”
                                 </p>
                             </li>
@@ -251,15 +274,25 @@
                                 <a class="accordion-title" href="javascript:void(0)"> <i class="fa fa-caret-down"></i>
                                     Como crear una programacion de nomina?</a>
                                 <p class="accordion-content">
-                                    Primero ingresamos al ERP, vamos a la ruta: Recurso humano/movimiento/nómina/programación. Dar clic al botón “nuevo” y diligenciar la información correspondiente (en el boton de ayuda puede encontrar cada campo y un video instructivo).
-                                    Guardamos la informacion principal y la aplicacion nos lleva al detalle, allí se debe dar clic en el botón cargar contratos (Cuando la nómina es grupo administrativo) y se cargan todos los empleados o "Cargar soporte" (cuando la nómina es grupo operativo),
-                                    luego se debe "Autorizar" para que se carguen los valores que se le va a pagar al empleado. Importante: (Si se realiza alguna corrección, se debe "Desautorizar" y "Autorizar" de nuevo para que tome la actualización) luego, cuando ya se haya revisado que todo está correcto, clic en "Aprobar".</p>
+                                    Primero ingresamos al ERP, vamos a la ruta: Recurso
+                                    humano/movimiento/nómina/programación. Dar clic al botón “nuevo” y diligenciar la
+                                    información correspondiente (en el boton de ayuda puede encontrar cada campo y un
+                                    video instructivo).
+                                    Guardamos la informacion principal y la aplicacion nos lleva al detalle, allí se
+                                    debe dar clic en el botón cargar contratos (Cuando la nómina es grupo
+                                    administrativo) y se cargan todos los empleados o "Cargar soporte" (cuando la nómina
+                                    es grupo operativo),
+                                    luego se debe "Autorizar" para que se carguen los valores que se le va a pagar al
+                                    empleado. Importante: (Si se realiza alguna corrección, se debe "Desautorizar" y
+                                    "Autorizar" de nuevo para que tome la actualización) luego, cuando ya se haya
+                                    revisado que todo está correcto, clic en "Aprobar".</p>
                             </li>
                             <li class="accordion-item">
                                 <a class="accordion-title" href="javascript:void(0)"> <i class="fa fa-caret-down"></i>
                                     Como se genera un informe de pagos de nomina?</a>
                                 <p class="accordion-content">La ruta es: Recurso humano/informe/nómina/pago detalle,
-                                    realizar los filtros requeridos y extraer la informacion por los diferentes mecanismos (excel/pdf).</p>
+                                    realizar los filtros requeridos y extraer la informacion por los diferentes
+                                    mecanismos (excel/pdf).</p>
                             </li>
                         </ul>
                     </div>
