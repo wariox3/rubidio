@@ -52,6 +52,7 @@
                                 <th>Id</th>
                                 <th>Modulo</th>
                                 <th>Funcionalidad</th>
+                                <th>Funcion</th>
                                 <th class="text-center" title="seleccionar todos"><input type="checkbox"
                                                                                          name="ChkSeleccionarTodos"
                                                                                          onclick="ChequearTodosTabla(this, 'ChkSeleccionar[]')">
@@ -64,6 +65,7 @@
                                     <td>{{ arFuncionalidad.codigoFuncionalidadPk }}</td>
                                     <td>{{ arFuncionalidad.codigoModuloFk }}</td>
                                     <td>{{ arFuncionalidad.nombre }}</td>
+                                    <td>{{ arFuncionalidad.codigoFuncionFk }}</td>
                                     <td class="text-center">
                                         <input type="checkbox" name="ChkSeleccionar[]"
                                                value="{{ arFuncionalidad.codigoFuncionalidadPk }}"
