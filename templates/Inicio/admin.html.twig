@@ -5,54 +5,41 @@
          <!-- Start Services Section -->
          <section class="services-section">
              <div class="container">
-                 <div class="row">
-                     <div class="col-lg-3 col-md-3">
-                         <div class="single-services-item">
-                             <div class="services-icon">
-                                 <i class="pe-7s-tools"></i>
-                             </div>
-                             <h3>Sin atender</h3>
-                             <p>0</p>
-                             <div class="services-btn-link">
-                                 <a href="#0" class="services-link">Actual</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-lg-3 col-md-3">
-                         <div class="single-services-item">
-                             <div class="services-icon">
-                                 <i class="pe-7s-close-circle"></i>
-                             </div>
-
-                             <h3>Sin solución</h3>
-                             <p>0</p>
-                             <div class="services-btn-link">
-                                 <a href="#" class="services-link">Actual</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-lg-3 col-md-3">
-                         <div class="single-services-item">
-                             <div class="services-icon">
-                                 <i class="pe-7s-sun"></i>
-                             </div>
-                             <h3>Por día</h3>
-                             <p>0</p>
-                             <div class="services-btn-link">
-                                 <a href="#0" class="services-link">Actual</a>
-                             </div>
-                         </div>
-                     </div>
-                     <div class="col-lg-3 col-md-3">
-                         <div class="single-services-item">
-                             <div class="services-icon">
-                                 <i class="pe-7s-date"></i>
-                             </div>
-                             <h3>Por mes</h3>
-                             <p>0</p>
-                             <div class="services-btn-link">
-                                 <a href="#" class="services-link">Actual</a>
-                             </div>
+                 <div class="row mt-2">
+                     <div class="col-12">
+                         <div class="table-responsive">
+                             <table class="table table-condensed table-bordered table-hover mb-none tabla-administracion m-0">
+                                 <thead class="title-bg-color">
+                                 <tr>
+                                     <th>Id</th>
+                                     <th>Fecha</th>
+                                     <th>Entrega</th>
+                                     <th>Prioridad</th>
+                                     <th>Descripcion</th>
+                                     <th>Caso</th>
+                                     <th title="Estado ejecucion">EJE</th>
+                                     <th title="Estado terminado">TER</th>
+                                     <th title="Estado verificado">VER</th>
+                                     <th title="Estado devolucion">DEV</th>
+                                 </tr>
+                                 </thead>
+                                 <tbody>
+                                 {% for arTarea in arTareas %}
+                                     <tr>
+                                         <td>{{ arTarea.codigoTareaPk }}</td>
+                                         <td>{{ arTarea.fecha | date('Y-m-d H:i') }}</td>
+                                         <td>{{ arTarea.fechaEntrega ? arTarea.fechaEntrega | date('Y-m-d H:i') : '' }}</td>
+                                         <td>{{ arTarea.codigoPrioridadFk }}</td>
+                                         <td>{{ arTarea.descripcion }}</td>
+                                         <td>{{ arTarea.codigoCasoFk }}</td>
+                                         <td class="text-center">{{ arTarea.estadoEjecucion ? 'SI':'NO' }}</td>
+                                         <td class="text-center">{{ arTarea.estadoTerminado ? 'SI':'NO' }}</td>
+                                         <td class="text-center">{{ arTarea.estadoVerificado ? 'I':'NO' }}</td>
+                                         <td {% if arTarea.estadoDevolucion %}class="danger" {% endif %}>{{ arTarea.estadoDevolucion ? 'SI':'NO' }}</td>
+                                     </tr>
+                                 {% endfor %}
+                                 </tbody>
+                             </table>
                          </div>
                      </div>
                  </div>
@@ -60,7 +47,7 @@
                      <div class="col-12">
                          <div class="card">
                              <div class="card-header title-bg-color">
-                                 <h5>Filtros</h5>
+                                 <h5>Errores por cliente</h5>
                              </div>
                              <div class="card-body p-0">
                                  <table class="table table-striped tabla-administracion mb-none ">

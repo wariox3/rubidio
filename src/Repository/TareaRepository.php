@@ -116,6 +116,31 @@ class TareaRepository extends ServiceEntityRepository
         return $queryBuilder;
     }
 
+    public function listaInicio($codigoUsuario)
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Tarea::class, 't')
+            ->select('t.codigoTareaPk')
+            ->addSelect('t.fecha')
+            ->addSelect('t.codigoUsuarioFk')
+            ->addSelect('t.codigoPrioridadFk')
+            ->addSelect('t.codigoCasoFk')
+            ->addSelect('t.descripcion')
+            ->addSelect('t.estadoEjecucion')
+            ->addSelect('t.estadoTerminado')
+            ->addSelect('t.estadoVerificado')
+            ->addSelect('t.estadoDevolucion')
+            ->addSelect('t.fechaEntrega')
+            ->addSelect('p.nombre as proyectoNombre')
+            ->leftJoin('t.proyectoRel', 'p')
+            ->orderBy('t.fecha', 'DESC')
+            ->where("t.codigoUsuarioFk = '{$codigoUsuario}'")
+            ->andWhere('t.estadoTerminado = 0')
+            ->setMaxResults(10);
+        $arTareas = $queryBuilder->getQuery()->getResult();
+        return $arTareas;
+    }
+
     public function caso($codigoCaso)
     {
         $session = new Session();

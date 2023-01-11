@@ -15,6 +15,7 @@ class ImplementacionDetalleType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
             ->add('fechaCompromiso', DateTimeType::class, ['widget' => 'single_text', 'required' => false])
+            ->add('fechaCapacitacion', DateTimeType::class, ['widget' => 'single_text', 'required' => false])
             ->add('estadoInicio', CheckboxType::class, ['required' => false])
             ->add('estadoTerminado', CheckboxType::class, ['required' => false])
             ->add('estadoCapacitado', CheckboxType::class, ['required' => false])

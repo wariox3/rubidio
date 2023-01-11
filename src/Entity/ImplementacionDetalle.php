@@ -91,6 +91,11 @@ class ImplementacionDetalle
     private $responsable;
 
     /**
+     * @ORM\Column(name="fecha_capacitacion", type="datetime", nullable=true)
+     */
+    private $fechaCapacitacion;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Implementacion", inversedBy="implementacionesDetallesImplementacionRel")
      * @ORM\JoinColumn(name="codigo_implementacion_fk", referencedColumnName="codigo_implementacion_pk")
      */
@@ -512,6 +517,22 @@ class ImplementacionDetalle
     public function setRequisito(bool $requisito): void
     {
         $this->requisito = $requisito;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaCapacitacion()
+    {
+        return $this->fechaCapacitacion;
+    }
+
+    /**
+     * @param mixed $fechaCapacitacion
+     */
+    public function setFechaCapacitacion($fechaCapacitacion): void
+    {
+        $this->fechaCapacitacion = $fechaCapacitacion;
     }
 
 

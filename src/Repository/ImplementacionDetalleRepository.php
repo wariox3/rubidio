@@ -91,6 +91,7 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
         $queryBuilder = $this->getEntityManager()->createQueryBuilder()->from(ImplementacionDetalle::class, 'id')
             ->select('id.codigoImplementacionDetallePk')
             ->addSelect('id.fechaCompromiso')
+            ->addSelect('id.fechaCapacitacion')
             ->addSelect('id.codigoRequisitoFk')
             ->addSelect('id.codigoModuloFk')
             ->addSelect('id.codigoRequisitoFk')

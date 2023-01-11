@@ -94,7 +94,7 @@
                                     <th>Comentario</th>
                                     <th>Com_Implementador</th>
                                     <th title="Capacitado">CAP</th>
-                                    <th>TER</th>
+                                    <th title="Terminado">TER</th>
                                     <th></th>
                                     <th></th>
                                     <th class="text-center" title="seleccionar todos"><input type="checkbox"
@@ -116,8 +116,8 @@
                                         <td>{{ arImplementacionDetalle.responsable }}</td>
                                         <td>{{ arImplementacionDetalle.comentario }}</td>
                                         <td>{{ arImplementacionDetalle.comentarioImplementador }}</td>
-                                        <td  class="text-center">{{ arImplementacionDetalle.estadoCapacitado?'SI':'NO' }}</td>
-                                        <td>{{ arImplementacionDetalle.estadoTerminado?'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arImplementacionDetalle.estadoCapacitado?arImplementacionDetalle.fechaCapacitacion?arImplementacionDetalle.fechaCapacitacion | date('Y-m-d H:i'):'SI':'NO' }}</td>
+                                        <td class="text-center">{{ arImplementacionDetalle.estadoTerminado?'SI':'NO' }}</td>
                                         <td class="text-center">
                                             <a href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo', { 'id': arImplementacionDetalle.codigoImplementacionDetallePk }) }}', 'Nuevo', 600, 1200)">
                                                 <i class="fas fa-pen fa-2x"></i>

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Articulo;
 use App\Entity\Caso;
 use App\Entity\Error;
+use App\Entity\Tarea;
 use App\Entity\Usuario;
 use App\Utilidades\Dubnio;
 use App\Utilidades\Mensajes;
@@ -37,15 +38,14 @@ class InicioController extends AbstractController
     {
         $em = $this->getDoctrine();
         $roles = $this->getUser()->getRoles();
-        $casoSinAtender = 0;
         $arErrores = [];
         if (in_array('ROLE_SOPORTE', $roles) || in_array('ROLE_ADMIN', $roles)) {
-            $casoSinAtender = 0;
             $arErrores = $em->getRepository(Error::class)->resumenErrores();
         }
+        $arTareasPendientes = $em->getRepository(Tarea::class)->listaInicio($this->getUser()->getCodigoUsuarioPk());
         return $this->render('Inicio/admin.html.twig', [
-            'casoSinAtender' => $casoSinAtender,
-            'arErrores' => $arErrores
+            'arErrores' => $arErrores,
+            'arTareas' => $arTareasPendientes
         ]);
     }
 
