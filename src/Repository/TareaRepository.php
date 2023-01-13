@@ -42,6 +42,17 @@ class TareaRepository extends ServiceEntityRepository
         if ($session->get('filtroTareaCodigoProyecto')) {
             $queryBuilder->andWhere('t.codigoProyectoFk=' . $session->get('filtroTareaCodigoProyecto'));
         }
+
+        if ($session->get('filtroTareaCodigoUsuario')) {
+            $queryBuilder->andWhere("t.codigoUsuarioFk=  '{$session->get('filtroTareaCodigoUsuario')}'");
+        }
+
+        if ($session->get('filtroCodigoTarea')) {
+            $queryBuilder->andWhere('t.codigoTareaPk=' . $session->get('filtroCodigoTarea'));
+        }
+
+
+
         switch ($session->get('filtroTareaEstadoEjecucion')) {
             case '0':
                 $queryBuilder->andWhere("t.estadoEjecucion = 0");

@@ -23,6 +23,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
@@ -110,6 +111,7 @@ class CasoController extends AbstractController
                 'required' => false,
                 'attr' => ['class' => 'to-select-2'],
             ])
+            ->add('codigoCaso', TextType::class, ['data' => $session->get('filtroCodigoCaso'), 'required' => false])
             ->add('estadoDesarrollo', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoDesarrollo'), 'required' => false])
             ->add('estadoEscalado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoEscalado'), 'required' => false])
             ->add('estadoRespuesta', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroCasoEstadoRespuesta'), 'required' => false])
@@ -119,6 +121,7 @@ class CasoController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('btnFiltrar')->isClicked()) {
+                $session->set('filtroCodigoCaso', $form->get('codigoCaso')->getData());
                 $session->set('filtroCasoEstadoRespuesta', $form->get('estadoRespuesta')->getData());
                 $session->set('filtroCasoEstadoDesarrollo', $form->get('estadoDesarrollo')->getData());
                 $session->set('filtroCasoEstadoEscalado', $form->get('estadoEscalado')->getData());

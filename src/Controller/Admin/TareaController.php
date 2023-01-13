@@ -5,12 +5,15 @@ namespace App\Controller\Admin;
 
 use App\Entity\Caso;
 use App\Entity\Devolucion;
+use App\Entity\Proyecto;
 use App\Entity\Tarea;
+use App\Entity\Usuario;
 use App\Form\Type\DevolucionType;
 use App\Form\Type\TareaType;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -68,12 +71,22 @@ class TareaController extends AbstractController
         $session = new Session();
         $em = $this->getDoctrine()->getManager();
         $arrayPropiedadesProyecto = array(
-            'class' => 'App\Entity\Proyecto',
+            'class' => Proyecto::class,
             'query_builder' => function (EntityRepository $er) {
                 return $er->createQueryBuilder('p')
                     ->orderBy('p.nombre', 'ASC');
             },
             'choice_label' => 'nombre',
+            'required' => false,
+            'placeholder' => "TODOS",
+        );
+        $arrayPropiedadesUsuario = array(
+            'class' => Usuario::class,
+            'query_builder' => function (EntityRepository $er) {
+                return $er->createQueryBuilder('u')
+                    ->orderBy('u.codigoUsuarioPk', 'ASC');
+            },
+            'choice_label' => 'codigoUsuarioPk',
             'required' => false,
             'placeholder' => "TODOS",
         );
@@ -83,6 +96,8 @@ class TareaController extends AbstractController
 
         $form = $this->createFormBuilder()
             ->add('proyectoRel', EntityType::class, $arrayPropiedadesProyecto)
+            ->add('usuarioRel', EntityType::class, $arrayPropiedadesUsuario)
+            ->add('codigoTarea', TextType::class, ['data' => $session->get('filtroCodigoTarea'), 'required' => false])
             ->add('estadoEjecucion', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroTareaEstadoEjecucion'), 'required' => false])
             ->add('estadoTerminado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroTareaEstadoTerminado'), 'required' => false])
             ->add('estadoVerificado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroTareaEstadoVerificado'), 'required' => false])
@@ -98,6 +113,13 @@ class TareaController extends AbstractController
                 } else {
                     $session->set('filtroTareaCodigoProyecto', null);
                 }
+                $arUsuario = $form->get('usuarioRel')->getData();
+                if ($arUsuario) {
+                    $session->set('filtroTareaCodigoUsuario', $arUsuario->getCodigoUsuarioPk());
+                } else {
+                    $session->set('filtroTareaCodigoUsuario', null);
+                }
+                $session->set('filtroCodigoTarea', $form->get('codigoTarea')->getData());
                 $session->set('filtroTareaEstadoEjecucion', $form->get('estadoEjecucion')->getData());
                 $session->set('filtroTareaEstadoTerminado', $form->get('estadoTerminado')->getData());
                 $session->set('filtroTareaEstadoVerificado', $form->get('estadoVerificado')->getData());
