@@ -17,6 +17,7 @@ use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,7 +30,7 @@ class ImplementacionController extends AbstractController
     /**
      * @Route("/operacion/implementacion/lista", name="operacion_implementacion_lista")
      */
-    public function lista(Request $request,  PaginatorInterface $paginator)
+    public function lista(Request $request, PaginatorInterface $paginator)
     {
         $em = $this->getDoctrine()->getManager();
         $session = new Session();
@@ -58,7 +59,7 @@ class ImplementacionController extends AbstractController
                 if ($arrSeleccionados) {
                     foreach ($arrSeleccionados as $codigo) {
                         $arImplementacionDetalles = $em->getRepository(ImplementacionDetalle::class)->findBy(['codigoImplementacionFk' => $codigo]);
-                        if(!$arImplementacionDetalles) {
+                        if (!$arImplementacionDetalles) {
                             $arImplementacion = $em->getRepository(Implementacion::class)->find($codigo);
                             if ($arImplementacion) {
                                 $em->remove($arImplementacion);
@@ -115,7 +116,7 @@ class ImplementacionController extends AbstractController
     }
 
     /**
-         * @Route("/operacion/implementacion/detalle/{id}", name="operacion_implementacion_detalle")
+     * @Route("/operacion/implementacion/detalle/{id}", name="operacion_implementacion_detalle")
      */
     public function detalle(Request $request, $id)
     {
@@ -148,7 +149,7 @@ class ImplementacionController extends AbstractController
             ->add('btnEliminar', SubmitType::class, $arrBtnEliminar)
             ->getForm();
         $raw = [];
-        if(!$raw) {
+        if (!$raw) {
             $raw['filtros']['estadoTerminado'] = 0;
         }
         $form->handleRequest($request);
@@ -272,6 +273,7 @@ class ImplementacionController extends AbstractController
                 'placeholder' => "TODOS",
 
             ))
+            ->add('codigoFuncionFk', TextType::class, ['label' => 'Funcion', 'required' => false])
             ->add('btnFiltrar', SubmitType::class, ['label' => 'Filtrar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->add('btnGuardar', SubmitType::class, array('label' => 'Guardar'))
             ->getForm();
@@ -302,8 +304,10 @@ class ImplementacionController extends AbstractController
         ]);
     }
 
-    public function filtros($form) {
+    public function filtros($form)
+    {
         $filtro = [
+            'codigoFuncionFk' => $form->get('codigoFuncionFk')->getData(),
         ];
         $arModulo = $form->get('moduloRel')->getData();
 
@@ -316,7 +320,8 @@ class ImplementacionController extends AbstractController
 
     }
 
-    public function filtrosDetalle($form) {
+    public function filtrosDetalle($form)
+    {
         $filtro = [
             'estadoCapacitado' => $form->get('estadoCapacitado')->getData(),
             'estadoTerminado' => $form->get('estadoTerminado')->getData()
