@@ -101,6 +101,7 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
             ->addSelect('id.estadoTerminado')
             ->addSelect('id.estadoCapacitado')
             ->addSelect('id.responsable')
+            ->addSelect('fu.codigoFuncionFk')
             ->addSelect('re.nombre as requisitoNombre')
             ->addSelect('fu.nombre as funcionalidadNombre')
             ->leftJoin('id.requisitoRel', 're')
