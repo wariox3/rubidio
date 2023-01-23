@@ -229,7 +229,7 @@ class ImplementacionController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('btnFiltrar')->isClicked()) {
-                $raw['filtros'] = $this->filtros($form);
+                $raw['filtros'] = $this->filtroRequisito($form);
             }
             if ($form->get('btnGuardar')->isClicked()) {
                 $arrSeleccionados = $request->request->get('ChkSeleccionar');
@@ -308,6 +308,21 @@ class ImplementacionController extends AbstractController
     {
         $filtro = [
             'codigoFuncionFk' => $form->get('codigoFuncionFk')->getData(),
+        ];
+        $arModulo = $form->get('moduloRel')->getData();
+
+        if ($arModulo) {
+            $filtro['codigoModulo'] = $arModulo->getCodigoModuloPk();
+        } else {
+            $filtro['codigoModulo'] = null;
+        }
+        return $filtro;
+
+    }
+
+    public function filtroRequisito($form)
+    {
+        $filtro = [
         ];
         $arModulo = $form->get('moduloRel')->getData();
 
