@@ -1,6 +1,5 @@
 {% extends 'baseOscura.html.twig' %}
 {% block content %}
-
     <!-- Start Page Title Area -->
     <div class="page-title-area">
         <div class="d-table">
@@ -69,39 +68,41 @@
                 <div class="col-lg-8 col-md-12">
                     <div class="contact-form contact-form-3">
                         <p class="form-message"></p>
-                        {{ form_start(form, { 'attr': {'class': 'form'} }) }}
-                            {{ form_errors(form) }}
-                            <div class="row">
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        {{ form_widget(form.nombre, { 'attr': {'placeholder': 'Su nombre'} }) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        {{ form_widget(form.correo, { 'attr': {'placeholder': 'Correo'} }) }}
-                                        {{ form_errors(form.correo) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        {{ form_widget(form.telefono, { 'attr': {'placeholder': 'Telefono'} }) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-12">
-                                    <div class="form-group">
-                                        {{ form_widget(form.empresa, { 'attr': {'placeholder': 'Empresa'} }) }}
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-md-12">
-                                    <div class="form-group">
-                                        {{ form_widget(form.descripcion, { 'attr': {'placeholder': 'Su pregunta', 'cols':30, 'rows':6} }) }}
-                                    </div>
+                        {{ form_start(form, { 'attr': {'class': 'form', 'id': "form_contacto"} }) }}
+                        {{ form_errors(form) }}
+                        <div class="row">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.nombre, { 'attr': {'placeholder': 'Su nombre'} }) }}
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.correo, { 'attr': {'placeholder': 'Correo'} }) }}
+                                    {{ form_errors(form.correo) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.telefono, { 'attr': {'placeholder': 'Telefono'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.empresa, { 'attr': {'placeholder': 'Empresa'} }) }}
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    {{ form_widget(form.descripcion, { 'attr': {'placeholder': 'Su pregunta', 'cols':30, 'rows':6} }) }}
+                                </div>
+                            </div>
+                        </div>
                         <div class="d-flex align-content-center ">
                             {{ form_widget(form.guardar, { 'attr': {'class': 'btnCustom'} }) }}
                         </div>
+                        <input type="hidden" id="token" name="token">
+                        <input type="hidden" name="action" value="registro">
                         {{ form_end(form) }}
                     </div>
                 </div>
@@ -109,5 +110,13 @@
         </div>
     </div>
     <!-- End Contact Section -->
-
+{% endblock %}
+{% block javascriptsPersonales %}
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('6LfZKSkkAAAAAEoKE-2kO5ZmDMdYNeIto13-JXbf', {action: 'registro'}).then(function (token) {
+                document.querySelector("#token").value = token;
+            });
+        });
+    </script>
 {% endblock %}
