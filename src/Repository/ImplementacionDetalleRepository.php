@@ -109,8 +109,7 @@ class ImplementacionDetalleRepository extends ServiceEntityRepository
             ->leftJoin('id.moduloRel', 'mod')
             ->where("id.codigoImplementacionFk = {$codigoImplementacion}")
             ->orderBy('id.requisito', 'DESC')
-            ->addOrderBy('mod.orden', 'ASC')
-            ->addOrderBy('re.orden', 'ASC');
+        ->addOrderBy('id.codigoModuloFk', 'ASC');
         switch ($estadoCapacitado) {
             case '0':
                 $queryBuilder->andWhere("id.estadoCapacitado = 0");
