@@ -322,7 +322,7 @@ class CasoController extends AbstractController
                     $arrMensajes[] = [
                         "numero" => $arCaso->getTelefono(),
                         "soporte" => $arCaso->getCodigoCasoPk(),
-                        "mensaje" => "Semántica Digital, uno de nuestros agentes le a dado respuesta a su caso: {$arCaso->getCodigoCasoPk()}, consulte la mesa de ayuda para verificar la respuesta",
+                        "mensaje" => "Semántica Digital, uno de nuestros agentes le ha dado respuesta a su caso: {$arCaso->getCodigoCasoPk()}, consulte la mesa de ayuda para verificar la respuesta",
                         "modelo" => "Soporte",
                         "codigoDocumento" => $arCaso->getCodigoCasoPk()
                     ];
