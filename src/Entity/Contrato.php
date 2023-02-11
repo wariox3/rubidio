@@ -31,6 +31,16 @@ class Contrato
     private $codigoContactoRepresentanteFk;
 
     /**
+     * @ORM\Column(name="codigo_contrato_tipo_fk", type="string", length=3, nullable=true)
+     */
+    private $codigoContratoTipoFk;
+
+    /**
+     * @ORM\Column(name="codigo_modalidad_fk", type="string", length=20, nullable=true)
+     */
+    private $codigoModalidadFk;
+
+    /**
      * @ORM\Column(name="fecha_inicio", type="date", nullable=true)
      */
     private $fechaInicio;
@@ -91,6 +101,11 @@ class Contrato
     private $objetoImplementacion;
 
     /**
+     * @ORM\Column(name="implementacion", type="boolean", nullable=true, options={"default" : false})
+     */
+    private $implementacion = false;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Cliente", inversedBy="contratosClienteRel")
      * @ORM\JoinColumn(name="codigo_cliente_fk", referencedColumnName="codigo_cliente_pk")
      */
@@ -101,6 +116,23 @@ class Contrato
      * @ORM\JoinColumn(name="codigo_contacto_representante_fk", referencedColumnName="codigo_contacto_pk")
      */
     private $contactoRepresentanteRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ContratoTipo", inversedBy="contratosContratoTipoRel")
+     * @ORM\JoinColumn(name="codigo_contrato_tipo_fk", referencedColumnName="codigo_contrato_tipo_pk")
+     */
+    private $contratoTipoRel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Modalidad", inversedBy="contratosModalidadRel")
+     * @ORM\JoinColumn(name="codigo_modalidad_fk", referencedColumnName="codigo_modalidad_pk")
+     */
+    private $modalidadRel;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoModulo", mappedBy="contratoRel")
+     */
+    protected $contratosModulosContratoRel;
 
     /**
      * @return mixed
@@ -372,6 +404,102 @@ class Contrato
     public function setObjetoImplementacion($objetoImplementacion): void
     {
         $this->objetoImplementacion = $objetoImplementacion;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isImplementacion(): bool
+    {
+        return $this->implementacion;
+    }
+
+    /**
+     * @param bool $implementacion
+     */
+    public function setImplementacion(bool $implementacion): void
+    {
+        $this->implementacion = $implementacion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoContratoTipoFk()
+    {
+        return $this->codigoContratoTipoFk;
+    }
+
+    /**
+     * @param mixed $codigoContratoTipoFk
+     */
+    public function setCodigoContratoTipoFk($codigoContratoTipoFk): void
+    {
+        $this->codigoContratoTipoFk = $codigoContratoTipoFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContratoTipoRel()
+    {
+        return $this->contratoTipoRel;
+    }
+
+    /**
+     * @param mixed $contratoTipoRel
+     */
+    public function setContratoTipoRel($contratoTipoRel): void
+    {
+        $this->contratoTipoRel = $contratoTipoRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContratosModulosContratoRel()
+    {
+        return $this->contratosModulosContratoRel;
+    }
+
+    /**
+     * @param mixed $contratosModulosContratoRel
+     */
+    public function setContratosModulosContratoRel($contratosModulosContratoRel): void
+    {
+        $this->contratosModulosContratoRel = $contratosModulosContratoRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoModalidadFk()
+    {
+        return $this->codigoModalidadFk;
+    }
+
+    /**
+     * @param mixed $codigoModalidadFk
+     */
+    public function setCodigoModalidadFk($codigoModalidadFk): void
+    {
+        $this->codigoModalidadFk = $codigoModalidadFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModalidadRel()
+    {
+        return $this->modalidadRel;
+    }
+
+    /**
+     * @param mixed $modalidadRel
+     */
+    public function setModalidadRel($modalidadRel): void
+    {
+        $this->modalidadRel = $modalidadRel;
     }
 
 

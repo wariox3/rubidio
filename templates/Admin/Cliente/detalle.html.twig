@@ -75,8 +75,12 @@
                                 <div class="my-2">
                                     <div class="d-flex justify-content-end">
                                         <a class="btnCustom"
-                                           href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoClinete': arCliente.codigoClientePk, 'id': 0  }) }}', 'Archivos', 800, 1250)">
-                                            Nuevo
+                                           href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoCliente': arCliente.codigoClientePk, 'tipo':'ARR', 'id': 0  }) }}', 'Archivos', 800, 1250)">
+                                            Nuevo arrendamiento
+                                        </a>
+                                        <a class="btnCustom"
+                                           href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoCliente': arCliente.codigoClientePk, 'tipo':'IMP', 'id': 0  }) }}', 'Archivos', 800, 1250)">
+                                            Nuevo implementacion
                                         </a>
                                     </div>
                                 </div>
@@ -86,10 +90,12 @@
                                             <thead>
                                             <tr>
                                                 <th>Id</th>
+                                                <th>Tipo</th>
                                                 <th>F_Inicio</th>
                                                 <th>Numero</th>
                                                 <th>N_Oferta</th>
                                                 <th>Representante</th>
+                                                <th>Modalidad</th>
                                                 <th>Imple</th>
                                                 <th>Arren</th>
                                                 <th>Elec</th>
@@ -98,7 +104,6 @@
                                                 <th>USU</th>
                                                 <th>EMP</th>
                                                 <th>GUI</th>
-                                                <th>IMP</th>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
@@ -108,10 +113,12 @@
                                             {% for arContrato in arContratos %}
                                                 <tr>
                                                     <td>{{ arContrato.codigoContratoPk }}</td>
+                                                    <td>{{ arContrato.contratoTipoNombre }}</td>
                                                     <td>{{ arContrato.fechaInicio | date('Y-m-d') }}</td>
                                                     <td>{{ arContrato.numero }}</td>
                                                     <td>{{ arContrato.numeroOferta }}</td>
                                                     <td>{{ arContrato.contactoRepresentanteNombre }}</td>
+                                                    <td>{{ arContrato.modalidadNombre }}</td>
                                                     <td>{{ arContrato.vrImplementacion | number_format }}</td>
                                                     <td>{{ arContrato.vrArrendamiento | number_format }}</td>
                                                     <td>{{ arContrato.vrElectronico | number_format }}</td>
@@ -120,12 +127,11 @@
                                                     <td>{{ arContrato.numeroUsuarios | number_format }}</td>
                                                     <td>{{ arContrato.numeroEmpleados | number_format }}</td>
                                                     <td>{{ arContrato.numeroGuias | number_format }}</td>
-                                                    <td>{{ arContrato.objetoImplementacion }}</td>
                                                     <td>
                                                         <button type="submit" name="OpImprimir" value="{{ arContrato.codigoContratoPk }}">Imprimir</button>
                                                     </td>
                                                     <td class="text-center">
-                                                        <a href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoClinete': arCliente.codigoClientePk, 'id': arContrato.codigoContratoPk  }) }}', 'Archivos', 800, 1250)">
+                                                        <a href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoCliente': arCliente.codigoClientePk, 'tipo': arContrato.codigoContratoTipoFk, 'id': arContrato.codigoContratoPk  }) }}', 'Archivos', 800, 1250)">
                                                             <i class="fa fa-edit fa-2x"></i>
                                                         </a>
                                                     </td>

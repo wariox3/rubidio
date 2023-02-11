@@ -64,6 +64,11 @@ class Modulo
     protected $implementacionesDetallesModuloRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContratoModulo", mappedBy="moduloRel")
+     */
+    protected $contratosModulosModuloRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoModuloPk()
@@ -221,6 +226,22 @@ class Modulo
     public function setOrden(int $orden): void
     {
         $this->orden = $orden;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContratosModulosModuloRel()
+    {
+        return $this->contratosModulosModuloRel;
+    }
+
+    /**
+     * @param mixed $contratosModulosModuloRel
+     */
+    public function setContratosModulosModuloRel($contratosModulosModuloRel): void
+    {
+        $this->contratosModulosModuloRel = $contratosModulosModuloRel;
     }
 
 

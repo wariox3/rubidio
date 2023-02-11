@@ -31,8 +31,13 @@ class ContratoRepository extends ServiceEntityRepository
             ->addSelect('c.numeroElectronicos')
             ->addSelect('c.fechaInicio')
             ->addSelect('c.objetoImplementacion')
+            ->addSelect('c.codigoContratoTipoFk')
             ->addSelect('cr.nombre as contactoRepresentanteNombre')
+            ->addSelect('ct.nombre as contratoTipoNombre')
+            ->addSelect('mod.nombre as modalidadNombre')
             ->leftJoin('c.contactoRepresentanteRel', 'cr')
+            ->leftJoin('c.contratoTipoRel', 'ct')
+            ->leftJoin('c.modalidadRel', 'mod')
             ->where("c.codigoClienteFk = {$codigoCliente}");
         $arrContratos = $queryBuilder->getQuery()->getResult();
         return $arrContratos;
@@ -55,6 +60,7 @@ class ContratoRepository extends ServiceEntityRepository
             ->addSelect('c.numeroEmpleados')
             ->addSelect('c.fechaInicio')
             ->addSelect('c.objetoImplementacion')
+            ->addSelect('c.codigoContratoTipoFk')
             ->addSelect('cr.nombre as representanteNombre')
             ->addSelect('cr.codigoIdentificacionFk as representanteCodigoIdentificacionFk')
             ->addSelect('cr.numeroIdentificacion as representanteNumeroIdentificacion')
@@ -64,10 +70,12 @@ class ContratoRepository extends ServiceEntityRepository
             ->addSelect('cli.nombreExtendido as clienteNombreExtendido')
             ->addSelect('cli.nit as clienteNit')
             ->addSelect('cli.digitoVerificacion as clienteDigitoVerificacion')
+            ->addSelect('mod.nombre as modalidadNombre')
             ->leftJoin('c.contactoRepresentanteRel', 'cr')
             ->leftJoin('cr.ciudadRel', 'crc')
             ->leftJoin('cr.ciudadIdentificacionRel', 'crci')
             ->leftJoin('c.clienteRel', 'cli')
+            ->leftJoin('c.modalidadRel', 'mod')
             ->where("c.codigoContratoPk = {$codigoContrato}");
         $arContratos = $queryBuilder->getQuery()->getResult();
         if($arContratos) {

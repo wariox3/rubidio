@@ -2,6 +2,9 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\ContratoModulo;
+use App\Entity\ContratoTipo;
+use App\Form\Type\ContratoImplementacionType;
 use App\Formatos\FormatoContrato2;
 use App\Entity\Cliente;
 use App\Entity\Contacto;
@@ -86,11 +89,20 @@ class ClienteController extends AbstractController
             if ($request->request->get('OpImprimir')) {
                 $codigo = $request->request->get('OpImprimir');
                 $arContratoImprimir = $em->getRepository(Contrato::class)->imprimir($codigo);
-
                 if($arContratoImprimir) {
-                    $html = $this->renderView('Admin/Cliente/formatoContrato.html.twig', ['arContrato' => $arContratoImprimir]);
-                    $domPdf = new DomPdf();
-                    $domPdf->generarPdf($html, "contrato{$codigo}");
+                    if($arContratoImprimir['codigoContratoTipoFk'] == "ARR") {
+                        $html = $this->renderView('Admin/Cliente/formatoContrato.html.twig', ['arContrato' => $arContratoImprimir]);
+                        $domPdf = new DomPdf();
+                        $domPdf->generarPdf($html, "contrato{$codigo}");
+                    } else {
+                        $arrContratosModulos = $em->getRepository(ContratoModulo::class)->contratoImprimir($codigo);
+                        $html = $this->renderView('Admin/Cliente/formatoContratoImplementacion.html.twig', [
+                            'arContrato' => $arContratoImprimir,
+                            'arrContratosModulos' => $arrContratosModulos]);
+                        $domPdf = new DomPdf();
+                        $domPdf->generarPdf($html, "contrato{$codigo}");
+                    }
+
                 }
             }
         }
@@ -133,18 +145,24 @@ class ClienteController extends AbstractController
     }
 
     /**
-     * @Route("/admin/cliente/contrato/nuevo/{codigoClinete}/{id}", name="admin_cliente_contrato_nuevo")
+     * @Route("/admin/cliente/contrato/nuevo/{codigoCliente}/{tipo}/{id}", name="admin_cliente_contrato_nuevo")
      */
-    public function contratoNuevo(Request $request, $codigoClinete, $id)
+    public function contratoNuevo(Request $request, $codigoCliente, $tipo, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $arContrato = $em->getRepository(Contrato::class)->find($id);
-        $arCliente = $em->getRepository(Cliente::class)->find($codigoClinete);
         if ($arContrato == null) {
+            $arContratoTipo = $em->getRepository(ContratoTipo::class)->find($tipo);
+            $arCliente = $em->getRepository(Cliente::class)->find($codigoCliente);
             $arContrato = new Contrato();
             $arContrato->setClienteRel($arCliente);
+            $arContrato->setContratoTipoRel($arContratoTipo);
         }
-        $form = $this->createForm(ContratoType::class, $arContrato);
+        if($tipo == "ARR") {
+            $form = $this->createForm(ContratoType::class, $arContrato);
+        } else {
+            $form = $this->createForm(ContratoImplementacionType::class, $arContrato);
+        }
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('guardar')->isClicked()) {
@@ -154,10 +172,18 @@ class ClienteController extends AbstractController
                 echo "<script type='text/javascript'>window.close();window.opener.location.reload();</script>";
             }
         }
-        return $this->render('Admin/Cliente/contratoNuevo.html.twig', [
-            'arContrato' => $arContrato,
-            'form' => $form->createView()
-        ]);
+        if($tipo == "ARR") {
+            return $this->render('Admin/Cliente/contratoNuevo.html.twig', [
+                'arContrato' => $arContrato,
+                'form' => $form->createView()
+            ]);
+        } else {
+            return $this->render('Admin/Cliente/contratoNuevoImplementacion.html.twig', [
+                'arContrato' => $arContrato,
+                'form' => $form->createView()
+            ]);
+        }
+
     }
 
 }

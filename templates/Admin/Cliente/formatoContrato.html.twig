@@ -90,12 +90,10 @@
         <li>Facturación y ventas</li>
         <li>CRM</li>
         <li>Cartera y tesorería</li>
+        <li>Logistica de transporte</li>
+        <li>Programacion de turnos</li>
     </ul>
-    <p>El LICENCIATARIO declara conocer y aceptar los contenidos y funciones del software descrito.</p>
-    {% if arContrato.vrImplementacion > 0 %}
-    <p>El LICENCIATARIO declara conocer y estar en la capacidad de diligenciar los requisitos de información
-        para el proceso de implementación.</p>
-    {% endif %}
+    <p>El LICENCIATARIO declara conocer y aceptar los contenidos y funcionalidades del software descrito.</p>
     <p><b>CLÁUSULA TERCERA: CONDICIONES GENERALES DEL SERVICIO.</b> Los servicios se prestarán en los siguientes
         términos y condiciones generales:</p>
     <ul>
@@ -106,7 +104,7 @@
             personales a otra finalidad, los comuniquen a un tercero, o en general, los utilicen de forma irregular.
         </li>
         <li>EL LICENCIANTE deberá adoptar las medidas de índole técnicas y organizativas necesarias que garanticen la
-            seguridad de los datos de carácter personal y eviten su alteración, pérdida, tratamiento o acceso }
+            seguridad de los datos de carácter personal y eviten su alteración, pérdida, tratamiento o acceso
             no autorizado, habida cuenta del estado de la tecnología, la naturaleza de los datos almacenados
             o del medio físico o natural. A estos efectos EL LICENCIANTE deberá aplicar los niveles de
             seguridad de acuerdo a la naturaleza de los datos que trate.
@@ -123,19 +121,13 @@
         <li>Adecuación de nuevos cambios y métodos que permitan tener un mejor proceso en el desempeño del producto
             “SEMÁNTICA ERP”.
         </li>
-        <li>Disponer infraestructura informatica adecuada para el uso ágil del software.</li>
+        <li>Disponer infraestructura informatica adecuada para el uso del software.</li>
         <li>Realizar copias de seguridad "completas" cada 24 horas para proteger los datos ante cualquier contingencia,
             las cuales quedaran en los servidores de EL LICENCIANTE y no afectaran la cuota de espacio de almacenamiento.
             Estas copias tendrán una vigencia de almacenamiento de 12 meses</li>
         <li>Proteger de accesos NO AUTORIZADOS o eventos de hacking el software.</li>
         <li>EL LICENCIANTE dispondrá de mecanismos desde el mismo software para extraer la información de las bases de
         datos</li>
-        {% if arContrato.vrImplementacion > 0 %}
-            <li>EL LICENCIANTE asignará personal encargado de implementar {{ arContrato.objetoImplementacion }}. Proceso
-                que incluye capacitación certificada por acuse de recibo y aprobación del cliente, asesoría,
-                consultoría y orientación; la cual puede ser virtual o presencial según la necesidad,
-                hasta que la funcionalidad inicie la fase de producción.</li>
-        {% endif %}
     </ul>
 
     <p><b>CLÁUSULA QUINTA: LIMITACIONES DEL SERVICIO.</b> EL LICENCIATARIO declara conocer y aceptar
@@ -185,12 +177,6 @@
             que pueda sufrir el LICENCIATARIO como consecuencia directa o indirecta del uso inadecuado que se haga del
             software.
         </li>
-        {% if arContrato.vrImplementacion > 0 %}
-            <li>Disponer del personal idóneo y calificado para recibir las capacitaciones, asesorías y consultorías
-                para el proceso de implementación.
-            </li>
-            <li>Tener los medios de información para cumplir con los requisitos de implementación</li>
-        {% endif %}
     </ul>
 
     <p><b>CLÁUSULA NOVENA: CESIÓN.</b> Dado que el presente contrato lo celebra el LICENCIATARIO en consideración a las
@@ -270,10 +256,6 @@
             mensualmente {{ arContrato.valorLetrasElectronicoUnidad }}
             (${{ arContrato.vrElectronicoUnidad | number_format }}) más impuestos de ley por cada documento electrónico
             transmitido a la DIAN (Factura Electronica, Nómina Electronica, Documento Soporte, Evento Acuse Recibo),
-        {% endif %}
-        {% if arContrato.vrImplementacion > 0 %}
-            un solo pago de {{ arContrato.valorLetrasImplementacion }}
-            (${{ arContrato.vrImplementacion | number_format }}) más impuestos de ley por concepto de implementación,
         {% endif %}
         los cuales se empiezan a facturar en la fecha de inicio del contrato.</p>
 
