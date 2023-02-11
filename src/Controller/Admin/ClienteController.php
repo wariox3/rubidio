@@ -93,14 +93,14 @@ class ClienteController extends AbstractController
                     if($arContratoImprimir['codigoContratoTipoFk'] == "ARR") {
                         $html = $this->renderView('Admin/Cliente/formatoContrato.html.twig', ['arContrato' => $arContratoImprimir]);
                         $domPdf = new DomPdf();
-                        $domPdf->generarPdf($html, "contrato{$codigo}");
+                        $domPdf->generarPdf($html, "contratoArrendamiento{$codigo}");
                     } else {
                         $arrContratosModulos = $em->getRepository(ContratoModulo::class)->contratoImprimir($codigo);
                         $html = $this->renderView('Admin/Cliente/formatoContratoImplementacion.html.twig', [
                             'arContrato' => $arContratoImprimir,
                             'arrContratosModulos' => $arrContratosModulos]);
                         $domPdf = new DomPdf();
-                        $domPdf->generarPdf($html, "contrato{$codigo}");
+                        $domPdf->generarPdf($html, "contratoImplementacion{$codigo}");
                     }
 
                 }
