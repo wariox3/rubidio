@@ -86,8 +86,8 @@
     </ul>
     <p>{{ cliente }} declara tener una licencia activa y vigente concedida directamente por la casa fabricante o algún canal
         de distribución del software "Semántica ERP".</p>
-    <p>{{ cliente }} declara tener el personal con conocimientos y conceptos de los procesos administrativos de las características a implementar.</p>
-    <p>{{ cliente }} declara conocer los requisitos técnicos de bases de datos maestras y configuración.</p>
+    <p>{{ cliente }} declara tener personal con conocimientos y conceptos de los procesos administrativos de las características a implementar.</p>
+    <p>{{ cliente }} declara conocer la información de bases de datos maestras y configuración requerida por el software.</p>
 
     <p><b>CLÁUSULA TERCERA: CONDICIONES GENERALES DEL SERVICIO.</b> Los servicios se prestarán en los siguientes
         términos y condiciones generales:</p>
@@ -134,7 +134,7 @@
         </li>
         <li>Garantizar la información de bases de datos maestras y configuración para cumplir con los requisitos de implementación.</li>
         <li>Cubrir los gastos de desplazamiento para cualquier session en las oficinas o sucursales
-        fuera del area metropolitana de Medellin - Antioquia - Colombia</li>
+        fuera del área metropolitana de Medellin - Antioquia - Colombia</li>
     </ul>
 
     <p><b>CLÁUSULA SÉPTIMA: CLAUSULA DE CONFIDENCIALIDAD.</b> {{ proveedor }} se obliga a no divulgar, entregar y/o hacer
@@ -179,6 +179,13 @@
         </li>
         <li><b>PARÁGRAFO TERCERO:</b> La oferta comercial {{ arContrato.numeroOferta }} hace parte integral del contrato
             y tiene efecto sobre la forma de pago.
+        </li>
+        <li><b>PARÁGRAFO CUARTO:</b>
+            {% if arContrato.formaPago != '' %}
+                La forma de pago será: {{ arContrato.formaPago }}
+            {% else %}
+                La forma de pago será de contado con la firma del contrato.
+            {% endif %}
         </li>
     </ul>
 

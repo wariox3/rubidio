@@ -61,6 +61,7 @@ class ContratoRepository extends ServiceEntityRepository
             ->addSelect('c.fechaInicio')
             ->addSelect('c.objetoImplementacion')
             ->addSelect('c.codigoContratoTipoFk')
+            ->addSelect('c.formaPago')
             ->addSelect('cr.nombre as representanteNombre')
             ->addSelect('cr.codigoIdentificacionFk as representanteCodigoIdentificacionFk')
             ->addSelect('cr.numeroIdentificacion as representanteNumeroIdentificacion')

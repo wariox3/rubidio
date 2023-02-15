@@ -106,6 +106,11 @@ class Contrato
     private $implementacion = false;
 
     /**
+     * @ORM\Column(name="forma_pago", type="string", length=500, nullable=true)
+     */
+    private $formaPago;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Cliente", inversedBy="contratosClienteRel")
      * @ORM\JoinColumn(name="codigo_cliente_fk", referencedColumnName="codigo_cliente_pk")
      */
@@ -500,6 +505,22 @@ class Contrato
     public function setModalidadRel($modalidadRel): void
     {
         $this->modalidadRel = $modalidadRel;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormaPago()
+    {
+        return $this->formaPago;
+    }
+
+    /**
+     * @param mixed $formaPago
+     */
+    public function setFormaPago($formaPago): void
+    {
+        $this->formaPago = $formaPago;
     }
 
 

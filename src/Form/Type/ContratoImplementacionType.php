@@ -11,6 +11,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,6 +47,7 @@ class ContratoImplementacionType extends AbstractType{
             ->add('numero', TextType::class, array('required' => true))
             ->add('numeroOferta', TextType::class, array('required' => false))
             ->add('vrImplementacion', NumberType::class, array('required' => true))
+            ->add('formaPago', TextareaType::class, array('required' => false))
             ->add('guardar', SubmitType::class, array('label' => 'Guardar'));
     }
 
