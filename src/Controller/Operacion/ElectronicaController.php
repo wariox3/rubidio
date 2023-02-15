@@ -216,7 +216,7 @@ class ElectronicaController extends AbstractController
     }
 
     public function listaSuscriptores() {
-        $url = "https://tufactura.co/habilitacion/api/ConValidacionPrevia/SuscriptoresAliado/A7AF0233-946E-42CA-A42F-7B6574B9A8D8";
+        $url = "https://apps.kiai.co/api/ConValidacionPrevia/SuscriptoresAliado/A7AF0233-946E-42CA-A42F-7B6574B9A8D8";
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_POSTFIELDS, '');
@@ -232,7 +232,7 @@ class ElectronicaController extends AbstractController
     }
 
     public function consultarSuscriptor($suscriptor) {
-        $url = "https://tufactura.co/habilitacion/api/ConValidacionPrevia/ResumenSuscriptor/{$suscriptor}";
+        $url = "https://apps.kiai.co/api/ConValidacionPrevia/ResumenSuscriptor/{$suscriptor}";
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_POSTFIELDS, '');
@@ -248,7 +248,7 @@ class ElectronicaController extends AbstractController
     }
 
     public function habilitarSuscriptor($arrDatos) {
-        $url = "https://tufactura.co/habilitacion/api/ConValidacionPrevia/HabilitarFacturador";
+        $url = "https://apps.kiai.co/api/ConValidacionPrevia/HabilitarFacturador";
         $data_string = json_encode($arrDatos);
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
@@ -416,7 +416,7 @@ class ElectronicaController extends AbstractController
     }
 
     public function enviarDocumento($arrSoftwareEstrategico) {
-        $url = "https://tufactura.co/habilitacion/api/ConValidacionPrevia/CrearSetPrueba";
+        $url = "https://apps.kiai.co/api/ConValidacionPrevia/CrearSetPrueba";
         $json = json_encode($arrSoftwareEstrategico);
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
