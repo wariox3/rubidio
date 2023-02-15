@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\ContratoModulo;
 use App\Entity\ContratoTipo;
+use App\Entity\Requisito;
 use App\Form\Type\ContratoImplementacionType;
 use App\Formatos\FormatoContrato2;
 use App\Entity\Cliente;
@@ -78,6 +79,7 @@ class ClienteController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $arCliente = $em->getRepository(Cliente::class)->find($id);
         $form = $this->createFormBuilder()
+            ->add('btnRequisito', SubmitType::class, ['label' => 'Imprimir requisitos', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->add('btnEliminar', SubmitType::class, ['label' => 'Eliminar', 'attr' => ['class' => 'btn btn-sm btn-default']])
             ->getForm();
         $form->handleRequest($request);
@@ -85,6 +87,15 @@ class ClienteController extends AbstractController
             if ($form->get('btnEliminar')->isClicked()) {
                 $arrSeleccionados = $request->request->get('ChkSeleccionar');
                 $em->getRepository(Contacto::class)-> eliminar($arrSeleccionados);
+            }
+            if ($form->get('btnRequisito')->isClicked()) {
+                $arRequisitos = $em->getRepository(Requisito::class)->imprimirLista();
+                $html = $this->renderView('Admin/Cliente/formatoRequisitos.html.twig', [
+                    'arRequisitos' => $arRequisitos,
+//                    'arrContratosModulos' => $arrContratosModulos
+                ]);
+                $domPdf = new DomPdf();
+                $domPdf->generarPdf($html, "Requisitos");;
             }
             if ($request->request->get('OpImprimir')) {
                 $codigo = $request->request->get('OpImprimir');

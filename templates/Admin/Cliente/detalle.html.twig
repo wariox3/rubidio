@@ -73,15 +73,18 @@
                             <div class="tab-pane fade show active" id="nav-contrato" role="tabpanel"
                                  aria-labelledby="nav-home-tab">
                                 <div class="my-2">
-                                    <div class="d-flex justify-content-end">
-                                        <a class="btnCustom"
-                                           href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoCliente': arCliente.codigoClientePk, 'tipo':'ARR', 'id': 0  }) }}', 'Archivos', 800, 1250)">
-                                            Nuevo arrendamiento
-                                        </a>
-                                        <a class="btnCustom"
-                                           href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoCliente': arCliente.codigoClientePk, 'tipo':'IMP', 'id': 0  }) }}', 'Archivos', 800, 1250)">
-                                            Nuevo implementacion
-                                        </a>
+                                    <div class="d-flex justify-content-between">
+                                        {{ form_widget(form.btnRequisito, { 'attr': {'class': 'btnCustom'} }) }}
+                                        <div>
+                                            <a class="btnCustom"
+                                               href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoCliente': arCliente.codigoClientePk, 'tipo':'ARR', 'id': 0  }) }}', 'Archivos', 800, 1250)">
+                                                Nuevo arrendamiento
+                                            </a>
+                                            <a class="btnCustom"
+                                               href="javascript:abrirVentana3('{{ path('admin_cliente_contrato_nuevo', { 'codigoCliente': arCliente.codigoClientePk, 'tipo':'IMP', 'id': 0  }) }}', 'Archivos', 800, 1250)">
+                                                Nuevo implementacion
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="my-2">

@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <style>
+        @page {
+            margin: 100px 80px;
+        }
+
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        p {
+            text-align: justify;
+            font-size: 12px;
+            padding: 5px;
+        }
+
+        ul {
+            text-align: justify;
+            font-size: 12px;
+        }
+
+        table {
+            font-size: 12px;
+        }
+
+        h5 {
+            text-align: justify;
+        }
+
+        header {
+            position: fixed;
+            top: -60px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+        }
+
+        img {
+            width: 150px;
+            height: 50px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        tr, td {
+            width: 50% !important;
+        }
+    </style>
+</head>
+<header>
+    <img src="{{ absolute_url(asset('imagenes/logoSemantica3.jpg')) }}"/>
+</header>
+<main>
+    <h5>REQUISTOS</h5>
+    <br/>
+    <table border="1px">
+        <thead>
+        <tr>
+            <th>MODULO</th>
+            <th>REQUISITO</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for arRequisto in arRequisitos %}
+            <tr>
+                <td>{{ arRequisto.modulo }}</td>
+                <td>{{ arRequisto.nombre }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</main>
+<br>
+<script type="text/php">
+    if (isset($pdf)) {
+        $pdf->page_script('
+            $text = sprintf(_("Página %d/%d"),  $PAGE_NUM, $PAGE_COUNT);
+            $font = null;
+            $size = 9;
+            $color = array(0,0,0);
+            $word_space = 0.0;  //  default
+            $char_space = 0.0;  //  default
+            $angle = 0.0;   //  default
+
+            // Compute text width to center correctly
+            $textWidth = $fontMetrics->getTextWidth($text, $font, $size);
+
+            $x = ($pdf->get_width() - $textWidth) / 2;
+            $y = $pdf->get_height() - 35;
+
+            $pdf->text($x, $y, $text, $font, $size, $color, $word_space, $char_space, $angle);
+        '); // End of page_script
+    }
+
+
+
+</script>
+</body>
+</html>

@@ -43,4 +43,16 @@ class RequisitoRepository extends ServiceEntityRepository
         $arRequisitos = $queryBuilder->getQuery()->getResult();
         return $arRequisitos;
     }
+
+    public function imprimirLista()
+    {
+        $em = $this->getEntityManager();
+        $queryBuilder = $em->createQueryBuilder()->from(Requisito::class, 'r')
+            ->select('r.codigoRequisitoPk')
+            ->addSelect('r.nombre')
+            ->addSelect('m.nombre as modulo')
+            ->leftJoin('r.moduloRel', 'm');
+        $arRequisitos = $queryBuilder->getQuery()->getResult();
+        return $arRequisitos;
+    }
 }

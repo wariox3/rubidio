@@ -37,7 +37,7 @@ class Requisito
      * @ORM\ManyToOne(targetEntity="App\Entity\Modulo", inversedBy="requisitosModuloRel")
      * @ORM\JoinColumn(name="codigo_modulo_fk", referencedColumnName="codigo_modulo_pk")
      */
-    private $requisitoRel;
+    private $moduloRel;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\ImplementacionDetalle", mappedBy="requisitoRel")
