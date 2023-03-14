@@ -56,8 +56,10 @@ class ImplementacionRepository extends ServiceEntityRepository
             ->addSelect('i.tiempoTerminado')
             ->addSelect('i.porcentajeDetalles')
             ->addSelect('i.porcentajeTiempo')
+            ->addSelect('im.nombre AS implementador')
             ->addSelect('c.nombreCorto as clienteNombreCorto')
             ->leftJoin('i.clienteRel', 'c')
+            ->leftJoin('i.implementadorRel', 'im')
             ->orderBy('i.codigoImplementacionPk', 'DESC');
         if ($session->get('filtroImplementacionCodigoCliente')) {
             $queryBuilder->andWhere('i.codigoClienteFk = ' . $session->get('filtroImplementacionCodigoCliente'));
