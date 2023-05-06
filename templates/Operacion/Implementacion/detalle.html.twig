@@ -77,6 +77,8 @@
                                 <a class="btnCustom"
                                    href="javascript:abrirVentana3('{{ path('operacion_implementacion_detalle_nuevo_funcionalidad', {'id': arImplementacion.codigoImplementacionPk }) }}', 'Nuevo funcionalidad', 600, 1200)">Nueva funcionalidad</a>
                             {% endif %}
+                            {{ form_widget(form.btnExcel, { 'attr': {'class': 'btnCustom'} }) }}
+                            {{ form_widget(form.btnPdf, { 'attr': {'class': 'btnCustom'} }) }}
                             {{ form_widget(form.btnEliminar, { 'attr': {'class': 'btnCustomDanger'} }) }}
                         </div>
                         <div class="table-responsive mt-2">

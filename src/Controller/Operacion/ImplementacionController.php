@@ -15,6 +15,7 @@ use App\Formatos\FormatoPlanTrabajo;
 use App\Utilidades\Mensajes;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,6 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class ImplementacionController extends AbstractController
 {
@@ -142,6 +144,8 @@ class ImplementacionController extends AbstractController
                 'placeholder' => "TODOS",
 
             ))
+            ->add('btnExcel', SubmitType::class, ['label' => 'Excel' ])
+            ->add('btnPdf', SubmitType::class, ['label' => 'Pdf' ])
             ->add('btnTerminar', SubmitType::class, $arrBtnTerminar)
             ->add('estadoCapacitado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoCapacitado'), 'required' => false])
             ->add('estadoTerminado', ChoiceType::class, ['choices' => ['TODOS' => '', 'SI' => '1', 'NO' => '0'], 'data' => $session->get('filtroImplementacionEstadoTerminado'), 'required' => false])
@@ -154,7 +158,7 @@ class ImplementacionController extends AbstractController
         }
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->get('btnFiltrar')->isClicked()) {
+            if ($form->get('btnFiltrar')->isClicked() || $form->get('btnExcel')->isClicked() || $form->get('btnPdf')->isClicked()) {
                 $raw['filtros'] = $this->filtrosDetalle($form);
             }
             if ($form->get('btnTerminar')->isClicked()) {
@@ -172,6 +176,14 @@ class ImplementacionController extends AbstractController
                     }
                     $em->flush();
                 }
+            }
+            if ($form->get('btnExcel')->isClicked()){
+                $arRegistros = $em->getRepository(ImplementacionDetalle::class)->listaDetalle($id, $raw);
+                $this->excel($arRegistros);
+            }
+            if ($form->get('btnPdf')->isClicked()){
+                $formato = new FormatoPlanTrabajo();
+                $formato->Generar($em, $id);
             }
         }
         $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->listaDetalle($id, $raw);
@@ -302,6 +314,52 @@ class ImplementacionController extends AbstractController
             'arFuncionalidades' => $arFuncionalidades,
             'form' => $form->createView()
         ]);
+    }
+
+    public function excel($arRegistros)
+    {
+        set_time_limit(0);
+        if ($arRegistros) {
+            $libro = new Spreadsheet();
+            $hoja = $libro->getActiveSheet();
+            $hoja->getStyle(1)->getFont()->setName('Arial')->setSize(8);
+            $hoja->setTitle('Plan de trabajo');
+            $j = 0;
+            $arrColumnas = ['ID', 'Modulo', 'FECHA COM', 'Cod', 'Requisito', 'Cod', 'Funcionalidad', 'Responsable', 'Comentario', 'Com_Implementador', 'est cap','fecha Cap', 'Terminado'];
+
+            for ($i = 'A'; $j <= sizeof($arrColumnas) - 1; $i++) {
+                $hoja->getColumnDimension($i)->setAutoSize(true);
+                $hoja->getStyle(1)->getFont()->setName('Arial')->setSize(8);
+                $hoja->getStyle(1)->getFont()->setBold(true);
+                $hoja->setCellValue($i . '1', strtoupper($arrColumnas[$j]));
+                $j++;
+            }
+            $j = 2;
+            foreach ($arRegistros as $arRegistro) {
+                $hoja->setCellValue('A' . $j, $arRegistro['codigoImplementacionDetallePk']);
+                $hoja->setCellValue('B' . $j, $arRegistro['codigoModuloFk']);
+                $hoja->setCellValue('C' . $j, $arRegistro['fechaCompromiso'] ? $arRegistro['fechaCompromiso']->format("Y-m-d") : null);
+                $hoja->setCellValue('D' . $j, $arRegistro['codigoRequisitoFk']);
+                $hoja->setCellValue('E' . $j, utf8_decode($arRegistro['requisitoNombre']));
+                $hoja->setCellValue('F' . $j, $arRegistro['codigoFuncionalidadFk']);
+                $hoja->setCellValue('G' . $j, utf8_decode($arRegistro['funcionalidadNombre']));
+                $hoja->setCellValue('H' . $j, $arRegistro['responsable']);
+                $hoja->setCellValue('I' . $j, $arRegistro['comentario']);
+                $hoja->setCellValue('J' . $j, $arRegistro['comentarioImplementador']);
+                $hoja->setCellValue('K' . $j, $arRegistro['estadoCapacitado']?'SI':'NO' );
+                $hoja->setCellValue('L' . $j, $arRegistro['fechaCapacitacion'] ? $arRegistro['fechaCapacitacion']->format("Y-m-d") : null);
+                $hoja->setCellValue('M' . $j, $arRegistro['estadoTerminado']?'SI':'NO' );
+                $j++;
+            }
+            $libro->setActiveSheetIndex(0);
+            header('Content-Type: application/vnd.ms-excel');
+            header("Content-Disposition: attachment;filename=PlanDeTrabajo.xls");
+            header('Cache-Control: max-age=0');
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($libro, 'Xls');
+            $writer->save('php://output');
+        } else {
+            Mensajes::error("No existen registros para exportar");
+        }
     }
 
     public function filtros($form)
