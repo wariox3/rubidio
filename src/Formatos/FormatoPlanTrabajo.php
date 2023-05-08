@@ -17,12 +17,14 @@ class  FormatoPlanTrabajo extends \FPDF
     public static $codigoCliente;
     public static $temas;
     public static $imagen;
+    public static $arImplementacionDetalles;
 
-    public function Generar($em, $codigoImplementacion)
+    public function Generar($em, $codigoImplementacion, $implementacionDetalles)
     {
         ob_clean();
         self::$em = $em;
         self::$codigoImplementacion = $codigoImplementacion;
+        self::$arImplementacionDetalles = $implementacionDetalles;
         $pdf = new FormatoPlanTrabajo();
         $pdf->AddPage();
         $pdf->AliasNbPages();
@@ -69,8 +71,7 @@ class  FormatoPlanTrabajo extends \FPDF
 
     public function Body($pdf)
     {
-        //$arImplementacion = self::$em->getRepository(Estudio::class)->find(self::$codigoImplementacion);
-        $header = array('MODULO', 'COMPROMISO', 'TER', 'TEMA', 'DESCRIPCIÓN');
+        $header = array('MODULO', 'FE_COM', 'REQUISITO', 'FUNCIONALIDAD', 'RESPONSABLE', 'CAP', 'FE_CAP', 'TER');
         $pdf->SetFillColor(200, 200, 200);
         $pdf->SetTextColor(0);
         $pdf->SetDrawColor(0, 0, 0);
@@ -78,26 +79,25 @@ class  FormatoPlanTrabajo extends \FPDF
         $pdf->SetFont('Arial', 'B', 7);
 
         //Creamos la cabecera de la tabla.
-        $w = array(25, 22, 7, 40, 100);
+        $w = array(12, 15, 42, 42, 42, 10, 15, 10);
         for ($i = 0; $i < count($header); $i++) {
             $pdf->Cell($w[$i], 4, utf8_decode($header[$i]), 1, 0, 'C', 1);
         }
         $pdf->Ln();
         $pdf->SetFont('Arial', '', 7);
-        $arImplementacionDetalles = self::$em->getRepository(ImplementacionDetalle::class)->formatoPlanTrabajo(self::$codigoImplementacion);
-        foreach ($arImplementacionDetalles AS $arImplementacionDetalle) {
-            $pdf->Cell(25, 4, $arImplementacionDetalle['moduloNombre'], 1, 0, 'L');
-            $pdf->Cell(22, 4, $arImplementacionDetalle['fechaCompromiso']?$arImplementacionDetalle['fechaCompromiso']->format('Y-m-d H:i'):"", 1,0, 'L');
-            $pdf->Cell(7, 4, $arImplementacionDetalle['estadoTerminado']?"SI":"NO", 1,0, 'L');
-            $pdf->Cell(40, 4, utf8_decode($arImplementacionDetalle['temaNombre']), 1, 0, 'L');
-            //$pdf->Cell(100, 4, substr(utf8_decode($arImplementacionDetalle->getTemaRel()->getDescripcion()), 0, 110), 1, 0, 'L');
-            $pdf->MultiCell(100, 4, utf8_decode($arImplementacionDetalle['temaDescripcion']), 1);
+        foreach (self::$arImplementacionDetalles AS $arImplementacionDetalle) {
+            $pdf->Cell(12, 4, $arImplementacionDetalle['codigoModuloFk'], 1, 0, 'L');
+            $pdf->Cell(15, 4, $arImplementacionDetalle['fechaCompromiso']?$arImplementacionDetalle['fechaCompromiso']->format('Y-m-d'):"", 1,0, 'L');
+            $pdf->Cell(42, 4, utf8_decode(substr($arImplementacionDetalle['requisitoNombre'],0, 34)), 1, 0, 'L');
+            $pdf->Cell(42, 4, utf8_decode($arImplementacionDetalle['funcionalidadNombre']), 1, 0, 'L');
+            $pdf->Cell(42, 4, utf8_decode($arImplementacionDetalle['responsable']), 1, 0, 'L');
+            $pdf->Cell(10, 4, $arImplementacionDetalle['estadoCapacitado']?"SI":"NO", 1,0, 'L');
+            $pdf->Cell(15, 4, $arImplementacionDetalle['fechaCapacitacion']?$arImplementacionDetalle['fechaCapacitacion']->format('Y-m-d'):"", 1,0, 'L');
+            $pdf->Cell(10, 4, $arImplementacionDetalle['estadoTerminado']?"SI":"NO", 1,0, 'L');
+            $pdf->Ln();
         }
-        $pdf->Ln();
 
         $pdf->Cell(80, 10, "Para tener en cuenta: La inasistencia a los compromisos sin previo aviso, da por terminado el tema", 0, 0, 'L');
-        //$pdf->SetXY(110,260);
-        //$pdf->Cell(80, 10, "FIRMA CLIENTE", 'T', 1, 'C');
     }
 
     public function Footer()

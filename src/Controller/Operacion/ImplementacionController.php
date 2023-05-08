@@ -182,8 +182,9 @@ class ImplementacionController extends AbstractController
                 $this->excel($arRegistros);
             }
             if ($form->get('btnPdf')->isClicked()){
+                $implementacionDetalles = $em->getRepository(ImplementacionDetalle::class)->listaDetalle($id, $raw);
                 $formato = new FormatoPlanTrabajo();
-                $formato->Generar($em, $id);
+                $formato->Generar($em, $id, $implementacionDetalles);
             }
         }
         $arImplementacionDetalle = $em->getRepository(ImplementacionDetalle::class)->listaDetalle($id, $raw);
@@ -325,7 +326,7 @@ class ImplementacionController extends AbstractController
             $hoja->getStyle(1)->getFont()->setName('Arial')->setSize(8);
             $hoja->setTitle('Plan de trabajo');
             $j = 0;
-            $arrColumnas = ['ID', 'Modulo', 'FECHA COM', 'Cod', 'Requisito', 'Cod', 'Funcionalidad', 'Responsable', 'Comentario', 'Com_Implementador', 'est cap','fecha Cap', 'Terminado'];
+            $arrColumnas = ['ID', 'MODULO', 'FECHA COM', 'COD', 'REQUISITO', 'COD', 'FUNCIONALIDAD', 'RESPONSABLE', 'COMENTARIO', 'COD_IMPLEMENTADOR', 'CAP','FECHA_CAP', 'TERMINADO'];
 
             for ($i = 'A'; $j <= sizeof($arrColumnas) - 1; $i++) {
                 $hoja->getColumnDimension($i)->setAutoSize(true);
