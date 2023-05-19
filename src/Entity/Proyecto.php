@@ -31,6 +31,11 @@ class Proyecto
     protected $tareasProyectoRel;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Epica", mappedBy="proyectoRel")
+     */
+    protected $epicasProyectoRel;
+
+    /**
      * @return mixed
      */
     public function getCodigoProyectoPk()
@@ -78,6 +83,21 @@ class Proyecto
         $this->tareasProyectoRel = $tareasProyectoRel;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getEpicasProyectoRel()
+    {
+        return $this->epicasProyectoRel;
+    }
+
+    /**
+     * @param mixed $epicasProyectoRel
+     */
+    public function setEpicasProyectoRel($epicasProyectoRel): void
+    {
+        $this->epicasProyectoRel = $epicasProyectoRel;
+    }
 
 
 }
