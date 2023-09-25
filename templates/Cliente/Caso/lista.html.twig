@@ -75,7 +75,15 @@
                                         <td>{{ arCaso.compromiso ? arCaso.compromiso | date('Y-m-d h:i') : '' }}</td>
                                         <td>{{ arCaso.prioridadNombre }}</td>
                                         <td>{{ arCaso.contacto }}</td>
-                                        <td>{{ arCaso.descripcion }}</td>
+                                        <td>
+                                            {{ arCaso.descripcion }}
+                                            <br/>
+                                            {% if arCaso.estadoDesarrolloLargoPlazo %}
+                                                <b style="color: darkred"> * Este caso fue categorizado como desarrollo a largo plazo o proyecto, ya que no impácta
+                                                la experiencia de uso general, puede solicitar un desarrollo a la medida via correo electronico
+                                                    a investigacion@semantica.com.co</b>
+                                            {% endif %}
+                                        </td>
                                         <td class="text-center">
                                             {% if arCaso.estadoAtendido %}
                                                 <i title="El caso ya fue atendido"

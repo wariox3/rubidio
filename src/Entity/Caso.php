@@ -94,6 +94,11 @@ class Caso
     private $estadoDesarrollo = false;
 
     /**
+     * @ORM\Column(name="estado_desarrollo_largo_plazo", type="boolean", nullable=true, options={"default" : false})
+     */
+    private $estadoDesarrolloLargoPlazo = false;
+
+    /**
      * @ORM\Column(name="estado_cerrado", type="boolean", nullable=true, options={"default" : false})
      */
     private $estadoCerrado = false;
@@ -625,6 +630,22 @@ class Caso
     public function setCasosEscaladosCasoRel($casosEscaladosCasoRel): void
     {
         $this->casosEscaladosCasoRel = $casosEscaladosCasoRel;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEstadoDesarrolloLargoPlazo(): bool
+    {
+        return $this->estadoDesarrolloLargoPlazo;
+    }
+
+    /**
+     * @param bool $estadoDesarrolloLargoPlazo
+     */
+    public function setEstadoDesarrolloLargoPlazo(bool $estadoDesarrolloLargoPlazo): void
+    {
+        $this->estadoDesarrolloLargoPlazo = $estadoDesarrolloLargoPlazo;
     }
 
 

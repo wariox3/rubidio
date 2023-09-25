@@ -63,6 +63,7 @@ class CasoEditarType extends AbstractType {
                 'attr' => ['class' => 'to-select-2'],
             ])
             ->add('estadoDesarrollo', CheckboxType::class, array('required' => false))
+            ->add('estadoDesarrolloLargoPlazo', CheckboxType::class, array('required' => false))
             ->add('correo', TextType::class, array('required' => true))
             ->add('compromiso', DateType::class, array('required' => false, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd', 'attr' => array('class' => 'date',)))
             ->add('guardar', SubmitType::class,array('label'=>'Guardar'));
